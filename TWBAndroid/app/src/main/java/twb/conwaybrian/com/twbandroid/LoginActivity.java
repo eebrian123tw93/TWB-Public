@@ -1,5 +1,6 @@
 package twb.conwaybrian.com.twbandroid;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -64,6 +65,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView , View
     @Override
     public void onSetProgressBarVisibility(int visibility) {
         progressBar.setVisibility(visibility);
+    }
+
+    @Override
+    public void onForgetPassword() {
+        startActivity(new Intent(this,RegisterActivity.class));
     }
 
     @Override

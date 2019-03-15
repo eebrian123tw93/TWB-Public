@@ -34,7 +34,7 @@ public class LoginPresenter {
         loginView.onSetProgressBarVisibility(visibility);
     }
     public void forgetPassword(){
-
+        loginView.onForgetPassword();
     }
 
 }
