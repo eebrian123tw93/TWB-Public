@@ -22,10 +22,19 @@ public class LoginPresenter {
          loginView.onClearText();
      }
      public void doLogin(String username,String password){
+         handler.postDelayed(new Runnable() {
+             @Override
+             public void run() {
+                 loginView.onLoginResult(true);
+             }
+         },5000);
 
      }
     public void setProgressBarVisibility(int visibility){
         loginView.onSetProgressBarVisibility(visibility);
+    }
+    public void forgetPassword(){
+
     }
 
 }
