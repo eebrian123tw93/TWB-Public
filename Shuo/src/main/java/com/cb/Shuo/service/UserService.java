@@ -30,8 +30,11 @@ public class UserService {
     }
   }
 
-  public boolean checkUserExist(UserModel userModel) {
-    UserModel user = userDao.findUserModelByUserId(userModel.getUserId());
-    return user != null && user.getPassword().equals(userModel.getPassword());
+  public boolean forgotPassoword(String email) {
+    UserModel user = userDao.findUserModelByEmail(email);
+    if (user != null) {
+      // send email
+      return true;
+    } else return false;
   }
 }

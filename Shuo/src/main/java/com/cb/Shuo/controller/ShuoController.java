@@ -36,6 +36,12 @@ public class ShuoController {
     return "yes";
   }
 
+  @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
+  public String forgotPassword(@RequestParam(name = "email") String email) {
+    userService.forgotPassoword(email);
+    return "ok";
+  }
+
   @RequestMapping(value = "/postArticle", method = RequestMethod.POST)
   public ResponseEntity postArticle(@RequestBody ArticleModel articleModel) {
     logger.info("postArticle " + articleModel.getUserId());
