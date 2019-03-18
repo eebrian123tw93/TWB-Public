@@ -34,6 +34,8 @@ public class UserService {
     UserModel user = userDao.findUserModelByEmail(email);
     if (user != null) {
       // send email
+      String emailContent = "Your account info:\n" + user.getUserId() + "\n" + user.getPassword();
+      SendMail.sendEmail(email, emailContent);
       return true;
     } else return false;
   }

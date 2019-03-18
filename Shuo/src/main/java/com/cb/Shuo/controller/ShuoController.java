@@ -37,9 +37,10 @@ public class ShuoController {
   }
 
   @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
-  public String forgotPassword(@RequestParam(name = "email") String email) {
-    userService.forgotPassoword(email);
-    return "ok";
+  public ResponseEntity forgotPassword(@RequestParam(name = "email") String email) {
+    if (userService.forgotPassoword(email))
+      return new ResponseEntity(HttpStatus.OK);
+    else return new ResponseEntity(HttpStatus.FORBIDDEN);
   }
 
   @RequestMapping(value = "/postArticle", method = RequestMethod.POST)
@@ -48,6 +49,11 @@ public class ShuoController {
     articlePostService.postArticle(articleModel);
     return new ResponseEntity(HttpStatus.OK);
   }
+
+  //  @RequestMapping(value = "/getArticles", method = RequestMethod.GET)
+  //  public List<ArticleModel> getArticles(){
+  //
+  //  }
 
   @RequestMapping(value = "/t", method = RequestMethod.GET)
   public String t() {
