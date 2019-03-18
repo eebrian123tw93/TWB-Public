@@ -27,8 +27,12 @@ public class ShuoController {
   @RequestMapping(value = "/register", method = RequestMethod.POST)
   public ResponseEntity register(@RequestBody UserModel userModel) {
     logger.info("register " + userModel.getUserId());
-    if (userService.register(userModel)) return new ResponseEntity(HttpStatus.NO_CONTENT);
-    else return new ResponseEntity(HttpStatus.FORBIDDEN);
+    int code = userService.register(userModel);
+
+    if (code == 1) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("userId already exists");
+    else if (code == 2)
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("email already exists");
+    else return new ResponseEntity(HttpStatus.NO_CONTENT);
   }
 
   @RequestMapping(value = "/checkUserExist", method = RequestMethod.GET)
@@ -38,8 +42,7 @@ public class ShuoController {
 
   @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
   public ResponseEntity forgotPassword(@RequestParam(name = "email") String email) {
-    if (userService.forgotPassoword(email))
-      return new ResponseEntity(HttpStatus.OK);
+    if (userService.forgotPassoword(email)) return new ResponseEntity(HttpStatus.OK);
     else return new ResponseEntity(HttpStatus.FORBIDDEN);
   }
 

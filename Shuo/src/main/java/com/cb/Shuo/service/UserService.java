@@ -19,14 +19,17 @@ public class UserService {
     this.userDao = userDao;
   }
 
-  public boolean register(UserModel userModel) {
+  public int register(UserModel userModel) {
     if (userDao.findUserModelByUserId(userModel.getUserId()) != null) {
-      logger.info("user " + userModel.getUserId() + " already exists");
-      return false;
+      logger.info("userId already exists");
+      return 1;
+    } else if (userDao.findUserModelByEmail(userModel.getEmail()) != null) {
+      logger.info("email already exists");
+      return 2;
     } else {
       userDao.save(userModel);
       logger.info("successfully registered user " + userModel.getUserId());
-      return true;
+      return 0;
     }
   }
 
