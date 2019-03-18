@@ -1,5 +1,6 @@
 package twb.conwaybrian.com.twbandroid;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import twb.conwaybrian.com.twbandroid.presenter.LoginPresenter;
 import twb.conwaybrian.com.twbandroid.presenter.RegisterPresenter;
@@ -61,9 +63,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         registerButton.setEnabled(true);
         clearButton.setEnabled(true);
         if(result){
-
+            Toast.makeText(this,"register successfully",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this,LoginActivity.class));
         }else {
-
+            Toast.makeText(this,"error",Toast.LENGTH_SHORT).show();
         }
 
     }

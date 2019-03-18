@@ -3,7 +3,11 @@ package twb.conwaybrian.com.twbandroid.presenter;
 import android.os.Handler;
 import android.os.Looper;
 
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import retrofit2.Response;
 import twb.conwaybrian.com.twbandroid.model.User;
+import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.RegisterView;
 
 public class RegisterPresenter {
@@ -20,12 +24,40 @@ public class RegisterPresenter {
         registerView.onClearText();
     }
     public void doRegister(String username,String password,String email){
-        handler.postDelayed(new Runnable() {
+
+        Observer<Response<String>> observer=new Observer<Response<String>>() {
             @Override
-            public void run() {
-                registerView.onRegisterResult(true);
+            public void onSubscribe(Disposable d) {
+
             }
-        },5000);
+
+            @Override
+            public void onNext(Response<String> response) {
+                switch (response.code()){
+                    case 204:
+                        registerView.onRegisterResult(true);
+                        break;
+                    default:
+                        registerView.onRegisterResult(false);
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+
+        ShuoApiService.getInstance().register(observer,username,password,email,false);
+
+
 
     }
     public void setProgressBarVisibility(int visibility){
