@@ -1,6 +1,8 @@
 package com.cb.Shuo.controller;
 
+import com.cb.Shuo.model.ArticleModel;
 import com.cb.Shuo.model.UserModel;
+import com.cb.Shuo.service.ArticlePostService;
 import com.cb.Shuo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +16,12 @@ public class ShuoController {
   private static final Logger logger = LoggerFactory.getLogger(ShuoController.class);
 
   private final UserService userService;
+  private final ArticlePostService articlePostService;
 
   @Autowired
-  public ShuoController(UserService userService) {
+  public ShuoController(UserService userService, ArticlePostService articlePostService) {
     this.userService = userService;
+    this.articlePostService = articlePostService;
   }
 
   @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -27,11 +31,22 @@ public class ShuoController {
     else return new ResponseEntity(HttpStatus.FORBIDDEN);
   }
 
-  @RequestMapping(value = "/checkUserExist", method = RequestMethod.POST)
-  public ResponseEntity checkUserExist(@RequestBody UserModel userModel) {
-    logger.info("checkUserExist " + userModel.getUserId());
-    if (userService.checkUserExist(userModel)) return new ResponseEntity(HttpStatus.OK);
-    else return new ResponseEntity(HttpStatus.FORBIDDEN);
+  @RequestMapping(value = "/checkUserExist", method = RequestMethod.GET)
+  public String checkUserExist() {
+    return "yes";
+  }
+
+  @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
+  public String forgotPassword(@RequestParam(name = "email") String email) {
+    userService.forgotPassoword(email);
+    return "ok";
+  }
+
+  @RequestMapping(value = "/postArticle", method = RequestMethod.POST)
+  public ResponseEntity postArticle(@RequestBody ArticleModel articleModel) {
+    logger.info("postArticle " + articleModel.getUserId());
+    articlePostService.postArticle(articleModel);
+    return new ResponseEntity(HttpStatus.OK);
   }
 
   @RequestMapping(value = "/t", method = RequestMethod.GET)
