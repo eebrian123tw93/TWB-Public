@@ -14,12 +14,11 @@ import twb.conwaybrian.com.twbandroid.view.RegisterView;
 public class RegisterPresenter {
     private RegisterView registerView;
     private User user;
-    private Handler handler;
 
-    public RegisterPresenter(RegisterView registerView){
-        this.registerView=registerView;
-        user=new User();
-        handler=new Handler(Looper.getMainLooper());
+
+    public RegisterPresenter(RegisterView registerView) {
+        this.registerView = registerView;
+        user = new User();
     }
     public void clear(){
         registerView.onClearText();
@@ -70,7 +69,10 @@ public class RegisterPresenter {
 
                 }
             };
-            ShuoApiService.getInstance().register(observer, username, password, email, false);
+            user.setUserId(username);
+            user.setPassword(password);
+            user.setEmail(email);
+            ShuoApiService.getInstance().register(observer, user, false);
         }
     }
     public void setProgressBarVisibility(int visibility){

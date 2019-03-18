@@ -1,5 +1,7 @@
 package twb.conwaybrian.com.twbandroid.shuoApi;
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,6 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
+import twb.conwaybrian.com.twbandroid.model.User;
 
 public class ShuoApiService {
     private ShuoApi shuoApi;
@@ -30,23 +33,27 @@ public class ShuoApiService {
     }
 
     public void register(@NonNull Observer observer,
-                                    @NonNull String username,String password,String email, boolean isObserveOnIO) {
-        JSONObject jsonObject=new JSONObject();
-        try {
-            jsonObject.put("userId",username);
-            jsonObject.put("password",password);
-            jsonObject.put("email",email);
+                         @NonNull User user, boolean isObserveOnIO) {
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        String s=jsonObject.toString();
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
         shuoApi
-                .register(s)
+                .register(json)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
+    }
+
+    public void login(@NonNull Observer observer,@NonNull User user,boolean isObserveOnIO){
+        String authKey=user.authKey();
+        shuoApi
+                .login(authKey)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+
     }
 }
 

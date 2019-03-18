@@ -7,4 +7,5 @@ public interface LoginView {
     public void onForgetPassword();
     public void onRegister();
     public void onMessage(String message);
+    public void onSetMessageColor(int color);
 }

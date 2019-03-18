@@ -71,10 +71,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         if(result){
             Toast.makeText(this,"register successfully",Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this,LoginActivity.class));
-        }else {
-            Toast.makeText(this,"error",Toast.LENGTH_SHORT).show();
+            finish();
         }
-
     }
 
     @Override
