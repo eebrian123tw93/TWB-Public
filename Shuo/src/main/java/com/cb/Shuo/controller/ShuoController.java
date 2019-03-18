@@ -7,10 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ShuoController {
@@ -25,8 +22,21 @@ public class ShuoController {
 
   @RequestMapping(value = "/register", method = RequestMethod.POST)
   public ResponseEntity register(@RequestBody UserModel userModel) {
-    logger.info(userModel.getUserId());
-    userService.register(userModel);
-    return new ResponseEntity(HttpStatus.OK);
+    logger.info("register " + userModel.getUserId());
+    if (userService.register(userModel)) return new ResponseEntity(HttpStatus.NO_CONTENT);
+    else return new ResponseEntity(HttpStatus.FORBIDDEN);
+  }
+
+  @RequestMapping(value = "/checkUserExist", method = RequestMethod.POST)
+  public ResponseEntity checkUserExist(@RequestBody UserModel userModel) {
+    logger.info("checkUserExist " + userModel.getUserId());
+    if (userService.checkUserExist(userModel)) return new ResponseEntity(HttpStatus.OK);
+    else return new ResponseEntity(HttpStatus.FORBIDDEN);
+  }
+
+  @RequestMapping(value = "/t", method = RequestMethod.GET)
+  public String t() {
+    // for testing
+    return "hello";
   }
 }

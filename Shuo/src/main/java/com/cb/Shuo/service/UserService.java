@@ -2,11 +2,15 @@ package com.cb.Shuo.service;
 
 import com.cb.Shuo.dao.UserDao;
 import com.cb.Shuo.model.UserModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+
+  private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
   private final UserDao userDao;
 
@@ -16,7 +20,18 @@ public class UserService {
   }
 
   public boolean register(UserModel userModel) {
-    userDao.save(userModel);
-    return true;
+    if (userDao.findUserModelByUserId(userModel.getUserId()) != null) {
+      logger.info("user " + userModel.getUserId() + " already exists");
+      return false;
+    } else {
+      userDao.save(userModel);
+      logger.info("successfully registered user " + userModel.getUserId());
+      return true;
+    }
+  }
+
+  public boolean checkUserExist(UserModel userModel) {
+    UserModel user = userDao.findUserModelByUserId(userModel.getUserId());
+    return user != null && user.getPassword().equals(userModel.getPassword());
   }
 }
