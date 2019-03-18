@@ -44,6 +44,7 @@ public class RegisterPresenter {
 
                 @Override
                 public void onNext(Response<String> response) {
+
                     switch (response.code()) {
                         case 204:
                             registerView.onRegisterResult(true);

@@ -15,7 +15,7 @@ public interface ShuoApi {
 
     @Headers("Content-Type:application/json")
     @POST("/shuo/register")
-    Observable<Response<JsonObject>> register(@Body String s);
+    Observable<Response<String>> register(@Body String s);
 
     @GET("/shuo/checkUserExist/")
     Observable<Response<String>>login(@Header("Authorization")String authKey);
