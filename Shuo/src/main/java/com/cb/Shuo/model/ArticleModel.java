@@ -15,7 +15,7 @@ public class ArticleModel {
   @Column(name = "v_key")
   private Long vKey;
 
-  @Column(name = "article_id", columnDefinition = "varchar(30)")
+  @Column(name = "article_id", columnDefinition = "varchar(40)")
   private String articleId;
 
   @Column(name = "content", columnDefinition = "varchar(5000)")

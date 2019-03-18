@@ -16,15 +16,14 @@ public class UserModel {
   @Column(name = "v_key")
   private Long vKey;
 
-  @Column(name = "user_id", unique = true)
+  @Column(name = "user_id", unique = true, columnDefinition = "varchar(255)")
   @NotNull
   private String userId;
 
-  @Column(name = "password")
+  @Column(name = "password", columnDefinition = "varchar(255)")
   @NotNull
   private String password;
 
-  @Column(name = "email")
-  @NotNull
+  @Column(name = "email", columnDefinition = "varchar(255)")
   private String email;
 }

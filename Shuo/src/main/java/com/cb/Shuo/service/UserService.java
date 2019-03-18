@@ -2,6 +2,7 @@ package com.cb.Shuo.service;
 
 import com.cb.Shuo.dao.UserDao;
 import com.cb.Shuo.model.UserModel;
+import com.cb.Shuo.service.util.SendMail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ public class UserService {
     if (userDao.findUserModelByUserId(userModel.getUserId()) != null) {
       logger.info("userId already exists");
       return 1;
-    } else if (userDao.findUserModelByEmail(userModel.getEmail()) != null) {
+    } else if (userModel.getEmail() != null
+        && userDao.findUserModelByEmail(userModel.getEmail()) != null) {
       logger.info("email already exists");
       return 2;
     } else {
@@ -33,7 +35,7 @@ public class UserService {
     }
   }
 
-  public boolean forgotPassoword(String email) {
+  public boolean forgotPassword(String email) {
     UserModel user = userDao.findUserModelByEmail(email);
     if (user != null) {
       // send email

@@ -11,6 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class ShuoController {
   private static final Logger logger = LoggerFactory.getLogger(ShuoController.class);
@@ -42,7 +46,7 @@ public class ShuoController {
 
   @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
   public ResponseEntity forgotPassword(@RequestParam(name = "email") String email) {
-    if (userService.forgotPassoword(email)) return new ResponseEntity(HttpStatus.OK);
+    if (userService.forgotPassword(email)) return new ResponseEntity(HttpStatus.OK);
     else return new ResponseEntity(HttpStatus.FORBIDDEN);
   }
 
@@ -53,10 +57,14 @@ public class ShuoController {
     return new ResponseEntity(HttpStatus.OK);
   }
 
-  //  @RequestMapping(value = "/getArticles", method = RequestMethod.GET)
-  //  public List<ArticleModel> getArticles(){
-  //
-  //  }
+  @RequestMapping(value = "/getArticles", method = RequestMethod.GET)
+  public List<ArticleModel> getArticles(
+      @RequestParam(name = "startTime", required = false) LocalDateTime start,
+      @RequestParam(name = "endTime", required = false) LocalDateTime end,
+      @RequestParam(name = "limit", required = false) int limit,
+      @RequestParam(name = "offset", required = false) int offset) {
+    return new ArrayList<>();
+  }
 
   @RequestMapping(value = "/t", method = RequestMethod.GET)
   public String t() {

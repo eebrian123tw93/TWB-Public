@@ -1,4 +1,4 @@
-package com.cb.Shuo.service;
+package com.cb.Shuo.service.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
