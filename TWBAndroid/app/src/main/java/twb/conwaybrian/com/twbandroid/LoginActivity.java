@@ -23,6 +23,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView , View
 
     private TextView registerTextView;
 
+    private TextView messageTextView;
+
     private LoginPresenter loginPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView , View
         loginButton=findViewById(R.id.login_button);
         clearButton=findViewById(R.id.clear_button);
         registerTextView=findViewById(R.id.register_textview);
+        messageTextView=findViewById(R.id.message_textView);
 
         forgetPasswordButton.setOnClickListener(this);
         loginButton.setOnClickListener(this);
@@ -80,6 +83,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView , View
     @Override
     public void onRegister() {
         startActivity(new Intent(this,RegisterActivity.class));
+    }
+
+    @Override
+    public void onMessage(String message) {
+        messageTextView.setText(message);
     }
 
     @Override

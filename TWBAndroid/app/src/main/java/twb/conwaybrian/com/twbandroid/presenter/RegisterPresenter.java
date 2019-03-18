@@ -1,5 +1,6 @@
 package twb.conwaybrian.com.twbandroid.presenter;
 
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -25,40 +26,52 @@ public class RegisterPresenter {
     }
     public void doRegister(String username,String password,String email){
 
-        Observer<Response<String>> observer=new Observer<Response<String>>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+        if(username.isEmpty()){
+            registerView.onMessage("username empty");
+            registerView.onSetMessageColor(Color.RED);
+        }else if(password.isEmpty()){
+            registerView.onMessage("password empty");
+            registerView.onSetMessageColor(Color.RED);
+        }else if(email.isEmpty()){
+            registerView.onMessage("email empty");
+            registerView.onSetMessageColor(Color.RED);
+        }else {
 
-            }
+            Observer<Response<String>> observer = new Observer<Response<String>>() {
+                @Override
+                public void onSubscribe(Disposable d) {
 
-            @Override
-            public void onNext(Response<String> response) {
-                switch (response.code()){
-                    case 204:
-                        registerView.onRegisterResult(true);
-                        break;
-                    default:
-                        registerView.onRegisterResult(false);
-                        break;
                 }
 
-            }
+                @Override
+                public void onNext(Response<String> response) {
+                    switch (response.code()) {
+                        case 204:
+                            registerView.onRegisterResult(true);
+                            registerView.onMessage("Register Successfully");
+                            registerView.onSetMessageColor(Color.GREEN);
+                            break;
+                        default:
+                            registerView.onRegisterResult(false);
+                            registerView.onMessage("Register Error,username already taken");
+                            registerView.onSetMessageColor(Color.RED);
+                            break;
+                    }
 
-            @Override
-            public void onError(Throwable e) {
+                }
 
-            }
+                @Override
+                public void onError(Throwable e) {
 
-            @Override
-            public void onComplete() {
+                }
 
-            }
-        };
+                @Override
+                public void onComplete() {
 
-        ShuoApiService.getInstance().register(observer,username,password,email,false);
-
-
-
+                }
+            };
+            ShuoApiService.getInstance().register(observer, username, password, email, false);
+        }
     }
     public void setProgressBarVisibility(int visibility){
         registerView.onSetProgressBarVisibility(visibility);
