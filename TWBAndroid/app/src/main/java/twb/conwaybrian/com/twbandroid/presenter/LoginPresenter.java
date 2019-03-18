@@ -37,4 +37,8 @@ public class LoginPresenter {
         loginView.onForgetPassword();
     }
 
+    public void register(){
+        loginView.onRegister();
+    }
+
 }
