@@ -1,13 +1,16 @@
 package twb.conwaybrian.com.twbandroid;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import twb.conwaybrian.com.twbandroid.presenter.LoginPresenter;
 import twb.conwaybrian.com.twbandroid.view.LoginView;
@@ -55,6 +58,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView , View
     public void onClearText() {
         usernameEditText.setText("");
         passwordEditText.setText("");
+        messageTextView.setText("");
     }
 
     @Override
@@ -64,9 +68,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView , View
         forgetPasswordButton.setEnabled(true);
         clearButton.setEnabled(true);
         if(result){
-
-        }else {
-
+            Toast.makeText(this,"login",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -87,7 +89,16 @@ public class LoginActivity extends AppCompatActivity implements LoginView , View
 
     @Override
     public void onMessage(String message) {
+        loginPresenter.setProgressBarVisibility(View.INVISIBLE);
+        loginButton.setEnabled(true);
+        clearButton.setEnabled(true);
+        forgetPasswordButton.setEnabled(true);
         messageTextView.setText(message);
+    }
+
+    @Override
+    public void onSetMessageColor(int color) {
+        messageTextView.setTextColor(color);
     }
 
     @Override
@@ -98,6 +109,13 @@ public class LoginActivity extends AppCompatActivity implements LoginView , View
                 loginButton.setEnabled(false);
                 forgetPasswordButton.setEnabled(false);
                 clearButton.setEnabled(false);
+
+                View view = this.getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+
                 loginPresenter.doLogin(usernameEditText.getText().toString(),passwordEditText.getText().toString());
                 break;
             case R.id.clear_button:
