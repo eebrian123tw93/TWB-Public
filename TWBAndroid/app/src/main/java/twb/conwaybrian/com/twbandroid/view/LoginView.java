@@ -5,4 +5,5 @@ public interface LoginView {
     public void onLoginResult(boolean result);
     public void onSetProgressBarVisibility(int visibility);
     public void onForgetPassword();
+    public void onRegister();
 }

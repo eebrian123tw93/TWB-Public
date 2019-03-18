@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import twb.conwaybrian.com.twbandroid.presenter.LoginPresenter;
 import twb.conwaybrian.com.twbandroid.view.LoginView;
@@ -19,6 +20,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView , View
     private Button forgetPasswordButton;
     private Button loginButton;
     private Button clearButton;
+
+    private TextView registerTextView;
 
     private LoginPresenter loginPresenter;
     @Override
@@ -33,10 +36,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView , View
         forgetPasswordButton=findViewById(R.id.forget_password_button);
         loginButton=findViewById(R.id.login_button);
         clearButton=findViewById(R.id.clear_button);
+        registerTextView=findViewById(R.id.register_textview);
 
         forgetPasswordButton.setOnClickListener(this);
         loginButton.setOnClickListener(this);
         clearButton.setOnClickListener(this);
+        registerTextView.setOnClickListener(this);
 
         loginPresenter=new LoginPresenter(this);
         loginPresenter.setProgressBarVisibility(View.INVISIBLE);
@@ -69,6 +74,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView , View
 
     @Override
     public void onForgetPassword() {
+
+    }
+
+    @Override
+    public void onRegister() {
         startActivity(new Intent(this,RegisterActivity.class));
     }
 
@@ -88,7 +98,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView , View
             case R.id.forget_password_button:
                 loginPresenter.forgetPassword();
                 break;
+            case R.id.register_textview:
+                loginPresenter.register();
+                break;
         }
 
     }
+
+
 }
