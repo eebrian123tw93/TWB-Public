@@ -3,9 +3,18 @@ package twb.conwaybrian.com.twbandroid.presenter;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.Toast;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 import twb.conwaybrian.com.twbandroid.model.User;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
@@ -36,14 +45,14 @@ public class RegisterPresenter {
             registerView.onSetMessageColor(Color.RED);
         }else {
 
-            Observer<Response<String>> observer = new Observer<Response<String>>() {
+            Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
                 @Override
                 public void onSubscribe(Disposable d) {
 
                 }
 
                 @Override
-                public void onNext(Response<String> response) {
+                public void onNext(Response<ResponseBody> response) {
 
                     switch (response.code()) {
                         case 204:
@@ -52,17 +61,25 @@ public class RegisterPresenter {
                             registerView.onSetMessageColor(Color.GREEN);
                             break;
                         default:
-                            registerView.onRegisterResult(false);
-                            registerView.onMessage("Register Error,username already taken");
-                            registerView.onSetMessageColor(Color.RED);
-                            break;
+
+                            try {
+                                String responseString=response.errorBody().string();
+                                registerView.onRegisterResult(false);
+                                registerView.onMessage(responseString);
+                                registerView.onSetMessageColor(Color.RED);
+                                break;
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                onError(e);
+                            }
                     }
 
                 }
 
                 @Override
                 public void onError(Throwable e) {
-
+                    registerView.onMessage(e.getMessage());
+                    registerView.onSetMessageColor(Color.RED);
                 }
 
                 @Override

@@ -8,6 +8,7 @@ import android.os.Looper;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 import twb.conwaybrian.com.twbandroid.model.User;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
@@ -34,14 +35,14 @@ public class LoginPresenter {
             loginView.onMessage("Password empty");
             loginView.onSetMessageColor(Color.RED);
         }else {
-            Observer<Response<String>>observer=new Observer<Response<String>>() {
+            Observer<Response<ResponseBody>>observer=new Observer<Response<ResponseBody>>() {
                 @Override
                 public void onSubscribe(Disposable d) {
 
                 }
 
                 @Override
-                public void onNext(Response<String> response) {
+                public void onNext(Response<ResponseBody> response) {
                     switch (response.code()){
                         case 200:
                             loginView.onLoginResult(true);
