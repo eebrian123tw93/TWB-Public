@@ -28,7 +28,7 @@ public class ShuoController {
     this.articlePostService = articlePostService;
   }
 
-  @RequestMapping(value = "/register", method = RequestMethod.POST)
+  @RequestMapping(value = "/public/register", method = RequestMethod.POST)
   public ResponseEntity register(@RequestBody UserModel userModel) {
     logger.info("register " + userModel.getUserId());
     int code = userService.register(userModel);
@@ -44,7 +44,7 @@ public class ShuoController {
     return "yes";
   }
 
-  @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
+  @RequestMapping(value = "/public/forgotPassword", method = RequestMethod.GET)
   public ResponseEntity forgotPassword(@RequestParam(name = "email") String email) {
     if (userService.forgotPassword(email)) return new ResponseEntity(HttpStatus.OK);
     else return new ResponseEntity(HttpStatus.FORBIDDEN);
