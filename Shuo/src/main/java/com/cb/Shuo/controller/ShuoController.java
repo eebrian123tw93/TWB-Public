@@ -2,6 +2,7 @@ package com.cb.Shuo.controller;
 
 import com.cb.Shuo.model.ArticleModel;
 import com.cb.Shuo.model.UserModel;
+import com.cb.Shuo.service.ArticleGetService;
 import com.cb.Shuo.service.ArticlePostService;
 import com.cb.Shuo.service.UserService;
 import org.slf4j.Logger;
@@ -21,11 +22,16 @@ public class ShuoController {
 
   private final UserService userService;
   private final ArticlePostService articlePostService;
+  private final ArticleGetService articleGetService;
 
   @Autowired
-  public ShuoController(UserService userService, ArticlePostService articlePostService) {
+  public ShuoController(
+      UserService userService,
+      ArticlePostService articlePostService,
+      ArticleGetService articleGetService) {
     this.userService = userService;
     this.articlePostService = articlePostService;
+    this.articleGetService = articleGetService;
   }
 
   @RequestMapping(value = "/public/register", method = RequestMethod.POST)
@@ -57,13 +63,13 @@ public class ShuoController {
     return new ResponseEntity(HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/getArticles", method = RequestMethod.GET)
+  @RequestMapping(value = "/public/getArticles", method = RequestMethod.GET)
   public List<ArticleModel> getArticles(
       @RequestParam(name = "startTime", required = false) LocalDateTime start,
       @RequestParam(name = "endTime", required = false) LocalDateTime end,
-      @RequestParam(name = "limit", required = false) int limit,
-      @RequestParam(name = "offset", required = false) int offset) {
-    return new ArrayList<>();
+      @RequestParam(name = "limit", required = false) Integer limit,
+      @RequestParam(name = "offset", required = false) Integer offset) {
+    return articleGetService.getAll();
   }
 
   @RequestMapping(value = "/t", method = RequestMethod.GET)
