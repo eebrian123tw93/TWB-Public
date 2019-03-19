@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -31,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.csrf()
         .disable()
         .authorizeRequests()
-        .antMatchers("/register", "/forgotPassword")
+        .antMatchers("/public/**")
         .permitAll()
         .antMatchers("/**")
         .authenticated()
