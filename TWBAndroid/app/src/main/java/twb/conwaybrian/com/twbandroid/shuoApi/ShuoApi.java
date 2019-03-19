@@ -11,6 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ShuoApi {
 
@@ -20,4 +21,7 @@ public interface ShuoApi {
 
     @GET("/shuo/checkUserExist/")
     Observable<Response<ResponseBody>>login(@Header("Authorization")String authKey);
+
+    @GET("/shuo/public/forgotPassword/")
+    Observable<Response<ResponseBody>>forgotPassword(@Query("email") String email);
 }

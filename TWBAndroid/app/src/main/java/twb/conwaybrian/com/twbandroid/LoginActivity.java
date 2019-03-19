@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import twb.conwaybrian.com.twbandroid.presenter.LoginPresenter;
+import twb.conwaybrian.com.twbandroid.view.ForgotPasswordView;
 import twb.conwaybrian.com.twbandroid.view.LoginView;
 
 public class LoginActivity extends AppCompatActivity implements LoginView , View.OnClickListener {
@@ -79,7 +80,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView , View
 
     @Override
     public void onForgetPassword() {
-
+        startActivity(new Intent(this,ForgotPasswordActivity.class));
     }
 
     @Override

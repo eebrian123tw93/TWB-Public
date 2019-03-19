@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".BottomNavigationActivity"></activity>
+        <activity android:name=".BottomNavigationActivity" />
+        <activity android:name=".ForgotPasswordActivity"></activity>
     </application>
 
 </manifest>

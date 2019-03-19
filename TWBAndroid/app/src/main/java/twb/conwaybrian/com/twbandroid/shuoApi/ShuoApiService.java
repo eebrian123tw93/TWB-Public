@@ -55,5 +55,12 @@ public class ShuoApiService {
                 .subscribe(observer);
 
     }
+    public void forgotPassword(@NonNull Observer observer,@NonNull String email,boolean isObserveOnIO){
+        shuoApi.forgotPassword(email)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
 }
 

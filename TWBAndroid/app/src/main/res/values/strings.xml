@@ -8,6 +8,7 @@
     <string name="register">註冊</string>
     <string name="clear">清除</string>
     <string name="email">E-mail</string>
+    <string name="send">送出</string>
 
 
 </resources>
