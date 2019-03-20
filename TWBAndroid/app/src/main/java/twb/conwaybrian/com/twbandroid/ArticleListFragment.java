@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,8 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
     private String type;
     private ArticleListPresenter articleListPresenter;
     private ArticleListRecycleViewAdapter articleListRecycleViewAdapter;
-    private PullLoadMoreRecyclerView recyclerView;
+    private RecyclerView recyclerView;
+    private TwinklingRefreshLayout refreshLayout;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -41,25 +44,32 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
         List<Article>articles=new ArrayList<>();
         articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(articles);
 
+         refreshLayout=view.findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                super.onRefresh(refreshLayout);
+                articleListRecycleViewAdapter.getArticleList().clear();
+                articleListPresenter.getArticleList(type,1,10);
+            }
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                super.onLoadMore(refreshLayout);
+                articleListPresenter.getArticleList(type,1,10);
+            }
+        });
+
 
          recyclerView = view. findViewById(R.id.list_view);
-         recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
-             @Override
-             public void onRefresh() {
-                 articleListRecycleViewAdapter.getArticleList().clear();
-                 articleListPresenter.getArticleList(type,1,10);
-             }
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-             @Override
-             public void onLoadMore() {
-                 articleListPresenter.getArticleList(type,1,10);
-             }
-         });
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-//        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setLinearLayout();
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(articleListRecycleViewAdapter);
+
+
 
         articleListPresenter.getArticleList(type,1,10);
 
@@ -75,8 +85,11 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
 
     @Override
     public void onGetArticles(List<Article> articleList) {
-        recyclerView.setPullLoadMoreCompleted();
         articleListRecycleViewAdapter.getArticleList().addAll(articleList);
         articleListRecycleViewAdapter.notifyDataSetChanged();
+        refreshLayout.finishRefreshing();
+        refreshLayout.finishLoadmore();
+
     }
+
 }
