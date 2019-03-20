@@ -20,7 +20,7 @@
             <!--</intent-filter>-->
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".bottonNavigation.BottomNavigationActivity" >
+        <activity android:name=".navigation.NavigationActivity" >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,5 +1,6 @@
-package twb.conwaybrian.com.twbandroid.bottonNavigation;
+package twb.conwaybrian.com.twbandroid.navigation;
 
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -7,25 +8,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.model.Article;
-import twb.conwaybrian.com.twbandroid.model.User;
-import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
+import twb.conwaybrian.com.twbandroid.presenter.NavigationPresenter;
+import twb.conwaybrian.com.twbandroid.view.NavigationView;
 
-public class BottomNavigationActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class NavigationActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,NavigationView {
 
     private BottomNavigationView bottomNavigationView;
     private Map<Integer,Fragment>fragmentHashMap;
     private Fragment focusFragment;
 
+    private NavigationPresenter navigationPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +36,23 @@ public class BottomNavigationActivity extends AppCompatActivity implements Botto
         focusFragment=new HomeFragment();
         fragmentHashMap.put(R.id.home,focusFragment);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,fragmentHashMap.get(R.id.home)).commit();
+
+        navigationPresenter=new NavigationPresenter(this);
+
+
+        SharedPreferences settings = getSharedPreferences("profile",0);
+
+        settings.edit()
+                .putString("userId","tester")
+                .putString("password","123")
+                .putString("email","eee").apply();
+
+
+        String userId=settings.getString("userId","");
+        String password=settings.getString("password","");
+        String email=settings.getString("email","");
+
+        navigationPresenter.setUserProfile(userId,password,email);
 
 
 //        Observer<Response<ResponseBody>>observer=new Observer<Response<ResponseBody>>() {

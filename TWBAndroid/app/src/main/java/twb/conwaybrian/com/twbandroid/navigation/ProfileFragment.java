@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid.bottonNavigation;
+package twb.conwaybrian.com.twbandroid.navigation;
 
 import android.content.Context;
 import android.os.Bundle;
