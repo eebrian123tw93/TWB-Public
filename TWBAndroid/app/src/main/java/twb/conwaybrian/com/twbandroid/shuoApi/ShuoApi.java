@@ -28,4 +28,8 @@ public interface ShuoApi {
 
     @GET("/shuo/public/getArticles/")
     Observable<Response<JsonArray>>getArticles(@Query("type") String type, @Query("start")int start, @Query("count")int count);
+
+    @Headers("Content-Type:application/json")
+    @POST("/shuo/postArticle/")
+    Observable<Response<ResponseBody>> postArticle(@Body String s);
 }

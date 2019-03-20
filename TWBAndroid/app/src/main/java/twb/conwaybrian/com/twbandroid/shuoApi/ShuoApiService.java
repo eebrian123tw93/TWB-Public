@@ -1,15 +1,12 @@
 package twb.conwaybrian.com.twbandroid.shuoApi;
 
 import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
+import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.model.User;
 
 public class ShuoApiService {
@@ -65,6 +62,16 @@ public class ShuoApiService {
 
     public void getArticles(@NonNull Observer observer,@NonNull String type,@NonNull int start,@NonNull int count,boolean isObserveOnIO){
         shuoApi.getArticles(type,start,count)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
+    public void postArticle(@NonNull Observer observer, @NonNull Article article, boolean isObserveOnIO){
+        Gson gson = new Gson();
+        String json = gson.toJson(article);
+        shuoApi.postArticle(json)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
