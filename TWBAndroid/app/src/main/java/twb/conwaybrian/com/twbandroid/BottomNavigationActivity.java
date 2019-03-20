@@ -76,6 +76,9 @@ public class BottomNavigationActivity extends AppCompatActivity implements Botto
             case R.id.profile:
                 fragment=new ProfileFragment();
                 break;
+            case R.id.search:
+                fragment=new SearchFragment();
+                break;
             case R.id.home:
                 fragment=new HomeFragment();
                 break;

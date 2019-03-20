@@ -53,7 +53,7 @@ public class ArticleListFragment extends Fragment {
         ArticleListFragment fragment = new ArticleListFragment();
         Bundle bundle = new Bundle();
         bundle.putString(ARG_PARAM, type);
-        fragment.setArguments(bundle);   //设置参数
+        fragment.setArguments(bundle);
         return fragment;
     }
 }
