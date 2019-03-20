@@ -13,12 +13,14 @@ import android.view.ViewGroup;
 
 public class HomeFragment extends Fragment {
 
-
+    private PageAdapter pageAdapter;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
     }
+
+
 
     @Nullable
     @Override
@@ -28,8 +30,15 @@ public class HomeFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText("最新"));
         tabLayout.addTab(tabLayout.newTab().setText("熱門"));
         final ViewPager viewPager = view.findViewById(R.id.viewPager);
-        viewPager.setAdapter(new PageAdapter(this.getActivity().getSupportFragmentManager(), tabLayout.getTabCount()));
+        if(pageAdapter==null){
+            pageAdapter=new PageAdapter(this.getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+        }else {
+
+        }
+
+        viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
 
 
 
@@ -53,4 +62,5 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
 }
