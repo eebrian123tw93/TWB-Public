@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid;
+package twb.conwaybrian.com.twbandroid.bottonNavigation;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import twb.conwaybrian.com.twbandroid.PageAdapter;
+import twb.conwaybrian.com.twbandroid.R;
 
 public class HomeFragment extends Fragment {
 
