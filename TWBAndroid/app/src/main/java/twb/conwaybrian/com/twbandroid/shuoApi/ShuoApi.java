@@ -1,5 +1,6 @@
 package twb.conwaybrian.com.twbandroid.shuoApi;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import io.reactivex.Observable;
@@ -24,4 +25,7 @@ public interface ShuoApi {
 
     @GET("/shuo/public/forgotPassword/")
     Observable<Response<ResponseBody>>forgotPassword(@Query("email") String email);
+
+    @GET("/shuo/public/getArticles/")
+    Observable<Response<JsonArray>>getArticles(@Query("type") String type, @Query("start")int start, @Query("count")int count);
 }
