@@ -7,8 +7,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.List;
 import twb.conwaybrian.com.twbandroid.model.Article;
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private List<Article> mData;
+public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleListRecycleViewAdapter.ViewHolder> {
+
+    public List<Article> getArticleList() {
+        return articleList;
+    }
+
+    private List<Article> articleList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView titleTextView;
@@ -26,12 +31,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
-    public MyAdapter(List<Article> data) {
-        mData = data;
+    public ArticleListRecycleViewAdapter(List<Article> articleList) {
+        this.articleList = articleList;
     }
 
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ArticleListRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_article, parent, false);
         ViewHolder vh = new ViewHolder(v);
@@ -42,14 +47,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.titleTextView.setText(mData.get(position).getTitle());
-        holder.previewTextView.setText(mData.get(position).getContent());
-        holder.pointsTextView.setText(String.valueOf(mData.get(position).getPoints()));
-        holder.viewsTextView.setText(String.valueOf(mData.get(position).getViews()));
+        holder.titleTextView.setText(articleList.get(position).getTitle());
+        holder.previewTextView.setText(articleList.get(position).getContent());
+        holder.pointsTextView.setText(String.valueOf(articleList.get(position).getPoints()));
+        holder.viewsTextView.setText(String.valueOf(articleList.get(position).getViews()));
     }
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return articleList.size();
     }
 }

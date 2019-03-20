@@ -10,21 +10,28 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+
+import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.model.Article;
+import twb.conwaybrian.com.twbandroid.presenter.ArticleListPresenter;
+import twb.conwaybrian.com.twbandroid.view.ArticleListView;
 
-public class ArticleListFragment extends Fragment {
+public class ArticleListFragment extends Fragment implements ArticleListView {
     private static String ARG_PARAM = "type";
     private String type;
-
+    private ArticleListPresenter articleListPresenter;
+    private ArticleListRecycleViewAdapter articleListRecycleViewAdapter;
+    private PullLoadMoreRecyclerView recyclerView;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         type = getArguments().getString(ARG_PARAM);
+        articleListPresenter=new ArticleListPresenter(this);
     }
 
     @Nullable
@@ -32,20 +39,29 @@ public class ArticleListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_article_list,container,false);
         List<Article>articles=new ArrayList<>();
-        for(int i=0;i<100;i++){
-            Article article=new Article();
-            article.setTitle("Tndgsfdkjk"+type);
-            articles.add(article);
-        }
+        articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(articles);
 
 
-        MyAdapter myAdapter = new MyAdapter(articles);
-        RecyclerView mList = view. findViewById(R.id.list_view);
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mList.setLayoutManager(layoutManager);
-        mList.setAdapter(myAdapter);
+         recyclerView = view. findViewById(R.id.list_view);
+         recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
+             @Override
+             public void onRefresh() {
+                 articleListRecycleViewAdapter.getArticleList().clear();
+                 articleListPresenter.getArticleList(type,1,10);
+             }
 
+             @Override
+             public void onLoadMore() {
+                 articleListPresenter.getArticleList(type,1,10);
+             }
+         });
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLinearLayout();
+        recyclerView.setAdapter(articleListRecycleViewAdapter);
+
+        articleListPresenter.getArticleList(type,1,10);
 
         return view;
     }
@@ -55,5 +71,12 @@ public class ArticleListFragment extends Fragment {
         bundle.putString(ARG_PARAM, type);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onGetArticles(List<Article> articleList) {
+        recyclerView.setPullLoadMoreCompleted();
+        articleListRecycleViewAdapter.getArticleList().addAll(articleList);
+        articleListRecycleViewAdapter.notifyDataSetChanged();
     }
 }

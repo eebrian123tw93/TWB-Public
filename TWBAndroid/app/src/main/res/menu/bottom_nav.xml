@@ -4,6 +4,9 @@
         android:icon="@drawable/home"/>
     <item android:id="@+id/search" android:title="@string/search"
         android:icon="@drawable/search"/>
+    <item android:id="@+id/upload" android:title="@string/upload"
+        android:icon="@drawable/upload"/>
     <item android:id="@+id/profile" android:title="@string/profile"
-        android:icon="@drawable/user"/>
+    android:icon="@drawable/user"/>
+
 </menu>
