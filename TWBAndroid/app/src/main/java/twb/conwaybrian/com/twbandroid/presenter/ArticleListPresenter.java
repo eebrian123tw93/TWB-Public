@@ -29,11 +29,14 @@ public class ArticleListPresenter {
 
             @Override
             public void onNext(Response<JsonArray> response) {
-                JsonArray jsonArray=response.body();
-                System.out.println(jsonArray);
-                Type listType = new TypeToken<List<Article>>() {}.getType();
-                List<Article> articleList = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().fromJson(jsonArray, listType);
-                articleListView.onGetArticles(articleList);
+                if (response.isSuccessful()){
+                    JsonArray jsonArray = response.body();
+                    System.out.println(jsonArray);
+                    Type listType = new TypeToken<List<Article>>() {
+                    }.getType();
+                    List<Article> articleList = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().fromJson(jsonArray, listType);
+                    articleListView.onGetArticles(articleList);
+                }
             }
 
             @Override

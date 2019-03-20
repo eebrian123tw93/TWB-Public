@@ -45,6 +45,7 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
         articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(articles);
 
          refreshLayout=view.findViewById(R.id.refreshLayout);
+         refreshLayout.setAutoLoadMore(true);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
 
             @Override
