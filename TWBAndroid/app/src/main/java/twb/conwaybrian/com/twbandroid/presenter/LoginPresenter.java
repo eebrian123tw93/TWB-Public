@@ -44,7 +44,6 @@ public class LoginPresenter extends TWBPresenter {
                 public void onNext(Response<ResponseBody> response) {
                     if(response.isSuccessful()){
                         saveUser(user);
-                        readUser();
                         loginView.onLoginResult(true);
                         loginView.onMessage("Login Success");
                         loginView.onSetMessageColor(Color.GREEN);

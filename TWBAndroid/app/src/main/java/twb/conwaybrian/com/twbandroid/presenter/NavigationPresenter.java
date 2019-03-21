@@ -1,5 +1,6 @@
 package twb.conwaybrian.com.twbandroid.presenter;
 
+import twb.conwaybrian.com.twbandroid.model.User;
 import twb.conwaybrian.com.twbandroid.view.NavigationView;
 
 public class NavigationPresenter  extends TWBPresenter implements TWBPresenter.UserListener {
@@ -13,12 +14,13 @@ public class NavigationPresenter  extends TWBPresenter implements TWBPresenter.U
 
     @Override
     public void onLogin() {
-
+        readUser();
         navigationView.onLogin();
     }
 
     @Override
     public void onLogout() {
+        saveUser(new User());
         navigationView.onLogout();
     }
 }

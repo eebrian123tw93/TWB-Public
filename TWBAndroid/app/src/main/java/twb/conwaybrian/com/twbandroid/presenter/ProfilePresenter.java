@@ -11,7 +11,6 @@ public class ProfilePresenter extends TWBPresenter {
         profileView.onSetUserId(user.getUserId());
     }
     public void logout(){
-        saveUser(new User());
         if(userListener!=null)userListener.onLogout();
     }
 
