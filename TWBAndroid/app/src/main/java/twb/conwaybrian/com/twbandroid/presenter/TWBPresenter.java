@@ -9,19 +9,19 @@ import twb.conwaybrian.com.twbandroid.model.User;
 public class TWBPresenter {
     protected Context context;
     protected static User user;
-    protected static UserListener userListener;
+    static UserListener userListener;
 
     private static String PROFILE="profile";
-    public TWBPresenter(){
+     TWBPresenter(){
         this.context=TWBApplication.getContext();
     }
-    public void saveUser(User user){
+     void saveUser(User user){
         context.getSharedPreferences(PROFILE,Context.MODE_PRIVATE).edit()
                 .putString("userId",user.getUserId())
                 .putString("password",user.getPassword())
                 .putString("email",user.getEmail()).apply();
     }
-    public void readUser(){
+    void readUser(){
         SharedPreferences sharedPreferences=context.getSharedPreferences(PROFILE,Context.MODE_PRIVATE);
         String userId=sharedPreferences.getString("userId","");
         String password=sharedPreferences.getString("password","");

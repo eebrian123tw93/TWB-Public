@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import twb.conwaybrian.com.twbandroid.ForgotPasswordActivity;
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.RegisterActivity;
 import twb.conwaybrian.com.twbandroid.presenter.LoginPresenter;
-import twb.conwaybrian.com.twbandroid.view.ForgotPasswordView;
 import twb.conwaybrian.com.twbandroid.view.LoginView;
 
 public class LoginFragment extends Fragment implements LoginView , View.OnClickListener {
@@ -42,7 +40,7 @@ public class LoginFragment extends Fragment implements LoginView , View.OnClickL
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.login,container,false) ;
+        View view=inflater.inflate(R.layout.fragment_login,container,false) ;
         usernameEditText=view.findViewById(R.id.username_editText);
         passwordEditText=view.findViewById(R.id.password_editText);
         progressBar=view.findViewById(R.id.progressBar);

@@ -1,7 +1,6 @@
 package twb.conwaybrian.com.twbandroid;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import twb.conwaybrian.com.twbandroid.navigation.LoginFragment;
 import twb.conwaybrian.com.twbandroid.presenter.RegisterPresenter;
 import twb.conwaybrian.com.twbandroid.view.RegisterView;
 
@@ -42,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        setContentView(R.layout.register);
+        setContentView(R.layout.activity_register);
 
 
         usernameEditText=findViewById(R.id.username_editText);
