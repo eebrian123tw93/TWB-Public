@@ -1,9 +1,11 @@
 package com.cb.Shuo.controller;
 
 import com.cb.Shuo.model.ArticleModel;
+import com.cb.Shuo.model.LikeModel;
 import com.cb.Shuo.model.UserModel;
 import com.cb.Shuo.service.ArticleGetService;
 import com.cb.Shuo.service.ArticlePostService;
+import com.cb.Shuo.service.LikeCommentService;
 import com.cb.Shuo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,15 +24,18 @@ public class ShuoController {
   private final UserService userService;
   private final ArticlePostService articlePostService;
   private final ArticleGetService articleGetService;
+  private final LikeCommentService likeCommentService;
 
   @Autowired
   public ShuoController(
       UserService userService,
       ArticlePostService articlePostService,
-      ArticleGetService articleGetService) {
+      ArticleGetService articleGetService,
+      LikeCommentService likeCommentService) {
     this.userService = userService;
     this.articlePostService = articlePostService;
     this.articleGetService = articleGetService;
+    this.likeCommentService = likeCommentService;
   }
 
   @RequestMapping(value = "/public/register", method = RequestMethod.POST)
@@ -70,6 +74,12 @@ public class ShuoController {
       @RequestParam(name = "limit", required = false) Integer limit,
       @RequestParam(name = "offset", required = false) Integer offset) {
     return articleGetService.getAll();
+  }
+
+  @RequestMapping(value = "/like", method = RequestMethod.POST)
+  public ResponseEntity like(@RequestBody LikeModel likeModel) {
+    if (likeCommentService.addLike(likeModel) == 0) return new ResponseEntity(HttpStatus.OK);
+    else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("article does not exist");
   }
 
   @RequestMapping(value = "/t", method = RequestMethod.GET)
