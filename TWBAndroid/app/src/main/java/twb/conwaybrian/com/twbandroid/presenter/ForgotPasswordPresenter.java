@@ -11,7 +11,7 @@ import retrofit2.Response;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.ForgotPasswordView;
 
-public class ForgotPasswordPresenter {
+public class ForgotPasswordPresenter extends TWBPresenter {
     private ForgotPasswordView forgotPasswordView;
 
     public ForgotPasswordPresenter(ForgotPasswordView forgotPasswordView){

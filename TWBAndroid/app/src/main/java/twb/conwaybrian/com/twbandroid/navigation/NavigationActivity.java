@@ -52,7 +52,7 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
         String password=settings.getString("password","");
         String email=settings.getString("email","");
 
-        navigationPresenter.setUserProfile(userId,password,email);
+
 
 
 //        Observer<Response<ResponseBody>>observer=new Observer<Response<ResponseBody>>() {

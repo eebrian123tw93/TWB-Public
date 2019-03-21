@@ -20,7 +20,7 @@ import twb.conwaybrian.com.twbandroid.model.User;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.RegisterView;
 
-public class RegisterPresenter {
+public class RegisterPresenter  extends TWBPresenter{
     private RegisterView registerView;
     private User user;
 

@@ -14,7 +14,7 @@ import twb.conwaybrian.com.twbandroid.model.User;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.LoginView;
 
-public class LoginPresenter {
+public class LoginPresenter extends TWBPresenter {
     private LoginView loginView;
     private User user;
 

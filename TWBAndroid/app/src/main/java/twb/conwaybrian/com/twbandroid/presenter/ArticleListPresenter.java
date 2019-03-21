@@ -14,7 +14,7 @@ import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.ArticleListView;
 
-public class ArticleListPresenter {
+public class ArticleListPresenter extends TWBPresenter {
     private ArticleListView articleListView;
 
     public ArticleListPresenter(ArticleListView articleListView){
