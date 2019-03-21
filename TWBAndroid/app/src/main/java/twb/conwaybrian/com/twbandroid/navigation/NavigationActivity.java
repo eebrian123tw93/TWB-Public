@@ -38,41 +38,6 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
 
         navigationPresenter=new NavigationPresenter(this);
 
-//        Observer<Response<ResponseBody>>observer=new Observer<Response<ResponseBody>>() {
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//
-//            }
-//
-//            @Override
-//            public void onNext(Response<ResponseBody> response) {
-//                switch (response.code()){
-//                    case 204:
-//                        break;
-//                }
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//
-//            }
-//
-//            @Override
-//            public void onComplete() {
-//
-//            }
-//        };
-//        User user=new User();
-//        user.setUserId("tester");
-//        user.setPassword("123");
-//        Article article=new Article();
-//        article.setTitle("Title");
-//        article.setContent("content");
-//        article.setUserId(user.getUserId());
-//        article.setCreateTime(new Date());
-//        ShuoApiService.getInstance().postArticle(observer,user,article,false);
-
-
     }
 
 
@@ -119,7 +84,10 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
             Fragment fragment=new LoginFragment();
             fragmentHashMap.put(R.id.profile,fragment);
             showFragment(fragment);
+
     }
+
+
 
     public void showFragment(Fragment fragment){
         if(!fragment.isAdded()){
@@ -128,5 +96,10 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
             getSupportFragmentManager().beginTransaction().hide(focusFragment).show(fragment).commit();
         }
         focusFragment=fragment;
+    }
+
+    @Override
+    public void toLoginPage() {
+        bottomNavigationView.setSelectedItemId(R.id.profile);
     }
 }

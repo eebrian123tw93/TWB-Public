@@ -16,6 +16,8 @@
     <string name="title">標題</string>
     <string name="content">內容</string>
     <string name="post">發布</string>
+    <string name="complete">完成</string>
 
+    <string name="error">錯誤</string>
 
 </resources>

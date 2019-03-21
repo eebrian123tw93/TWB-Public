@@ -39,6 +39,7 @@ public class TWBPresenter {
     public interface UserListener{
         public  void onLogin();
         public  void  onLogout();
+        public  void  toLoginPage();
     }
 
 }

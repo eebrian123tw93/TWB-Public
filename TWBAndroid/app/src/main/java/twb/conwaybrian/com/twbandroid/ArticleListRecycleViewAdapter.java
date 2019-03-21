@@ -1,10 +1,19 @@
 package twb.conwaybrian.com.twbandroid;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import twb.conwaybrian.com.twbandroid.model.Article;
 public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleListRecycleViewAdapter.ViewHolder> {
@@ -20,6 +29,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         private TextView previewTextView;
         private TextView pointsTextView;
         private TextView viewsTextView;
+        private ImageView articleImageView;
 
 
         public ViewHolder(View v) {
@@ -28,6 +38,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
             previewTextView=v.findViewById(R.id.preview_textView);
             pointsTextView=v.findViewById(R.id.points_textView);
             viewsTextView=v.findViewById(R.id.views_textview);
+            articleImageView=v.findViewById(R.id.article_imageView);
         }
     }
 
@@ -46,11 +57,20 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
 
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.titleTextView.setText(articleList.get(position).getTitle());
         holder.previewTextView.setText(articleList.get(position).getContent());
         holder.pointsTextView.setText(String.valueOf(articleList.get(position).getPoints()));
         holder.viewsTextView.setText(String.valueOf(articleList.get(position).getViews()));
+//        if(articleList.get(position).getImages().isEmpty())
+//            holder.articleImageView.setVisibility(View.GONE);
+//        else
+//            Picasso.get().load(articleList.get(position).getImages().get(0)).into(holder.articleImageView);
+//        Picasso.get().load("http://cdn.journaldev.com/wp-content/uploads/2016/11/android-image-picker-project-structure.png").resize(80,80).into(holder.articleImageView);
+
+        Picasso.get().load("https://pbs.twimg.com/profile_images/941322358245154816/tF4dPHrS.jpg").into(holder.articleImageView);
+
+
     }
 
     @Override

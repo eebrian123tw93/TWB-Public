@@ -21,6 +21,12 @@ public class NavigationPresenter  extends TWBPresenter implements TWBPresenter.U
     @Override
     public void onLogout() {
         saveUser(new User());
+        readUser();
         navigationView.onLogout();
+    }
+
+    @Override
+    public void toLoginPage() {
+        navigationView.toLoginPage();
     }
 }
