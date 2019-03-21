@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import twb.conwaybrian.com.twbandroid.presenter.LoginPresenter;
+import twb.conwaybrian.com.twbandroid.navigation.LoginFragment;
 import twb.conwaybrian.com.twbandroid.presenter.RegisterPresenter;
 import twb.conwaybrian.com.twbandroid.view.RegisterView;
 
@@ -70,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         clearButton.setEnabled(true);
         if(result){
             Toast.makeText(this,"register successfully",Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this,LoginActivity.class));
+            startActivity(new Intent(this,LoginFragment.class));
             finish();
         }
     }

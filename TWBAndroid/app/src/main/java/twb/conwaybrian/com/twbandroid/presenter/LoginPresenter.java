@@ -21,7 +21,6 @@ public class LoginPresenter extends TWBPresenter {
     public LoginPresenter(LoginView loginView){
         this.loginView=loginView;
         user=new User();
-
     }
 
     public void clear(){
@@ -44,9 +43,13 @@ public class LoginPresenter extends TWBPresenter {
                 @Override
                 public void onNext(Response<ResponseBody> response) {
                     if(response.isSuccessful()){
+                        saveUser(user);
+                        readUser();
                         loginView.onLoginResult(true);
                         loginView.onMessage("Login Success");
                         loginView.onSetMessageColor(Color.GREEN);
+                        if(userListener!=null)userListener.onLogin();
+
                     }else {
                         loginView.onLoginResult(false);
                         loginView.onMessage("Login Failed");

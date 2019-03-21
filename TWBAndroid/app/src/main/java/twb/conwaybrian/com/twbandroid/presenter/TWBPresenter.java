@@ -8,6 +8,9 @@ import twb.conwaybrian.com.twbandroid.model.User;
 
 public class TWBPresenter {
     protected Context context;
+    protected static User user;
+    protected static UserListener userListener;
+
     private static String PROFILE="profile";
     public TWBPresenter(){
         this.context=TWBApplication.getContext();
@@ -18,15 +21,24 @@ public class TWBPresenter {
                 .putString("password",user.getPassword())
                 .putString("email",user.getEmail()).apply();
     }
-    public User readUser(){
+    public void readUser(){
         SharedPreferences sharedPreferences=context.getSharedPreferences(PROFILE,Context.MODE_PRIVATE);
         String userId=sharedPreferences.getString("userId","");
         String password=sharedPreferences.getString("password","");
         String email=sharedPreferences.getString("email","");
-        if( userId.isEmpty() || password .isEmpty()||email.isEmpty()){
-            return null;
+        if( userId.isEmpty() || password .isEmpty()){
+             user= null;
         }else {
-            return new User(userId,password,email);
+            user= new User(userId,password,email);
         }
     }
+    public boolean isLogin(){
+        return user!=null;
+    }
+
+    public interface UserListener{
+        public  void onLogin();
+        public  void  onLogout();
+    }
+
 }

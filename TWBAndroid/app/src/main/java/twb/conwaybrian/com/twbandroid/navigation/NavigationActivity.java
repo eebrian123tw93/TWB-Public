@@ -1,6 +1,5 @@
 package twb.conwaybrian.com.twbandroid.navigation;
 
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -86,7 +85,11 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
                     fragment = new UploadFragment();
                     break;
                 case R.id.profile:
-                    fragment = new ProfileFragment();
+                    if(navigationPresenter.isLogin()){
+                        fragment = new ProfileFragment();
+                    }else {
+                        fragment=new LoginFragment();
+                    }
                     break;
                 case R.id.search:
                     fragment = new SearchFragment();
@@ -100,13 +103,30 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
             }
             fragmentHashMap.put(menuItem.getItemId(),fragment);
         }
+        showFragment(fragment);
+        return true;
+    }
+
+    @Override
+    public void onLogin() {
+            Fragment fragment=new ProfileFragment();
+            fragmentHashMap.put(R.id.profile,fragment);
+             showFragment(fragment);
+    }
+
+    @Override
+    public void onLogout() {
+            Fragment fragment=new LoginFragment();
+            fragmentHashMap.put(R.id.profile,fragment);
+            showFragment(fragment);
+    }
+
+    public void showFragment(Fragment fragment){
         if(!fragment.isAdded()){
             getSupportFragmentManager().beginTransaction().hide(focusFragment).add(R.id.frame_layout, fragment).commit();
         }else {
             getSupportFragmentManager().beginTransaction().hide(focusFragment).show(fragment).commit();
         }
         focusFragment=fragment;
-        return true;
     }
-
 }

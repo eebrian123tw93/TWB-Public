@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -36,12 +37,13 @@ public class ArticleListPresenter extends TWBPresenter {
                     }.getType();
                     List<Article> articleList = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().fromJson(jsonArray, listType);
                     articleListView.onGetArticles(articleList);
+                    articleListView.onFinishRefreshOrLoad();
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-
+                articleListView.onFinishRefreshOrLoad();
             }
 
             @Override
