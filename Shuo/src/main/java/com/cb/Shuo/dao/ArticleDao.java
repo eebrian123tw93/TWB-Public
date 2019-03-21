@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ArticleDao extends JpaRepository<ArticleModel, Long> {
+  ArticleModel findArticleModelByArticleId(String articleId);
 }

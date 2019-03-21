@@ -20,9 +20,8 @@ public class ArticlePostService {
   }
 
   public void postArticle(ArticleModel articleModel) {
-    logger.info("postArticle");
     articleModel.setArticleId(IdGenerator.generateArticleId());
-    // todo: fix date time problem
+    logger.info("postArticle " + articleModel.getArticleId());
     articleDao.save(articleModel);
   }
 }
