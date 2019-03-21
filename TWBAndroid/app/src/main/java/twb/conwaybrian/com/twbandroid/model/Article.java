@@ -16,5 +16,5 @@ public class Article {
     private int points;
     private int views;
     private Date createTime;
-    private int vkey;
+
 }

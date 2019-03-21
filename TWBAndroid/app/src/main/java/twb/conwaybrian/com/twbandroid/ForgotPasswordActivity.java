@@ -43,7 +43,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
 
     @Override
-    public void onForgot(boolean result) {
+    public void onForgotPassword(boolean result) {
         if(result){
             forgotPasswordPresenter.setProgressBarVisibility(View.INVISIBLE);
             sendButton.setEnabled(true);

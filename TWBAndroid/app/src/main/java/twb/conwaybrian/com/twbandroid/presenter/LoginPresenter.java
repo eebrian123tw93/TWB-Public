@@ -43,20 +43,15 @@ public class LoginPresenter extends TWBPresenter {
 
                 @Override
                 public void onNext(Response<ResponseBody> response) {
-                    switch (response.code()){
-                        case 200:
-                            loginView.onLoginResult(true);
-                            loginView.onMessage("Login Successfully");
-                            loginView.onSetMessageColor(Color.GREEN);
-
-                            break;
-                        default:
-                            loginView.onLoginResult(false);
-                            loginView.onMessage("Login Failed");
-                            loginView.onSetMessageColor(Color.RED);
-                            break;
+                    if(response.isSuccessful()){
+                        loginView.onLoginResult(true);
+                        loginView.onMessage("Login Success");
+                        loginView.onSetMessageColor(Color.GREEN);
+                    }else {
+                        loginView.onLoginResult(false);
+                        loginView.onMessage("Login Failed");
+                        loginView.onSetMessageColor(Color.RED);
                     }
-
                 }
 
                 @Override
