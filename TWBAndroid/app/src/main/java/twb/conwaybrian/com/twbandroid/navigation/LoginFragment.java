@@ -17,7 +17,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import twb.conwaybrian.com.twbandroid.ForgotPasswordActivity;
 import twb.conwaybrian.com.twbandroid.R;
+import twb.conwaybrian.com.twbandroid.RegisterActivity;
 import twb.conwaybrian.com.twbandroid.presenter.LoginPresenter;
 import twb.conwaybrian.com.twbandroid.view.ForgotPasswordView;
 import twb.conwaybrian.com.twbandroid.view.LoginView;
@@ -95,12 +97,12 @@ public class LoginFragment extends Fragment implements LoginView , View.OnClickL
 
     @Override
     public void onForgetPassword() {
-//        startActivity(new Intent(this,ForgotPasswordActivity.class));
+        getContext().startActivity(new Intent(getContext(),ForgotPasswordActivity.class));
     }
 
     @Override
     public void onRegister() {
-//        startActivity(new Intent(this,RegisterActivity.class));
+        getContext().startActivity(new Intent(getContext(),RegisterActivity.class));
     }
 
     @Override

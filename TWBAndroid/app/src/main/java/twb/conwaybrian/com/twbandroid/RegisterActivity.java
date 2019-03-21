@@ -70,7 +70,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         clearButton.setEnabled(true);
         if(result){
             Toast.makeText(this,"register successfully",Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this,LoginFragment.class));
             finish();
         }
     }
