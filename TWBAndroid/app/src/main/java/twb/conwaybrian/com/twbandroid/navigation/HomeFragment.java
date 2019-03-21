@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid.bottonNavigation;
+package twb.conwaybrian.com.twbandroid.navigation;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -43,7 +43,6 @@ public class HomeFragment extends Fragment {
         final ViewPager viewPager = view.findViewById(R.id.viewPager);
 
         pageAdapter=new PageAdapter(this.getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
-
 
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

@@ -6,4 +6,5 @@ import twb.conwaybrian.com.twbandroid.model.Article;
 
 public interface ArticleListView {
     public void onGetArticles(List <Article> articleList);
+    public void onFinishRefreshOrLoad();
 }

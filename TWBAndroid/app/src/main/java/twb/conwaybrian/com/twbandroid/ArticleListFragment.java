@@ -45,6 +45,7 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
         articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(articles);
 
          refreshLayout=view.findViewById(R.id.refreshLayout);
+         refreshLayout.setAutoLoadMore(true);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
 
             @Override
@@ -87,9 +88,11 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
     public void onGetArticles(List<Article> articleList) {
         articleListRecycleViewAdapter.getArticleList().addAll(articleList);
         articleListRecycleViewAdapter.notifyDataSetChanged();
-        refreshLayout.finishRefreshing();
-        refreshLayout.finishLoadmore();
-
     }
 
+    @Override
+    public void onFinishRefreshOrLoad() {
+        refreshLayout.finishRefreshing();
+        refreshLayout.finishLoadmore();
+    }
 }

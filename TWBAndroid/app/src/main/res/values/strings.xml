@@ -13,5 +13,11 @@
     <string name="search">搜尋</string>
     <string name="profile">簡介</string>
     <string name="upload">上傳</string>
+    <string name="title">標題</string>
+    <string name="content">內容</string>
+    <string name="post">發布</string>
+    <string name="complete">完成</string>
+
+    <string name="error">錯誤</string>
 
 </resources>

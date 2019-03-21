@@ -1,9 +1,9 @@
 package twb.conwaybrian.com.twbandroid;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import twb.conwaybrian.com.twbandroid.presenter.LoginPresenter;
 import twb.conwaybrian.com.twbandroid.presenter.RegisterPresenter;
 import twb.conwaybrian.com.twbandroid.view.RegisterView;
 
@@ -34,7 +33,14 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register);
+
+
+        if(getSupportActionBar()!=null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        setContentView(R.layout.activity_register);
 
 
         usernameEditText=findViewById(R.id.username_editText);
@@ -70,7 +76,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         clearButton.setEnabled(true);
         if(result){
             Toast.makeText(this,"register successfully",Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this,LoginActivity.class));
             finish();
         }
     }
@@ -112,5 +117,15 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                 break;
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return  super.onOptionsItemSelected(item);
     }
 }

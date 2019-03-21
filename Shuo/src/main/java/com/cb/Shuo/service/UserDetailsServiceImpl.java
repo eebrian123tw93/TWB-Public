@@ -27,7 +27,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     UserModel user = userDao.findUserModelByUserId(userId);
     User.UserBuilder builder;
     if (user != null) {
-
       builder = User.withUsername(userId);
       builder.disabled(false);
       builder.password(user.getPassword());
