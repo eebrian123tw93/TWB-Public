@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -27,6 +28,12 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(getSupportActionBar()!=null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         setContentView(R.layout.activity_forgot_password);
 
         emailEditText=findViewById(R.id.email_editText);
@@ -82,5 +89,15 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                 forgotPasswordPresenter.doForgotPassword(emailEditText.getText().toString());
                 break;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return  super.onOptionsItemSelected(item);
     }
 }
