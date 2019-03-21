@@ -14,7 +14,7 @@ import twb.conwaybrian.com.twbandroid.model.User;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.LoginView;
 
-public class LoginPresenter {
+public class LoginPresenter extends TWBPresenter {
     private LoginView loginView;
     private User user;
 
@@ -43,20 +43,15 @@ public class LoginPresenter {
 
                 @Override
                 public void onNext(Response<ResponseBody> response) {
-                    switch (response.code()){
-                        case 200:
-                            loginView.onLoginResult(true);
-                            loginView.onMessage("Login Successfully");
-                            loginView.onSetMessageColor(Color.GREEN);
-
-                            break;
-                        default:
-                            loginView.onLoginResult(false);
-                            loginView.onMessage("Login Failed");
-                            loginView.onSetMessageColor(Color.RED);
-                            break;
+                    if(response.isSuccessful()){
+                        loginView.onLoginResult(true);
+                        loginView.onMessage("Login Success");
+                        loginView.onSetMessageColor(Color.GREEN);
+                    }else {
+                        loginView.onLoginResult(false);
+                        loginView.onMessage("Login Failed");
+                        loginView.onSetMessageColor(Color.RED);
                     }
-
                 }
 
                 @Override

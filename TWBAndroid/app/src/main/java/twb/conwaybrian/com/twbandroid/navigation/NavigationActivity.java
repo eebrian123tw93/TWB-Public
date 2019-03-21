@@ -39,22 +39,6 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
 
         navigationPresenter=new NavigationPresenter(this);
 
-
-        SharedPreferences settings = getSharedPreferences("profile",0);
-
-        settings.edit()
-                .putString("userId","tester")
-                .putString("password","123")
-                .putString("email","eee").apply();
-
-
-        String userId=settings.getString("userId","");
-        String password=settings.getString("password","");
-        String email=settings.getString("email","");
-
-        navigationPresenter.setUserProfile(userId,password,email);
-
-
 //        Observer<Response<ResponseBody>>observer=new Observer<Response<ResponseBody>>() {
 //            @Override
 //            public void onSubscribe(Disposable d) {
