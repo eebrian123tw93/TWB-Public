@@ -18,8 +18,8 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
     private TextView contentTextView;
     private TextView pointsTextView;
     private TextView viewsTextView;
-    private RecyclerView recyclerView;
-
+    private RecyclerView imageViewsRecyclerView;
+    private RecyclerView commentRecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +37,8 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
         contentTextView=findViewById(R.id.content_textView);
         pointsTextView=findViewById(R.id.points_textView);
         viewsTextView=findViewById(R.id.views_textView);
+        imageViewsRecyclerView=findViewById(R.id.imageViews_recyclerView);
+        commentRecyclerView=findViewById(R.id.comment_recyclerView);
 
         Intent intent=getIntent();
         String title=intent.getStringExtra("article_id");
