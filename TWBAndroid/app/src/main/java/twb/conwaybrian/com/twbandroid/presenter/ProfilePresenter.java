@@ -1,7 +1,6 @@
 package twb.conwaybrian.com.twbandroid.presenter;
 
 
-import twb.conwaybrian.com.twbandroid.model.User;
 import twb.conwaybrian.com.twbandroid.view.ProfileView;
 
 public class ProfilePresenter extends TWBPresenter {

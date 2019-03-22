@@ -30,6 +30,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         private TextView pointsTextView;
         private TextView viewsTextView;
         private ImageView articleImageView;
+        private ImageView pointsImageView;
         private CardView cardView;
 
 
@@ -40,6 +41,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
             pointsTextView=v.findViewById(R.id.points_textView);
             viewsTextView=v.findViewById(R.id.views_textView);
             articleImageView=v.findViewById(R.id.article_imageView);
+            pointsImageView=v.findViewById(R.id.points_imageView);
             cardView=v.findViewById(R.id.card_view);
         }
     }
@@ -66,6 +68,13 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         holder.previewTextView.setText(article.getContent());
         holder.pointsTextView.setText(String.valueOf(article.getPoints()));
         holder.viewsTextView.setText(String.valueOf(article.getViews()));
+
+        if(article.getPoints()<0){
+            holder.pointsImageView.setImageResource(R.drawable.dislike);
+        }else if(article.getPoints()>0){
+         holder.pointsImageView.setImageResource(R.drawable.like);
+        }
+
 //        if(articleList.get(position).getImages().isEmpty())
 //            holder.articleImageView.setVisibility(View.GONE);
 //        else

@@ -76,7 +76,7 @@
                             android:layout_margin="5dp">
 
                             <ImageView
-                                android:id="@+id/like_imageView"
+                                android:id="@+id/points_imageView"
                                 android:layout_width="35dp"
                                 android:layout_height="35dp"
                                 android:layout_marginStart="8dp"
@@ -92,7 +92,7 @@
                                 android:layout_marginStart="8dp"
                                 android:text="99999"
                                 android:textSize="18sp"
-                                app:layout_constraintStart_toEndOf="@+id/like_imageView"
+                                app:layout_constraintStart_toEndOf="@+id/points_imageView"
 
                                 card_view:layout_constraintBottom_toBottomOf="parent"
                                 card_view:layout_constraintTop_toTopOf="parent" />
