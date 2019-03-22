@@ -54,7 +54,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/like_imageView"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginStart="8dp"
@@ -70,11 +70,11 @@
                     android:layout_marginStart="8dp"
                     android:text="99999"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintStart_toEndOf="@+id/imageView4"
+                    card_view:layout_constraintStart_toEndOf="@+id/like_imageView"
                     card_view:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/viewa_imageView"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginStart="8dp"
@@ -84,24 +84,24 @@
                     card_view:srcCompat="@drawable/view" />
 
                 <TextView
-                    android:id="@+id/views_textview"
+                    android:id="@+id/views_textView"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="999999"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintStart_toEndOf="@+id/imageView5"
+                    card_view:layout_constraintStart_toEndOf="@+id/viewa_imageView"
                     card_view:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView6"
+                    android:id="@+id/comment_imageView"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginStart="8dp"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintStart_toEndOf="@+id/views_textview"
+                    card_view:layout_constraintStart_toEndOf="@+id/views_textView"
                     card_view:layout_constraintTop_toTopOf="parent"
-                    card_view:srcCompat="@drawable/comment" />
+                    card_view:srcCompat="@drawable/chat" />
 
                 <TextView
                     android:id="@+id/comment_count_textview"
@@ -110,7 +110,7 @@
                     android:layout_marginStart="8dp"
                     android:text="99999"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintStart_toEndOf="@+id/imageView6"
+                    card_view:layout_constraintStart_toEndOf="@+id/comment_imageView"
                     card_view:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
 

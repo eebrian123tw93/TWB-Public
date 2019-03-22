@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -46,7 +47,7 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
 
          refreshLayout=view.findViewById(R.id.refreshLayout);
          refreshLayout.setAutoLoadMore(true);
-        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
 
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
@@ -61,7 +62,6 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
                 articleListPresenter.getArticleList(type,1,10);
             }
         });
-
 
          recyclerView = view. findViewById(R.id.list_view);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());

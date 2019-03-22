@@ -2,6 +2,7 @@ package twb.conwaybrian.com.twbandroid;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
 import twb.conwaybrian.com.twbandroid.view.ArticleView;
@@ -9,6 +10,9 @@ import twb.conwaybrian.com.twbandroid.view.ArticleView;
 public class ArticleActivity extends AppCompatActivity implements ArticleView {
 
     private ArticlePresenter articlePresenter;
+
+    private TextView titleTextView;
+    private TextView contentTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
