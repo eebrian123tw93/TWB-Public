@@ -43,7 +43,7 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_article_list,container,false);
         List<Article>articles=new ArrayList<>();
-        articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(articles);
+        articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(getContext(),articles);
 
          refreshLayout=view.findViewById(R.id.refreshLayout);
          refreshLayout.setAutoLoadMore(true);
