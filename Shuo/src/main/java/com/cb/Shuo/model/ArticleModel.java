@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "articles")
@@ -22,7 +23,7 @@ public class ArticleModel {
   private String content;
 
   @Column(name = "images", columnDefinition = "varchar(1000)")
-  private String images;
+  private List<String> images;
 
   @Column(name = "user_id", columnDefinition = "varchar(255)")
   private String userId;

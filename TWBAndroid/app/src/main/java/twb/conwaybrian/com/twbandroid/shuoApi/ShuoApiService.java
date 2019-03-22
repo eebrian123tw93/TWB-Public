@@ -1,6 +1,8 @@
 package twb.conwaybrian.com.twbandroid.shuoApi;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -68,10 +70,10 @@ public class ShuoApiService {
                 .subscribe(observer);
     }
 
-    public void postArticle(@NonNull Observer observer, @NonNull Article article, boolean isObserveOnIO){
-        Gson gson = new Gson();
+    public void postArticle(@NonNull Observer observer, @NonNull User user,@NonNull Article article, boolean isObserveOnIO){
+        Gson gson =  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
         String json = gson.toJson(article);
-        shuoApi.postArticle(json)
+        shuoApi.postArticle(user.authKey(),json)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

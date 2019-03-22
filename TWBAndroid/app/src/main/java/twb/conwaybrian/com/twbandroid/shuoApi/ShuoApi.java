@@ -31,5 +31,6 @@ public interface ShuoApi {
 
     @Headers("Content-Type:application/json")
     @POST("/shuo/postArticle/")
-    Observable<Response<ResponseBody>> postArticle(@Body String s);
+    Observable<Response<ResponseBody>> postArticle(@Header("Authorization")String authKey,@Body String s);
+
 }
