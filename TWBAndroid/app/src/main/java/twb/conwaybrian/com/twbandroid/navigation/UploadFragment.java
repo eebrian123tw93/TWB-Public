@@ -7,8 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -23,13 +23,13 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
 
     private EditText titleEditText;
     private EditText contentEditText;
-    private Button postButton;
+    private ImageView postImageView;
     private ProgressBar progressBar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_upload,container,false);
-        postButton=view.findViewById(R.id.post_button);
+        postImageView =view.findViewById(R.id.post_imageView);
         titleEditText=view.findViewById(R.id.title_editText);
         contentEditText=view.findViewById(R.id.content_editText);
         progressBar=view.findViewById(R.id.progressBar);
@@ -37,7 +37,7 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
 
 
 
-        postButton.setOnClickListener(this);
+        postImageView.setOnClickListener(this);
         uploadPresenter=new UploadPresenter(this);
         uploadPresenter.setProgressBarVisibility(View.INVISIBLE);
 
@@ -47,8 +47,8 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.post_button:
-                postButton.setEnabled(false);
+            case R.id.post_imageView:
+                postImageView.setEnabled(false);
                 uploadPresenter.setProgressBarVisibility(View.VISIBLE);
                 uploadPresenter.postArticle(titleEditText.getText().toString(),contentEditText.getText().toString());
                 break;
@@ -58,7 +58,7 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
 
     @Override
     public void onPostArticle(boolean result) {
-        postButton.setEnabled(true);
+        postImageView.setEnabled(true);
         uploadPresenter.setProgressBarVisibility(View.INVISIBLE);
         if(result){
             uploadPresenter.clear();

@@ -5,7 +5,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,9 +24,14 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
 
     private NavigationPresenter navigationPresenter;
 
+    private Menu menu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_bottom_navigation);
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -37,17 +44,18 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,fragmentHashMap.get(R.id.home)).commit();
 
         navigationPresenter=new NavigationPresenter(this);
-
     }
 
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
         Fragment fragment=fragmentHashMap.get(menuItem.getItemId());
         if(fragment==null) {
             switch (menuItem.getItemId()) {
                 case R.id.upload:
                     fragment = new UploadFragment();
+
                     break;
                 case R.id.profile:
                     if(navigationPresenter.isLogin()){
@@ -102,4 +110,6 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
     public void toLoginPage() {
         bottomNavigationView.setSelectedItemId(R.id.profile);
     }
+
+
 }

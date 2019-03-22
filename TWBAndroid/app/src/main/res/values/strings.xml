@@ -19,5 +19,10 @@
     <string name="complete">完成</string>
 
     <string name="error">錯誤</string>
+    <string name="insert_comment">新增評論</string>
+
+    <string name="camera">相機</string>
+    <string name="gallery">圖庫</string>
+
 
 </resources>
