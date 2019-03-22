@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="4dp"
+    card_view:cardCornerRadius="2dp"
     android:layout_margin="5dp">
 
     <android.support.constraint.ConstraintLayout
@@ -32,6 +32,9 @@
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
                 android:text="title"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 

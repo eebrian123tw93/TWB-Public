@@ -33,7 +33,9 @@ public class ProfileFragment extends Fragment  implements ProfileView,View.OnCli
         View view= inflater.inflate(R.layout.fragment_profile,container,false);
         logoutButton=view.findViewById(R.id.logout_button);
         userIdTextView=view.findViewById(R.id.userId_textView);
+
         logoutButton.setOnClickListener(this);
+
         profilePresenter=new ProfilePresenter(this);
         return view;
 
