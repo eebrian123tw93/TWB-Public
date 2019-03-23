@@ -68,13 +68,18 @@ public class ShuoController {
     return new ResponseEntity(HttpStatus.NO_CONTENT);
   }
 
-  @RequestMapping(value = "/public/getArticles", method = RequestMethod.GET)
-  public List<ArticleModel> getArticles(
-      @RequestParam(name = "startTime") LocalDateTime start,
-      @RequestParam(name = "endTime") LocalDateTime end,
+  @RequestMapping(value = "/getArticlesFiltered", method = RequestMethod.GET)
+  public List<ArticleModel> getArticlesFiltered(
+      @RequestParam(name = "startTime", required = false) LocalDateTime start,
+      @RequestParam(name = "endTime", required = false) LocalDateTime end,
       @RequestParam(name = "limit", required = false) Integer limit,
       @RequestParam(name = "offset", required = false) Integer offset,
       @RequestParam(name = "orderBy", required = false) String orderBy) {
+    return articleGetService.getAll();
+  }
+
+  @RequestMapping(value = "/public/getArticles", method = RequestMethod.GET)
+  public List<ArticleModel> getArticles() {
     return articleGetService.getAll();
   }
 
