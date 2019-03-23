@@ -57,7 +57,7 @@ public class ShuoController {
 
   @RequestMapping(value = "/public/forgotPassword", method = RequestMethod.GET)
   public ResponseEntity forgotPassword(@RequestParam(name = "email") String email) {
-    if (userService.forgotPassword(email)) return new ResponseEntity(HttpStatus.OK);
+    if (userService.forgotPassword(email)) return new ResponseEntity(HttpStatus.NO_CONTENT);
     else return new ResponseEntity(HttpStatus.FORBIDDEN);
   }
 
@@ -65,7 +65,7 @@ public class ShuoController {
   public ResponseEntity postArticle(@RequestBody ArticleJson articleJson) {
     logger.info("postArticle " + articleJson.getUserId());
     articlePostService.postArticle(articleJson);
-    return new ResponseEntity(HttpStatus.OK);
+    return new ResponseEntity(HttpStatus.NO_CONTENT);
   }
 
   @RequestMapping(value = "/public/getArticles", method = RequestMethod.GET)
@@ -84,7 +84,8 @@ public class ShuoController {
 
   @RequestMapping(value = "/like", method = RequestMethod.POST)
   public ResponseEntity like(@RequestBody LikeModel likeModel) {
-    if (likeCommentService.addLike(likeModel) == 0) return new ResponseEntity(HttpStatus.OK);
+    if (likeCommentService.addLike(likeModel) == 0)
+      return new ResponseEntity(HttpStatus.NO_CONTENT);
     else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("article does not exist");
   }
 
