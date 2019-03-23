@@ -2,8 +2,11 @@ package twb.conwaybrian.com.twbandroid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +35,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         private ImageView articleImageView;
         private ImageView pointsImageView;
         private CardView cardView;
+        private ConstraintLayout constraintLayout;
 
 
         public ViewHolder(View v) {
@@ -43,6 +47,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
             articleImageView=v.findViewById(R.id.article_imageView);
             pointsImageView=v.findViewById(R.id.points_imageView);
             cardView=v.findViewById(R.id.card_view);
+            constraintLayout=v.findViewById(R.id.layout);
         }
     }
 
@@ -75,11 +80,32 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
          holder.pointsImageView.setImageResource(R.drawable.like);
         }
 
-        if(articleList.get(position).getImages()==null || articleList.get(position).getImages().isEmpty())
-            holder.articleImageView.setVisibility(View.GONE);
+        if(articleList.get(position).getImages()==null || articleList.get(position).getImages().isEmpty()){
+//            Picasso.get().load("https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg").into(holder.articleImageView);
+//            holder.articleImageView.setVisibility(View.GONE);
+//            holder.articleImageView.getLayoutParams().width=0;
+        }
         else
-            Picasso.get().load(articleList.get(position).getImages().get(0)).into(holder.articleImageView);
+        {
+//            ImageView imageView=new ImageView(context);;
+//            imageView.setId(View.generateViewId());
+            Picasso.get().load(article.getImages().get(0)).into(holder.articleImageView);
+//            holder.constraintLayout.addView(imageView);
+//            ConstraintSet set = new ConstraintSet();
+//
+//            set.constrainHeight(imageView.getId(), dpToPx(90));
+//            set.constrainWidth(imageView.getId(), dpToPx(90));
+////             center horizontally in the container
+//            set.centerVertically(imageView.getId(), ConstraintSet.PARENT_ID);
+////             pin to the bottom of the container
+//            set.connect(imageView.getId(),ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
+//            // Apply the changes
+//            set.applyTo(holder.constraintLayout);
 
+        }
+
+
+//        Picasso.get().load("https://i.imgur.com/0tb9ofV.jpg").into(holder.articleImageView);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +122,11 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
 
 
 
+    }
+
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
     @Override
