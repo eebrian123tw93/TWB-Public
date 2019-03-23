@@ -2,6 +2,7 @@ package com.cb.Shuo.service;
 
 import com.cb.Shuo.dao.ArticleDao;
 import com.cb.Shuo.model.ArticleModel;
+import com.cb.Shuo.model.json.ArticleJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,10 @@ public class ArticleGetService {
 
   public List<ArticleModel> getAll() {
     return articleDao.findAll();
+  }
+
+  public List<ArticleJson> publicGet(
+      LocalDateTime start, LocalDateTime end, int limit, int offset) {
+    return new ArrayList<>();
   }
 }

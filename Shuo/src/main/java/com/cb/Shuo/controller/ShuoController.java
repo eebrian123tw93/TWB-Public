@@ -3,6 +3,7 @@ package com.cb.Shuo.controller;
 import com.cb.Shuo.model.ArticleModel;
 import com.cb.Shuo.model.LikeModel;
 import com.cb.Shuo.model.UserModel;
+import com.cb.Shuo.model.json.ArticleJson;
 import com.cb.Shuo.service.ArticleGetService;
 import com.cb.Shuo.service.ArticlePostService;
 import com.cb.Shuo.service.LikeCommentService;
@@ -61,20 +62,25 @@ public class ShuoController {
   }
 
   @RequestMapping(value = "/postArticle", method = RequestMethod.POST)
-  public ResponseEntity postArticle(@RequestBody ArticleModel articleModel) {
-    logger.info("postArticle " + articleModel.getUserId());
-    articlePostService.postArticle(articleModel);
+  public ResponseEntity postArticle(@RequestBody ArticleJson articleJson) {
+    logger.info("postArticle " + articleJson.getUserId());
+    articlePostService.postArticle(articleJson);
     return new ResponseEntity(HttpStatus.OK);
   }
 
   @RequestMapping(value = "/public/getArticles", method = RequestMethod.GET)
   public List<ArticleModel> getArticles(
-      @RequestParam(name = "startTime", required = false) LocalDateTime start,
-      @RequestParam(name = "endTime", required = false) LocalDateTime end,
+      @RequestParam(name = "startTime") LocalDateTime start,
+      @RequestParam(name = "endTime") LocalDateTime end,
       @RequestParam(name = "limit", required = false) Integer limit,
-      @RequestParam(name = "offset", required = false) Integer offset) {
+      @RequestParam(name = "offset", required = false) Integer offset,
+      @RequestParam(name = "orderBy", required = false) String orderBy) {
     return articleGetService.getAll();
   }
+
+  // todo: add secure api for get article
+
+  //  public List<>
 
   @RequestMapping(value = "/like", method = RequestMethod.POST)
   public ResponseEntity like(@RequestBody LikeModel likeModel) {
@@ -87,4 +93,6 @@ public class ShuoController {
     // for testing
     return "hello";
   }
+
+  // todo: search article api
 }
