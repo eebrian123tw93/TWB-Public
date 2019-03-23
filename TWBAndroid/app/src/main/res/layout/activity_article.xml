@@ -83,8 +83,7 @@
                                 app:srcCompat="@drawable/no_like"
                                 card_view:layout_constraintBottom_toBottomOf="parent"
                                 card_view:layout_constraintStart_toStartOf="parent"
-                                card_view:layout_constraintTop_toTopOf="parent"
-                                card_view:srcCompat="@drawable/like" />
+                                card_view:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
                                 android:id="@+id/points_textView"
