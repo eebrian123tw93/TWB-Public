@@ -6,11 +6,21 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.akiniyalocts.imgur_api.ImgurClient;
+import com.akiniyalocts.imgur_api.model.Image;
+import com.akiniyalocts.imgur_api.model.ImgurResponse;
+
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.ResponseBody;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.mime.TypedFile;
 import retrofit2.Response;
 import twb.conwaybrian.com.twbandroid.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
@@ -20,46 +30,82 @@ import twb.conwaybrian.com.twbandroid.view.UploadView;
 public class UploadPresenter extends TWBPresenter {
     private UploadView uploadView;
     private Article article;
+    private List<String>images;
 
     private ImageViewsRecycleViewAdapter imageViewsRecycleViewAdapter;
 
     public UploadPresenter(UploadView uploadView){
         this.uploadView=uploadView;
         article = new Article();
-        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,article.getImages(),ImageViewsRecycleViewAdapter.Type.FILE);
+        images=new ArrayList<>();
+        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,images,ImageViewsRecycleViewAdapter.Type.FILE);
+    }
+    public  void uploadImages(){
+
+        for (int i=0;i<images.size();i++) {
+            final String path=images.get(i);
+            ImgurClient.getInstance()
+                    .uploadImage(
+                            new TypedFile("image/*", new File(path)),
+                            article.getTitle()+i,
+                            article.getTitle()+"description"+i,
+                            new Callback<ImgurResponse<Image>>() {
+                                @Override
+                                public void success(ImgurResponse<Image> imageImgurResponse, retrofit.client.Response response) {
+                                    if(imageImgurResponse.success) {
+                                        System.out.println(imageImgurResponse.data.getLink());
+                                        System.out.println(imageImgurResponse.data.getDescription());
+                                        article.getImages().add(imageImgurResponse.data.getLink());
+                                        if(article.getImages().size()==images.size()){
+                                            Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
+                                                @Override
+                                                public void onSubscribe(Disposable d) {
+
+                                                }
+
+                                                @Override
+                                                public void onNext(Response<ResponseBody> response) {
+                                                    if (response.isSuccessful()) {
+                                                        uploadView.onPostArticle(true);
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onError(Throwable e) {
+
+                                                }
+
+                                                @Override
+                                                public void onComplete() {
+
+                                                }
+                                            };
+                                            ShuoApiService.getInstance().postArticle(observer, user, article, false);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void failure(RetrofitError error) {
+                                    //Notify user of failure
+                                }
+                            }
+                    );
+        }
+
+
     }
 
     public void postArticle(String title,String content){
         if(isLogin()) {
-            Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
-                @Override
-                public void onSubscribe(Disposable d) {
 
-                }
-
-                @Override
-                public void onNext(Response<ResponseBody> response) {
-                    if (response.isSuccessful()) {
-                        uploadView.onPostArticle(true);
-                    }
-                }
-
-                @Override
-                public void onError(Throwable e) {
-
-                }
-
-                @Override
-                public void onComplete() {
-
-                }
-            };
 
             article.setTitle(title);
             article.setContent(content);
             article.setUserId(user.getUserId());
             article.setCreateTime(new Date());
-            ShuoApiService.getInstance().postArticle(observer, user, article, false);
+            uploadImages();
+
         }else {
             uploadView.onPostArticle(false);
             if (userListener!=null)userListener.toLoginPage();
@@ -75,7 +121,7 @@ public class UploadPresenter extends TWBPresenter {
     }
 
     public void addImage(String imageFile){
-        if(!article.getImages().contains(imageFile)) article.getImages().add(imageFile);
+        if(!images.contains(imageFile)) images.add(imageFile);
         imageViewsRecycleViewAdapter.notifyDataSetChanged();
     }
     public void addImage(Uri uri){

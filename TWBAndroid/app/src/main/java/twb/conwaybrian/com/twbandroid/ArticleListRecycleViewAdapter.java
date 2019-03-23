@@ -75,13 +75,10 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
          holder.pointsImageView.setImageResource(R.drawable.like);
         }
 
-//        if(articleList.get(position).getImages().isEmpty())
-//            holder.articleImageView.setVisibility(View.GONE);
-//        else
-//            Picasso.get().load(articleList.get(position).getImages().get(0)).into(holder.articleImageView);
-//        Picasso.get().load("http://cdn.journaldev.com/wp-content/uploads/2016/11/android-image-picker-project-structure.png").resize(80,80).into(holder.articleImageView);
-
-        Picasso.get().load("https://pbs.twimg.com/profile_images/941322358245154816/tF4dPHrS.jpg").into(holder.articleImageView);
+        if(articleList.get(position).getImages()==null || articleList.get(position).getImages().isEmpty())
+            holder.articleImageView.setVisibility(View.GONE);
+        else
+            Picasso.get().load(articleList.get(position).getImages().get(0)).into(holder.articleImageView);
 
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
