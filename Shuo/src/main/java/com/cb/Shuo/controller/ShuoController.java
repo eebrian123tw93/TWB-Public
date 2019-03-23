@@ -69,17 +69,17 @@ public class ShuoController {
   }
 
   @RequestMapping(value = "/getArticlesFiltered", method = RequestMethod.GET)
-  public List<ArticleModel> getArticlesFiltered(
+  public List<ArticleJson> getArticlesFiltered(
       @RequestParam(name = "startTime", required = false) LocalDateTime start,
       @RequestParam(name = "endTime", required = false) LocalDateTime end,
-      @RequestParam(name = "limit", required = false) Integer limit,
-      @RequestParam(name = "offset", required = false) Integer offset,
-      @RequestParam(name = "orderBy", required = false) String orderBy) {
-    return articleGetService.getAll();
+      @RequestParam(name = "limit", required = false, defaultValue = "50") Integer limit,
+      @RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
+      @RequestParam(name = "orderBy", required = false, defaultValue = "timeNewest") String orderBy) {
+    return articleGetService.publicGet(start, end, limit, offset);
   }
 
   @RequestMapping(value = "/public/getArticles", method = RequestMethod.GET)
-  public List<ArticleModel> getArticles() {
+  public List<ArticleJson> getArticles() {
     return articleGetService.getAll();
   }
 
