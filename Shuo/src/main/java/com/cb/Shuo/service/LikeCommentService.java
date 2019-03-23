@@ -26,16 +26,49 @@ public class LikeCommentService {
     this.articleDao = articleDao;
   }
 
-  public int addLike(LikeModel likeModel) {
+  public int like(LikeModel likeModel) {
+    LikeModel l = likeDao.findByUserIdAndArticleId(likeModel.getArticleId(), likeModel.getUserId());
     ArticleModel articleModel = articleDao.findArticleModelByArticleId(likeModel.getArticleId());
 
+    // check if article exists
     if (articleModel != null) {
-      articleModel.setPoints(articleModel.getPoints() + likeModel.getType());
+      // check if user is new to up or down voting article
+      if (l == null) {
+        articleModel.setPoints(articleModel.getPoints() + likeModel.getType());
+        // save like history
+        likeDao.save(likeModel);
+      }
+
+      // if user is removing up vote or down vote
+      else if (l.getType() == likeModel.getType()) {
+        articleModel.setPoints(articleModel.getPoints() - likeModel.getType());
+        likeDao.delete(likeModel);
+      }
+
+      // if user is changing up to down or vice versa
+      else {
+        articleModel.setPoints(articleModel.getPoints() + likeModel.getType() * 2);
+        likeDao.delete(l);
+        likeDao.save(likeModel);
+      }
+
       articleDao.save(articleModel);
-      // save like history
-      likeDao.save(likeModel);
       return 0;
     } else return 1;
+  }
+
+  public int addLike(LikeModel likeModel) {
+    //    ArticleModel articleModel =
+    // articleDao.findArticleModelByArticleId(likeModel.getArticleId());
+    //
+    //    if (articleModel != null) {
+    //      articleModel.setPoints(articleModel.getPoints() + likeModel.getType());
+    //      articleDao.save(articleModel);
+    //      // save like history
+    //      likeDao.save(likeModel);
+    //      return 0;
+    //    } else return 1;
+    return 0;
   }
 
   public int removeLike(LikeModel likeModel) {
