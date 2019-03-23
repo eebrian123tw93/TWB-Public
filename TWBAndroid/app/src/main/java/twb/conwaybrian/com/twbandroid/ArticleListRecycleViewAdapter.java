@@ -78,30 +78,17 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
             holder.pointsImageView.setImageResource(R.drawable.dislike);
         }else if(article.getPoints()>0){
          holder.pointsImageView.setImageResource(R.drawable.like);
+        }else {
+            holder.pointsImageView.setImageResource(R.drawable.no_like);
         }
 
         if(articleList.get(position).getImages()==null || articleList.get(position).getImages().isEmpty()){
-//            Picasso.get().load("https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg").into(holder.articleImageView);
-//            holder.articleImageView.setVisibility(View.GONE);
-//            holder.articleImageView.getLayoutParams().width=0;
+            holder.articleImageView.setVisibility(View.GONE);
         }
         else
         {
-//            ImageView imageView=new ImageView(context);;
-//            imageView.setId(View.generateViewId());
+            holder.articleImageView.setVisibility(View.VISIBLE);
             Picasso.get().load(article.getImages().get(0)).into(holder.articleImageView);
-//            holder.constraintLayout.addView(imageView);
-//            ConstraintSet set = new ConstraintSet();
-//
-//            set.constrainHeight(imageView.getId(), dpToPx(90));
-//            set.constrainWidth(imageView.getId(), dpToPx(90));
-////             center horizontally in the container
-//            set.centerVertically(imageView.getId(), ConstraintSet.PARENT_ID);
-////             pin to the bottom of the container
-//            set.connect(imageView.getId(),ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-//            // Apply the changes
-//            set.applyTo(holder.constraintLayout);
-
         }
 
 
