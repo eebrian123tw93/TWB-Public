@@ -71,7 +71,7 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
         galleryImageView.setOnClickListener(this);
 
         uploadPresenter=new UploadPresenter(this);
-        uploadPresenter.setProgressBarVisibility(View.INVISIBLE);
+        uploadPresenter.setProgressBarVisibility(View.GONE);
         uploadPresenter.setImageViewsRecycleViewAdapter();
 
         return view;
@@ -144,7 +144,7 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
     @Override
     public void onPostArticle(boolean result) {
         postImageView.setEnabled(true);
-        uploadPresenter.setProgressBarVisibility(View.INVISIBLE);
+        uploadPresenter.setProgressBarVisibility(View.GONE);
         if(result){
             uploadPresenter.clear();
             Toast.makeText(getContext(),"post success",Toast.LENGTH_SHORT).show();

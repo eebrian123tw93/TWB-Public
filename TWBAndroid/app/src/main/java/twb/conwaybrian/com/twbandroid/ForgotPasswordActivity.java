@@ -1,17 +1,15 @@
 package twb.conwaybrian.com.twbandroid;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import twb.conwaybrian.com.twbandroid.presenter.ForgotPasswordPresenter;
 import twb.conwaybrian.com.twbandroid.view.ForgotPasswordView;
@@ -19,7 +17,7 @@ import twb.conwaybrian.com.twbandroid.view.ForgotPasswordView;
 public class ForgotPasswordActivity extends AppCompatActivity implements View.OnClickListener,ForgotPasswordView {
 
     private EditText emailEditText;
-    private Button sendButton;
+    private ImageView sendImageView;
     private TextView messageTextView;
     private ProgressBar progressBar;
 
@@ -37,11 +35,11 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_forgot_password);
 
         emailEditText=findViewById(R.id.email_editText);
-        sendButton=findViewById(R.id.send_button);
+        sendImageView =findViewById(R.id.send_imageView);
         messageTextView=findViewById(R.id.message_textView);
         progressBar=findViewById(R.id.progressBar);
 
-        sendButton.setOnClickListener(this);
+        sendImageView.setOnClickListener(this);
 
         forgotPasswordPresenter=new ForgotPasswordPresenter(this);
         forgotPasswordPresenter.setProgressBarVisibility(View.INVISIBLE);
@@ -53,7 +51,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     public void onForgotPassword(boolean result) {
         if(result){
             forgotPasswordPresenter.setProgressBarVisibility(View.INVISIBLE);
-            sendButton.setEnabled(true);
+            sendImageView.setEnabled(true);
         }
     }
 
@@ -64,7 +62,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onMessage(String message) {
-        sendButton.setEnabled(true);
+        sendImageView.setEnabled(true);
         forgotPasswordPresenter.setProgressBarVisibility(View.INVISIBLE);
         messageTextView.setText(message);
     }
@@ -77,9 +75,9 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.send_button:
+            case R.id.send_imageView:
                 forgotPasswordPresenter.setProgressBarVisibility(View.VISIBLE);
-                sendButton.setEnabled(false);
+                sendImageView.setEnabled(false);
 
                 View view = this.getCurrentFocus();
                 if (view != null) {

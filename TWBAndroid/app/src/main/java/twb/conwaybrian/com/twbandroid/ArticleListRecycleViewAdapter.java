@@ -20,6 +20,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import twb.conwaybrian.com.twbandroid.model.Article;
+import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
+
 public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleListRecycleViewAdapter.ViewHolder> {
 
     public List<Article> getArticleList() {
@@ -106,12 +108,12 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context,ArticleActivity.class);
-                intent.putExtra("article_id",article.getTitle());
-                intent.putExtra("article_content",article.getContent());
-                intent.putExtra("article_points",String.valueOf(article.getPoints()));
-                intent.putExtra("article_views",String.valueOf(article.getViews()));
-                intent.putExtra("article_comment_count",String.valueOf(article.getCommentCount()));
-                intent.putExtra("articles_images",article.getImages().toArray(new String[article.getImages().size()]));
+                intent.putExtra(ArticlePresenter.ARTICLE_ID,article.getTitle());
+                intent.putExtra(ArticlePresenter.ARTICLE_CONTENT,article.getContent());
+                intent.putExtra(ArticlePresenter.ARTICLE_POINTS,String.valueOf(article.getPoints()));
+                intent.putExtra(ArticlePresenter.ARTICLE_VIEWS,String.valueOf(article.getViews()));
+                intent.putExtra(ArticlePresenter.ARTICLE_COMMENT_COUNT,String.valueOf(article.getCommentCount()));
+                intent.putExtra(ArticlePresenter.ARTICLE_IMAGES,article.getImages().toArray(new String[article.getImages().size()]));
                 context.startActivity(intent);
             }
         });

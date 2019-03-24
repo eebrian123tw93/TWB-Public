@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
 
         registerPresenter=new RegisterPresenter(this);
-        registerPresenter.setProgressBarVisibility(View.INVISIBLE);
+        registerPresenter.setProgressBarVisibility(View.GONE);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @Override
     public void onMessage(String message) {
-        registerPresenter.setProgressBarVisibility(View.INVISIBLE);
+        registerPresenter.setProgressBarVisibility(View.GONE);
         registerButton.setEnabled(true);
         clearButton.setEnabled(true);
         messageTextView.setText(message);
