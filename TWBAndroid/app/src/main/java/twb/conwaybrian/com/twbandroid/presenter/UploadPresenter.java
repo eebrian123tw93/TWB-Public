@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import com.akiniyalocts.imgur_api.ImgurClient;
 import com.akiniyalocts.imgur_api.model.Image;
 import com.akiniyalocts.imgur_api.model.ImgurResponse;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -70,10 +71,10 @@ public class UploadPresenter extends TWBPresenter {
 
     public void post(String title, String content){
         if (title.isEmpty() ){
-            uploadView.onSetMessage("title empty");
+            uploadView.onSetMessage("Title  can not be empty",FancyToast.ERROR);
             uploadView.onPostArticle(false);
         }else if(content.isEmpty()){
-            uploadView.onSetMessage("content empty");
+            uploadView.onSetMessage("Content  can not be empty",FancyToast.ERROR);
             uploadView.onPostArticle(false);
         }else {
             if (isLogin()) {
@@ -81,10 +82,10 @@ public class UploadPresenter extends TWBPresenter {
                 article.setContent(content);
                 article.setUserId(user.getUserId());
                 article.setCreateTime(new Date());
-                uploadImages();
-
+                if(images.isEmpty())postArticle();
+                else uploadImages();
             } else {
-                uploadView.onSetMessage("Login first");
+                uploadView.onSetMessage("Login first",FancyToast.INFO);
                 uploadView.onPostArticle(false);
                 if (userListener != null) userListener.toLoginPage();
             }

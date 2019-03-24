@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 
 import twb.conwaybrian.com.twbandroid.ImageViewsRecycleViewAdapter;
 
-public interface ArticleView {
+public interface ArticleView extends TWBView {
     public void onSetProgressBarVisibility(int visibility);
     public void onSetImageViewAdapter(RecyclerView.Adapter adapter);
     public void onSetCommentViewAdapter(RecyclerView.Adapter adapter);

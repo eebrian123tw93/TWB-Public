@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.asksira.bsimagepicker.BSImagePicker;
 import com.asksira.bsimagepicker.Utils;
+import com.shashank.sony.fancytoastlib.FancyToast;
 import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 
 import java.io.ByteArrayOutputStream;
@@ -147,7 +148,7 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
         uploadPresenter.setProgressBarVisibility(View.GONE);
         if(result){
             uploadPresenter.clear();
-            Toast.makeText(getContext(),"post success",Toast.LENGTH_SHORT).show();
+            onSetMessage("Post success",FancyToast.SUCCESS);
         }
     }
 
@@ -168,15 +169,8 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
     }
 
     @Override
-    public void onSetMessage(String message) {
-        Drawable d = getResources().getDrawable(R.drawable.warning);
-        Bitmap b = ((BitmapDrawable)d).getBitmap();
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 100, 100, false);
-        new LovelyInfoDialog(getContext())
-                .setTopColorRes(R.color.images_view_recycler_bg)
-                .setIcon(bitmapResized)
-                .setMessage(message)
-                .show();
+    public void onSetMessage(String message,int type) {
+        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
     }
 
     @Override

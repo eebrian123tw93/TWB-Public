@@ -11,14 +11,18 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.shashank.sony.fancytoastlib.FancyToast;
+
 import twb.conwaybrian.com.twbandroid.presenter.ForgotPasswordPresenter;
 import twb.conwaybrian.com.twbandroid.view.ForgotPasswordView;
+
+import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
 
 public class ForgotPasswordActivity extends AppCompatActivity implements View.OnClickListener,ForgotPasswordView {
 
     private EditText emailEditText;
     private ImageView sendImageView;
-    private TextView messageTextView;
+
     private ProgressBar progressBar;
 
     private ForgotPasswordPresenter forgotPasswordPresenter;
@@ -36,7 +40,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
         emailEditText=findViewById(R.id.email_editText);
         sendImageView =findViewById(R.id.send_imageView);
-        messageTextView=findViewById(R.id.message_textView);
+
         progressBar=findViewById(R.id.progressBar);
 
         sendImageView.setOnClickListener(this);
@@ -49,9 +53,10 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onForgotPassword(boolean result) {
+        forgotPasswordPresenter.setProgressBarVisibility(View.GONE);
+        sendImageView.setEnabled(true);
         if(result){
-            forgotPasswordPresenter.setProgressBarVisibility(View.INVISIBLE);
-            sendImageView.setEnabled(true);
+
         }
     }
 
@@ -60,17 +65,9 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         progressBar.setVisibility(visibility);
     }
 
-    @Override
-    public void onMessage(String message) {
-        sendImageView.setEnabled(true);
-        forgotPasswordPresenter.setProgressBarVisibility(View.INVISIBLE);
-        messageTextView.setText(message);
-    }
 
-    @Override
-    public void onSetMessageColor(int color) {
-        messageTextView.setTextColor(color);
-    }
+
+
 
     @Override
     public void onClick(View v) {
@@ -97,5 +94,10 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                 break;
         }
         return  super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSetMessage(String message, int type) {
+        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
     }
 }
