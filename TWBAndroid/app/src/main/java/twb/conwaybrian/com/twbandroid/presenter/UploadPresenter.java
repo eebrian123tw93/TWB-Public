@@ -38,7 +38,7 @@ public class UploadPresenter extends TWBPresenter {
         this.uploadView=uploadView;
         article = new Article();
         images=new ArrayList<>();
-        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,images,ImageViewsRecycleViewAdapter.Type.FILE);
+        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,images);
     }
     public  void uploadImages(){
 

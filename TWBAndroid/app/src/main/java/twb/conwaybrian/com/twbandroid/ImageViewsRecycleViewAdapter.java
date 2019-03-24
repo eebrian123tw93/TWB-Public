@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 
@@ -15,16 +16,14 @@ import java.io.File;
 import java.util.List;
 
 public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageViewsRecycleViewAdapter.ViewHolder> {
-    public enum Type{
-        URL,FILE
-    }
+
     public List<String> getImages() {
         return images;
     }
 
     private List<String> images;
     private Context context;
-    private Type type;
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -42,14 +41,14 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
         }
     }
 
-    public ImageViewsRecycleViewAdapter(Context context,List<String> images,Type type) {
+    public ImageViewsRecycleViewAdapter(Context context,List<String> images) {
         this.context=context;
         this.images = images;
-        this.type=type;
+
     }
-    public ImageViewsRecycleViewAdapter(Context context,List<String> images) {
-        this(context,images,Type.URL);
-    }
+//    public ImageViewsRecycleViewAdapter(Context context,List<String> images) {
+//        this(context,images,Type.URL);
+//    }
 
     @Override
     public ImageViewsRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -72,9 +71,9 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
 //        Picasso.get().load("http://cdn.journaldev.com/wp-content/uploads/2016/11/android-image-picker-project-structure.png").resize(80,80).into(holder.articleImageView);
 
 //        Picasso.get().load("https://pbs.twimg.com/profile_images/941322358245154816/tF4dPHrS.jpg").into(holder.imageView);
-        Picasso.get().load(new File(images.get(position))).into(holder.imageView);
+//        Picasso.get().load(new File(images.get(position))).into(holder.imageView);
 
-
+        Glide.with(context).load(images.get(position)).into(holder.imageView);
 
 
 

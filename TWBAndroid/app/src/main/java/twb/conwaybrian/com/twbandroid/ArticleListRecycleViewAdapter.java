@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 
@@ -68,6 +69,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+
         final Article article=articleList.get(position);
         holder.titleTextView.setText(article.getTitle());
         holder.previewTextView.setText(article.getContent());
@@ -88,7 +90,8 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         else
         {
             holder.articleImageView.setVisibility(View.VISIBLE);
-            Picasso.get().load(article.getImages().get(0)).into(holder.articleImageView);
+//            Picasso.get().load(article.getImages().get(0)).into(holder.articleImageView);
+            Glide.with(context).load(article.getImages().get(0)).into(holder.articleImageView);
         }
 
 
