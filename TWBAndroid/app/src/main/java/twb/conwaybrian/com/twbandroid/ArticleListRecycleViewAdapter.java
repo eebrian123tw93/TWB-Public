@@ -34,6 +34,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         private TextView previewTextView;
         private TextView pointsTextView;
         private TextView viewsTextView;
+        private TextView commentCountTextView;
         private ImageView articleImageView;
         private ImageView pointsImageView;
         private CardView cardView;
@@ -46,6 +47,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
             previewTextView=v.findViewById(R.id.preview_textView);
             pointsTextView=v.findViewById(R.id.points_textView);
             viewsTextView=v.findViewById(R.id.views_textView);
+            commentCountTextView=v.findViewById(R.id.comment_count_textView);
             articleImageView=v.findViewById(R.id.article_imageView);
             pointsImageView=v.findViewById(R.id.points_imageView);
             cardView=v.findViewById(R.id.card_view);
@@ -76,6 +78,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         holder.previewTextView.setText(article.getContent());
         holder.pointsTextView.setText(String.valueOf(article.getPoints()));
         holder.viewsTextView.setText(String.valueOf(article.getViews()));
+        holder.commentCountTextView.setText(String.valueOf(article.getCommentCount()));
 
         if(article.getPoints()<0){
             holder.pointsImageView.setImageResource(R.drawable.dislike);
@@ -107,6 +110,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
                 intent.putExtra("article_content",article.getContent());
                 intent.putExtra("article_points",String.valueOf(article.getPoints()));
                 intent.putExtra("article_views",String.valueOf(article.getViews()));
+                intent.putExtra("article_comment_count",String.valueOf(article.getCommentCount()));
                 intent.putExtra("articles_images",article.getImages().toArray(new String[article.getImages().size()]));
                 context.startActivity(intent);
             }

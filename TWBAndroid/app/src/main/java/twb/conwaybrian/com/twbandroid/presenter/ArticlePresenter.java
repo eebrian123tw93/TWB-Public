@@ -21,16 +21,18 @@ public class ArticlePresenter extends TWBPresenter {
         String content=intent.getStringExtra("article_content");
         String points=intent.getStringExtra("article_points");
         String views=intent.getStringExtra("article_views");
+        String commentCount=intent.getStringExtra("article_comment_count");
         String [] images=intent.getStringArrayExtra("articles_images");
         article=new Article();
         article.setTitle(title);
         article.setContent(content);
         article.setPoints(Integer.valueOf(points));
         article.setViews(Integer.valueOf(views));
+        article.setCommentCount(Integer.valueOf(commentCount));
         article.getImages().addAll(Arrays.asList(images));
         imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,article.getImages());
 
-        articleView.onSetArticle(article.getTitle(),article.getContent(),String.valueOf(article.getPoints()),String.valueOf(article.getViews()));
+        articleView.onSetArticle(article.getTitle(),article.getContent(),String.valueOf(article.getPoints()),String.valueOf(article.getViews()),String.valueOf(article.getCommentCount()));
         articleView.onSetImageViewAdapter(imageViewsRecycleViewAdapter);
 
     }

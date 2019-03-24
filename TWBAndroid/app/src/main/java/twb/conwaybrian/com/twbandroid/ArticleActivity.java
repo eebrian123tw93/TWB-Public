@@ -21,6 +21,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
     private TextView contentTextView;
     private TextView pointsTextView;
     private TextView viewsTextView;
+    private TextView commentCountTextView;
     private RecyclerView imageViewsRecyclerView;
     private RecyclerView commentRecyclerView;
     @Override
@@ -40,6 +41,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
         contentTextView=findViewById(R.id.content_textView);
         pointsTextView=findViewById(R.id.points_textView);
         viewsTextView=findViewById(R.id.views_textView);
+        commentCountTextView=findViewById(R.id.comment_count_textView);
         imageViewsRecyclerView=findViewById(R.id.imageViews_recyclerView);
         commentRecyclerView=findViewById(R.id.comment_recyclerView);
 
@@ -72,10 +74,11 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
     }
 
     @Override
-    public void onSetArticle(String title, String content, String points, String views) {
+    public void onSetArticle(String title, String content, String points, String views ,String commentCount) {
         titleTextView.setText(title);
         contentTextView.setText(content);
         pointsTextView.setText(points);
         viewsTextView.setText(views);
+        commentCountTextView.setText(commentCount);
     }
 }
