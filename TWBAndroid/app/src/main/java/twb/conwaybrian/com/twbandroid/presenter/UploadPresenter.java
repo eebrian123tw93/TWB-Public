@@ -53,35 +53,8 @@ public class UploadPresenter extends TWBPresenter {
                                 @Override
                                 public void success(ImgurResponse<Image> imageImgurResponse, retrofit.client.Response response) {
                                     if(imageImgurResponse.success) {
-                                        System.out.println(imageImgurResponse.data.getLink());
-                                        System.out.println(imageImgurResponse.data.getDescription());
-                                        article.getImages().add(imageImgurResponse.data.getLink());
-                                        if(article.getImages().size()==images.size()){
-                                            Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
-                                                @Override
-                                                public void onSubscribe(Disposable d) {
 
-                                                }
-
-                                                @Override
-                                                public void onNext(Response<ResponseBody> response) {
-                                                    if (response.isSuccessful()) {
-                                                        uploadView.onPostArticle(true);
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onError(Throwable e) {
-
-                                                }
-
-                                                @Override
-                                                public void onComplete() {
-
-                                                }
-                                            };
-                                            ShuoApiService.getInstance().postArticle(observer, user, article, false);
-                                        }
+                                        postArticle(imageImgurResponse.data.getLink());
                                     }
                                 }
 
@@ -96,7 +69,7 @@ public class UploadPresenter extends TWBPresenter {
 
     }
 
-    public void postArticle(String title,String content){
+    public void post(String title, String content){
         if(isLogin()) {
 
 
@@ -131,6 +104,40 @@ public class UploadPresenter extends TWBPresenter {
 
     public void setImageViewsRecycleViewAdapter() {
         uploadView.onSetImageViewAdapter(imageViewsRecycleViewAdapter);
+    }
+
+    public synchronized void postArticle(String link){
+        article.getImages().add(link);
+        System.out.println(images.size());
+        System.out.println(article.getImages().size());
+        if(article.getImages().size()==images.size()){
+            Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        uploadView.onPostArticle(true);
+                    }else {
+
+                    }
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            };
+            ShuoApiService.getInstance().postArticle(observer, user, article, false);
+        }
     }
 
     public static String getRealFilePath(final Context context, final Uri uri ) {

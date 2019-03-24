@@ -4,12 +4,10 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,11 +27,8 @@ import com.asksira.bsimagepicker.BSImagePicker;
 import com.asksira.bsimagepicker.Utils;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.List;
 
-import pl.aprilapps.easyphotopicker.DefaultCallback;
-import pl.aprilapps.easyphotopicker.EasyImage;
 import twb.conwaybrian.com.twbandroid.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.presenter.UploadPresenter;
@@ -85,7 +80,7 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
             case R.id.post_imageView:
                 postImageView.setEnabled(false);
                 uploadPresenter.setProgressBarVisibility(View.VISIBLE);
-                uploadPresenter.postArticle(titleEditText.getText().toString(),contentEditText.getText().toString());
+                uploadPresenter.post(titleEditText.getText().toString(),contentEditText.getText().toString());
                 break;
             case R.id.camera_imageView:
                 BSImagePicker singleSelectionPicker = new BSImagePicker.Builder("twb.conwaybrian.com.twbandroid.fileprovider")

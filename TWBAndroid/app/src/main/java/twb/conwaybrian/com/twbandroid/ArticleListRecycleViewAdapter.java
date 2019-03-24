@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import twb.conwaybrian.com.twbandroid.model.Article;
 public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleListRecycleViewAdapter.ViewHolder> {
@@ -86,6 +87,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
 
         if(articleList.get(position).getImages()==null || articleList.get(position).getImages().isEmpty()){
             holder.articleImageView.setVisibility(View.GONE);
+            if(articleList.get(position).getImages()==null)articleList.get(position).setImages(new ArrayList<String>());
         }
         else
         {
@@ -105,7 +107,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
                 intent.putExtra("article_content",article.getContent());
                 intent.putExtra("article_points",String.valueOf(article.getPoints()));
                 intent.putExtra("article_views",String.valueOf(article.getViews()));
-
+                intent.putExtra("articles_images",article.getImages().toArray(new String[article.getImages().size()]));
                 context.startActivity(intent);
             }
         });

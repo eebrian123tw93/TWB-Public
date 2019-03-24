@@ -73,6 +73,7 @@ public class ShuoApiService {
     public void postArticle(@NonNull Observer observer, @NonNull User user,@NonNull Article article, boolean isObserveOnIO){
         Gson gson =  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
         String json = gson.toJson(article);
+        System.out.println(json);
         shuoApi.postArticle(user.authKey(),json)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
