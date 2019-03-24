@@ -5,7 +5,11 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +17,8 @@ import java.util.Map;
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.presenter.NavigationPresenter;
 import twb.conwaybrian.com.twbandroid.view.NavigationView;
+
+import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
 
 public class NavigationActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,NavigationView {
 
@@ -22,9 +28,13 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
 
     private NavigationPresenter navigationPresenter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_bottom_navigation);
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -35,19 +45,23 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
         focusFragment=new HomeFragment();
         fragmentHashMap.put(R.id.home,focusFragment);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,fragmentHashMap.get(R.id.home)).commit();
+        if(getSupportActionBar()!=null) {
+            getSupportActionBar().setTitle(bottomNavigationView.getMenu().getItem(0).getTitle());
+        }
 
         navigationPresenter=new NavigationPresenter(this);
-
     }
 
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
         Fragment fragment=fragmentHashMap.get(menuItem.getItemId());
         if(fragment==null) {
             switch (menuItem.getItemId()) {
                 case R.id.upload:
                     fragment = new UploadFragment();
+
                     break;
                 case R.id.profile:
                     if(navigationPresenter.isLogin()){
@@ -69,6 +83,9 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
             fragmentHashMap.put(menuItem.getItemId(),fragment);
         }
         showFragment(fragment);
+        if(getSupportActionBar()!=null) {
+            getSupportActionBar().setTitle(menuItem.getTitle());
+        }
         return true;
     }
 
@@ -102,4 +119,10 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
     public void toLoginPage() {
         bottomNavigationView.setSelectedItemId(R.id.profile);
     }
+    @Override
+    public void onSetMessage(String message, int type) {
+
+        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
+    }
+
 }

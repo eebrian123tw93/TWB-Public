@@ -2,6 +2,7 @@ package twb.conwaybrian.com.twbandroid.model;
 
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lombok.Data;
@@ -15,6 +16,9 @@ public class Article {
     private String title;
     private int points;
     private int views;
+    private int commentCount;
     private Date createTime;
-
+    public Article(){
+        images=new ArrayList<>();
+    }
 }

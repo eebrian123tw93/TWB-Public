@@ -1,5 +1,6 @@
 package twb.conwaybrian.com.twbandroid.navigation;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -15,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import twb.conwaybrian.com.twbandroid.ForgotPasswordActivity;
 import twb.conwaybrian.com.twbandroid.R;
@@ -33,9 +36,11 @@ public class LoginFragment extends Fragment implements LoginView , View.OnClickL
 
     private TextView registerTextView;
 
-    private TextView messageTextView;
+
 
     private LoginPresenter loginPresenter;
+
+
 
     @Nullable
     @Override
@@ -48,7 +53,10 @@ public class LoginFragment extends Fragment implements LoginView , View.OnClickL
         loginButton=view.findViewById(R.id.login_button);
         clearButton=view.findViewById(R.id.clear_button);
         registerTextView=view.findViewById(R.id.register_textview);
-        messageTextView=view.findViewById(R.id.message_textView);
+
+
+
+
 
         forgetPasswordButton.setOnClickListener(this);
         loginButton.setOnClickListener(this);
@@ -74,17 +82,16 @@ public class LoginFragment extends Fragment implements LoginView , View.OnClickL
     public void onClearText() {
         usernameEditText.setText("");
         passwordEditText.setText("");
-        messageTextView.setText("");
     }
 
     @Override
     public void onLoginResult(boolean result) {
-        loginPresenter.setProgressBarVisibility(View.INVISIBLE);
+        loginPresenter.setProgressBarVisibility(View.GONE);
         loginButton.setEnabled(true);
-        forgetPasswordButton.setEnabled(true);
         clearButton.setEnabled(true);
+        forgetPasswordButton.setEnabled(true);
         if(result){
-            Toast.makeText(getContext(),"Login Success",Toast.LENGTH_SHORT);
+
         }
     }
 
@@ -103,19 +110,9 @@ public class LoginFragment extends Fragment implements LoginView , View.OnClickL
         getContext().startActivity(new Intent(getContext(),RegisterActivity.class));
     }
 
-    @Override
-    public void onMessage(String message) {
-        loginPresenter.setProgressBarVisibility(View.INVISIBLE);
-        loginButton.setEnabled(true);
-        clearButton.setEnabled(true);
-        forgetPasswordButton.setEnabled(true);
-        messageTextView.setText(message);
-    }
 
-    @Override
-    public void onSetMessageColor(int color) {
-        messageTextView.setTextColor(color);
-    }
+
+
 
     @Override
     public void onClick(View v) {
@@ -148,4 +145,9 @@ public class LoginFragment extends Fragment implements LoginView , View.OnClickL
     }
 
 
+    @Override
+    public void onSetMessage(String message, int type) {
+
+        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
+    }
 }

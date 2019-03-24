@@ -12,8 +12,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shashank.sony.fancytoastlib.FancyToast;
+
 import twb.conwaybrian.com.twbandroid.presenter.RegisterPresenter;
 import twb.conwaybrian.com.twbandroid.view.RegisterView;
+
+import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterView ,View.OnClickListener {
     private RegisterPresenter registerPresenter;
@@ -58,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
 
         registerPresenter=new RegisterPresenter(this);
-        registerPresenter.setProgressBarVisibility(View.INVISIBLE);
+        registerPresenter.setProgressBarVisibility(View.GONE);
     }
 
     @Override
@@ -71,11 +75,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @Override
     public void onRegisterResult(boolean result) {
-        registerPresenter.setProgressBarVisibility(View.INVISIBLE);
+        registerPresenter.setProgressBarVisibility(View.GONE);
         registerButton.setEnabled(true);
         clearButton.setEnabled(true);
         if(result){
-            Toast.makeText(this,"register successfully",Toast.LENGTH_SHORT).show();
             finish();
         }
     }
@@ -85,18 +88,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         progressBar.setVisibility(visibility);
     }
 
-    @Override
-    public void onMessage(String message) {
-        registerPresenter.setProgressBarVisibility(View.INVISIBLE);
-        registerButton.setEnabled(true);
-        clearButton.setEnabled(true);
-        messageTextView.setText(message);
-    }
 
-    @Override
-    public void onSetMessageColor(int color) {
-        messageTextView.setTextColor(color);
-    }
 
     @Override
     public void onClick(View v) {
@@ -127,5 +119,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                 break;
         }
         return  super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSetMessage(String message, int type) {
+
+        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
     }
 }

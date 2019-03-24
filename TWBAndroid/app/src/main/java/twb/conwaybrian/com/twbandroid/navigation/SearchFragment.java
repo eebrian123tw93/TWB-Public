@@ -8,9 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.shashank.sony.fancytoastlib.FancyToast;
+
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.presenter.SearchPresenter;
 import twb.conwaybrian.com.twbandroid.view.SearchView;
+
+import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
 
 public class SearchFragment extends Fragment implements SearchView {
     private SearchPresenter searchPresenter;
@@ -21,5 +25,10 @@ public class SearchFragment extends Fragment implements SearchView {
         View view=inflater.inflate(R.layout.fragment_search,container,false);
         searchPresenter=new SearchPresenter(this);
         return view;
+    }
+    @Override
+    public void onSetMessage(String message, int type) {
+
+        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
     }
 }

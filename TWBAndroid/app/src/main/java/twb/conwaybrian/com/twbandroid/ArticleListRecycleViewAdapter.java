@@ -1,21 +1,27 @@
 package twb.conwaybrian.com.twbandroid;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Context;
+import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+
+import java.util.ArrayList;
 import java.util.List;
 import twb.conwaybrian.com.twbandroid.model.Article;
+import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
+
 public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleListRecycleViewAdapter.ViewHolder> {
 
     public List<Article> getArticleList() {
@@ -23,33 +29,43 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
     }
 
     private List<Article> articleList;
+    private Context context;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView titleTextView;
         private TextView previewTextView;
         private TextView pointsTextView;
         private TextView viewsTextView;
+        private TextView commentCountTextView;
         private ImageView articleImageView;
+        private ImageView pointsImageView;
+        private CardView cardView;
+        private ConstraintLayout constraintLayout;
 
 
         public ViewHolder(View v) {
             super(v);
-            titleTextView=v.findViewById(R.id.title_textview);
+            titleTextView=v.findViewById(R.id.title_textView);
             previewTextView=v.findViewById(R.id.preview_textView);
             pointsTextView=v.findViewById(R.id.points_textView);
-            viewsTextView=v.findViewById(R.id.views_textview);
+            viewsTextView=v.findViewById(R.id.views_textView);
+            commentCountTextView=v.findViewById(R.id.comment_count_textView);
             articleImageView=v.findViewById(R.id.article_imageView);
+            pointsImageView=v.findViewById(R.id.points_imageView);
+            cardView=v.findViewById(R.id.card_view);
+            constraintLayout=v.findViewById(R.id.layout);
         }
     }
 
-    public ArticleListRecycleViewAdapter(List<Article> articleList) {
+    public ArticleListRecycleViewAdapter(Context context,List<Article> articleList) {
+        this.context=context;
         this.articleList = articleList;
     }
 
     @Override
     public ArticleListRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_article, parent, false);
+                .inflate(R.layout.item_article_preview, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
@@ -58,19 +74,57 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.titleTextView.setText(articleList.get(position).getTitle());
-        holder.previewTextView.setText(articleList.get(position).getContent());
-        holder.pointsTextView.setText(String.valueOf(articleList.get(position).getPoints()));
-        holder.viewsTextView.setText(String.valueOf(articleList.get(position).getViews()));
-//        if(articleList.get(position).getImages().isEmpty())
-//            holder.articleImageView.setVisibility(View.GONE);
-//        else
-//            Picasso.get().load(articleList.get(position).getImages().get(0)).into(holder.articleImageView);
-//        Picasso.get().load("http://cdn.journaldev.com/wp-content/uploads/2016/11/android-image-picker-project-structure.png").resize(80,80).into(holder.articleImageView);
 
-        Picasso.get().load("https://pbs.twimg.com/profile_images/941322358245154816/tF4dPHrS.jpg").into(holder.articleImageView);
+        final Article article=articleList.get(position);
+        holder.titleTextView.setText(article.getTitle());
+        holder.previewTextView.setText(article.getContent());
+        holder.pointsTextView.setText(String.valueOf(article.getPoints()));
+        holder.viewsTextView.setText(String.valueOf(article.getViews()));
+        holder.commentCountTextView.setText(String.valueOf(article.getCommentCount()));
+
+        if(article.getPoints()<0){
+            holder.pointsImageView.setImageResource(R.drawable.dislike);
+        }else if(article.getPoints()>0){
+         holder.pointsImageView.setImageResource(R.drawable.like);
+        }else {
+            holder.pointsImageView.setImageResource(R.drawable.no_like);
+        }
+
+        if(articleList.get(position).getImages()==null || articleList.get(position).getImages().isEmpty()){
+            holder.articleImageView.setVisibility(View.GONE);
+            if(articleList.get(position).getImages()==null)articleList.get(position).setImages(new ArrayList<String>());
+        }
+        else
+        {
+            holder.articleImageView.setVisibility(View.VISIBLE);
+//            Picasso.get().load(article.getImages().get(0)).into(holder.articleImageView);
+            Glide.with(context).load(article.getImages().get(0)).into(holder.articleImageView);
+        }
 
 
+//        Picasso.get().load("https://i.imgur.com/0tb9ofV.jpg").into(holder.articleImageView);
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context,ArticleActivity.class);
+                intent.putExtra(ArticlePresenter.ARTICLE_ID,article.getTitle());
+                intent.putExtra(ArticlePresenter.ARTICLE_CONTENT,article.getContent());
+                intent.putExtra(ArticlePresenter.ARTICLE_POINTS,String.valueOf(article.getPoints()));
+                intent.putExtra(ArticlePresenter.ARTICLE_VIEWS,String.valueOf(article.getViews()));
+                intent.putExtra(ArticlePresenter.ARTICLE_COMMENT_COUNT,String.valueOf(article.getCommentCount()));
+                intent.putExtra(ArticlePresenter.ARTICLE_IMAGES,article.getImages().toArray(new String[article.getImages().size()]));
+                context.startActivity(intent);
+            }
+        });
+
+
+
+    }
+
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
     @Override
