@@ -70,36 +70,35 @@ public class UploadPresenter extends TWBPresenter {
     }
 
     public void post(String title, String content){
-        if(isLogin()) {
-
-
-            article.setTitle(title);
-            article.setContent(content);
-            article.setUserId(user.getUserId());
-            article.setCreateTime(new Date());
-            uploadImages();
-
+        if (title.isEmpty() || content.isEmpty()){
+            
         }else {
-            uploadView.onPostArticle(false);
-            if (userListener!=null)userListener.toLoginPage();
+            if (isLogin()) {
+                article.setTitle(title);
+                article.setContent(content);
+                article.setUserId(user.getUserId());
+                article.setCreateTime(new Date());
+                uploadImages();
+
+            } else {
+                uploadView.onPostArticle(false);
+                if (userListener != null) userListener.toLoginPage();
+            }
         }
     }
 
     public void clear(){
         uploadView.onClearText();
+        imageViewsRecycleViewAdapter.clear();
     }
 
     public void setProgressBarVisibility(int visibility){
         uploadView.onSetProgressBarVisibility(visibility);
     }
 
-    public void addImage(String imageFile){
-        if(!images.contains(imageFile)) images.add(imageFile);
-        imageViewsRecycleViewAdapter.notifyDataSetChanged();
-    }
-    public void addImage(Uri uri){
-        addImage(getRealFilePath(context,uri));
 
+    public void addImage(Uri uri){
+        imageViewsRecycleViewAdapter.addImage(uri);
     }
 
     public void setImageViewsRecycleViewAdapter() {
@@ -140,27 +139,5 @@ public class UploadPresenter extends TWBPresenter {
         }
     }
 
-    public static String getRealFilePath(final Context context, final Uri uri ) {
-        if ( null == uri ) return null;
-        final String scheme = uri.getScheme();
-        String data = null;
-        if ( scheme == null )
-            data = uri.getPath();
-        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
-            data = uri.getPath();
-        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
-            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
-            if ( null != cursor ) {
-                if ( cursor.moveToFirst() ) {
-                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
-                    if ( index > -1 ) {
-                        data = cursor.getString( index );
-                    }
-                }
-                cursor.close();
-            }
-        }
-        return data;
-    }
 
 }

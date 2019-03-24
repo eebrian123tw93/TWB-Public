@@ -1,6 +1,10 @@
 package twb.conwaybrian.com.twbandroid;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -62,27 +66,47 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-
-
-//        if(articleList.get(position).getImages().isEmpty())
-//            holder.articleImageView.setVisibility(View.GONE);
-//        else
-//            Picasso.get().load(articleList.get(position).getImages().get(0)).into(holder.articleImageView);
-//        Picasso.get().load("http://cdn.journaldev.com/wp-content/uploads/2016/11/android-image-picker-project-structure.png").resize(80,80).into(holder.articleImageView);
-
-//        Picasso.get().load("https://pbs.twimg.com/profile_images/941322358245154816/tF4dPHrS.jpg").into(holder.imageView);
-//        Picasso.get().load(new File(images.get(position))).into(holder.imageView);
-
         Glide.with(context).load(images.get(position)).into(holder.imageView);
-
-
-
-
-
     }
 
     @Override
     public int getItemCount() {
         return images.size();
+    }
+
+    public void addImage(String  imageFile){
+        if(!images.contains(imageFile)) images.add(imageFile);
+        notifyDataSetChanged();
+    }
+    public void addImage(Uri uri){
+        addImage(getRealFilePath(context,uri));
+    }
+
+    public void clear(){
+        images.clear();
+        notifyDataSetChanged();
+    }
+
+    public static String getRealFilePath(final Context context, final Uri uri ) {
+        if ( null == uri ) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if ( scheme == null )
+            data = uri.getPath();
+        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+            data = uri.getPath();
+        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
+            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
+            if ( null != cursor ) {
+                if ( cursor.moveToFirst() ) {
+                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
+                    if ( index > -1 ) {
+                        data = cursor.getString( index );
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
     }
 }
