@@ -30,7 +30,7 @@ public class ArticlePresenter extends TWBPresenter {
         article.setViews(Integer.valueOf(views));
         article.setCommentCount(Integer.valueOf(commentCount));
         article.getImages().addAll(Arrays.asList(images));
-        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,article.getImages());
+        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,article.getImages(),ImageViewsRecycleViewAdapter.Type.VIEW);
 
         articleView.onSetArticle(article.getTitle(),article.getContent(),String.valueOf(article.getPoints()),String.valueOf(article.getViews()),String.valueOf(article.getCommentCount()));
         articleView.onSetImageViewAdapter(imageViewsRecycleViewAdapter);

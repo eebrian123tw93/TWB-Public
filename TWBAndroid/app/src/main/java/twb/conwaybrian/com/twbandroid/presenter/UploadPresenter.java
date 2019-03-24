@@ -38,7 +38,7 @@ public class UploadPresenter extends TWBPresenter {
         this.uploadView=uploadView;
         article = new Article();
         images=new ArrayList<>();
-        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,images);
+        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,images,ImageViewsRecycleViewAdapter.Type.EDIT);
     }
     public  void uploadImages(){
 
@@ -53,8 +53,7 @@ public class UploadPresenter extends TWBPresenter {
                                 @Override
                                 public void success(ImgurResponse<Image> imageImgurResponse, retrofit.client.Response response) {
                                     if(imageImgurResponse.success) {
-
-                                        postArticle(imageImgurResponse.data.getLink());
+                                        if(checkAllImagesUploaded(imageImgurResponse.data.getLink()))postArticle();
                                     }
                                 }
 
@@ -70,8 +69,12 @@ public class UploadPresenter extends TWBPresenter {
     }
 
     public void post(String title, String content){
-        if (title.isEmpty() || content.isEmpty()){
-            
+        if (title.isEmpty() ){
+            uploadView.onSetMessage("title empty");
+            uploadView.onPostArticle(false);
+        }else if(content.isEmpty()){
+            uploadView.onSetMessage("content empty");
+            uploadView.onPostArticle(false);
         }else {
             if (isLogin()) {
                 article.setTitle(title);
@@ -81,6 +84,7 @@ public class UploadPresenter extends TWBPresenter {
                 uploadImages();
 
             } else {
+                uploadView.onSetMessage("Login first");
                 uploadView.onPostArticle(false);
                 if (userListener != null) userListener.toLoginPage();
             }
@@ -105,38 +109,40 @@ public class UploadPresenter extends TWBPresenter {
         uploadView.onSetImageViewAdapter(imageViewsRecycleViewAdapter);
     }
 
-    public synchronized void postArticle(String link){
+    private void postArticle(){
+        Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    uploadView.onPostArticle(true);
+                }else {
+
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        ShuoApiService.getInstance().postArticle(observer, user, article, false);
+    }
+
+    public synchronized boolean checkAllImagesUploaded(String link){
         article.getImages().add(link);
         System.out.println(images.size());
         System.out.println(article.getImages().size());
-        if(article.getImages().size()==images.size()){
-            Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
-                @Override
-                public void onSubscribe(Disposable d) {
-
-                }
-
-                @Override
-                public void onNext(Response<ResponseBody> response) {
-                    if (response.isSuccessful()) {
-                        uploadView.onPostArticle(true);
-                    }else {
-
-                    }
-                }
-
-                @Override
-                public void onError(Throwable e) {
-
-                }
-
-                @Override
-                public void onComplete() {
-
-                }
-            };
-            ShuoApiService.getInstance().postArticle(observer, user, article, false);
-        }
+        return article.getImages().size()==images.size();
     }
 
 

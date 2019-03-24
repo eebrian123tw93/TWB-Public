@@ -21,17 +21,23 @@ import java.util.List;
 
 public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageViewsRecycleViewAdapter.ViewHolder> {
 
+    public enum Type{
+        VIEW,EDIT
+    }
+
     public List<String> getImages() {
         return images;
     }
 
     private List<String> images;
     private Context context;
+    private Type type;
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageView;
+        private ImageView cancelImageView;
 
         private CardView cardView;
 
@@ -40,14 +46,15 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
             super(v);
 
             imageView=v.findViewById(R.id.imageView);
-
+            cancelImageView=v.findViewById(R.id.cancel_imageView);
             cardView=v.findViewById(R.id.card_view);
         }
     }
 
-    public ImageViewsRecycleViewAdapter(Context context,List<String> images) {
+    public ImageViewsRecycleViewAdapter(Context context,List<String> images,Type type) {
         this.context=context;
         this.images = images;
+        this.type=type;
 
     }
 //    public ImageViewsRecycleViewAdapter(Context context,List<String> images) {
@@ -65,8 +72,22 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
 
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder,final int position) {
         Glide.with(context).load(images.get(position)).into(holder.imageView);
+
+        switch (type){
+            case EDIT:
+                holder.cancelImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        removeImage(position);
+                    }
+                });
+                break;
+            case VIEW:
+                holder.cancelImageView.setVisibility(View.GONE);
+                break;
+        }
     }
 
     @Override
@@ -80,6 +101,11 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
     }
     public void addImage(Uri uri){
         addImage(getRealFilePath(context,uri));
+    }
+
+    public void removeImage(int position){
+        images.remove(position);
+        notifyDataSetChanged();
     }
 
     public void clear(){

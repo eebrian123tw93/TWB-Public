@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 
 import com.asksira.bsimagepicker.BSImagePicker;
 import com.asksira.bsimagepicker.Utils;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -162,6 +165,18 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
     @Override
     public void onSetImageViewAdapter(ImageViewsRecycleViewAdapter adapter) {
         imageViewsRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onSetMessage(String message) {
+        Drawable d = getResources().getDrawable(R.drawable.warning);
+        Bitmap b = ((BitmapDrawable)d).getBitmap();
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 100, 100, false);
+        new LovelyInfoDialog(getContext())
+                .setTopColorRes(R.color.images_view_recycler_bg)
+                .setIcon(bitmapResized)
+                .setMessage(message)
+                .show();
     }
 
     @Override

@@ -7,4 +7,5 @@ public interface UploadView {
     public void onClearText();
     public void onSetProgressBarVisibility(int visibility);
     public void onSetImageViewAdapter(ImageViewsRecycleViewAdapter adapter);
+    public void onSetMessage(String message);
 }
