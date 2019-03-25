@@ -96,6 +96,12 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
         refreshLayout.finishRefreshing();
         refreshLayout.finishLoadmore();
     }
+
+    @Override
+    public void onSetArticleListRecyclerAdapter(RecyclerView.Adapter adapter) {
+        
+    }
+
     @Override
     public void onSetMessage(String message, int type) {
         FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
