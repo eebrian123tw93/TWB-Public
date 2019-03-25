@@ -11,10 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.shashank.sony.fancytoastlib.FancyToast;
+
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.model.User;
 import twb.conwaybrian.com.twbandroid.presenter.ProfilePresenter;
 import twb.conwaybrian.com.twbandroid.view.ProfileView;
+
+import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
 
 public class ProfileFragment extends Fragment  implements ProfileView,View.OnClickListener {
 
@@ -53,5 +57,11 @@ public class ProfileFragment extends Fragment  implements ProfileView,View.OnCli
     @Override
     public void onSetUserId(String userId) {
         userIdTextView.setText(userId);
+    }
+
+    @Override
+    public void onSetMessage(String message, int type) {
+
+        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
     }
 }

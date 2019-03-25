@@ -1,4 +1,19 @@
 package twb.conwaybrian.com.twbandroid.view;
 
-public interface ArticleView {
+import android.support.v7.widget.RecyclerView;
+
+import twb.conwaybrian.com.twbandroid.ImageViewsRecycleViewAdapter;
+
+public interface ArticleView extends TWBView {
+    public void onSetProgressBarVisibility(int visibility);
+    public void onSetImageViewAdapter(RecyclerView.Adapter adapter);
+    public void onSetCommentViewAdapter(RecyclerView.Adapter adapter);
+    public void onSetArticle(String title,String content,String points,String views,String commentCount);
+    public void onSetTitle(String title);
+    public void onSetContent(String content);
+    public void onSetPoints(String points);
+    public void onSetViews(String views);
+    public void onSetCommentCount(String commentCount);
+    public void onSetPointsImageView(int res);
+
 }

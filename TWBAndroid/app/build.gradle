@@ -67,4 +67,10 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
+    implementation 'com.yarolegovich:lovely-dialog:1.1.0'
+//    implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1'
+
+    implementation 'com.github.Shashank02051997:FancyToast-Android:0.1.3'
+
+
 }

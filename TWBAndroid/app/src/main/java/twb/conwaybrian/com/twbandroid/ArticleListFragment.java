@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 
 import java.util.ArrayList;
@@ -94,5 +95,9 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
     public void onFinishRefreshOrLoad() {
         refreshLayout.finishRefreshing();
         refreshLayout.finishLoadmore();
+    }
+    @Override
+    public void onSetMessage(String message, int type) {
+        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
     }
 }

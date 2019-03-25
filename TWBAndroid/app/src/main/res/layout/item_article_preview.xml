@@ -11,10 +11,12 @@
     android:layout_margin="5dp">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="120dp">
 
         <LinearLayout
+            android:id="@+id/linearlayout"
             android:layout_width="0dp"
             android:layout_height="110dp"
             android:layout_marginStart="8dp"
@@ -50,6 +52,7 @@
                 android:textAlignment="viewStart" />
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/inner_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

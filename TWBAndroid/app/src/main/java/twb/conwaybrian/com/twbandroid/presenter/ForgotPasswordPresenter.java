@@ -1,6 +1,9 @@
 package twb.conwaybrian.com.twbandroid.presenter;
 
 import android.graphics.Color;
+import android.view.View;
+
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -17,8 +20,8 @@ public class ForgotPasswordPresenter extends TWBPresenter {
     }
     public void doForgotPassword(final String email){
         if(email.isEmpty()){
-            forgotPasswordView.onMessage("email is empty");
-            forgotPasswordView.onSetMessageColor(Color.RED);
+            forgotPasswordView.onForgotPassword(false);
+            forgotPasswordView.onSetMessage("Email cant not be empty",FancyToast.ERROR);
         }else {
             Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
                 @Override
@@ -31,21 +34,19 @@ public class ForgotPasswordPresenter extends TWBPresenter {
 
                     if(response.isSuccessful()){
                         forgotPasswordView.onForgotPassword(true);
-                        forgotPasswordView.onMessage("請至" + email + "獲取密碼");
-                        forgotPasswordView.onSetMessageColor(Color.GREEN);
+                        forgotPasswordView.onSetMessage("請至" + email + "獲取密碼",FancyToast.SUCCESS);
                     }else {
                         forgotPasswordView.onForgotPassword(false);
-                        forgotPasswordView.onMessage("查無此email");
-                        forgotPasswordView.onSetMessageColor(Color.RED);
+                        forgotPasswordView.onSetMessage("查無此email",FancyToast.ERROR);
+
                     }
                 }
 
                 @Override
                 public void onError(Throwable e) {
                     forgotPasswordView.onForgotPassword(false);
-                    forgotPasswordView.onMessage(e.getMessage());
-                    forgotPasswordView.onSetMessageColor(Color.RED);
 
+                    forgotPasswordView.onSetMessage(e.getMessage(),FancyToast.ERROR);
                 }
 
                 @Override

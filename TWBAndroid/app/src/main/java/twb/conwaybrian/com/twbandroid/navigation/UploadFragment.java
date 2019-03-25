@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,13 +27,12 @@ import android.widget.Toast;
 
 import com.asksira.bsimagepicker.BSImagePicker;
 import com.asksira.bsimagepicker.Utils;
+import com.shashank.sony.fancytoastlib.FancyToast;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.List;
 
-import pl.aprilapps.easyphotopicker.DefaultCallback;
-import pl.aprilapps.easyphotopicker.EasyImage;
 import twb.conwaybrian.com.twbandroid.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.presenter.UploadPresenter;
@@ -73,7 +72,7 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
         galleryImageView.setOnClickListener(this);
 
         uploadPresenter=new UploadPresenter(this);
-        uploadPresenter.setProgressBarVisibility(View.INVISIBLE);
+        uploadPresenter.setProgressBarVisibility(View.GONE);
         uploadPresenter.setImageViewsRecycleViewAdapter();
 
         return view;
@@ -85,7 +84,7 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
             case R.id.post_imageView:
                 postImageView.setEnabled(false);
                 uploadPresenter.setProgressBarVisibility(View.VISIBLE);
-                uploadPresenter.postArticle(titleEditText.getText().toString(),contentEditText.getText().toString());
+                uploadPresenter.post(titleEditText.getText().toString(),contentEditText.getText().toString());
                 break;
             case R.id.camera_imageView:
                 BSImagePicker singleSelectionPicker = new BSImagePicker.Builder("twb.conwaybrian.com.twbandroid.fileprovider")
@@ -146,10 +145,10 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
     @Override
     public void onPostArticle(boolean result) {
         postImageView.setEnabled(true);
-        uploadPresenter.setProgressBarVisibility(View.INVISIBLE);
+        uploadPresenter.setProgressBarVisibility(View.GONE);
         if(result){
             uploadPresenter.clear();
-            Toast.makeText(getContext(),"post success",Toast.LENGTH_SHORT).show();
+            onSetMessage("Post success",FancyToast.SUCCESS);
         }
     }
 
@@ -167,6 +166,11 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
     @Override
     public void onSetImageViewAdapter(ImageViewsRecycleViewAdapter adapter) {
         imageViewsRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onSetMessage(String message,int type) {
+        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
     }
 
     @Override

@@ -4,194 +4,212 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/refreshLayout"
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content">
 
-        >
-        <LinearLayout
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="0dp"
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_view"
+            card_view:layout_constraintTop_toTopOf="parent">
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                card_view:cardCornerRadius="2dp">
+                android:layout_height="match_parent">
 
-                <android.support.constraint.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_view"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="20dp"
-                        android:orientation="vertical"
-                        card_view:layout_constraintBottom_toBottomOf="parent"
-                        card_view:layout_constraintEnd_toEndOf="parent"
-                        card_view:layout_constraintStart_toStartOf="parent"
-                        card_view:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/title_textView"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:gravity="center_vertical"
-                            android:text="title"
-                            android:textSize="30sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/content_textView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:gravity="top"
-                            android:lines="10"
-
-                            android:text="preview" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/imageViews_recyclerView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone" />
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        card_view:cardCornerRadius="10dp">
 
                         <android.support.constraint.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="5dp">
+                            android:layout_height="wrap_content">
 
-                            <ImageView
-                                android:id="@+id/points_imageView"
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="20dp"
+                                android:orientation="vertical"
                                 card_view:layout_constraintBottom_toBottomOf="parent"
+                                card_view:layout_constraintEnd_toEndOf="parent"
                                 card_view:layout_constraintStart_toStartOf="parent"
-                                card_view:layout_constraintTop_toTopOf="parent"
-                                card_view:srcCompat="@drawable/like" />
+                                card_view:layout_constraintTop_toTopOf="parent">
 
-                            <TextView
-                                android:id="@+id/points_textView"
-                                android:layout_width="50dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="99999"
-                                android:textSize="18sp"
-                                app:layout_constraintStart_toEndOf="@+id/points_imageView"
+                                <TextView
+                                    android:id="@+id/title_textView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:gravity="center_vertical"
+                                    android:text="title"
+                                    android:textSize="30sp"
+                                    android:textStyle="bold" />
 
-                                card_view:layout_constraintBottom_toBottomOf="parent"
-                                card_view:layout_constraintTop_toTopOf="parent" />
+                                <TextView
+                                    android:id="@+id/content_textView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:gravity="top"
 
-                            <ImageView
-                                android:id="@+id/views_imageView"
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:layout_marginStart="8dp"
-                                card_view:layout_constraintBottom_toBottomOf="parent"
-                                card_view:layout_constraintStart_toEndOf="@+id/points_textView"
-                                card_view:layout_constraintTop_toTopOf="parent"
-                                card_view:srcCompat="@drawable/view" />
 
-                            <TextView
-                                android:id="@+id/views_textView"
-                                android:layout_width="60dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="999999"
-                                android:textSize="18sp"
-                                app:layout_constraintStart_toEndOf="@+id/views_imageView"
+                                    android:text="preview" />
 
-                                card_view:layout_constraintBottom_toBottomOf="parent"
-                                card_view:layout_constraintTop_toTopOf="parent" />
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/imageViews_recyclerView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="visible" />
 
-                            <ImageView
-                                android:id="@+id/comment_imageView"
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:layout_marginStart="8dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/views_textView"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/chat" />
+                                <android.support.constraint.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="5dp">
 
-                            <TextView
-                                android:id="@+id/comment_count_textView"
-                                android:layout_width="50dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="99999"
-                                android:textSize="18sp"
-                                app:layout_constraintStart_toEndOf="@+id/comment_imageView"
-                                card_view:layout_constraintBottom_toBottomOf="parent"
+                                    <ImageView
+                                        android:id="@+id/points_imageView"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:layout_marginStart="8dp"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintStart_toStartOf="parent"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:srcCompat="@drawable/no_like" />
 
-                                card_view:layout_constraintTop_toTopOf="parent" />
+                                    <TextView
+                                        android:id="@+id/points_textView"
+                                        android:layout_width="50dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:text="99999"
+                                        android:textSize="18sp"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+
+                                        card_view:layout_constraintStart_toEndOf="@+id/points_imageView"
+                                        card_view:layout_constraintTop_toTopOf="parent" />
+
+                                    <ImageView
+                                        android:id="@+id/views_imageView"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:layout_marginStart="8dp"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintStart_toEndOf="@+id/points_textView"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:srcCompat="@drawable/view" />
+
+                                    <TextView
+                                        android:id="@+id/views_textView"
+                                        android:layout_width="60dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:text="999999"
+                                        android:textSize="18sp"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+
+                                        card_view:layout_constraintStart_toEndOf="@+id/views_imageView"
+                                        card_view:layout_constraintTop_toTopOf="parent" />
+
+                                    <ImageView
+                                        android:id="@+id/comment_imageView"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:layout_marginStart="8dp"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintStart_toEndOf="@+id/views_textView"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:srcCompat="@drawable/chat" />
+
+                                    <TextView
+                                        android:id="@+id/comment_count_textView"
+                                        android:layout_width="50dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:text="99999"
+                                        android:textSize="18sp"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintStart_toEndOf="@+id/comment_imageView"
+
+                                        card_view:layout_constraintTop_toTopOf="parent" />
+                                </android.support.constraint.ConstraintLayout>
+
+                            </LinearLayout>
+
                         </android.support.constraint.ConstraintLayout>
 
-                    </LinearLayout>
+                    </android.support.v7.widget.CardView>
 
-                </android.support.constraint.ConstraintLayout>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/comment_recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/comment_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
 
 
-    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
-
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#fff">
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="@string/insert_comment"
-            android:inputType="text"
-            android:paddingHorizontal="10dp"
-            android:text=""
-            android:textSize="25dp"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintEnd_toStartOf="@+id/imageView3"
-            card_view:layout_constraintHorizontal_bias="0.5"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#fff"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"
-            card_view:srcCompat="@drawable/send" />
+            card_view:layout_constraintHorizontal_bias="0.5"
+            card_view:layout_constraintStart_toStartOf="parent">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="@string/insert_comment"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:text=""
+                android:textSize="25dp"
+
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toStartOf="@+id/imageView3"
+                card_view:layout_constraintHorizontal_bias="0.5"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:srcCompat="@drawable/send" />
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
+
 
 </RelativeLayout>

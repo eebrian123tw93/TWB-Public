@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.shashank.sony.fancytoastlib.FancyToast;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.ResponseBody;
@@ -28,11 +30,12 @@ public class LoginPresenter extends TWBPresenter {
     }
     public void doLogin(String username,String password){
         if(username.isEmpty()){
-            loginView.onMessage("Username empty");
-            loginView.onSetMessageColor(Color.RED);
+            loginView.onSetMessage("Username cant not be empty",FancyToast.ERROR);
+            loginView.onLoginResult(false);
         }else if(password.isEmpty()){
-            loginView.onMessage("Password empty");
-            loginView.onSetMessageColor(Color.RED);
+
+            loginView.onSetMessage("Password cant not be empty",FancyToast.ERROR);
+            loginView.onLoginResult(false);
         }else {
             Observer<Response<ResponseBody>>observer=new Observer<Response<ResponseBody>>() {
                 @Override
@@ -45,14 +48,12 @@ public class LoginPresenter extends TWBPresenter {
                     if(response.isSuccessful()){
                         saveUser(user);
                         loginView.onLoginResult(true);
-                        loginView.onMessage("Login Success");
-                        loginView.onSetMessageColor(Color.GREEN);
+                        loginView.onSetMessage("Login Success",FancyToast.SUCCESS);
                         if(userListener!=null)userListener.onLogin();
 
                     }else {
                         loginView.onLoginResult(false);
-                        loginView.onMessage("Login Failed");
-                        loginView.onSetMessageColor(Color.RED);
+                        loginView.onSetMessage("Login Failed",FancyToast.ERROR);
                     }
                 }
 

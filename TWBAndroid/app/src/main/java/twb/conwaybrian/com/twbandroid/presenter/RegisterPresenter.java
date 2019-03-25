@@ -1,6 +1,9 @@
 package twb.conwaybrian.com.twbandroid.presenter;
 
 import android.graphics.Color;
+
+import com.shashank.sony.fancytoastlib.FancyToast;
+
 import java.io.IOException;
 
 import io.reactivex.Observer;
@@ -26,14 +29,17 @@ public class RegisterPresenter  extends TWBPresenter{
     public void doRegister(String username,String password,String email){
 
         if(username.isEmpty()){
-            registerView.onMessage("username empty");
-            registerView.onSetMessageColor(Color.RED);
+            registerView.onSetMessage("Username can not be empty",FancyToast.ERROR);
+            registerView.onRegisterResult(false);
+
         }else if(password.isEmpty()){
-            registerView.onMessage("password empty");
-            registerView.onSetMessageColor(Color.RED);
+            registerView.onSetMessage("Password can not be empty",FancyToast.ERROR);
+            registerView.onRegisterResult(false);
+
         }else if(email.isEmpty()){
-            registerView.onMessage("email empty");
-            registerView.onSetMessageColor(Color.RED);
+            registerView.onSetMessage("E-mail can not be empty",FancyToast.ERROR);
+            registerView.onRegisterResult(false);
+
         }else {
 
             Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
@@ -46,14 +52,14 @@ public class RegisterPresenter  extends TWBPresenter{
                 public void onNext(Response<ResponseBody> response) {
                     if(response.isSuccessful()){
                         registerView.onRegisterResult(true);
-                        registerView.onMessage("Register Successfully");
-                        registerView.onSetMessageColor(Color.GREEN);
+                        registerView.onSetMessage("Register Success",FancyToast.SUCCESS);
+
                     }else {
                         try {
                             String responseString=response.errorBody().string();
+
                             registerView.onRegisterResult(false);
-                            registerView.onMessage(responseString);
-                            registerView.onSetMessageColor(Color.RED);
+                            registerView.onSetMessage(responseString,FancyToast.ERROR);
                         } catch (IOException e) {
                             e.printStackTrace();
                             onError(e);
@@ -63,8 +69,7 @@ public class RegisterPresenter  extends TWBPresenter{
 
                 @Override
                 public void onError(Throwable e) {
-                    registerView.onMessage(e.getMessage());
-                    registerView.onSetMessageColor(Color.RED);
+                    registerView.onSetMessage(e.getMessage(),FancyToast.ERROR);
                 }
 
                 @Override
