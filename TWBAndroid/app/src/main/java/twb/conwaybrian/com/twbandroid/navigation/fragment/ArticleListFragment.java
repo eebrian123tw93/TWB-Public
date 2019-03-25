@@ -73,7 +73,7 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
 
         return view;
     }
-    
+
     @Override
     public void onFinishRefreshOrLoad() {
         refreshLayout.finishRefreshing();
