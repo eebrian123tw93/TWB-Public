@@ -54,4 +54,9 @@ public class ArticlePresenter extends TWBPresenter {
 
     }
 
+    public void sendComment(String comment){
+
+    }
+
+
 }

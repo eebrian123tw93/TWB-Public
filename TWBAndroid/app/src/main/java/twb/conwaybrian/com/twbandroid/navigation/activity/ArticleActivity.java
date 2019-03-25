@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -21,7 +23,7 @@ import twb.conwaybrian.com.twbandroid.view.ArticleView;
 
 import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
 
-public class ArticleActivity extends AppCompatActivity implements ArticleView {
+public class ArticleActivity extends AppCompatActivity implements ArticleView,View.OnClickListener {
 
     private ArticlePresenter articlePresenter;
 
@@ -33,6 +35,9 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
     private RecyclerView imageViewsRecyclerView;
     private RecyclerView commentRecyclerView;
     private ReactButton pointsReactButton;
+
+    private ImageView sendImageView;
+    private EditText commentEditView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +59,8 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
         imageViewsRecyclerView=findViewById(R.id.imageViews_recyclerView);
         commentRecyclerView=findViewById(R.id.comment_recyclerView);
         pointsReactButton =findViewById(R.id.points_reactButton);
+        sendImageView=findViewById(R.id.send_imageView);
+        commentEditView=findViewById(R.id.comment_editText);
 
 
 
@@ -74,6 +81,8 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
             }
         });
 
+
+        sendImageView.setOnClickListener(this);
 
         final LinearLayoutManager imageViewRecyclerLayoutManager = new LinearLayoutManager(getContext());
         imageViewRecyclerLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -150,8 +159,34 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
     }
 
     @Override
-    public void onSetPointsImageView(int res) {
-        pointsReactButton.setCurrentReaction(new Reaction(Reaction.Type.LIKE,res));
+    public void onSetPointsImageView(Reaction.Type type) {
+        int res=0;
+        switch (type){
+            case LIKE:
+                res=R.drawable.like;
+                break;
+            case DISLIKE:
+                res=R.drawable.dislike;
+                break;
+            case NO_LIKE:
+                res=R.drawable.no_like;
+                break;
+            case LIKE_COLOR:
+                res=R.drawable.like_color;
+                break;
+            case DISLIKE_COLOR:
+                res=R.drawable.dislike_color;
+                break;
+            case NO_LIKE_COLORS:
+                res=R.drawable.no_like_color;
+                break;
+            default:
+                res=R.drawable.no_like;
+                break;
+        }
+        TWBReactions.defaultReact.setReactIconId(res);
+        TWBReactions.defaultReact.setType(type);
+        pointsReactButton.setCurrentReaction(new Reaction(type,res));
     }
     @Override
     public void onSetDefaultPointsImageView(Reaction.Type type) {
@@ -188,5 +223,14 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
     public void onSetMessage(String message, int type) {
 
         FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.send_imageView:
+                articlePresenter.sendComment(commentEditView.getText().toString());
+            break;
+        }
     }
 }

@@ -14,6 +14,6 @@ public interface ArticleView extends TWBView {
     public void onSetPoints(String points);
     public void onSetViews(String views);
     public void onSetCommentCount(String commentCount);
-    public void onSetPointsImageView(int res);
+    public void onSetPointsImageView(Reaction.Type type);
     public void onSetDefaultPointsImageView(Reaction.Type type);
 }
