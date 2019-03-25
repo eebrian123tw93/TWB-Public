@@ -84,7 +84,7 @@ public class LoginFragment extends Fragment implements LoginView , View.OnClickL
 
     @Override
     public void onLoginResult(boolean result) {
-        loginPresenter.setProgressBarVisibility(View.GONE);
+        loginPresenter.setProgressBarVisibility(View.INVISIBLE);
         loginButton.setEnabled(true);
         clearButton.setEnabled(true);
         forgetPasswordButton.setEnabled(true);
