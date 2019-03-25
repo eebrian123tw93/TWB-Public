@@ -59,7 +59,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
         imageViewsRecyclerView=findViewById(R.id.imageViews_recyclerView);
         commentRecyclerView=findViewById(R.id.comment_recyclerView);
         pointsReactButton =findViewById(R.id.points_reactButton);
-        sendImageView=findViewById(R.id.send_imageView);
+        sendImageView=findViewById(R.id.send_button);
         commentEditView=findViewById(R.id.comment_editText);
 
 
