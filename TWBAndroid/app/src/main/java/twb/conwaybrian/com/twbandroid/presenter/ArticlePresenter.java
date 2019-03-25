@@ -44,11 +44,11 @@ public class ArticlePresenter extends TWBPresenter {
         articleView.onSetImageViewAdapter(imageViewsRecycleViewAdapter);
 
         if(article.getPoints()>0){
-            articleView.onSetPointsImageView(R.drawable.like);
+            articleView.onSetDefaultPointsImageView(R.drawable.like);
         }else if(article.getPoints()<0){
-            articleView.onSetPointsImageView(R.drawable.dislike);
+            articleView.onSetDefaultPointsImageView(R.drawable.dislike);
         }else {
-            articleView.onSetPointsImageView(R.drawable.no_like);
+            articleView.onSetDefaultPointsImageView(R.drawable.no_like);
         }
 
     }

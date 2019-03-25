@@ -1,20 +1,22 @@
 package twb.conwaybrian.com.twbandroid.navigation.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import com.bumptech.glide.Glide;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
+import twb.conwaybrian.com.twbandroid.reactbutton.ReactButton;
+import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
+import twb.conwaybrian.com.twbandroid.reactbutton.TWBReactions;
 import twb.conwaybrian.com.twbandroid.view.ArticleView;
 
 import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
@@ -30,7 +32,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
     private TextView commentCountTextView;
     private RecyclerView imageViewsRecyclerView;
     private RecyclerView commentRecyclerView;
-    private ImageView pointsImageView;
+    private ReactButton pointsReactButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,26 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
         commentCountTextView=findViewById(R.id.comment_count_textView);
         imageViewsRecyclerView=findViewById(R.id.imageViews_recyclerView);
         commentRecyclerView=findViewById(R.id.comment_recyclerView);
-        pointsImageView=findViewById(R.id.points_imageView);
+        pointsReactButton =findViewById(R.id.points_reactButton);
+
+
+
+        pointsReactButton.setReactClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Your Code
+//                System.out.println(pointsReactButton.getCurrentReaction().getReactText());
+
+            }
+        });
+        pointsReactButton.setReactDismissListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //Your Code
+                System.out.println(pointsReactButton.getCurrentReaction().getReactText());
+                return false;
+            }
+        });
 
 
         final LinearLayoutManager imageViewRecyclerLayoutManager = new LinearLayoutManager(getContext());
@@ -65,6 +86,8 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
 
 
         articlePresenter=new ArticlePresenter(this,getIntent());
+
+
     }
 
     @Override
@@ -128,7 +151,12 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
 
     @Override
     public void onSetPointsImageView(int res) {
-        Glide.with(this).load(getDrawable(res)).into(pointsImageView);
+        pointsReactButton.setCurrentReaction(new Reaction("","",res));
+    }
+    @Override
+    public void onSetDefaultPointsImageView(int res) {
+        TWBReactions.defaultReact.setReactIconId(res);
+        pointsReactButton.setDefaultReaction(TWBReactions.defaultReact);
     }
 
     @Override

@@ -43,7 +43,7 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="20dp"
                                 android:layout_marginEnd="8dp"
-                                android:layout_marginBottom="20dp"
+                                android:layout_marginBottom="5dp"
                                 android:orientation="vertical"
                                 card_view:layout_constraintBottom_toBottomOf="parent"
                                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -82,16 +82,17 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_margin="5dp">
-                                        
-                                    <ImageView
-                                        android:id="@+id/points_imageView"
+
+                                    <twb.conwaybrian.com.twbandroid.reactbutton.ReactButton
+                                        android:id="@+id/points_reactButton"
                                         android:layout_width="35dp"
                                         android:layout_height="35dp"
                                         android:layout_marginStart="8dp"
+                                        android:textColor="#00000000"
+                                        android:background="#00000000"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
                                         card_view:layout_constraintStart_toStartOf="parent"
-                                        card_view:layout_constraintTop_toTopOf="parent"
-                                        card_view:srcCompat="@drawable/no_like" />
+                                        card_view:layout_constraintTop_toTopOf="parent" />
 
                                     <TextView
                                         android:id="@+id/points_textView"
@@ -102,7 +103,7 @@
                                         android:textSize="18sp"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
 
-                                        card_view:layout_constraintStart_toEndOf="@+id/points_imageView"
+                                        card_view:layout_constraintStart_toEndOf="@+id/points_reactButton"
                                         card_view:layout_constraintTop_toTopOf="parent" />
 
                                     <ImageView

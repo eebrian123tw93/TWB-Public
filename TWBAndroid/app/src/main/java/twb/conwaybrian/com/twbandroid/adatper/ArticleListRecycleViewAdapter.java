@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +46,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
             viewsTextView=v.findViewById(R.id.views_textView);
             commentCountTextView=v.findViewById(R.id.comment_count_textView);
             articleImageView=v.findViewById(R.id.article_imageView);
-            pointsImageView=v.findViewById(R.id.points_imageView);
+            pointsImageView=v.findViewById(R.id.points_reactButton);
             cardView=v.findViewById(R.id.card_view);
             constraintLayout=v.findViewById(R.id.layout);
         }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/reactLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/imgButtonFour"
+        style="@style/ReactImageButton"
+        android:src="@drawable/like_color" />
+
+    <ImageButton
+        android:id="@+id/imgButtonFive"
+        style="@style/ReactImageButton"
+        android:src="@drawable/no_like_color" />
+
+    <ImageButton
+        android:id="@+id/imgButtonSix"
+        style="@style/ReactImageButton"
+        android:src="@drawable/dislike_color" />
+</LinearLayout>

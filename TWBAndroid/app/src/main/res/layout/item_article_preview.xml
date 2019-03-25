@@ -57,7 +57,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/points_imageView"
+                    android:id="@+id/points_reactButton"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginStart="8dp"
@@ -73,7 +73,7 @@
                     android:layout_marginStart="8dp"
                     android:text="99999"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintStart_toEndOf="@+id/points_imageView"
+                    card_view:layout_constraintStart_toEndOf="@+id/points_reactButton"
                     card_view:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
