@@ -2,6 +2,8 @@ package twb.conwaybrian.com.twbandroid.view;
 
 import android.support.v7.widget.RecyclerView;
 
+import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
+
 public interface ArticleView extends TWBView {
     public void onSetProgressBarVisibility(int visibility);
     public void onSetImageViewAdapter(RecyclerView.Adapter adapter);
@@ -13,5 +15,5 @@ public interface ArticleView extends TWBView {
     public void onSetViews(String views);
     public void onSetCommentCount(String commentCount);
     public void onSetPointsImageView(int res);
-    public void onSetDefaultPointsImageView(int res);
+    public void onSetDefaultPointsImageView(Reaction.Type type);
 }

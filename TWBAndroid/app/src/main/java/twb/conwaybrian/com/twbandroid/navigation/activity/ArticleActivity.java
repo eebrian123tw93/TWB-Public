@@ -61,7 +61,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
             @Override
             public void onClick(View view) {
                 //Your Code
-//                System.out.println(pointsReactButton.getCurrentReaction().getReactText());
+                System.out.println(pointsReactButton.getCurrentReaction().getType().toString());
 
             }
         });
@@ -69,7 +69,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
             @Override
             public boolean onLongClick(View view) {
                 //Your Code
-                System.out.println(pointsReactButton.getCurrentReaction().getReactText());
+                System.out.println(pointsReactButton.getCurrentReaction().getType().toString());
                 return false;
             }
         });
@@ -151,11 +151,36 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView {
 
     @Override
     public void onSetPointsImageView(int res) {
-        pointsReactButton.setCurrentReaction(new Reaction("","",res));
+        pointsReactButton.setCurrentReaction(new Reaction(Reaction.Type.LIKE,res));
     }
     @Override
-    public void onSetDefaultPointsImageView(int res) {
+    public void onSetDefaultPointsImageView(Reaction.Type type) {
+        int res=0;
+        switch (type){
+            case LIKE:
+                res=R.drawable.like;
+                break;
+            case DISLIKE:
+                res=R.drawable.dislike;
+                break;
+            case NO_LIKE:
+                res=R.drawable.no_like;
+                break;
+            case LIKE_COLOR:
+                res=R.drawable.like_color;
+                break;
+            case DISLIKE_COLOR:
+                res=R.drawable.dislike_color;
+                break;
+            case NO_LIKE_COLORS:
+                res=R.drawable.no_like_color;
+                break;
+                default:
+                    res=R.drawable.no_like;
+                    break;
+        }
         TWBReactions.defaultReact.setReactIconId(res);
+        TWBReactions.defaultReact.setType(type);
         pointsReactButton.setDefaultReaction(TWBReactions.defaultReact);
     }
 

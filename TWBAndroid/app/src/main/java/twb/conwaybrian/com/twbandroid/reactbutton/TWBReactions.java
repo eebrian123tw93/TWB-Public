@@ -5,15 +5,13 @@ import twb.conwaybrian.com.twbandroid.R;
 public  class TWBReactions {
 
     public static Reaction defaultReact = new Reaction(
-            ReactConstants.LIKE,
-            ReactConstants.DEFAULT,
-            ReactConstants.GRAY,
+            Reaction.Type.LIKE,
             R.drawable.like_color);
 
     public static Reaction[] reactions = {
-            new Reaction(ReactConstants.LIKE,ReactConstants.BLUE,R.drawable.like_color),
-            new Reaction(ReactConstants.NO_LIKE,ReactConstants.RED_LOVE,R.drawable.no_like_color),
-            new Reaction(ReactConstants.DISLIKE,ReactConstants.YELLOW_WOW,R.drawable.dislike_color),
+            new Reaction(Reaction.Type.LIKE_COLOR,R.drawable.like_color),
+            new Reaction(Reaction.Type.NO_LIKE_COLORS,R.drawable.no_like_color),
+            new Reaction(Reaction.Type.DISLIKE_COLOR,R.drawable.dislike_color),
     };
 
 

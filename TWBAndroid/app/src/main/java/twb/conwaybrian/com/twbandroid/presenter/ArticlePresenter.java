@@ -7,6 +7,7 @@ import java.util.Arrays;
 import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.model.Article;
+import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 import twb.conwaybrian.com.twbandroid.view.ArticleView;
 
 public class ArticlePresenter extends TWBPresenter {
@@ -44,11 +45,11 @@ public class ArticlePresenter extends TWBPresenter {
         articleView.onSetImageViewAdapter(imageViewsRecycleViewAdapter);
 
         if(article.getPoints()>0){
-            articleView.onSetDefaultPointsImageView(R.drawable.like);
+            articleView.onSetDefaultPointsImageView(Reaction.Type.LIKE);
         }else if(article.getPoints()<0){
-            articleView.onSetDefaultPointsImageView(R.drawable.dislike);
+            articleView.onSetDefaultPointsImageView(Reaction.Type.DISLIKE);
         }else {
-            articleView.onSetDefaultPointsImageView(R.drawable.no_like);
+            articleView.onSetDefaultPointsImageView(Reaction.Type.NO_LIKE);
         }
 
     }

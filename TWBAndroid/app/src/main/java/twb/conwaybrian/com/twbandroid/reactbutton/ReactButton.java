@@ -231,7 +231,7 @@ public class ReactButton
 //        mReactButton.setTextColor(Color.parseColor(react.getReactTextColor()));
 //        mReactButton.setCompoundDrawablesWithIntrinsicBounds(react.getReactIconId(), 0, 0, 0);
         Glide.with(getContext()).load(react.getReactIconId()).into(this);
-        mCurrentReactState = !react.getReactType().equals(mDefaultReaction.getReactType());
+        mCurrentReactState = !react.getType().equals(mDefaultReaction.getType());
     }
 
     /**
