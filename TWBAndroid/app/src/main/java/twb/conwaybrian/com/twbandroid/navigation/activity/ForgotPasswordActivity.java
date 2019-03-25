@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid;
+package twb.conwaybrian.com.twbandroid.navigation.activity;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.presenter.ForgotPasswordPresenter;
 import twb.conwaybrian.com.twbandroid.view.ForgotPasswordView;
 

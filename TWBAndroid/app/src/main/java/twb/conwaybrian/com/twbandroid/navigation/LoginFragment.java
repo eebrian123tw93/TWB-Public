@@ -1,6 +1,5 @@
 package twb.conwaybrian.com.twbandroid.navigation;
 
-import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -15,13 +14,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-import twb.conwaybrian.com.twbandroid.ForgotPasswordActivity;
+import twb.conwaybrian.com.twbandroid.navigation.activity.ForgotPasswordActivity;
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.RegisterActivity;
+import twb.conwaybrian.com.twbandroid.navigation.activity.RegisterActivity;
 import twb.conwaybrian.com.twbandroid.presenter.LoginPresenter;
 import twb.conwaybrian.com.twbandroid.view.LoginView;
 

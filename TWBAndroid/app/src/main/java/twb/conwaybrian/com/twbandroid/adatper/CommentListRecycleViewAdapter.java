@@ -1,27 +1,16 @@
-package twb.conwaybrian.com.twbandroid;
+package twb.conwaybrian.com.twbandroid.adatper;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 
 
-import java.util.ArrayList;
 import java.util.List;
-import twb.conwaybrian.com.twbandroid.model.Article;
+
+import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.model.Comment;
-import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
 
 public class CommentListRecycleViewAdapter extends RecyclerView.Adapter<CommentListRecycleViewAdapter.ViewHolder> {
 

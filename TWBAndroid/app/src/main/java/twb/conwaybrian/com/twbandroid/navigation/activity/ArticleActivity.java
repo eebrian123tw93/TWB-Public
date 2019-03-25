@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid;
+package twb.conwaybrian.com.twbandroid.navigation.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
 import twb.conwaybrian.com.twbandroid.view.ArticleView;
 

@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,18 +20,16 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 
 import com.asksira.bsimagepicker.BSImagePicker;
 import com.asksira.bsimagepicker.Utils;
 import com.shashank.sony.fancytoastlib.FancyToast;
-import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
-import twb.conwaybrian.com.twbandroid.ImageViewsRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.presenter.UploadPresenter;
 import twb.conwaybrian.com.twbandroid.view.UploadView;

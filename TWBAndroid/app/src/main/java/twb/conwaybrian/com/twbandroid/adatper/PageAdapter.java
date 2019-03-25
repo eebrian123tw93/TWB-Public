@@ -1,10 +1,12 @@
-package twb.conwaybrian.com.twbandroid;
+package twb.conwaybrian.com.twbandroid.adatper;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.HashMap;
+
+import twb.conwaybrian.com.twbandroid.navigation.fragment.ArticleListFragment;
 
 public class PageAdapter extends FragmentStatePagerAdapter {
 

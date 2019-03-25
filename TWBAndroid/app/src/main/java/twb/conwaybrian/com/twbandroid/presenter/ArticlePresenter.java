@@ -2,10 +2,9 @@ package twb.conwaybrian.com.twbandroid.presenter;
 
 import android.content.Intent;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
-import twb.conwaybrian.com.twbandroid.ImageViewsRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.view.ArticleView;

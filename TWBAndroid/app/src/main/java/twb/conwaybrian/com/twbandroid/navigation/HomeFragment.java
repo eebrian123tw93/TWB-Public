@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import twb.conwaybrian.com.twbandroid.PageAdapter;
+import twb.conwaybrian.com.twbandroid.adatper.PageAdapter;
 import twb.conwaybrian.com.twbandroid.R;
 
 public class HomeFragment extends Fragment {

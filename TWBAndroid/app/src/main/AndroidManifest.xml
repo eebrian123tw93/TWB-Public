@@ -22,9 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ForgotPasswordActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ArticleActivity"></activity>
+        <activity android:name=".navigation.activity.ForgotPasswordActivity" />
+        <activity android:name=".navigation.activity.RegisterActivity" />
+        <activity android:name=".navigation.activity.ArticleActivity"></activity>
 
 
 

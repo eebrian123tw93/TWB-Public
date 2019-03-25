@@ -1,10 +1,6 @@
 package twb.conwaybrian.com.twbandroid.presenter;
 
-import android.content.ContentResolver;
-import android.content.Context;
-import android.database.Cursor;
 import android.net.Uri;
-import android.provider.MediaStore;
 
 import com.akiniyalocts.imgur_api.ImgurClient;
 import com.akiniyalocts.imgur_api.model.Image;
@@ -23,7 +19,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.mime.TypedFile;
 import retrofit2.Response;
-import twb.conwaybrian.com.twbandroid.ImageViewsRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.UploadView;

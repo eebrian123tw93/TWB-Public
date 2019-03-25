@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid;
+package twb.conwaybrian.com.twbandroid.adatper;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -13,11 +13,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 
 
-import java.io.File;
 import java.util.List;
+
+import twb.conwaybrian.com.twbandroid.R;
 
 public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageViewsRecycleViewAdapter.ViewHolder> {
 
