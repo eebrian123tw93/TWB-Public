@@ -74,7 +74,8 @@ public class ShuoController {
       @RequestParam(name = "endTime", required = false) LocalDateTime end,
       @RequestParam(name = "limit", required = false, defaultValue = "50") Integer limit,
       @RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
-      @RequestParam(name = "orderBy", required = false, defaultValue = "timeNewest") String orderBy) {
+      @RequestParam(name = "orderBy", required = false, defaultValue = "timeNewest")
+          String orderBy) {
     return articleGetService.publicGet(start, end, limit, offset);
   }
 
@@ -89,8 +90,7 @@ public class ShuoController {
 
   @RequestMapping(value = "/like", method = RequestMethod.POST)
   public ResponseEntity like(@RequestBody LikeModel likeModel) {
-    if (likeCommentService.addLike(likeModel) == 0)
-      return new ResponseEntity(HttpStatus.NO_CONTENT);
+    if (likeCommentService.like(likeModel) == 0) return new ResponseEntity(HttpStatus.NO_CONTENT);
     else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("article does not exist");
   }
 
