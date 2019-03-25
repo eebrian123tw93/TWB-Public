@@ -7,6 +7,14 @@ import lombok.Data;
  */
 @Data
 public class Reaction {
+    public enum Type{
+        DISLIKE,LIKE,NO_LIKE
+    }
+    private Type type;
+    public Reaction(Type type,int reactIconId){
+        this.type=type;
+        this.reactIconId=reactIconId;
+    }
 
     /**
      * ReactButton Text for this Reaction
