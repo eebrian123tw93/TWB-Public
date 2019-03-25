@@ -24,11 +24,6 @@ import twb.conwaybrian.com.twbandroid.navigation.activity.ArticleActivity;
 import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
 
 public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleListRecycleViewAdapter.ViewHolder> {
-
-    public List<Article> getArticleList() {
-        return articleList;
-    }
-
     private List<Article> articleList;
     private Context context;
 
@@ -71,7 +66,10 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         return vh;
     }
 
-
+    @Override
+    public int getItemCount() {
+        return articleList.size();
+    }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
@@ -98,12 +96,11 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         else
         {
             holder.articleImageView.setVisibility(View.VISIBLE);
-//            Picasso.get().load(article.getImages().get(0)).into(holder.articleImageView);
             Glide.with(context).load(article.getImages().get(0)).into(holder.articleImageView);
         }
 
 
-//        Picasso.get().load("https://i.imgur.com/0tb9ofV.jpg").into(holder.articleImageView);
+
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,13 +120,14 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
 
     }
 
-    public int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    public void addArticles(List<Article> articles){
+        this.articleList.addAll(articles);
+        notifyDataSetChanged();
+    }
+    public void clear(){
+        this.articleList.clear();
+        notifyDataSetChanged();
     }
 
-    @Override
-    public int getItemCount() {
-        return articleList.size();
-    }
+
 }

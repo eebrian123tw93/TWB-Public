@@ -17,12 +17,9 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 
-import java.util.ArrayList;
-import java.util.List;
 
-import twb.conwaybrian.com.twbandroid.adatper.ArticleListRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.model.Article;
+
 import twb.conwaybrian.com.twbandroid.presenter.ArticleListPresenter;
 import twb.conwaybrian.com.twbandroid.view.ArticleListView;
 
@@ -30,22 +27,20 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
     private static String ARG_PARAM = "type";
     private String type;
     private ArticleListPresenter articleListPresenter;
-    private ArticleListRecycleViewAdapter articleListRecycleViewAdapter;
     private RecyclerView recyclerView;
     private TwinklingRefreshLayout refreshLayout;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         type = getArguments().getString(ARG_PARAM);
-        articleListPresenter=new ArticleListPresenter(this);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_article_list,container,false);
-        List<Article>articles=new ArrayList<>();
-        articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(getContext(),articles);
+
+
 
          refreshLayout=view.findViewById(R.id.refreshLayout);
          refreshLayout.setAutoLoadMore(true);
@@ -54,7 +49,7 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                articleListRecycleViewAdapter.getArticleList().clear();
+                articleListPresenter.refresh();
                 articleListPresenter.getArticleList(type,1,10);
             }
 
@@ -70,28 +65,15 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
          layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(articleListRecycleViewAdapter);
 
 
+        articleListPresenter=new ArticleListPresenter(this);
 
         articleListPresenter.getArticleList(type,1,10);
 
         return view;
     }
-    public static ArticleListFragment newInstance(String type) {
-        ArticleListFragment fragment = new ArticleListFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(ARG_PARAM, type);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-    @Override
-    public void onGetArticles(List<Article> articleList) {
-        articleListRecycleViewAdapter.getArticleList().addAll(articleList);
-        articleListRecycleViewAdapter.notifyDataSetChanged();
-    }
-
+    
     @Override
     public void onFinishRefreshOrLoad() {
         refreshLayout.finishRefreshing();
@@ -100,11 +82,19 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
 
     @Override
     public void onSetArticleListRecyclerAdapter(RecyclerView.Adapter adapter) {
-        
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onSetMessage(String message, int type) {
         FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
+    }
+
+    public static ArticleListFragment newInstance(String type) {
+        ArticleListFragment fragment = new ArticleListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_PARAM, type);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 }
