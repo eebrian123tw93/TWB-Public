@@ -37,11 +37,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
+                <com.tomer.fadingtextview.FadingTextView
+                    app:timeout="500"
                     android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/register"
+                    app:texts="@array/register_welcome"
                     android:textAlignment="center"
                     android:textSize="50sp"
                     tools:layout_editor_absoluteX="284dp"

@@ -35,13 +35,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
+                <com.tomer.fadingtextview.FadingTextView
                     android:id="@+id/textView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/login"
                     android:textAlignment="center"
-                    android:textSize="50dp" />
+                    android:textSize="50dp"
+                    app:texts="@array/login_welcome"
+                    app:timeout="500"
+                    tools:text="@string/login" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
