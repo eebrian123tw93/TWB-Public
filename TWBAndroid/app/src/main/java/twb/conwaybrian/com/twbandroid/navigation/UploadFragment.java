@@ -145,7 +145,6 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
         uploadPresenter.setProgressBarVisibility(View.GONE);
         if(result){
             uploadPresenter.clear();
-            onSetMessage("Post success",FancyToast.SUCCESS);
         }
     }
 

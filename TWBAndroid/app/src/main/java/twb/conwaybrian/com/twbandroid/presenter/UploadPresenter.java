@@ -40,6 +40,7 @@ public class UploadPresenter extends TWBPresenter {
     public  void uploadImages(){
 
         for (int i=0;i<images.size();i++) {
+            final int index=i;
             final String path=images.get(i);
             ImgurClient.getInstance()
                     .uploadImage(
@@ -51,11 +52,19 @@ public class UploadPresenter extends TWBPresenter {
                                 public void success(ImgurResponse<Image> imageImgurResponse, retrofit.client.Response response) {
                                     if(imageImgurResponse.success) {
                                         if(checkAllImagesUploaded(imageImgurResponse.data.getLink()))postArticle();
+                                        uploadView.onPostArticle(true);
+                                        uploadView.onSetMessage("Image "+(index+1)+" success",FancyToast.SUCCESS);
+                                    }else {
+                                        uploadView.onPostArticle(false);
+                                        uploadView.onSetMessage("Image "+(index+1)+" success",FancyToast.ERROR);
                                     }
                                 }
 
                                 @Override
                                 public void failure(RetrofitError error) {
+
+                                    uploadView.onPostArticle(false);
+                                    uploadView.onSetMessage("Image "+(index+1)+" success"+error.getMessage(),FancyToast.ERROR);
                                     //Notify user of failure
                                 }
                             }
@@ -117,8 +126,10 @@ public class UploadPresenter extends TWBPresenter {
             public void onNext(Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     uploadView.onPostArticle(true);
+                    uploadView.onSetMessage("Post success",FancyToast.SUCCESS);
                 }else {
-
+                    uploadView.onPostArticle(false);
+                    uploadView.onSetMessage("Post success",FancyToast.ERROR);
                 }
             }
 
