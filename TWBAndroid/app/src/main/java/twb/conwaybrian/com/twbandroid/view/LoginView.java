@@ -1,10 +1,10 @@
 package twb.conwaybrian.com.twbandroid.view;
 
 public interface LoginView  extends TWBView{
-    public void onClearText();
-    public void onLoginResult(boolean result);
-    public void onSetProgressBarVisibility(int visibility);
-    public void onForgetPassword();
-    public void onRegister();
+    void onClearText();
+    void onLoginResult(boolean result);
+    void onSetProgressBarVisibility(int visibility);
+    void onForgetPassword();
+    void onRegister();
 
 }
