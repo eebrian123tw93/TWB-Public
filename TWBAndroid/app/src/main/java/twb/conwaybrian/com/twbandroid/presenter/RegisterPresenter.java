@@ -69,6 +69,7 @@ public class RegisterPresenter  extends TWBPresenter{
 
                 @Override
                 public void onError(Throwable e) {
+                    registerView.onRegisterResult(false);
                     registerView.onSetMessage(e.getMessage(),FancyToast.ERROR);
                 }
 

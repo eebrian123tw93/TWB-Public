@@ -1,11 +1,13 @@
 package twb.conwaybrian.com.twbandroid;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 
 import com.akiniyalocts.imgur_api.ImgurClient;
 
 public class TWBApplication extends Application {
+    @SuppressLint("StaticFieldLeak")
     private static Context context;
 
     @Override

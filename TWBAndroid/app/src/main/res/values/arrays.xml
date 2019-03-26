@@ -3,12 +3,12 @@
 
     <string-array name="login_welcome">
         <item>登入</item>
-        <item>歡迎</item>
+        <item>TWB</item>
     </string-array>
 
     <string-array name="register_welcome">
         <item>註冊</item>
-        <item>歡迎</item>
+        <item>TWB</item>
     </string-array>
 
 
