@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.mengpeng.recyclerviewgallery.CarouselLayoutManager;
+import com.mengpeng.recyclerviewgallery.CarouselZoomPostLayoutListener;
+import com.mengpeng.recyclerviewgallery.CenterScrollListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 
@@ -63,8 +66,9 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
          recyclerView = view. findViewById(R.id.list_view);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
          layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
         recyclerView.setLayoutManager(layoutManager);
+
+
 
 
         articleListPresenter=new ArticleListPresenter(this);

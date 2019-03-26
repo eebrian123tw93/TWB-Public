@@ -86,6 +86,12 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
                 break;
             case VIEW:
                 holder.cancelImageView.setVisibility(View.GONE);
+                holder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        
+                    }
+                });
                 break;
         }
     }

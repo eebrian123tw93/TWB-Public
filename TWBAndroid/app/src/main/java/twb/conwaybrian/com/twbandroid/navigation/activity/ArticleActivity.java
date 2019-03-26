@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
+import com.mengpeng.recyclerviewgallery.CarouselLayoutManager;
+import com.mengpeng.recyclerviewgallery.CarouselZoomPostLayoutListener;
+import com.mengpeng.recyclerviewgallery.CenterScrollListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import twb.conwaybrian.com.twbandroid.R;
@@ -87,6 +90,14 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
         final LinearLayoutManager imageViewRecyclerLayoutManager = new LinearLayoutManager(getContext());
         imageViewRecyclerLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         imageViewsRecyclerView.setLayoutManager(imageViewRecyclerLayoutManager);
+
+//        CarouselLayoutManager layoutManager = new CarouselLayoutManager(CarouselLayoutManager.VERTICAL);
+//        layoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
+//        imageViewsRecyclerView.setLayoutManager(layoutManager);
+//        imageViewsRecyclerView.setHasFixedSize(true);
+//        imageViewsRecyclerView.addOnScrollListener(new CenterScrollListener());
+
+
 
         final LinearLayoutManager commentViewRecyclerLayoutManager = new LinearLayoutManager(getContext());
         commentViewRecyclerLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

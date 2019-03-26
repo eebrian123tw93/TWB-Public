@@ -24,6 +24,9 @@ import android.widget.ProgressBar;
 
 import com.asksira.bsimagepicker.BSImagePicker;
 import com.asksira.bsimagepicker.Utils;
+import com.mengpeng.recyclerviewgallery.CarouselLayoutManager;
+import com.mengpeng.recyclerviewgallery.CarouselZoomPostLayoutListener;
+import com.mengpeng.recyclerviewgallery.CenterScrollListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.ByteArrayOutputStream;
@@ -58,8 +61,6 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         imageViewsRecyclerView.setLayoutManager(layoutManager);
-
-
 
 
 
