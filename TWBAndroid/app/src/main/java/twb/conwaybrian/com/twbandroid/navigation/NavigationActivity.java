@@ -124,8 +124,12 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
     }
     @Override
     public void onSetMessage(String message, int type) {
-
         FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+       moveTaskToBack(true);
     }
 
 }
