@@ -53,10 +53,10 @@ public class UploadPresenter extends TWBPresenter {
                                     if(imageImgurResponse.success) {
                                         if(checkAllImagesUploaded(imageImgurResponse.data.getLink()))postArticle();
                                         uploadView.onPostArticle(true);
-                                        uploadView.onSetMessage("Image "+(index+1)+" success",FancyToast.SUCCESS);
+                                        uploadView.onSetMessage("Image upload"+(index+1)+" success",FancyToast.SUCCESS);
                                     }else {
                                         uploadView.onPostArticle(false);
-                                        uploadView.onSetMessage("Image "+(index+1)+" success",FancyToast.ERROR);
+                                        uploadView.onSetMessage("Image upload"+(index+1)+" failed",FancyToast.ERROR);
                                     }
                                 }
 
@@ -64,7 +64,7 @@ public class UploadPresenter extends TWBPresenter {
                                 public void failure(RetrofitError error) {
 
                                     uploadView.onPostArticle(false);
-                                    uploadView.onSetMessage("Image "+(index+1)+" success"+error.getMessage(),FancyToast.ERROR);
+                                    uploadView.onSetMessage("Image upload"+(index+1)+" failed",FancyToast.ERROR);
                                     //Notify user of failure
                                 }
                             }
