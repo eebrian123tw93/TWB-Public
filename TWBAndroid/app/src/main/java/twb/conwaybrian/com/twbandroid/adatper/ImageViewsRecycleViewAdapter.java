@@ -89,7 +89,7 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
                 holder.imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        
+
                     }
                 });
                 break;
