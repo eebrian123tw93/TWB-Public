@@ -77,7 +77,9 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -113,10 +115,10 @@
                 android:id="@+id/progressBar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView5"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintEnd_toStartOf="@+id/restore_imageView"
+                app:layout_constraintStart_toEndOf="@+id/clear_imageView"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -130,7 +132,7 @@
                 app:srcCompat="@drawable/post" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/clear_imageView"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
@@ -140,7 +142,7 @@
                 app:srcCompat="@drawable/eraser" />
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/save_imageView"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="8dp"
@@ -148,6 +150,16 @@
                 app:layout_constraintEnd_toStartOf="@+id/post_imageView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/save" />
+
+            <ImageView
+                android:id="@+id/restore_imageView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/save_imageView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/restore" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 

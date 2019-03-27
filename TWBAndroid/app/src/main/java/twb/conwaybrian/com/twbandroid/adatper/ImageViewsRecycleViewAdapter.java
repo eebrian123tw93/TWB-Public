@@ -74,7 +74,6 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
     @Override
     public void onBindViewHolder(final ViewHolder holder,final int position) {
         Glide.with(context).load(images.get(position)).into(holder.imageView);
-
         switch (type){
             case EDIT:
                 holder.cancelImageView.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +102,15 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
 
     public void addImage(String  imageFile){
         if(!images.contains(imageFile)) images.add(imageFile);
+        notifyDataSetChanged();
+    }
+
+    public void addImages(List<String>images){
+        for(String imageFile :images){
+            if(!this.images.contains(imageFile)) {
+                this.images.add(imageFile);
+            }
+        }
         notifyDataSetChanged();
     }
     public void addImage(Uri uri){
