@@ -18,4 +18,9 @@ public class ArticleJson {
   private int points;
   private int commentCount;
   private LocalDateTime createTime;
+
+  // user specific data
+  private int likeStatus;
+  private int userCommentCount;
+  private boolean hasViewed;
 }

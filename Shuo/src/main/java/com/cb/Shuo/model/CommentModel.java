@@ -21,7 +21,7 @@ public class CommentModel {
   private String userId;
 
   @Column(name = "comment", columnDefinition = "varchar(500)", nullable = false)
-  private String type;
+  private String comment;
 
   @Column(name = "create_time", columnDefinition = "datetime", nullable = false)
   private LocalDateTime createTime;

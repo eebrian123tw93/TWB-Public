@@ -1,12 +1,14 @@
 package com.cb.Shuo.service;
 
 import com.cb.Shuo.dao.ArticleDao;
+import com.cb.Shuo.dao.CommentDao;
 import com.cb.Shuo.model.ArticleModel;
+import com.cb.Shuo.model.CommentModel;
 import com.cb.Shuo.model.json.ArticleJson;
+import com.cb.Shuo.model.json.CommentJson;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ArticleGetService {
-
-  private static final Logger logger = LoggerFactory.getLogger(ArticleGetService.class);
 
   private final ArticleDao articleDao;
 
@@ -27,21 +28,20 @@ public class ArticleGetService {
     this.articleDao = articleDao;
   }
 
-  public List<ArticleModel> getByDateRange(LocalDateTime start, LocalDateTime end) {
-    return new ArrayList<>();
-  }
-
   public List<ArticleJson> getAll() {
     return convertModelToJson(articleDao.findAll());
   }
 
-  public List<ArticleJson> publicGet(
-      LocalDateTime start, LocalDateTime end, Integer limit, Integer offset) {
-    List<ArticleModel> articleModelList = articleDao.getNewestArticles(limit);
+  public List<ArticleJson> getArticles(
+      LocalDateTime start, LocalDateTime end, Integer limit, Integer offset, String userId) {
+    log.info("getArticles");
+    List<ArticleModel> articleModelList = articleDao.getArticles(limit, start, end, offset);
+    log.info("articleModelList.size(): " + articleModelList.size());
     return convertModelToJson(articleModelList);
   }
 
   private List<ArticleJson> convertModelToJson(List<ArticleModel> articleModelList) {
+    log.info("convertModelToJson");
     List<ArticleJson> articleJsonList = new ArrayList<>();
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -70,7 +70,7 @@ public class ArticleGetService {
           articleJson.setViews(articleModel.getViews());
           articleJsonList.add(articleJson);
         });
-
+    log.info("articleJson size " + articleJsonList.size());
     return articleJsonList;
   }
 }
