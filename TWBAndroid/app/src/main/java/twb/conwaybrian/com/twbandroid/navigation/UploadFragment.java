@@ -24,9 +24,7 @@ import android.widget.ProgressBar;
 
 import com.asksira.bsimagepicker.BSImagePicker;
 import com.asksira.bsimagepicker.Utils;
-import com.mengpeng.recyclerviewgallery.CarouselLayoutManager;
-import com.mengpeng.recyclerviewgallery.CarouselZoomPostLayoutListener;
-import com.mengpeng.recyclerviewgallery.CenterScrollListener;
+import com.github.javiersantos.bottomdialogs.BottomDialog;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.ByteArrayOutputStream;
@@ -45,6 +43,11 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
     private ImageView postImageView;
     private ImageView cameraImageView;
     private ImageView galleryImageView;
+
+    private ImageView clearImageView;
+    private ImageView saveImageView;
+    private ImageView restoreImageView;
+
     private ProgressBar progressBar;
     private RecyclerView imageViewsRecyclerView;
     @Nullable
@@ -54,6 +57,10 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
         postImageView =view.findViewById(R.id.post_imageView);
         cameraImageView=view.findViewById(R.id.camera_imageView);
         galleryImageView=view.findViewById(R.id.gallery_imageView);
+        clearImageView= view.findViewById(R.id.clear_imageView);
+        saveImageView=view.findViewById(R.id.save_imageView);
+        restoreImageView=view.findViewById(R.id.restore_imageView);
+
         titleEditText=view.findViewById(R.id.title_editText);
         contentEditText=view.findViewById(R.id.content_editText);
         progressBar=view.findViewById(R.id.progressBar);
@@ -67,10 +74,14 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
         postImageView.setOnClickListener(this);
         cameraImageView.setOnClickListener(this);
         galleryImageView.setOnClickListener(this);
+        saveImageView.setOnClickListener(this);
+        clearImageView.setOnClickListener(this);
+        restoreImageView.setOnClickListener(this);
 
         uploadPresenter=new UploadPresenter(this);
         uploadPresenter.setProgressBarVisibility(View.GONE);
         uploadPresenter.setImageViewsRecycleViewAdapter();
+        uploadPresenter.readArticle(false);
 
         return view;
     }
@@ -79,7 +90,7 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.post_imageView:
-                postImageView.setEnabled(false);
+              viewSetEnable(false);
                 uploadPresenter.setProgressBarVisibility(View.VISIBLE);
                 uploadPresenter.post(titleEditText.getText().toString(),contentEditText.getText().toString());
                 break;
@@ -107,6 +118,30 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
                         .disableOverSelectionMessage() //You can also decide not to show this over select message.
                         .build();
                 multiSelectionPicker.show(getChildFragmentManager(),"ticker");
+                break;
+            case R.id.clear_imageView:
+                new BottomDialog.Builder(getContext())
+                        .setTitle("Warning ")
+                        .setContent("This action will erase title , content, images")
+                        .setPositiveText("Confirm")
+                        .setPositiveBackgroundColorResource(R.color.colorPrimary)
+                        //.setPositiveBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary)
+                        .setPositiveTextColorResource(android.R.color.white)
+                        //.setPositiveTextColor(ContextCompat.getColor(this, android.R.color.colorPrimary)
+                        .onPositive(new BottomDialog.ButtonCallback() {
+                            @Override
+                            public void onClick(BottomDialog dialog) {
+                               uploadPresenter.clear();
+                            }
+                        })
+                        .setNegativeText("Cancel")
+                        .show();
+                break;
+            case R.id.save_imageView:
+                uploadPresenter.saveArticle(titleEditText.getText().toString(),contentEditText.getText().toString(),true);
+                break;
+            case R.id.restore_imageView:
+                uploadPresenter.readArticle(true);
                 break;
         }
 
@@ -141,7 +176,7 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
 
     @Override
     public void onPostArticle(boolean result) {
-        postImageView.setEnabled(true);
+        viewSetEnable(true);
         uploadPresenter.setProgressBarVisibility(View.GONE);
         if(result){
             uploadPresenter.clear();
@@ -162,6 +197,16 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
     @Override
     public void onSetImageViewAdapter(ImageViewsRecycleViewAdapter adapter) {
         imageViewsRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onSetTitle(String title) {
+        titleEditText.setText(title);
+    }
+
+    @Override
+    public void onSetContent(String content) {
+        contentEditText.setText(content);
     }
 
     @Override
@@ -186,5 +231,17 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
     @Override
     public void onSingleImageSelected(Uri uri, String tag) {
         uploadPresenter.addImage(uri);
+    }
+
+    private void viewSetEnable(boolean enable){
+        titleEditText.setEnabled(enable);
+        contentEditText.setEnabled(enable);
+        cameraImageView.setEnabled(enable);
+        galleryImageView.setEnabled(enable);
+        clearImageView.setEnabled(enable);
+        restoreImageView.setEnabled(enable);
+        saveImageView.setEnabled(enable);
+        postImageView.setEnabled(enable);
+        uploadPresenter.setCancelViewEnable(enable);
     }
 }
