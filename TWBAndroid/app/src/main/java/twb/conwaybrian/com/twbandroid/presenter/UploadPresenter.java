@@ -52,10 +52,10 @@ public class UploadPresenter extends TWBPresenter {
                                 public void success(ImgurResponse<Image> imageImgurResponse, retrofit.client.Response response) {
                                     if(imageImgurResponse.success) {
                                         if(checkAllImagesUploaded(imageImgurResponse.data.getLink()))postArticle();
-                                        uploadView.onPostArticle(true);
+//                                        uploadView.onPostArticle(true);
                                         uploadView.onSetMessage("Image upload"+(index+1)+" success",FancyToast.SUCCESS);
                                     }else {
-                                        uploadView.onPostArticle(false);
+//                                        uploadView.onPostArticle(false);
                                         uploadView.onSetMessage("Image upload"+(index+1)+" failed",FancyToast.ERROR);
                                     }
                                 }
@@ -63,7 +63,7 @@ public class UploadPresenter extends TWBPresenter {
                                 @Override
                                 public void failure(RetrofitError error) {
 
-                                    uploadView.onPostArticle(false);
+//                                    uploadView.onPostArticle(false);
                                     uploadView.onSetMessage("Image upload"+(index+1)+" failed",FancyToast.ERROR);
                                     //Notify user of failure
                                 }
@@ -98,6 +98,7 @@ public class UploadPresenter extends TWBPresenter {
     }
 
     public void clear(){
+        article.getImages().clear();
         uploadView.onClearText();
         imageViewsRecycleViewAdapter.clear();
     }
@@ -135,7 +136,8 @@ public class UploadPresenter extends TWBPresenter {
 
             @Override
             public void onError(Throwable e) {
-
+                uploadView.onPostArticle(false);
+                uploadView.onSetMessage(e.getMessage(),FancyToast.ERROR);
             }
 
             @Override
