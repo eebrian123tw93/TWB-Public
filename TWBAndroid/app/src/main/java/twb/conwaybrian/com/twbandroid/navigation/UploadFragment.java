@@ -226,5 +226,6 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
         restoreImageView.setEnabled(enable);
         saveImageView.setEnabled(enable);
         postImageView.setEnabled(enable);
+        uploadPresenter.setCancelViewEnable(enable);
     }
 }

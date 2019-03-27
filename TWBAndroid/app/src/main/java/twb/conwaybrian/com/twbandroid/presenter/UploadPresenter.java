@@ -133,7 +133,7 @@ public class UploadPresenter extends TWBPresenter {
             if(file.length()<10000000){
                 imageViewsRecycleViewAdapter.addImage(path);
             }else {
-                uploadView.onSetMessage(path+" size to big",FancyToast.WARNING);
+                uploadView.onSetMessage("image more than 10 MB",FancyToast.WARNING);
             }
 
         }else {
@@ -210,6 +210,14 @@ public class UploadPresenter extends TWBPresenter {
             if(show)uploadView.onSetMessage("Read Article",FancyToast.SUCCESS );
         }
         if(images!=null)imageViewsRecycleViewAdapter.addImages(images);
+
+    }
+
+    public void setCancelViewEnable(boolean enable){
+        if(enable)
+            imageViewsRecycleViewAdapter.setState(ImageViewsRecycleViewAdapter.State.NOT_UPLOAD);
+        else
+            imageViewsRecycleViewAdapter.setState(ImageViewsRecycleViewAdapter.State.UPLOADING);
     }
 
     public synchronized boolean checkAllImagesUploaded(String fileName,String link){

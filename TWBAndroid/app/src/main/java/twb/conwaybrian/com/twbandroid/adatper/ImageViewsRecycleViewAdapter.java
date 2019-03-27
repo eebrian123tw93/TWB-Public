@@ -24,6 +24,9 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
     public enum Type{
         VIEW,EDIT
     }
+    public enum State{
+        UPLOADING,NOT_UPLOAD
+    }
 
     public List<String> getImages() {
         return images;
@@ -32,6 +35,7 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
     private List<String> images;
     private Context context;
     private Type type;
+    private State state;
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -55,6 +59,7 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
         this.context=context;
         this.images = images;
         this.type=type;
+        state=State.NOT_UPLOAD;
 
     }
 //    public ImageViewsRecycleViewAdapter(Context context,List<String> images) {
@@ -74,6 +79,7 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
     @Override
     public void onBindViewHolder(final ViewHolder holder,final int position) {
         Glide.with(context).load(images.get(position)).into(holder.imageView);
+
         switch (type){
             case EDIT:
                 holder.cancelImageView.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +88,8 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
                         removeImage(position);
                     }
                 });
+                if(state==State.UPLOADING)holder.cancelImageView.setEnabled(false);
+                else holder.cancelImageView.setEnabled(true);
                 break;
             case VIEW:
                 holder.cancelImageView.setVisibility(View.GONE);
@@ -148,5 +156,10 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
             }
         }
         return data;
+    }
+
+    public void setState(State state){
+        this.state=state;
+        for(int i =0;i<images.size();i++)notifyItemChanged(i);
     }
 }
