@@ -24,6 +24,7 @@ import android.widget.ProgressBar;
 
 import com.asksira.bsimagepicker.BSImagePicker;
 import com.asksira.bsimagepicker.Utils;
+import com.github.javiersantos.bottomdialogs.BottomDialog;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.ByteArrayOutputStream;
@@ -119,7 +120,22 @@ public class UploadFragment extends Fragment  implements UploadView ,View.OnClic
                 multiSelectionPicker.show(getChildFragmentManager(),"ticker");
                 break;
             case R.id.clear_imageView:
-                uploadPresenter.clear();
+                new BottomDialog.Builder(getContext())
+                        .setTitle("Warning ")
+                        .setContent("This action will erase title , content, images")
+                        .setPositiveText("Confirm")
+                        .setPositiveBackgroundColorResource(R.color.colorPrimary)
+                        //.setPositiveBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary)
+                        .setPositiveTextColorResource(android.R.color.white)
+                        //.setPositiveTextColor(ContextCompat.getColor(this, android.R.color.colorPrimary)
+                        .onPositive(new BottomDialog.ButtonCallback() {
+                            @Override
+                            public void onClick(BottomDialog dialog) {
+                               uploadPresenter.clear();
+                            }
+                        })
+                        .setNegativeText("Cancel")
+                        .show();
                 break;
             case R.id.save_imageView:
                 uploadPresenter.saveArticle(titleEditText.getText().toString(),contentEditText.getText().toString(),true);
