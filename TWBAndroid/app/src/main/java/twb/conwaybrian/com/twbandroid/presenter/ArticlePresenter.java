@@ -2,16 +2,34 @@ package twb.conwaybrian.com.twbandroid.presenter;
 
 import android.content.Intent;
 
-import java.util.Arrays;
 
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
+import com.shashank.sony.fancytoastlib.FancyToast;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
+import twb.conwaybrian.com.twbandroid.adatper.CommentListRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.model.Article;
+import twb.conwaybrian.com.twbandroid.model.Comment;
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
+import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApi;
+import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.ArticleView;
 
 public class ArticlePresenter extends TWBPresenter {
     public static final String ARTICLE_ID="article_id";
+    public static final String ARTICLE_TITLE="article_title";
     public static final String ARTICLE_CONTENT="article_content";
     public static final String ARTICLE_POINTS="article_points";
     public static final String ARTICLE_VIEWS="article_views";
@@ -20,17 +38,20 @@ public class ArticlePresenter extends TWBPresenter {
     private ArticleView articleView;
     private Article article;
     private ImageViewsRecycleViewAdapter imageViewsRecycleViewAdapter;
+    private CommentListRecycleViewAdapter commentListRecycleViewAdapter;
 
     public ArticlePresenter(ArticleView articleView, Intent intent){
 
         this.articleView=articleView;
-        String title=intent.getStringExtra(ARTICLE_ID);
+        String articleId=intent.getStringExtra(ARTICLE_ID);
+        String title=intent.getStringExtra(ARTICLE_TITLE);
         String content=intent.getStringExtra(ARTICLE_CONTENT);
         String points=intent.getStringExtra(ARTICLE_POINTS);
         String views=intent.getStringExtra(ARTICLE_VIEWS);
         String commentCount=intent.getStringExtra(ARTICLE_COMMENT_COUNT);
         String [] images=intent.getStringArrayExtra(ARTICLE_IMAGES);
         article=new Article();
+        article.setArticleId(articleId);
         article.setTitle(title);
         article.setContent(content);
         article.setPoints(Integer.valueOf(points));
@@ -40,9 +61,11 @@ public class ArticlePresenter extends TWBPresenter {
 
 
         imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,article.getImages(),ImageViewsRecycleViewAdapter.Type.VIEW);
+        commentListRecycleViewAdapter=new CommentListRecycleViewAdapter(context,new ArrayList<Comment>());
 
         articleView.onSetArticle(article.getTitle(),article.getContent(),String.valueOf(article.getPoints()),String.valueOf(article.getViews()),String.valueOf(article.getCommentCount()));
         articleView.onSetImageViewAdapter(imageViewsRecycleViewAdapter);
+        articleView.onSetCommentViewAdapter(commentListRecycleViewAdapter);
 
         if(article.getPoints()>0){
             articleView.onSetDefaultPointsImageView(Reaction.Type.LIKE);
@@ -52,10 +75,96 @@ public class ArticlePresenter extends TWBPresenter {
             articleView.onSetDefaultPointsImageView(Reaction.Type.NO_LIKE);
         }
 
+        getComments();
+    }
+    public void getComments(){
+        Observer<Response<JsonArray>> observer = new Observer<Response<JsonArray>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Response<JsonArray> response) {
+                if (response.isSuccessful()) {
+                    JsonArray jsonArray = response.body();
+                    System.out.println(jsonArray);
+                    Type listType = new TypeToken<List<Comment>>() {}.getType();
+                    List<Comment> commentList = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().fromJson(jsonArray, listType);
+                    commentListRecycleViewAdapter.addComments(commentList);
+                } else {
+                    articleView.onSendCommentResult(false);
+                    articleView.onSetMessage("comment load failed", FancyToast.ERROR);
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                articleView.onSendCommentResult(false);
+                articleView.onSetMessage(e.getMessage(), FancyToast.ERROR);
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        ShuoApiService.getInstance().getComments(observer,article,false);
     }
 
-    public void sendComment(String comment){
+    public void sendComment(String commentString){
+        if(commentString.isEmpty()){
+            articleView.onSendCommentResult(false);
+            articleView.onSetMessage("Comment can not be empty", FancyToast.ERROR);
+        } else if(isLogin()) {
+            Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
+                @Override
+                public void onSubscribe(Disposable d) {
 
+                }
+
+                @Override
+                public void onNext(Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+//                    article_view
+                        articleView.onSendCommentResult(true);
+                        articleView.onSetMessage("comment reply success", FancyToast.SUCCESS);
+                    } else {
+                        articleView.onSendCommentResult(false);
+                        articleView.onSetMessage("comment reply failed", FancyToast.ERROR);
+                    }
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    articleView.onSendCommentResult(false);
+                    articleView.onSetMessage(e.getMessage(), FancyToast.ERROR);
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            };
+            Comment comment = new Comment();
+            comment.setArticleId(article.getArticleId());
+            comment.setComment(commentString);
+
+            ShuoApiService.getInstance().comment(observer, user, comment, false);
+        }else {
+            articleView.onSendCommentResult(false);
+            articleView.onSetMessage("Login first", FancyToast.INFO);
+            if(userListener!=null)userListener.toLoginPage();
+        }
+    }
+    public void addComments(List<Comment>comments){
+        commentListRecycleViewAdapter.addComments(comments);
+    }
+
+    public void clearComment(){
+        articleView.onClearCommentText();
     }
 
 

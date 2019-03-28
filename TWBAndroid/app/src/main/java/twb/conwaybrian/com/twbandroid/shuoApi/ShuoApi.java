@@ -33,4 +33,15 @@ public interface ShuoApi {
     @POST("/shuo/postArticle/")
     Observable<Response<ResponseBody>> postArticle(@Header("Authorization")String authKey,@Body String s);
 
+    @Headers("Content-Type:application/json")
+    @POST("/shuo/like/")
+    Observable<Response<ResponseBody>>like(@Header("Authorization")String authKey,@Body String s );
+
+    @Headers("Content-Type:application/json")
+    @POST("/shuo/comment/")
+    Observable<Response<ResponseBody>>comment(@Header("Authorization")String authKey,@Body String s );
+
+    @GET("/shuo/public/getComments/")
+    Observable<Response<JsonArray>>getComments(@Query("articleId") String articleId);
+
 }

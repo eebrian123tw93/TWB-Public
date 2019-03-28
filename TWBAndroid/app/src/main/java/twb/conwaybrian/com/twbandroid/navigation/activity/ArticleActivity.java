@@ -11,10 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.bumptech.glide.Glide;
-import com.mengpeng.recyclerviewgallery.CarouselLayoutManager;
-import com.mengpeng.recyclerviewgallery.CarouselZoomPostLayoutListener;
-import com.mengpeng.recyclerviewgallery.CenterScrollListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import twb.conwaybrian.com.twbandroid.R;
@@ -27,6 +23,7 @@ import twb.conwaybrian.com.twbandroid.view.ArticleView;
 import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
 
 public class ArticleActivity extends AppCompatActivity implements ArticleView,View.OnClickListener {
+
 
     private ArticlePresenter articlePresenter;
 
@@ -62,7 +59,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
         imageViewsRecyclerView=findViewById(R.id.imageViews_recyclerView);
         commentRecyclerView=findViewById(R.id.comment_recyclerView);
         pointsReactButton =findViewById(R.id.points_reactButton);
-        sendImageView=findViewById(R.id.send_button);
+        sendImageView=findViewById(R.id.send_imaeView);
         commentEditView=findViewById(R.id.comment_editText);
 
 
@@ -237,9 +234,23 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
     }
 
     @Override
+    public void onSendCommentResult(boolean result) {
+        if(result){
+            articlePresenter.clearComment();
+        }else {
+
+        }
+    }
+
+    @Override
+    public void onClearCommentText() {
+        commentEditView.setText("");
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.send_imageView:
+            case R.id.send_imaeView:
                 articlePresenter.sendComment(commentEditView.getText().toString());
             break;
         }

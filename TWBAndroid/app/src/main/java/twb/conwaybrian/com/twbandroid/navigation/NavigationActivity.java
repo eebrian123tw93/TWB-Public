@@ -107,9 +107,9 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
 
     public void showFragment(Fragment fragment){
         if(!fragment.isAdded()){
-            getSupportFragmentManager().beginTransaction().hide(focusFragment).add(R.id.frame_layout, fragment).commit();
+            getSupportFragmentManager().beginTransaction().hide(focusFragment).add(R.id.frame_layout, fragment).commitAllowingStateLoss();
         }else {
-            getSupportFragmentManager().beginTransaction().hide(focusFragment).show(fragment).commit();
+            getSupportFragmentManager().beginTransaction().hide(focusFragment).show(fragment).commitAllowingStateLoss();
         }
         focusFragment=fragment;
     }

@@ -9,6 +9,8 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import twb.conwaybrian.com.twbandroid.model.Article;
+import twb.conwaybrian.com.twbandroid.model.Comment;
+import twb.conwaybrian.com.twbandroid.model.Like;
 import twb.conwaybrian.com.twbandroid.model.User;
 
 public class ShuoApiService {
@@ -75,6 +77,39 @@ public class ShuoApiService {
         String json = gson.toJson(article);
         System.out.println(json);
         shuoApi.postArticle(user.authKey(),json)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
+    public void like(@NonNull Observer observer, @NonNull User user,@NonNull Like like, boolean isObserveOnIO){
+        Gson gson =  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+        String json = gson.toJson(like);
+        System.out.println(json);
+        shuoApi.like(user.authKey(),json)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+
+    }
+
+    public void comment(@NonNull Observer observer, @NonNull User user, @NonNull Comment comment, boolean isObserveOnIO){
+        Gson gson =  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+        String json = gson.toJson(comment);
+        System.out.println(json);
+        shuoApi.comment(user.authKey(),json)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+
+    }
+
+    public void getComments(@NonNull Observer observer,  @NonNull Article article, boolean isObserveOnIO){
+        String articleId = article.getArticleId();
+        shuoApi.getComments(articleId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

@@ -16,4 +16,7 @@ public interface ArticleView extends TWBView {
     void onSetCommentCount(String commentCount);
     void onSetPointsImageView(Reaction.Type type);
     void onSetDefaultPointsImageView(Reaction.Type type);
+
+    void onSendCommentResult(boolean result);
+    void onClearCommentText();
 }

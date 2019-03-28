@@ -105,7 +105,8 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context,ArticleActivity.class);
-                intent.putExtra(ArticlePresenter.ARTICLE_ID,article.getTitle());
+                intent.putExtra(ArticlePresenter.ARTICLE_ID,article.getArticleId());
+                intent.putExtra(ArticlePresenter.ARTICLE_TITLE,article.getTitle());
                 intent.putExtra(ArticlePresenter.ARTICLE_CONTENT,article.getContent());
                 intent.putExtra(ArticlePresenter.ARTICLE_POINTS,String.valueOf(article.getPoints()));
                 intent.putExtra(ArticlePresenter.ARTICLE_VIEWS,String.valueOf(article.getViews()));

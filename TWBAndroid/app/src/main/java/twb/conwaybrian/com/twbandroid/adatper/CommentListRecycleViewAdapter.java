@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 
 
 import java.util.List;
@@ -19,8 +21,15 @@ public class CommentListRecycleViewAdapter extends RecyclerView.Adapter<CommentL
     private Context context;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView userIdTextView;
+        private TextView commentTextView;
+
+
         public ViewHolder(View v) {
             super(v);
+            userIdTextView=v.findViewById(R.id.userId_textView);
+            commentTextView=v.findViewById(R.id.comment_textView);
         }
     }
 
@@ -32,7 +41,7 @@ public class CommentListRecycleViewAdapter extends RecyclerView.Adapter<CommentL
     @Override
     public CommentListRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_article_preview, parent, false);
+                .inflate(R.layout.item_article_comment, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
@@ -42,6 +51,9 @@ public class CommentListRecycleViewAdapter extends RecyclerView.Adapter<CommentL
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Comment comment=comments.get(position);
+        holder.userIdTextView.setText(comment.getUserId());
+        holder.commentTextView.setText(comment.getComment());
+
     }
 
     public void  addComments(List<Comment>comments){
