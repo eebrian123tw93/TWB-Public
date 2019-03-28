@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -33,11 +35,26 @@ public class ArticleGetService {
   }
 
   public List<ArticleJson> getArticles(
-      LocalDateTime start, LocalDateTime end, Integer limit, Integer offset, String userId) {
+      LocalDateTime start,
+      LocalDateTime end,
+      Integer limit,
+      Integer offset,
+      String userId,
+      String orderBy) {
     log.info("getArticles");
     List<ArticleModel> articleModelList = articleDao.getArticles(limit, start, end, offset);
     log.info("articleModelList.size(): " + articleModelList.size());
-    return convertModelToJson(articleModelList);
+
+    List<ArticleJson> articleJsonList = convertModelToJson(articleModelList);
+
+    if (orderBy.equals("likes")) {
+      articleJsonList.sort(Comparator.comparingInt(ArticleJson::getPoints));
+      Collections.reverse(articleJsonList);
+    } else if (orderBy.equals("time")) {
+      articleJsonList.sort(Comparator.comparing(ArticleJson::getCreateTime));
+    }
+
+    return articleJsonList;
   }
 
   private List<ArticleJson> convertModelToJson(List<ArticleModel> articleModelList) {

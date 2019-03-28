@@ -23,8 +23,6 @@ import java.util.List;
 @RestController
 @Slf4j
 public class ShuoController {
-  //  private static final Logger logger = LoggerFactory.getLogger(ShuoController.class);
-
   private final UserService userService;
   private final ArticlePostService articlePostService;
   private final ArticleGetService articleGetService;
@@ -81,6 +79,7 @@ public class ShuoController {
           LocalDateTime endTime,
       @RequestParam(name = "limit", required = false, defaultValue = "50") Integer limit,
       @RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
+      @RequestParam(name = "orderBy", required = false, defaultValue = "likes") String orderBy,
       Principal principal) {
 
     if (startTime == null) {
@@ -102,12 +101,27 @@ public class ShuoController {
             + " "
             + userId);
 
-    return articleGetService.getArticles(startTime, endTime, limit, offset, userId);
+    return articleGetService.getArticles(startTime, endTime, limit, offset, userId, orderBy);
   }
 
   @RequestMapping(value = "/public/getArticles", method = RequestMethod.GET)
-  public List<ArticleJson> getArticles() {
-    return articleGetService.getAll();
+  public List<ArticleJson> getArticles(
+      @RequestParam(name = "startTime", required = false)
+          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+          LocalDateTime startTime,
+      @RequestParam(name = "endTime", required = false)
+          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+          LocalDateTime endTime,
+      @RequestParam(name = "limit", required = false, defaultValue = "50") Integer limit,
+      @RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
+      @RequestParam(name = "orderBy", required = false, defaultValue = "likes") String orderBy) {
+    if (startTime == null) {
+      startTime = LocalDateTime.now().minusHours(12);
+      endTime = startTime.plusHours(12);
+    }
+
+    log.info("getArticles " + startTime + " " + endTime + " " + limit + " " + offset);
+    return articleGetService.getArticles(startTime, endTime, limit, offset, null, orderBy);
   }
 
   @RequestMapping(value = "/public/getComments", method = RequestMethod.GET)
