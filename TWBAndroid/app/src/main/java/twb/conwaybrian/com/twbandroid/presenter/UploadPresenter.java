@@ -102,7 +102,6 @@ public class UploadPresenter extends TWBPresenter {
             if (isLogin()) {
                 article.setTitle(title);
                 article.setContent(content);
-                article.setUserId(user.getUserId());
                 if(images.isEmpty())postArticle();
                 else uploadImages();
             } else {
@@ -183,7 +182,6 @@ public class UploadPresenter extends TWBPresenter {
 
         article.setTitle(title);
         article.setContent(content);
-        article.setUserId(user.getUserId());
         String notUploadArticleJson=new Gson().toJson(article,Article.class);
         Type listType = new TypeToken<List<String>>() {}.getType();
         String imagesJson=new Gson().toJson(this.images,listType);
