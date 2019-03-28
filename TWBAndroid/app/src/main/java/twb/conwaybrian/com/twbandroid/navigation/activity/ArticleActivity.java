@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import twb.conwaybrian.com.twbandroid.R;
@@ -35,6 +37,8 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
     private RecyclerView imageViewsRecyclerView;
     private RecyclerView commentRecyclerView;
     private ReactButton pointsReactButton;
+
+    private TwinklingRefreshLayout refreshLayout;
 
     private ImageView sendImageView;
     private EditText commentEditView;
@@ -61,6 +65,25 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
         pointsReactButton =findViewById(R.id.points_reactButton);
         sendImageView=findViewById(R.id.send_imaeView);
         commentEditView=findViewById(R.id.comment_editText);
+
+        refreshLayout=findViewById(R.id.refreshLayout);
+        refreshLayout.setAutoLoadMore(true);
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                super.onRefresh(refreshLayout);
+                articlePresenter.refresh();
+                articlePresenter.getComments();
+            }
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                super.onLoadMore(refreshLayout);
+                articlePresenter.getComments();
+            }
+        });
+
 
 
 
@@ -95,7 +118,8 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
 //        imageViewsRecyclerView.addOnScrollListener(new CenterScrollListener());
 
 
-
+        commentRecyclerView.setHasFixedSize(true);
+        commentRecyclerView.setNestedScrollingEnabled(false);
         final LinearLayoutManager commentViewRecyclerLayoutManager = new LinearLayoutManager(getContext());
         commentViewRecyclerLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         commentRecyclerView.setLayoutManager(commentViewRecyclerLayoutManager);
@@ -237,6 +261,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
     public void onSendCommentResult(boolean result) {
         if(result){
             articlePresenter.clearComment();
+            refreshLayout.startLoadMore();
         }else {
 
         }
@@ -254,5 +279,11 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
                 articlePresenter.sendComment(commentEditView.getText().toString());
             break;
         }
+    }
+
+    @Override
+    public void onFinishRefreshOrLoad() {
+        refreshLayout.finishRefreshing();
+        refreshLayout.finishLoadmore();
     }
 }

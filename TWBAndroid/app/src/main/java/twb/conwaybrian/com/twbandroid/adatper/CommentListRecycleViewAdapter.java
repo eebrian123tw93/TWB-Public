@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.R;
@@ -57,7 +57,17 @@ public class CommentListRecycleViewAdapter extends RecyclerView.Adapter<CommentL
     }
 
     public void  addComments(List<Comment>comments){
-        this.comments.addAll(comments);
+        for(int i=this.comments.size();i<comments.size();i++){
+            this.comments.add(comments.get(i));
+        }
+
+
+        notifyDataSetChanged();
+
+    }
+
+    public void clear(){
+        this.comments.clear();
         notifyDataSetChanged();
     }
     @Override

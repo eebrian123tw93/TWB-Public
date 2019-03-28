@@ -33,8 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:lines="1"
-                android:maxLines="1"
+                android:inputType="textMultiLine"
                 android:singleLine="true"
                 android:text="useId"
                 android:textSize="15sp"
@@ -46,10 +45,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:gravity="center_vertical"
-                android:lines="1"
-                android:maxLines="1"
+                android:inputType="textMultiLine"
                 android:singleLine="true"
-                android:text="commet"
+                android:text="comment"
                 android:textAlignment="viewStart"
                 android:textSize="30sp" />
 

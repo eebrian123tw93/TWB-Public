@@ -19,4 +19,5 @@ public interface ArticleView extends TWBView {
 
     void onSendCommentResult(boolean result);
     void onClearCommentText();
+    void onFinishRefreshOrLoad();
 }

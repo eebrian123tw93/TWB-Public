@@ -92,6 +92,7 @@ public class ArticlePresenter extends TWBPresenter {
                     Type listType = new TypeToken<List<Comment>>() {}.getType();
                     List<Comment> commentList = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().fromJson(jsonArray, listType);
                     commentListRecycleViewAdapter.addComments(commentList);
+                    articleView.onFinishRefreshOrLoad();
                 } else {
                     articleView.onSendCommentResult(false);
                     articleView.onSetMessage("comment load failed", FancyToast.ERROR);
@@ -165,6 +166,9 @@ public class ArticlePresenter extends TWBPresenter {
 
     public void clearComment(){
         articleView.onClearCommentText();
+    }
+    public void refresh(){
+        commentListRecycleViewAdapter.clear();
     }
 
 
