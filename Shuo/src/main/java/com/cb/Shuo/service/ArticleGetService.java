@@ -1,11 +1,10 @@
 package com.cb.Shuo.service;
 
 import com.cb.Shuo.dao.ArticleDao;
-import com.cb.Shuo.dao.CommentDao;
+import com.cb.Shuo.dao.LikeDao;
 import com.cb.Shuo.model.ArticleModel;
-import com.cb.Shuo.model.CommentModel;
+import com.cb.Shuo.model.LikeModel;
 import com.cb.Shuo.model.json.ArticleJson;
-import com.cb.Shuo.model.json.CommentJson;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +24,12 @@ public class ArticleGetService {
 
   private final ArticleDao articleDao;
 
+  private final LikeDao likeDao;
+
   @Autowired
-  public ArticleGetService(ArticleDao articleDao) {
+  public ArticleGetService(ArticleDao articleDao, LikeDao likeDao) {
     this.articleDao = articleDao;
+    this.likeDao = likeDao;
   }
 
   public List<ArticleJson> getAll() {
@@ -52,6 +54,16 @@ public class ArticleGetService {
       Collections.reverse(articleJsonList);
     } else if (orderBy.equals("time")) {
       articleJsonList.sort(Comparator.comparing(ArticleJson::getCreateTime));
+    }
+
+    if (userId != null) {
+      articleJsonList.forEach(
+          articleJson -> {
+            LikeModel likeModel =
+                likeDao.findByUserIdAndArticleId(
+                    articleJson.getArticleId(), articleJson.getUserId());
+            if (likeModel != null) articleJson.setLikeStatus(likeModel.getType());
+          });
     }
 
     return articleJsonList;

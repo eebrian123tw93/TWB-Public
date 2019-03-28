@@ -44,4 +44,10 @@ public class ArticlePostService {
     logger.info("postArticle " + articleModel.getArticleId());
     articleDao.save(articleModel);
   }
+
+  public void viewArticle(String articleId){
+    ArticleModel articleModel = articleDao.findArticleModelByArticleId(articleId);
+    articleModel.setViews(articleModel.getViews() + 1);
+    articleDao.save(articleModel);
+  }
 }

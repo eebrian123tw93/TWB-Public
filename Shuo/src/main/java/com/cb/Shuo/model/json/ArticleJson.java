@@ -21,6 +21,4 @@ public class ArticleJson {
 
   // user specific data
   private int likeStatus;
-  private int userCommentCount;
-  private boolean hasViewed;
 }

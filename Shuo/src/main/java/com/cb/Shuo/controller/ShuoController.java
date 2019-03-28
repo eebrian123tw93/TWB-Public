@@ -1,6 +1,5 @@
 package com.cb.Shuo.controller;
 
-import com.cb.Shuo.model.LikeModel;
 import com.cb.Shuo.model.UserModel;
 import com.cb.Shuo.model.json.ArticleJson;
 import com.cb.Shuo.model.json.CommentJson;
@@ -142,6 +141,13 @@ public class ShuoController {
     if (likeCommentService.comment(commentJson, principal.getName()) == 0)
       return new ResponseEntity(HttpStatus.NO_CONTENT);
     else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("article does not exist");
+  }
+
+  @RequestMapping(value = "/viewed", method = RequestMethod.POST)
+  public ResponseEntity viewed(@RequestBody String articleId) {
+    log.info("viewed " + articleId);
+    articlePostService.viewArticle(articleId);
+    return new ResponseEntity(HttpStatus.NO_CONTENT);
   }
 
   @RequestMapping(value = "/t", method = RequestMethod.GET)
