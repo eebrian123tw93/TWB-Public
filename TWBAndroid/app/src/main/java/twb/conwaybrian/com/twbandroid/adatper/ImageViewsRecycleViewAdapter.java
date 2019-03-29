@@ -27,18 +27,20 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
     public enum State{
         UPLOADING,NOT_UPLOAD
     }
-
-    public List<String> getImages() {
-        return images;
+    public interface ShowImageViewsFragmentListener{
+            void onShowImageViewsFragment(List<String> images,int position);
     }
+
 
     private List<String> images;
     private Context context;
     private Type type;
     private State state;
+    private ShowImageViewsFragmentListener showImageViewsFragmentListener;
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
 
         private ImageView imageView;
         private ImageView cancelImageView;
@@ -62,6 +64,15 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
         state=State.NOT_UPLOAD;
 
     }
+    public ImageViewsRecycleViewAdapter(Context context,List<String> images,Type type,ShowImageViewsFragmentListener listener) {
+        this.context=context;
+        this.images = images;
+        this.type=type;
+        state=State.NOT_UPLOAD;
+        this.showImageViewsFragmentListener=listener;
+
+    }
+
 //    public ImageViewsRecycleViewAdapter(Context context,List<String> images) {
 //        this(context,images,Type.URL);
 //    }
@@ -96,7 +107,9 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
                 holder.imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        if(showImageViewsFragmentListener!=null){
+                            showImageViewsFragmentListener.onShowImageViewsFragment(images,position);
+                        }
                     }
                 });
                 break;
