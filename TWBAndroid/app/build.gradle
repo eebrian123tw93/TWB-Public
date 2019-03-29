@@ -79,7 +79,9 @@ dependencies {
     implementation 'com.github.javiersantos:BottomDialogs:1.2.1'
 
     implementation 'com.github.mengpeng920223:RecyclerView-Gallery:v1.0.0'
+    implementation 'com.github.chrisbanes:PhotoView:1.2.6'
 
+    
 //    https://github.com/dmytrodanylyk/android-process-button/wiki/User-Guide
     implementation 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
 
@@ -94,7 +96,7 @@ dependencies {
     //https://github.com/MasayukiSuda/BubbleLayout //reaction popup view
     //https://github.com/razerdp/BasePopup  //reaction popup view
 
-    implementation 'com.github.chrisbanes:PhotoView:1.2.6'
+
 
 
 }
