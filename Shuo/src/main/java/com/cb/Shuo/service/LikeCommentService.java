@@ -3,9 +3,9 @@ package com.cb.Shuo.service;
 import com.cb.Shuo.dao.ArticleDao;
 import com.cb.Shuo.dao.CommentDao;
 import com.cb.Shuo.dao.LikeDao;
-import com.cb.Shuo.model.ArticleModel;
-import com.cb.Shuo.model.CommentModel;
-import com.cb.Shuo.model.LikeModel;
+import com.cb.Shuo.model.entity.ArticleModel;
+import com.cb.Shuo.model.entity.CommentModel;
+import com.cb.Shuo.model.entity.LikeModel;
 import com.cb.Shuo.model.json.CommentJson;
 import com.cb.Shuo.model.json.LikeJson;
 import lombok.extern.slf4j.Slf4j;
@@ -81,8 +81,12 @@ public class LikeCommentService {
     commentModel.setCreateTime(LocalDateTime.now().withNano(0));
     commentModel.setUserId(userId);
 
-    if (articleDao.findArticleModelByArticleId(commentModel.getArticleId()) != null) {
+    ArticleModel articleModel = articleDao.findArticleModelByArticleId(commentModel.getArticleId());
+
+    if (articleModel != null) {
       commentDao.save(commentModel);
+      articleModel.setCommentCount(articleModel.getCommentCount() + 1);
+      articleDao.save(articleModel);
       return 0;
     } else return 1;
   }
@@ -100,9 +104,12 @@ public class LikeCommentService {
             commentJson.setUserId(commentModel.getUserId());
             commentJson.setComment(commentModel.getComment());
             commentJson.setArticleId(commentModel.getArticleId());
+            commentJson.setCommentTime(commentModel.getCreateTime());
             commentJsonList.add(commentJson);
           });
       return commentJsonList;
     } else return new ArrayList<>();
   }
+
+  //  public boolean checkLiked(String articleId, String userId) {}
 }

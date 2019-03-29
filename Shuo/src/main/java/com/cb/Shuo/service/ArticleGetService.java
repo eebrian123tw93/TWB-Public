@@ -1,10 +1,14 @@
 package com.cb.Shuo.service;
 
 import com.cb.Shuo.dao.ArticleDao;
+import com.cb.Shuo.dao.CommentDao;
 import com.cb.Shuo.dao.LikeDao;
-import com.cb.Shuo.model.ArticleModel;
-import com.cb.Shuo.model.LikeModel;
+import com.cb.Shuo.model.entity.ArticleModel;
+import com.cb.Shuo.model.entity.CommentModel;
+import com.cb.Shuo.model.entity.LikeModel;
+import com.cb.Shuo.model.json.ArticleDataJson;
 import com.cb.Shuo.model.json.ArticleJson;
+import com.cb.Shuo.model.json.CommentJson;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +27,14 @@ import java.util.List;
 public class ArticleGetService {
 
   private final ArticleDao articleDao;
-
   private final LikeDao likeDao;
+  private final CommentDao commentDao;
 
   @Autowired
-  public ArticleGetService(ArticleDao articleDao, LikeDao likeDao) {
+  public ArticleGetService(ArticleDao articleDao, LikeDao likeDao, CommentDao commentDao) {
     this.articleDao = articleDao;
     this.likeDao = likeDao;
+    this.commentDao = commentDao;
   }
 
   public List<ArticleJson> getAll() {
@@ -67,6 +72,36 @@ public class ArticleGetService {
     }
 
     return articleJsonList;
+  }
+
+  public ArticleDataJson getArticleData(String articleId) {
+    ArticleModel articleModel = articleDao.findArticleModelByArticleId(articleId);
+    List<CommentModel> commentModelList = commentDao.findCommentModelsByArticleId(articleId);
+
+    ArticleDataJson articleDataJson = new ArticleDataJson();
+    articleDataJson.setPoints(articleModel.getPoints());
+    articleDataJson.setViews(articleModel.getViews());
+    articleDataJson.setCommentCount(articleModel.getCommentCount());
+
+    List<CommentJson> commentJsonList = new ArrayList<>();
+
+    commentModelList.forEach(
+        commentModel -> {
+          CommentJson commentJson = new CommentJson();
+          commentJson.setArticleId(commentModel.getArticleId());
+          commentJson.setUserId(commentModel.getUserId());
+          commentJson.setCommentTime(commentModel.getCreateTime());
+          commentJson.setComment(commentModel.getComment());
+          commentJsonList.add(commentJson);
+        });
+
+    articleDataJson.setComments(commentJsonList);
+
+    return articleDataJson;
+  }
+
+  public List<ArticleJson> getArticlesByAuthor(String userId) {
+    return convertModelToJson(articleDao.getArticleModelsByUserIdOrderByCreateTimeDesc(userId));
   }
 
   private List<ArticleJson> convertModelToJson(List<ArticleModel> articleModelList) {

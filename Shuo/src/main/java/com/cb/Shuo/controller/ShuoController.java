@@ -1,6 +1,7 @@
 package com.cb.Shuo.controller;
 
-import com.cb.Shuo.model.UserModel;
+import com.cb.Shuo.model.entity.UserModel;
+import com.cb.Shuo.model.json.ArticleDataJson;
 import com.cb.Shuo.model.json.ArticleJson;
 import com.cb.Shuo.model.json.CommentJson;
 import com.cb.Shuo.model.json.LikeJson;
@@ -39,6 +40,7 @@ public class ShuoController {
     this.likeCommentService = likeCommentService;
   }
 
+  // <editor-fold defaultstate="collapsed" desc="user">
   @RequestMapping(value = "/public/register", method = RequestMethod.POST)
   public ResponseEntity register(@RequestBody UserModel userModel) {
     log.info("register " + userModel.getUserId());
@@ -61,15 +63,24 @@ public class ShuoController {
     else return new ResponseEntity(HttpStatus.FORBIDDEN);
   }
 
+  @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
+  public ResponseEntity deleteUser(Principal principal) {
+    log.info("de-register " + principal.getName());
+    userService.deleteUser(principal.getName());
+    return new ResponseEntity(HttpStatus.NO_CONTENT);
+  }
+  // </editor-fold>
+
+  // <editor-fold defaultstate="collapsed" desc="article">
   @RequestMapping(value = "/postArticle", method = RequestMethod.POST)
-  public ResponseEntity postArticle(@RequestBody ArticleJson articleJson) {
-    log.info("postArticle " + articleJson.getUserId());
-    articlePostService.postArticle(articleJson);
+  public ResponseEntity postArticle(@RequestBody ArticleJson articleJson, Principal principal) {
+    log.info("postArticle " + principal.getName());
+    articlePostService.postArticle(articleJson, principal.getName());
     return new ResponseEntity(HttpStatus.NO_CONTENT);
   }
 
-  @RequestMapping(value = "/getArticlesFiltered", method = RequestMethod.GET)
-  public List<ArticleJson> getArticlesFiltered(
+  @RequestMapping(value = "/getArticles", method = RequestMethod.GET)
+  public List<ArticleJson> getArticles(
       @RequestParam(name = "startTime", required = false)
           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
           LocalDateTime startTime,
@@ -104,7 +115,7 @@ public class ShuoController {
   }
 
   @RequestMapping(value = "/public/getArticles", method = RequestMethod.GET)
-  public List<ArticleJson> getArticles(
+  public List<ArticleJson> getArticlesPublic(
       @RequestParam(name = "startTime", required = false)
           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
           LocalDateTime startTime,
@@ -123,7 +134,25 @@ public class ShuoController {
     return articleGetService.getArticles(startTime, endTime, limit, offset, null, orderBy);
   }
 
+  @RequestMapping(value = "/public/getUserPostHistory", method = RequestMethod.GET)
+  public List<ArticleJson> getUserPostHistory(@RequestParam(value = "userId") String userId) {
+    return articleGetService.getArticlesByAuthor(userId);
+  }
+
+  @RequestMapping(value = "/public/getArticleData", method = RequestMethod.GET)
+  public ArticleDataJson getArticleData(@RequestParam(value = "articleId") String articleId) {
+    return articleGetService.getArticleData(articleId);
+  }
+
+  @RequestMapping(value = "/public/viewed", method = RequestMethod.POST)
+  public ResponseEntity viewed(@RequestBody String articleId) {
+    log.info("viewed " + articleId);
+    articlePostService.viewArticle(articleId);
+    return new ResponseEntity(HttpStatus.NO_CONTENT);
+  }
+
   @RequestMapping(value = "/public/getComments", method = RequestMethod.GET)
+  @Deprecated
   public List<CommentJson> getComments(@RequestParam(value = "articleId") String articleId) {
     return likeCommentService.getComments(articleId);
   }
@@ -142,13 +171,7 @@ public class ShuoController {
       return new ResponseEntity(HttpStatus.NO_CONTENT);
     else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("article does not exist");
   }
-
-  @RequestMapping(value = "/viewed", method = RequestMethod.POST)
-  public ResponseEntity viewed(@RequestBody String articleId) {
-    log.info("viewed " + articleId);
-    articlePostService.viewArticle(articleId);
-    return new ResponseEntity(HttpStatus.NO_CONTENT);
-  }
+  // </editor-fold>
 
   @RequestMapping(value = "/t", method = RequestMethod.GET)
   public String t() {
