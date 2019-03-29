@@ -71,7 +71,8 @@
                                     android:gravity="top"
 
 
-                                    android:text="preview" />
+                                    android:text="preview"
+                                    android:textSize="20sp" />
 
                                 <android.support.v7.widget.RecyclerView
                                     android:id="@+id/imageViews_recyclerView"
@@ -187,14 +188,15 @@
                 android:id="@+id/comment_editText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginEnd="8dp"
                 android:ems="10"
                 android:hint="@string/insert_comment"
                 android:inputType="text"
                 android:paddingHorizontal="10dp"
                 android:text=""
-                android:textSize="25dp"
 
+                android:textSize="25dp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toStartOf="@+id/send_imaeView"
                 card_view:layout_constraintHorizontal_bias="1.0"
@@ -210,7 +212,7 @@
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
-                card_view:srcCompat="@drawable/send" />
+                card_view:srcCompat="@drawable/underline_button" />
 
         </android.support.constraint.ConstraintLayout>
 
