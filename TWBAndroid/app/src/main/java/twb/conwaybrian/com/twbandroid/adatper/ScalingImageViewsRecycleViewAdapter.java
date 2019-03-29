@@ -18,69 +18,54 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.R;
+import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
-public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageViewsRecycleViewAdapter.ViewHolder> {
+public class ScalingImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ScalingImageViewsRecycleViewAdapter.ViewHolder> {
 
-    public enum Type{
-        VIEW,EDIT
-    }
-    public enum State{
-        UPLOADING,NOT_UPLOAD
-    }
-    public interface ShowImageViewsFragmentListener{
-            void onShowImageViewsFragment(List<String> images,int position);
-    }
+
 
 
     private List<String> images;
     private Context context;
-    private Type type;
-    private State state;
-    private ShowImageViewsFragmentListener showImageViewsFragmentListener;
+
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        private ImageView imageView;
-        private ImageView cancelImageView;
-
-        private CardView cardView;
-
+//        private ImageView imageView;
+//        private ImageView cancelImageView;
+//
+//        private CardView cardView;
+            private PhotoView photoView;
 
         public ViewHolder(View v) {
             super(v);
+            photoView=v.findViewById(R.id.photo_view);
 
-            imageView=v.findViewById(R.id.imageView);
-            cancelImageView=v.findViewById(R.id.cancel_imageView);
-            cardView=v.findViewById(R.id.card_view);
+//            imageView=v.findViewById(R.id.imageView);
+//            cancelImageView=v.findViewById(R.id.cancel_imageView);
+//            cardView=v.findViewById(R.id.card_view);
         }
     }
 
-    public ImageViewsRecycleViewAdapter(Context context,List<String> images,Type type) {
+    public ScalingImageViewsRecycleViewAdapter(Context context,List<String> images) {
         this.context=context;
         this.images = images;
-        this.type=type;
-        state=State.NOT_UPLOAD;
+
 
     }
-    public ImageViewsRecycleViewAdapter(Context context,List<String> images,Type type,ShowImageViewsFragmentListener listener) {
-        this.context=context;
-        this.images = images;
-        this.type=type;
-        state=State.NOT_UPLOAD;
-        this.showImageViewsFragmentListener=listener;
 
-    }
 
 //    public ImageViewsRecycleViewAdapter(Context context,List<String> images) {
 //        this(context,images,Type.URL);
 //    }
 
     @Override
-    public ImageViewsRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ScalingImageViewsRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_imageview, parent, false);
+                .inflate(R.layout.item_scaling_imageview, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
@@ -89,31 +74,32 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
 
     @Override
     public void onBindViewHolder(final ViewHolder holder,final int position) {
-        Glide.with(context).load(images.get(position)).into(holder.imageView);
-
-        switch (type){
-            case EDIT:
-                holder.cancelImageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        removeImage(position);
-                    }
-                });
-                if(state==State.UPLOADING)holder.cancelImageView.setEnabled(false);
-                else holder.cancelImageView.setEnabled(true);
-                break;
-            case VIEW:
-                holder.cancelImageView.setVisibility(View.GONE);
-                holder.imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(showImageViewsFragmentListener!=null){
-                            showImageViewsFragmentListener.onShowImageViewsFragment(images,position);
-                        }
-                    }
-                });
-                break;
-        }
+//        PhotoViewAttacher attacher=new PhotoViewAttacher(holder.photoView);
+        Glide.with(context).load(images.get(position)).into(holder.photoView);
+//        attacher.update();
+//        switch (type){
+//            case EDIT:
+//                holder.cancelImageView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        removeImage(position);
+//                    }
+//                });
+//                if(state==State.UPLOADING)holder.cancelImageView.setEnabled(false);
+//                else holder.cancelImageView.setEnabled(true);
+//                break;
+//            case VIEW:
+//                holder.cancelImageView.setVisibility(View.GONE);
+//                holder.imageView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if(showImageViewsFragmentListener!=null){
+//                            showImageViewsFragmentListener.onShowImageViewsFragment(images,position);
+//                        }
+//                    }
+//                });
+//                break;
+//        }
     }
 
     @Override
@@ -148,7 +134,7 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
         notifyDataSetChanged();
     }
 
-    public static String getRealFilePath(final Context context, final Uri uri ) {
+    private static String getRealFilePath(final Context context, final Uri uri ) {
         if ( null == uri ) return null;
         final String scheme = uri.getScheme();
         String data = null;
@@ -171,8 +157,5 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
         return data;
     }
 
-    public void setState(State state){
-        this.state=state;
-        for(int i =0;i<images.size();i++)notifyItemChanged(i);
-    }
+
 }

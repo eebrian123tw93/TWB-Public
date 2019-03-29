@@ -2,6 +2,8 @@ package twb.conwaybrian.com.twbandroid.view;
 
 import android.support.v7.widget.RecyclerView;
 
+import java.util.List;
+
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 
 public interface ArticleView extends TWBView {
@@ -20,4 +22,6 @@ public interface ArticleView extends TWBView {
     void onSendCommentResult(boolean result);
     void onClearCommentText();
     void onFinishRefreshOrLoad();
+
+    void  onShowImageViewsFragment(List<String> images, int position);
 }

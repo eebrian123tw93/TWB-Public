@@ -27,7 +27,7 @@ import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApi;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.ArticleView;
 
-public class ArticlePresenter extends TWBPresenter {
+public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleViewAdapter.ShowImageViewsFragmentListener {
     public static final String ARTICLE_ID="article_id";
     public static final String ARTICLE_TITLE="article_title";
     public static final String ARTICLE_CONTENT="article_content";
@@ -60,7 +60,7 @@ public class ArticlePresenter extends TWBPresenter {
         article.getImages().addAll(Arrays.asList(images));
 
 
-        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,article.getImages(),ImageViewsRecycleViewAdapter.Type.VIEW);
+        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,article.getImages(),ImageViewsRecycleViewAdapter.Type.VIEW,this);
         commentListRecycleViewAdapter=new CommentListRecycleViewAdapter(context,new ArrayList<Comment>());
 
         articleView.onSetArticle(article.getTitle(),article.getContent(),String.valueOf(article.getPoints()),String.valueOf(article.getViews()),String.valueOf(article.getCommentCount()));
@@ -172,4 +172,8 @@ public class ArticlePresenter extends TWBPresenter {
     }
 
 
+    @Override
+    public void onShowImageViewsFragment(List<String> images,int position) {
+        articleView.onShowImageViewsFragment(images, position);
+    }
 }

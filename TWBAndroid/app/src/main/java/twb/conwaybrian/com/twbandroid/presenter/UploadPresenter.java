@@ -90,7 +90,7 @@ public class UploadPresenter extends TWBPresenter {
 
     }
 
-    public void post(String title, String content){
+    public synchronized void  post(String title, String content){
         if (title.isEmpty() ){
             uploadView.onSetMessage("Title  can not be empty",FancyToast.ERROR);
             uploadView.onPostArticle(false);

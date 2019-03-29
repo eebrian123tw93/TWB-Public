@@ -1,11 +1,14 @@
 package twb.conwaybrian.com.twbandroid.navigation.activity;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +18,10 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+import java.util.List;
+
 import twb.conwaybrian.com.twbandroid.R;
+import twb.conwaybrian.com.twbandroid.navigation.fragment.ImageViewsFragment;
 import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
 import twb.conwaybrian.com.twbandroid.reactbutton.ReactButton;
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
@@ -39,6 +45,8 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
     private ReactButton pointsReactButton;
 
     private TwinklingRefreshLayout refreshLayout;
+
+    private ImageViewsFragment focusFragment;
 
     private ImageView sendImageView;
     private EditText commentEditView;
@@ -285,5 +293,34 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
     public void onFinishRefreshOrLoad() {
         refreshLayout.finishRefreshing();
         refreshLayout.finishLoadmore();
+    }
+
+    @Override
+    public void onShowImageViewsFragment(List<String> images, int position) {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        if(getSupportActionBar()!=null)getSupportActionBar().hide();
+        if( focusFragment==null || !focusFragment.isAdded()){
+            focusFragment= ImageViewsFragment.newInstance(images,position);
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,focusFragment).commit();
+        }else {
+
+            getSupportFragmentManager().beginTransaction().show(focusFragment).commit();
+            focusFragment.setPosition(position);
+        }
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(getSupportActionBar()!=null)getSupportActionBar().show();
+        if(focusFragment!=null && focusFragment.isVisible()){
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getSupportFragmentManager().beginTransaction().hide(focusFragment).commit();
+
+        }else {
+            super.onBackPressed();
+        }
     }
 }
