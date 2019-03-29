@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -295,21 +297,28 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
 
     @Override
     public void onShowImageViewsFragment(List<String> images, int position) {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        if(getSupportActionBar()!=null)getSupportActionBar().hide();
         if( focusFragment==null || !focusFragment.isAdded()){
             focusFragment= ImageViewsFragment.newInstance(images,position);
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,focusFragment).commit();
         }else {
 
             getSupportFragmentManager().beginTransaction().show(focusFragment).commit();
+            focusFragment.setPosition(position);
         }
+
 
     }
 
     @Override
     public void onBackPressed() {
+        if(getSupportActionBar()!=null)getSupportActionBar().show();
         if(focusFragment!=null && focusFragment.isVisible()){
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getSupportFragmentManager().beginTransaction().hide(focusFragment).commit();
+
         }else {
             super.onBackPressed();
         }
