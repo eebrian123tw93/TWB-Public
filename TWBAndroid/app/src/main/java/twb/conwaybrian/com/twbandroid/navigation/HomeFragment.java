@@ -30,16 +30,20 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_home,container,false);
         TabLayout tabLayout =  view.findViewById(R.id.tabLayout);
-        TabLayout.Tab  newTab= tabLayout.newTab();
-        newTab.setText("最新");
-        newTab.setIcon(R.drawable.new_icon);
+
+
 
         TabLayout.Tab  hotTab= tabLayout.newTab();
         hotTab.setText("熱門");
         hotTab.setIcon(R.drawable.popular);
 
-        tabLayout.addTab(newTab);
+        TabLayout.Tab  newTab= tabLayout.newTab();
+        newTab.setText("最新");
+        newTab.setIcon(R.drawable.new_icon);
+
+
         tabLayout.addTab(hotTab);
+        tabLayout.addTab(newTab);
         final ViewPager viewPager = view.findViewById(R.id.viewPager);
 
         pageAdapter=new PageAdapter(this.getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
