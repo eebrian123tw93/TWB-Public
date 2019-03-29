@@ -94,7 +94,7 @@ dependencies {
     //https://github.com/MasayukiSuda/BubbleLayout //reaction popup view
     //https://github.com/razerdp/BasePopup  //reaction popup view
 
-
+    implementation 'com.github.chrisbanes:PhotoView:1.2.6'
 
 
 }
