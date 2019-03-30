@@ -166,7 +166,13 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
 
             }
         };
-        ShuoApiService.getInstance().getArticleData(observer,article,false);
+        if(isLogin()){
+            ShuoApiService.getInstance().getArticleDataPrivate(observer,user,article,false);
+        }else {
+            ShuoApiService.getInstance().getArticleDataPublic(observer,article,false);
+
+        }
+
     }
 
     public void sendReaction(Reaction.Type type){

@@ -155,9 +155,18 @@ public class ShuoApiService {
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
     }
-    public void getArticleData(@NonNull Observer observer,  @NonNull Article article, boolean isObserveOnIO){
+    public void getArticleDataPublic(@NonNull Observer observer,  @NonNull Article article, boolean isObserveOnIO){
         String articleId = article.getArticleId();
-        shuoApi.getArticleData(articleId)
+        shuoApi.getArticleDataPublic(articleId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
+    public void getArticleDataPrivate(@NonNull Observer observer,@NonNull User user,  @NonNull Article article, boolean isObserveOnIO){
+        String articleId = article.getArticleId();
+        shuoApi.getArticleDataPrivate(user.authKey(),articleId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

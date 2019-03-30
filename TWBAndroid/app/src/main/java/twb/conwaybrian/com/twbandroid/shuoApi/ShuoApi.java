@@ -55,8 +55,10 @@ public interface ShuoApi {
     Observable<Response<JsonArray>>getComments(@Query("articleId") String articleId);
 
     @GET("/shuo/public/getArticleData/")
-    Observable<Response<JsonObject>>getArticleData(@Query("articleId") String articleId);
+    Observable<Response<JsonObject>>getArticleDataPublic(@Query("articleId") String articleId);
 
+    @GET("/shuo/getArticleData/")
+    Observable<Response<JsonObject>>getArticleDataPrivate(@Header("Authorization")String authKey,@Query("articleId") String articleId);
 
     @GET("/shuo/public/getArticles/")
     Observable<Response<JsonArray>>getArticlesPublic(@Query("endTime") LocalDateTime endDateTime, @Query("startTime") LocalDateTime startGateTime,@Query("orderBy")String orderBy ,@Query("offset")int offset, @Query("limit")int limit);
