@@ -225,8 +225,6 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
         }
     }
 
-
-
     public void sendComment(String commentString){
         if(commentString.isEmpty()){
             articleView.onSendCommentResult(false);
@@ -273,6 +271,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
             if(userListener!=null)userListener.toLoginPage();
         }
     }
+
     public void addComments(List<Comment>comments){
         commentListRecycleViewAdapter.addComments(comments);
     }
@@ -280,10 +279,10 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
     public void clearComment(){
         articleView.onClearCommentText();
     }
+
     public void refresh(){
         commentListRecycleViewAdapter.clear();
     }
-
 
     @Override
     public void onShowImageViewsFragment(List<String> images,int position) {

@@ -27,14 +27,14 @@ public class PageAdapter extends FragmentStatePagerAdapter {
         if (fragment == null) {
             switch (position) {
                 case 0:
-                    fragment =ArticleListFragment.newInstance("likes");
+                    fragment =ArticleListFragment.newInstance("points");
                     break;
                 case 1:
 
                     fragment =ArticleListFragment.newInstance("time");
                     break;
                 case 2:
-                    fragment =ArticleListFragment.newInstance("time");
+                    fragment =ArticleListFragment.newInstance("view");
                     break;
 
             }

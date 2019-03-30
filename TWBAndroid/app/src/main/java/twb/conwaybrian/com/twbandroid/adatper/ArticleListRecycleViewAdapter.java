@@ -80,12 +80,18 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         holder.viewsTextView.setText(String.valueOf(article.getViews()));
         holder.commentCountTextView.setText(String.valueOf(article.getCommentCount()));
 
-        if(article.getPoints()<0){
-            holder.pointsImageView.setImageResource(R.drawable.dislike);
-        }else if(article.getPoints()>0){
-         holder.pointsImageView.setImageResource(R.drawable.like);
+        if(article.getLikeStatus()==0) {
+            if (article.getPoints() < 0) {
+                holder.pointsImageView.setImageResource(R.drawable.dislike);
+            } else if (article.getPoints() >= 0) {
+                holder.pointsImageView.setImageResource(R.drawable.like);
+            }
         }else {
-            holder.pointsImageView.setImageResource(R.drawable.no_like);
+            if (article.getLikeStatus() == 1) {
+                holder.pointsImageView.setImageResource(R.drawable.like_color);
+            } else if (article.getLikeStatus() == -1) {
+                holder.pointsImageView.setImageResource(R.drawable.dislike_color);
+            }
         }
 
         if(articleList.get(position).getImages()==null || articleList.get(position).getImages().isEmpty()){
