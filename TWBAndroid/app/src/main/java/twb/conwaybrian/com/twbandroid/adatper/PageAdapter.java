@@ -27,11 +27,11 @@ public class PageAdapter extends FragmentStatePagerAdapter {
         if (fragment == null) {
             switch (position) {
                 case 0:
-                    fragment =ArticleListFragment.newInstance("熱門");
+                    fragment =ArticleListFragment.newInstance("likes");
                     break;
                 case 1:
 
-                    fragment =ArticleListFragment.newInstance("最新");
+                    fragment =ArticleListFragment.newInstance("time");
                     break;
 
             }

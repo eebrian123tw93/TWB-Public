@@ -18,6 +18,7 @@ public class Article {
     private int views;
     private int commentCount;
     private Date createTime;
+    private int likeStatus;
     public Article(){
         images=new ArrayList<>();
     }

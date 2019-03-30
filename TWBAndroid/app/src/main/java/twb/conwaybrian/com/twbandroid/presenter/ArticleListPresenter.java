@@ -5,6 +5,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+import org.threeten.bp.LocalDateTime;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,11 @@ public class ArticleListPresenter extends TWBPresenter {
         articleListView.onSetArticleListRecyclerAdapter(articleListRecycleViewAdapter);
     }
 
-    public void getArticleList(String type,int start,int count){
+    public void getArticleList(String order,int limit){
+        this.getArticleList(order,articleListRecycleViewAdapter.getItemCount(),limit);
+    }
+
+    public void getArticleList(String order,int offset,int limit){
                 Observer<Response<JsonArray>> observer=new Observer<Response<JsonArray>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -62,8 +68,15 @@ public class ArticleListPresenter extends TWBPresenter {
 
             }
         };
-        ShuoApiService.getInstance().getArticles(observer,"qwe",1,1,false);
 
+        LocalDateTime endDateTime=LocalDateTime.now();
+        LocalDateTime startDateTime=endDateTime.minusDays(10);
+
+        if(isLogin()){
+            ShuoApiService.getInstance().getArticlesPrivate(observer,user,endDateTime,startDateTime,order,offset,limit,false);
+        }else {
+            ShuoApiService.getInstance().getArticlesPublic(observer,endDateTime,startDateTime,order,offset,limit,false);
+        }
     }
 
     public void refresh(){

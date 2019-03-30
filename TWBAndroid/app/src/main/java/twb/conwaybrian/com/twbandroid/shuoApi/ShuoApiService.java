@@ -3,6 +3,8 @@ package twb.conwaybrian.com.twbandroid.shuoApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.threeten.bp.LocalDateTime;
+
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -63,9 +65,16 @@ public class ShuoApiService {
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
     }
+    public void getArticlesPrivate(@NonNull Observer observer, @NonNull User user,@NonNull LocalDateTime endDateTime, @NonNull LocalDateTime startDateTime, @NonNull String  orderBy,@NonNull int offset,@NonNull int limit, boolean isObserveOnIO){
+        shuoApi.getArticlesPrivate(user.authKey(),endDateTime,startDateTime,orderBy,offset,limit)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
 
-    public void getArticles(@NonNull Observer observer,@NonNull String type,@NonNull int start,@NonNull int count,boolean isObserveOnIO){
-        shuoApi.getArticles(type,start,count)
+    public void getArticlesPublic(@NonNull Observer observer, @NonNull LocalDateTime endDateTime, @NonNull LocalDateTime startDateTime, @NonNull String  orderBy,@NonNull int offset,@NonNull int limit, boolean isObserveOnIO){
+        shuoApi.getArticlesPublic(endDateTime,startDateTime,orderBy,offset,limit)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

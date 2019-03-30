@@ -14,9 +14,6 @@ import android.view.ViewGroup;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.mengpeng.recyclerviewgallery.CarouselLayoutManager;
-import com.mengpeng.recyclerviewgallery.CarouselZoomPostLayoutListener;
-import com.mengpeng.recyclerviewgallery.CenterScrollListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 
@@ -27,15 +24,15 @@ import twb.conwaybrian.com.twbandroid.presenter.ArticleListPresenter;
 import twb.conwaybrian.com.twbandroid.view.ArticleListView;
 
 public class ArticleListFragment extends Fragment implements ArticleListView {
-    private static String ARG_PARAM = "type";
-    private String type;
+    private static String ARG_PARAM = "orderBy";
+    private String orderBy;
     private ArticleListPresenter articleListPresenter;
     private RecyclerView recyclerView;
     private TwinklingRefreshLayout refreshLayout;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        type = getArguments().getString(ARG_PARAM);
+        orderBy = getArguments().getString(ARG_PARAM);
     }
 
     @Nullable
@@ -53,13 +50,13 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 articleListPresenter.refresh();
-                articleListPresenter.getArticleList(type,1,10);
+                articleListPresenter.getArticleList(orderBy,0,20);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                articleListPresenter.getArticleList(type,1,10);
+                articleListPresenter.getArticleList(orderBy,20);
             }
         });
 
@@ -73,7 +70,7 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
 
         articleListPresenter=new ArticleListPresenter(this);
 
-        articleListPresenter.getArticleList(type,1,10);
+        articleListPresenter.getArticleList(orderBy,0,20);
 
         return view;
     }
