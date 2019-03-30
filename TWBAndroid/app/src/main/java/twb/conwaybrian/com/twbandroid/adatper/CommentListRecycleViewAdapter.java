@@ -59,6 +59,7 @@ public class CommentListRecycleViewAdapter extends RecyclerView.Adapter<CommentL
     public void  addComments(List<Comment>comments){
         for(int i=this.comments.size();i<comments.size();i++){
             this.comments.add(comments.get(i));
+//            notifyItemInserted(i);
         }
 
 

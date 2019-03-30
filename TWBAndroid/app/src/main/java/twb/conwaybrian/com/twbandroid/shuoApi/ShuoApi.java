@@ -63,4 +63,8 @@ public interface ShuoApi {
 
     @GET("/shuo/getArticles/")
     Observable<Response<JsonArray>>getArticlesPrivate(@Header("Authorization")String authKey,@Query("endTime") LocalDateTime endDateTime, @Query("startTime") LocalDateTime startGateTime,@Query("orderBy")String orderBy ,@Query("offset")int offset, @Query("limit")int limit);
+
+    @GET("/shuo/public/getUserPostHistory/")
+    Observable<Response<JsonArray>>getUserPostHistory(@Query("userId")String userId );
+
 }
