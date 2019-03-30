@@ -19,15 +19,13 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
-import twb.conwaybrian.com.twbandroid.adatper.CommentListRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adatper.ArticleDataRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
-import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.model.ArticleData;
 import twb.conwaybrian.com.twbandroid.model.Comment;
 import twb.conwaybrian.com.twbandroid.model.Like;
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
-import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApi;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.ArticleView;
 
@@ -42,11 +40,11 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
     public static final String ARTICLE_COMMENT_COUNT="article_comment_count";
     public static final String ARTICLE_IMAGES="articles_images";
     private ArticleView articleView;
-    private Article article;
-    private ImageViewsRecycleViewAdapter imageViewsRecycleViewAdapter;
-    private CommentListRecycleViewAdapter commentListRecycleViewAdapter;
+    public Article article;
+    public ImageViewsRecycleViewAdapter imageViewsRecycleViewAdapter;
+    private ArticleDataRecycleViewAdapter articleDataRecycleViewAdapter;
     boolean viewed;
-    private Reaction.Type defaultType;
+    public Reaction.Type defaultType;
 
     public ArticlePresenter(ArticleView articleView, Intent intent){
 
@@ -69,11 +67,9 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
 
 
         imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,article.getImages(),ImageViewsRecycleViewAdapter.Type.VIEW,this);
-        commentListRecycleViewAdapter=new CommentListRecycleViewAdapter(context,new ArrayList<Comment>());
+        articleDataRecycleViewAdapter =new ArticleDataRecycleViewAdapter(context,new ArrayList<Comment>(),this);
 
-        articleView.onSetArticle(article.getTitle(),article.getContent(),String.valueOf(article.getPoints()),String.valueOf(article.getViews()),String.valueOf(article.getCommentCount()));
-        articleView.onSetImageViewAdapter(imageViewsRecycleViewAdapter);
-        articleView.onSetCommentViewAdapter(commentListRecycleViewAdapter);
+        articleView.onSetArticleDataRecyclerViewAdapter(articleDataRecycleViewAdapter);
 
         if(article.getPoints()>0){
             defaultType=Reaction.Type.LIKE;
@@ -84,7 +80,6 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
             defaultType=Reaction.Type.NO_LIKE;
 
         }
-        articleView.onSetDefaultPointsImageView(defaultType);
 //        getComments();
         getArticleData();
         viewed=true;
@@ -105,7 +100,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
                     System.out.println(jsonArray);
                     Type listType = new TypeToken<List<Comment>>() {}.getType();
                     List<Comment> commentList = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().fromJson(jsonArray, listType);
-                    commentListRecycleViewAdapter.addComments(commentList);
+                    articleDataRecycleViewAdapter.addComments(commentList);
                     articleView.onFinishRefreshOrLoad();
                 } else {
                     articleView.onSendCommentResult(false);
@@ -142,10 +137,12 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
                     System.out.println(jsonObject);
                     Type listType = new TypeToken<ArticleData>() {}.getType();
                     ArticleData articleData = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().fromJson(jsonObject, listType);
-                    commentListRecycleViewAdapter.addComments(articleData.getComments());
-                    articleView.onSetCommentCount(String.valueOf(articleData.getCommentCount()));
-                    articleView.onSetPoints(String.valueOf(articleData.getPoints()));
-                    articleView.onSetViews(String.valueOf(articleData.getViews()));
+                    articleDataRecycleViewAdapter.addComments(articleData.getComments());
+                    articleDataRecycleViewAdapter.notifyItemChanged(0);
+                    article.setCommentCount(articleData.getCommentCount());
+                    article.setPoints(articleData.getPoints());
+                    article.setViews(articleData.getViews());
+                    articleDataRecycleViewAdapter.notifyItemChanged(0);
                     articleView.onFinishRefreshOrLoad();
                 } else {
                     articleView.onSendCommentResult(false);
@@ -273,7 +270,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
     }
 
     public void addComments(List<Comment>comments){
-        commentListRecycleViewAdapter.addComments(comments);
+        articleDataRecycleViewAdapter.addComments(comments);
     }
 
     public void clearComment(){
@@ -281,7 +278,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
     }
 
     public void refresh(){
-        commentListRecycleViewAdapter.clear();
+        articleDataRecycleViewAdapter.clear();
     }
 
     @Override
