@@ -1,6 +1,5 @@
 package com.cb.Shuo.controller;
 
-import com.cb.Shuo.model.entity.UserModel;
 import com.cb.Shuo.model.json.*;
 import com.cb.Shuo.service.ArticleGetService;
 import com.cb.Shuo.service.ArticlePostService;
@@ -22,7 +21,7 @@ import java.util.List;
 @Slf4j
 @Api(value = "controller for the entire TWB backend")
 public class ShuoController {
-  private final UserService userService;
+  private final UserService userService; 
   private final ArticlePostService articlePostService;
   private final ArticleGetService articleGetService;
   private final LikeCommentService likeCommentService;
@@ -179,6 +178,7 @@ public class ShuoController {
 
   @RequestMapping(value = "/public/getUserPostHistory", method = RequestMethod.GET)
   public List<ArticleJson> getUserPostHistory(@RequestParam(name = "userId") String userId) {
+    log.info("getUserPostHistory for user " + userId);
     return articleGetService.getArticlesByAuthor(userId);
   }
 
@@ -199,7 +199,7 @@ public class ShuoController {
   @ApiImplicitParam(name = "articleId", value = "raw string value of articleId (do not use \" \")")
   @ApiResponse(code = 204, message = "success")
   public ResponseEntity viewed(@RequestBody String articleId) {
-    log.info("viewed " + articleId);
+    log.info(articleId + " views +1");
     articlePostService.viewArticle(articleId);
     return new ResponseEntity(HttpStatus.NO_CONTENT);
   }
@@ -212,6 +212,7 @@ public class ShuoController {
 
   @RequestMapping(value = "/like", method = RequestMethod.POST)
   public ResponseEntity like(@RequestBody LikeJson likeJson, Principal principal) {
+    log.info(likeJson.getArticleId() + " points " + likeJson.getType());
     if (likeCommentService.like(likeJson, principal.getName()) == 0)
       return new ResponseEntity(HttpStatus.NO_CONTENT);
     else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("article does not exist");
@@ -219,7 +220,7 @@ public class ShuoController {
 
   @RequestMapping(value = "/comment", method = RequestMethod.POST)
   public ResponseEntity comment(@RequestBody CommentJson commentJson, Principal principal) {
-    log.info("comment by " + principal.getName());
+    log.info("comment by " + principal.getName() + " on article " + commentJson.getArticleId());
     if (likeCommentService.comment(commentJson, principal.getName()) == 0)
       return new ResponseEntity(HttpStatus.NO_CONTENT);
     else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("article does not exist");
