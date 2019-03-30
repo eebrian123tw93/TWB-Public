@@ -19,6 +19,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
+import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.adatper.ArticleDataRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
@@ -142,7 +143,23 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
                     Type listType = new TypeToken<ArticleData>() {}.getType();
                     ArticleData articleData = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().fromJson(jsonObject, listType);
                     articleDataRecycleViewAdapter.addComments(articleData.getComments());
-                    articleDataRecycleViewAdapter.notifyItemChanged(0);
+
+
+                    switch (articleData.getLikeStatus()){
+                        case 0:
+                            defaultType=Reaction.Type.LIKE;
+                            break;
+                        case 1:
+                            defaultType=Reaction.Type.LIKE_COLOR;
+                            break;
+                        case -1:
+                            defaultType=Reaction.Type.DISLIKE_COLOR;
+                            break;
+                        default:
+                            defaultType=Reaction.Type.LIKE;
+                            break;
+                    }
+
                     article.setCommentCount(articleData.getCommentCount());
                     article.setPoints(articleData.getPoints());
                     article.setViews(articleData.getViews());

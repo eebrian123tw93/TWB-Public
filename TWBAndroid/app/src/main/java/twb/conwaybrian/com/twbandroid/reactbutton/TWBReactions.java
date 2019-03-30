@@ -6,7 +6,7 @@ public  class TWBReactions {
 
     public static Reaction defaultReact = new Reaction(
             Reaction.Type.LIKE,
-            R.drawable.like_color);
+            R.drawable.like);
 
     public static Reaction[] reactions = {
             new Reaction(Reaction.Type.LIKE_COLOR,R.drawable.like_color),
