@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.github.javiersantos.bottomdialogs.BottomDialog;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import twb.conwaybrian.com.twbandroid.R;
@@ -24,7 +25,10 @@ public class ProfileFragment extends Fragment  implements ProfileView,View.OnCli
 
     private ProfilePresenter profilePresenter;
     private Button logoutButton;
+    private Button deleteUserButton;
+
     private TextView userIdTextView;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -36,9 +40,13 @@ public class ProfileFragment extends Fragment  implements ProfileView,View.OnCli
 
         View view= inflater.inflate(R.layout.fragment_profile,container,false);
         logoutButton=view.findViewById(R.id.logout_button);
+
+        deleteUserButton=view.findViewById(R.id.delete_user_button);
         userIdTextView=view.findViewById(R.id.userId_textView);
 
         logoutButton.setOnClickListener(this);
+
+        deleteUserButton.setOnClickListener(this);
 
         profilePresenter=new ProfilePresenter(this);
         return view;
@@ -51,12 +59,37 @@ public class ProfileFragment extends Fragment  implements ProfileView,View.OnCli
             case R.id.logout_button:
                 profilePresenter.logout();
                 break;
+
+            case R.id.delete_user_button:
+                new BottomDialog.Builder(getContext())
+                        .setTitle("Warning ")
+                        .setContent("This action will delete user")
+                        .setPositiveText("Confirm")
+                        .setPositiveBackgroundColorResource(R.color.colorPrimary)
+                        //.setPositiveBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary)
+                        .setPositiveTextColorResource(android.R.color.white)
+                        //.setPositiveTextColor(ContextCompat.getColor(this, android.R.color.colorPrimary)
+                        .onPositive(new BottomDialog.ButtonCallback() {
+                            @Override
+                            public void onClick(BottomDialog dialog) {
+                                profilePresenter.deleteUser();
+                            }
+                        })
+                        .setNegativeText("Cancel")
+                        .show();
+                break;
+
         }
     }
 
     @Override
     public void onSetUserId(String userId) {
         userIdTextView.setText(userId);
+    }
+
+    @Override
+    public void onDeleteUserResult(boolean result) {
+
     }
 
     @Override

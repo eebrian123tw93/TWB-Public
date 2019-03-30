@@ -24,6 +24,9 @@
     <string name="camera">相機</string>
     <string name="gallery">圖庫</string>
 
+    <string name="delete_user">刪除帳號</string>
+    <string name="uploaded_article">上傳過的文章</string>
+
 
 
 
