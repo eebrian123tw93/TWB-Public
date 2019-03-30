@@ -30,12 +30,11 @@ public class PageAdapter extends FragmentStatePagerAdapter {
                     fragment =ArticleListFragment.newInstance("points");
                     break;
                 case 1:
-
-                    fragment =ArticleListFragment.newInstance("time");
+                    fragment =ArticleListFragment.newInstance("create_time");
                     break;
-                case 2:
-                    fragment =ArticleListFragment.newInstance("view");
-                    break;
+//                case 2:
+//                    fragment =ArticleListFragment.newInstance("view");
+//                    break;
 
             }
             fragmentHashMap.put(position, fragment);

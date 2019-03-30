@@ -69,6 +69,17 @@ public class ShuoApiService {
                 .subscribe(observer);
 
     }
+
+    public void deleteUser(@NonNull Observer observer,@NonNull User user,boolean isObserveOnIO){
+        String authKey=user.authKey();
+        shuoApi
+                .deleteUser(authKey)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+
+    }
     public void forgotPassword(@NonNull Observer observer,@NonNull String email,boolean isObserveOnIO){
         shuoApi.forgotPassword(email)
                 .subscribeOn(Schedulers.io())
@@ -126,7 +137,7 @@ public class ShuoApiService {
                 .subscribe(observer);
 
     }
-
+    @Deprecated
     public void getComments(@NonNull Observer observer,  @NonNull Article article, boolean isObserveOnIO){
         String articleId = article.getArticleId();
         shuoApi.getComments(articleId)
