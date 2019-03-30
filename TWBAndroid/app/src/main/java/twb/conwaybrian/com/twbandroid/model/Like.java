@@ -11,7 +11,7 @@ import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 public class Like {
 
     private String articleId;
-    
+
     private String userId;
 
     private Type type;

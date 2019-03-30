@@ -48,6 +48,17 @@ public class ShuoApiService {
                 .subscribe(observer);
     }
 
+    public void viewed(@NonNull Observer observer,
+                         @NonNull Article article, boolean isObserveOnIO) {
+
+        String articleId=article.getArticleId();
+        shuoApi
+                .viewed(articleId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
     public void login(@NonNull Observer observer,@NonNull User user,boolean isObserveOnIO){
         String authKey=user.authKey();
         shuoApi

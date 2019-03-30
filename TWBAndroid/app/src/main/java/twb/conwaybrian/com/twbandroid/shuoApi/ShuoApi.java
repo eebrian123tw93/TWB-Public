@@ -18,6 +18,10 @@ import retrofit2.http.Query;
 
 public interface ShuoApi {
 
+
+    @POST("/shuo/public/viewed")
+    Observable<Response<ResponseBody>> viewed(@Body String articleId);
+
     @Headers("Content-Type:application/json")
     @POST("/shuo/public/register")
     Observable<Response<ResponseBody>> register(@Body String s);
