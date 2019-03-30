@@ -16,11 +16,12 @@ public interface ArticleDao extends JpaRepository<ArticleModel, Long> {
   @Query(
       nativeQuery = true,
       value =
-          "select * from articles where create_time > :startDate and create_time < :endDate order by create_time desc limit :limitNum offset :offsetNum")
+          "select * from articles where create_time > :startDate and create_time < :endDate order by :orderType desc limit :limitNum offset :offsetNum")
   List<ArticleModel> getArticles(
-      @Param("limitNum") int limitNum,
       @Param("startDate") LocalDateTime startDate,
       @Param("endDate") LocalDateTime endDate,
+      @Param("orderType") String orderType,
+      @Param("limitNum") int limitNum,
       @Param("offsetNum") int offsetNum);
 
   List<ArticleModel> getArticleModelsByUserIdOrderByCreateTimeDesc(String userId);

@@ -89,7 +89,7 @@ public class ShuoController {
           LocalDateTime endTime,
       @RequestParam(name = "limit", required = false, defaultValue = "50") Integer limit,
       @RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
-      @RequestParam(name = "orderBy", required = false, defaultValue = "likes") String orderBy,
+      @RequestParam(name = "orderBy", required = false, defaultValue = "points") String orderBy,
       Principal principal) {
 
     if (startTime == null) {
@@ -124,7 +124,7 @@ public class ShuoController {
           LocalDateTime endTime,
       @RequestParam(name = "limit", required = false, defaultValue = "50") Integer limit,
       @RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
-      @RequestParam(name = "orderBy", required = false, defaultValue = "likes") String orderBy) {
+      @RequestParam(name = "orderBy", required = false, defaultValue = "points") String orderBy) {
     if (startTime == null) {
       startTime = LocalDateTime.now().minusHours(12);
       endTime = startTime.plusHours(12);

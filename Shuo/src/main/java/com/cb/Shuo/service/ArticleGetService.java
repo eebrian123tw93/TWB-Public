@@ -49,7 +49,8 @@ public class ArticleGetService {
       String userId,
       String orderBy) {
     log.info("getArticles");
-    List<ArticleModel> articleModelList = articleDao.getArticles(limit, start, end, offset);
+    List<ArticleModel> articleModelList =
+        articleDao.getArticles(start, end, orderBy, limit, offset);
     log.info("articleModelList.size(): " + articleModelList.size());
 
     List<ArticleJson> articleJsonList = convertModelToJson(articleModelList);
@@ -59,6 +60,7 @@ public class ArticleGetService {
       Collections.reverse(articleJsonList);
     } else if (orderBy.equals("time")) {
       articleJsonList.sort(Comparator.comparing(ArticleJson::getCreateTime));
+      Collections.reverse(articleJsonList);
     }
 
     if (userId != null) {
