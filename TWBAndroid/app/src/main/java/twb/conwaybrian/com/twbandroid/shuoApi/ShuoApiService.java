@@ -124,5 +124,13 @@ public class ShuoApiService {
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
     }
+    public void getArticleData(@NonNull Observer observer,  @NonNull Article article, boolean isObserveOnIO){
+        String articleId = article.getArticleId();
+        shuoApi.getArticleData(articleId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
 }
 

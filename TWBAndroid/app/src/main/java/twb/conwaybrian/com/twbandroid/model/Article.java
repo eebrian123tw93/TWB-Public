@@ -2,6 +2,8 @@ package twb.conwaybrian.com.twbandroid.model;
 
 
 
+import org.threeten.bp.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +20,7 @@ public class Article {
     private int views;
     private int commentCount;
     private Date createTime;
+//private LocalDateTime createTime;
     private int likeStatus;
     public Article(){
         images=new ArrayList<>();

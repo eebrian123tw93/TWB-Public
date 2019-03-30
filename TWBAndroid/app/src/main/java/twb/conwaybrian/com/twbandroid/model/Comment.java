@@ -14,5 +14,5 @@ public class Comment {
 
     private String comment;
 
-    private Date  createTimes;
+    private Date  commentTime;
 }

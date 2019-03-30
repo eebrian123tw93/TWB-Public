@@ -50,6 +50,11 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
 
     private ImageView sendImageView;
     private EditText commentEditView;
+
+
+    private long startTime;
+    private long endTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,13 +87,13 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 articlePresenter.refresh();
-                articlePresenter.getComments();
+                articlePresenter.getArticleData();
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                articlePresenter.getComments();
+                articlePresenter.getArticleData();
             }
         });
 
@@ -137,6 +142,20 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
         articlePresenter=new ArticlePresenter(this,getIntent());
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startTime=System.currentTimeMillis();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        endTime=System.currentTimeMillis();
+        articlePresenter.postViewed(startTime,endTime);
     }
 
     @Override
