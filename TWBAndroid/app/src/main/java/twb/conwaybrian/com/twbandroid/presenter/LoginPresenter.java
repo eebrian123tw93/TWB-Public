@@ -59,7 +59,9 @@ public class LoginPresenter extends TWBPresenter {
 
                 @Override
                 public void onError(Throwable e) {
+                    loginView.onLoginResult(false);
 
+                    loginView.onSetMessage(e.getMessage(),FancyToast.ERROR);
                 }
 
                 @Override

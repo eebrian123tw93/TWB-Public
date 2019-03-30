@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid;
+package twb.conwaybrian.com.twbandroid.navigation.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,33 +17,30 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 
-import java.util.ArrayList;
-import java.util.List;
 
-import twb.conwaybrian.com.twbandroid.model.Article;
+import twb.conwaybrian.com.twbandroid.R;
+
 import twb.conwaybrian.com.twbandroid.presenter.ArticleListPresenter;
 import twb.conwaybrian.com.twbandroid.view.ArticleListView;
 
 public class ArticleListFragment extends Fragment implements ArticleListView {
-    private static String ARG_PARAM = "type";
-    private String type;
+    private static String ARG_PARAM = "orderBy";
+    private String orderBy;
     private ArticleListPresenter articleListPresenter;
-    private ArticleListRecycleViewAdapter articleListRecycleViewAdapter;
     private RecyclerView recyclerView;
     private TwinklingRefreshLayout refreshLayout;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        type = getArguments().getString(ARG_PARAM);
-        articleListPresenter=new ArticleListPresenter(this);
+        orderBy = getArguments().getString(ARG_PARAM);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_article_list,container,false);
-        List<Article>articles=new ArrayList<>();
-        articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(getContext(),articles);
+
+
 
          refreshLayout=view.findViewById(R.id.refreshLayout);
          refreshLayout.setAutoLoadMore(true);
@@ -53,42 +49,30 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                articleListRecycleViewAdapter.getArticleList().clear();
-                articleListPresenter.getArticleList(type,1,10);
+                articleListPresenter.refresh();
+                articleListPresenter.getArticleList(orderBy,0,20);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                articleListPresenter.getArticleList(type,1,10);
+                articleListPresenter.getArticleList(orderBy,20);
             }
         });
 
          recyclerView = view. findViewById(R.id.list_view);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
          layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(articleListRecycleViewAdapter);
 
 
 
-        articleListPresenter.getArticleList(type,1,10);
+
+        articleListPresenter=new ArticleListPresenter(this);
+
+        articleListPresenter.getArticleList(orderBy,0,20);
 
         return view;
-    }
-    public static ArticleListFragment newInstance(String type) {
-        ArticleListFragment fragment = new ArticleListFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(ARG_PARAM, type);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-    @Override
-    public void onGetArticles(List<Article> articleList) {
-        articleListRecycleViewAdapter.getArticleList().addAll(articleList);
-        articleListRecycleViewAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -96,8 +80,22 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
         refreshLayout.finishRefreshing();
         refreshLayout.finishLoadmore();
     }
+
+    @Override
+    public void onSetArticleListRecyclerAdapter(RecyclerView.Adapter adapter) {
+        recyclerView.setAdapter(adapter);
+    }
+
     @Override
     public void onSetMessage(String message, int type) {
         FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
+    }
+
+    public static ArticleListFragment newInstance(String type) {
+        ArticleListFragment fragment = new ArticleListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_PARAM, type);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 }

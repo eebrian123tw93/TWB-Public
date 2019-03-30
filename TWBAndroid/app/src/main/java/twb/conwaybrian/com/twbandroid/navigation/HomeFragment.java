@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import twb.conwaybrian.com.twbandroid.PageAdapter;
+import twb.conwaybrian.com.twbandroid.adatper.PageAdapter;
 import twb.conwaybrian.com.twbandroid.R;
 
 public class HomeFragment extends Fragment {
@@ -30,16 +30,24 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_home,container,false);
         TabLayout tabLayout =  view.findViewById(R.id.tabLayout);
-        TabLayout.Tab  newTab= tabLayout.newTab();
-        newTab.setText("最新");
-        newTab.setIcon(R.drawable.new_icon);
+
+
 
         TabLayout.Tab  hotTab= tabLayout.newTab();
         hotTab.setText("熱門");
         hotTab.setIcon(R.drawable.popular);
 
-        tabLayout.addTab(newTab);
+        TabLayout.Tab  newTab= tabLayout.newTab();
+        newTab.setText("最新");
+        newTab.setIcon(R.drawable.new_icon);
+
+        TabLayout.Tab  mostViewsTab= tabLayout.newTab();
+        mostViewsTab.setText("觀看最多");
+        mostViewsTab.setIcon(R.drawable.group_of_people);
+
         tabLayout.addTab(hotTab);
+        tabLayout.addTab(newTab);
+        tabLayout.addTab(mostViewsTab);
         final ViewPager viewPager = view.findViewById(R.id.viewPager);
 
         pageAdapter=new PageAdapter(this.getActivity().getSupportFragmentManager(), tabLayout.getTabCount());

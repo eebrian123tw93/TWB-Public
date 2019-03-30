@@ -1,7 +1,7 @@
 package com.cb.Shuo.service;
 
 import com.cb.Shuo.dao.UserDao;
-import com.cb.Shuo.model.UserModel;
+import com.cb.Shuo.model.entity.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

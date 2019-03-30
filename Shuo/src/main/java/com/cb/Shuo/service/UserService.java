@@ -1,12 +1,20 @@
 package com.cb.Shuo.service;
 
+import com.cb.Shuo.dao.ArticleDao;
+import com.cb.Shuo.dao.CommentDao;
+import com.cb.Shuo.dao.LikeDao;
 import com.cb.Shuo.dao.UserDao;
-import com.cb.Shuo.model.UserModel;
+import com.cb.Shuo.model.entity.ArticleModel;
+import com.cb.Shuo.model.entity.CommentModel;
+import com.cb.Shuo.model.entity.LikeModel;
+import com.cb.Shuo.model.entity.UserModel;
 import com.cb.Shuo.service.util.SendMail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -15,13 +23,18 @@ public class UserService {
 
   private final UserDao userDao;
 
+  @Autowired private ArticleDao articleDao;
+  @Autowired private LikeDao likeDao;
+  @Autowired private CommentDao commentDao;
+
   @Autowired
   public UserService(UserDao userDao) {
     this.userDao = userDao;
   }
 
   public int register(UserModel userModel) {
-    if (userDao.findUserModelByUserId(userModel.getUserId()) != null) {
+    if (userDao.findUserModelByUserId(userModel.getUserId()) != null
+        || userModel.getUserId().equals("[deleted]")) {
       logger.info("userId already exists");
       return 1;
     } else if (userModel.getEmail() != null
@@ -43,5 +56,22 @@ public class UserService {
       SendMail.sendEmail(email, emailContent);
       return true;
     } else return false;
+  }
+
+  public void deleteUser(String userId) {
+    UserModel userModel = userDao.findUserModelByUserId(userId);
+    userDao.delete(userModel);
+    List<ArticleModel> articleModelList =
+        articleDao.getArticleModelsByUserIdOrderByCreateTimeDesc(userId);
+    articleModelList.forEach(articleModel -> articleModel.setUserId("[deleted]"));
+    articleDao.saveAll(articleModelList);
+
+    List<LikeModel> likeModelList = likeDao.findAllByUserId(userId);
+    likeModelList.forEach(likeModel -> likeModel.setUserId("[deleted]"));
+    likeDao.saveAll(likeModelList);
+
+    List<CommentModel> commentModelList = commentDao.findCommentModelsByUserId(userId);
+    commentModelList.forEach(commentModel -> commentModel.setUserId("[deleted]"));
+    commentDao.saveAll(commentModelList);
   }
 }

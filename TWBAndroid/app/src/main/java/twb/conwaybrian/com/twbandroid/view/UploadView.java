@@ -1,11 +1,13 @@
 package twb.conwaybrian.com.twbandroid.view;
 
-import twb.conwaybrian.com.twbandroid.ImageViewsRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
 
 public interface UploadView extends TWBView {
-    public void onPostArticle(boolean result);
-    public void onClearText();
-    public void onSetProgressBarVisibility(int visibility);
-    public void onSetImageViewAdapter(ImageViewsRecycleViewAdapter adapter);
+    void onPostArticle(boolean result);
+    void onClearText();
+    void onSetProgressBarVisibility(int visibility);
+    void onSetImageViewAdapter(ImageViewsRecycleViewAdapter adapter);
+    void onSetTitle(String title);
+    void onSetContent(String content);
 
 }

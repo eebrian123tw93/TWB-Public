@@ -1,6 +1,6 @@
 package com.cb.Shuo.dao;
 
-import com.cb.Shuo.model.UserModel;
+import com.cb.Shuo.model.entity.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserDao extends JpaRepository<UserModel, Long> {

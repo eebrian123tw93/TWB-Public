@@ -1,47 +1,111 @@
 package com.cb.Shuo.service;
 
 import com.cb.Shuo.dao.ArticleDao;
-import com.cb.Shuo.model.ArticleModel;
+import com.cb.Shuo.dao.CommentDao;
+import com.cb.Shuo.dao.LikeDao;
+import com.cb.Shuo.model.entity.ArticleModel;
+import com.cb.Shuo.model.entity.CommentModel;
+import com.cb.Shuo.model.entity.LikeModel;
+import com.cb.Shuo.model.json.ArticleDataJson;
 import com.cb.Shuo.model.json.ArticleJson;
+import com.cb.Shuo.model.json.CommentJson;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ArticleGetService {
 
-  private static final Logger logger = LoggerFactory.getLogger(ArticleGetService.class);
-
   private final ArticleDao articleDao;
+  private final LikeDao likeDao;
+  private final CommentDao commentDao;
 
   @Autowired
-  public ArticleGetService(ArticleDao articleDao) {
+  public ArticleGetService(ArticleDao articleDao, LikeDao likeDao, CommentDao commentDao) {
     this.articleDao = articleDao;
-  }
-
-  public List<ArticleModel> getByDateRange(LocalDateTime start, LocalDateTime end) {
-    return new ArrayList<>();
+    this.likeDao = likeDao;
+    this.commentDao = commentDao;
   }
 
   public List<ArticleJson> getAll() {
     return convertModelToJson(articleDao.findAll());
   }
 
-  public List<ArticleJson> publicGet(
-      LocalDateTime start, LocalDateTime end, Integer limit, Integer offset) {
-    List<ArticleModel> articleModelList = articleDao.getNewestArticles(limit);
-    return convertModelToJson(articleModelList);
+  public List<ArticleJson> getArticles(
+      LocalDateTime start,
+      LocalDateTime end,
+      Integer limit,
+      Integer offset,
+      String userId,
+      String orderBy) {
+    log.info("getArticles");
+    List<ArticleModel> articleModelList = articleDao.getArticles(limit, start, end, offset);
+    log.info("articleModelList.size(): " + articleModelList.size());
+
+    List<ArticleJson> articleJsonList = convertModelToJson(articleModelList);
+
+    if (orderBy.equals("likes")) {
+      articleJsonList.sort(Comparator.comparingInt(ArticleJson::getPoints));
+      Collections.reverse(articleJsonList);
+    } else if (orderBy.equals("time")) {
+      articleJsonList.sort(Comparator.comparing(ArticleJson::getCreateTime));
+    }
+
+    if (userId != null) {
+      articleJsonList.forEach(
+          articleJson -> {
+            LikeModel likeModel =
+                likeDao.findByUserIdAndArticleId(
+                    articleJson.getArticleId(), articleJson.getUserId());
+            if (likeModel != null) articleJson.setLikeStatus(likeModel.getType());
+          });
+    }
+
+    return articleJsonList;
+  }
+
+  public ArticleDataJson getArticleData(String articleId) {
+    ArticleModel articleModel = articleDao.findArticleModelByArticleId(articleId);
+    List<CommentModel> commentModelList = commentDao.findCommentModelsByArticleId(articleId);
+
+    ArticleDataJson articleDataJson = new ArticleDataJson();
+    articleDataJson.setPoints(articleModel.getPoints());
+    articleDataJson.setViews(articleModel.getViews());
+    articleDataJson.setCommentCount(articleModel.getCommentCount());
+
+    List<CommentJson> commentJsonList = new ArrayList<>();
+
+    commentModelList.forEach(
+        commentModel -> {
+          CommentJson commentJson = new CommentJson();
+          commentJson.setArticleId(commentModel.getArticleId());
+          commentJson.setUserId(commentModel.getUserId());
+          commentJson.setCommentTime(commentModel.getCreateTime());
+          commentJson.setComment(commentModel.getComment());
+          commentJsonList.add(commentJson);
+        });
+
+    articleDataJson.setComments(commentJsonList);
+
+    return articleDataJson;
+  }
+
+  public List<ArticleJson> getArticlesByAuthor(String userId) {
+    return convertModelToJson(articleDao.getArticleModelsByUserIdOrderByCreateTimeDesc(userId));
   }
 
   private List<ArticleJson> convertModelToJson(List<ArticleModel> articleModelList) {
+    log.info("convertModelToJson");
     List<ArticleJson> articleJsonList = new ArrayList<>();
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -70,7 +134,7 @@ public class ArticleGetService {
           articleJson.setViews(articleModel.getViews());
           articleJsonList.add(articleJson);
         });
-
+    log.info("articleJson size " + articleJsonList.size());
     return articleJsonList;
   }
 }

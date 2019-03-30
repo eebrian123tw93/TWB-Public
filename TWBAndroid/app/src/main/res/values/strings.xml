@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TWBAndroid</string>
+    <string name="app_name">TWB</string>
     <string name="username">帳號</string>
     <string name="password">密碼</string>
     <string name="forget_password">忘記密碼</string>
@@ -23,6 +23,7 @@
 
     <string name="camera">相機</string>
     <string name="gallery">圖庫</string>
+
 
 
 

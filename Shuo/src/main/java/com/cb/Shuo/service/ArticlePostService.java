@@ -1,7 +1,7 @@
 package com.cb.Shuo.service;
 
 import com.cb.Shuo.dao.ArticleDao;
-import com.cb.Shuo.model.ArticleModel;
+import com.cb.Shuo.model.entity.ArticleModel;
 import com.cb.Shuo.model.json.ArticleJson;
 import com.cb.Shuo.service.util.IdGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,12 +24,12 @@ public class ArticlePostService {
     this.articleDao = articleDao;
   }
 
-  public void postArticle(ArticleJson articleJson) {
+  public void postArticle(ArticleJson articleJson, String userId) {
     ArticleModel articleModel = new ArticleModel();
     articleModel.setArticleId(IdGenerator.generateArticleId());
     articleModel.setCreateTime(LocalDateTime.now().withNano(0));
     articleModel.setTitle(articleJson.getTitle());
-    articleModel.setUserId(articleJson.getUserId());
+    articleModel.setUserId(userId);
     articleModel.setContent(articleJson.getContent());
 
     if (articleJson.getImages() != null) {
@@ -42,6 +42,12 @@ public class ArticlePostService {
     }
 
     logger.info("postArticle " + articleModel.getArticleId());
+    articleDao.save(articleModel);
+  }
+
+  public void viewArticle(String articleId){
+    ArticleModel articleModel = articleDao.findArticleModelByArticleId(articleId);
+    articleModel.setViews(articleModel.getViews() + 1);
     articleDao.save(articleModel);
   }
 }

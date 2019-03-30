@@ -1,13 +1,11 @@
 package twb.conwaybrian.com.twbandroid.navigation;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.shashank.sony.fancytoastlib.FancyToast;
 
@@ -50,6 +48,7 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
         }
 
         navigationPresenter=new NavigationPresenter(this);
+
     }
 
 
@@ -108,9 +107,9 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
 
     public void showFragment(Fragment fragment){
         if(!fragment.isAdded()){
-            getSupportFragmentManager().beginTransaction().hide(focusFragment).add(R.id.frame_layout, fragment).commit();
+            getSupportFragmentManager().beginTransaction().hide(focusFragment).add(R.id.frame_layout, fragment).commitAllowingStateLoss();
         }else {
-            getSupportFragmentManager().beginTransaction().hide(focusFragment).show(fragment).commit();
+            getSupportFragmentManager().beginTransaction().hide(focusFragment).show(fragment).commitAllowingStateLoss();
         }
         focusFragment=fragment;
     }
@@ -121,8 +120,12 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
     }
     @Override
     public void onSetMessage(String message, int type) {
-
         FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+       moveTaskToBack(true);
     }
 
 }

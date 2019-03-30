@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="login_welcome">
+        <item>登入</item>
+        <item>TWB</item>
+    </string-array>
+
+    <string-array name="register_welcome">
+        <item>註冊</item>
+        <item>TWB</item>
+    </string-array>
+
+
+</resources>

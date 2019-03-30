@@ -1,10 +1,12 @@
-package twb.conwaybrian.com.twbandroid;
+package twb.conwaybrian.com.twbandroid.adatper;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.HashMap;
+
+import twb.conwaybrian.com.twbandroid.navigation.fragment.ArticleListFragment;
 
 public class PageAdapter extends FragmentStatePagerAdapter {
 
@@ -25,10 +27,14 @@ public class PageAdapter extends FragmentStatePagerAdapter {
         if (fragment == null) {
             switch (position) {
                 case 0:
-                    fragment =ArticleListFragment.newInstance("最新");
+                    fragment =ArticleListFragment.newInstance("likes");
                     break;
                 case 1:
-                    fragment =ArticleListFragment.newInstance("熱門");
+
+                    fragment =ArticleListFragment.newInstance("time");
+                    break;
+                case 2:
+                    fragment =ArticleListFragment.newInstance("time");
                     break;
 
             }

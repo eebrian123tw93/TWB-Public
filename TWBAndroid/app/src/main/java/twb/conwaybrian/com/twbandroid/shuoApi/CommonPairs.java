@@ -23,13 +23,11 @@ public class CommonPairs {
     /** 實現 X509TrustManager 接口. */
     public class MyTrustManager implements X509TrustManager {
         @Override
-        public void checkClientTrusted(X509Certificate[] chain, String authType)
-                throws CertificateException {
+        public void checkClientTrusted(X509Certificate[] chain, String authType) {
         }
 
         @Override
-        public void checkServerTrusted(X509Certificate[] chain, String authType)
-                throws CertificateException {
+        public void checkServerTrusted(X509Certificate[] chain, String authType) {
         }
 
         @Override

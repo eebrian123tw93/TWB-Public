@@ -1,1 +1,1 @@
-ssh -i C:/Users/Conway/.ssh/gcp Conway@34.80.143.220
+ssh -i gcp Conway@34.80.143.220 

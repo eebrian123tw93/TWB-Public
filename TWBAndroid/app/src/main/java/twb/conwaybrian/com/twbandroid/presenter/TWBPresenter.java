@@ -3,6 +3,8 @@ package twb.conwaybrian.com.twbandroid.presenter;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
 import twb.conwaybrian.com.twbandroid.TWBApplication;
 import twb.conwaybrian.com.twbandroid.model.User;
 
@@ -10,26 +12,29 @@ public class TWBPresenter {
     protected Context context;
     protected static User user;
     static UserListener userListener;
+    private static final String USER_PROFILE="user_profile";
+
 
     private static String PROFILE="profile";
      TWBPresenter(){
         this.context=TWBApplication.getContext();
     }
      void saveUser(User user){
-        context.getSharedPreferences(PROFILE,Context.MODE_PRIVATE).edit()
-                .putString("userId",user.getUserId())
-                .putString("password",user.getPassword())
-                .putString("email",user.getEmail()).apply();
+
+
+         String profileJson=new Gson().toJson(user,User.class);
+
+         context.getSharedPreferences(PROFILE,Context.MODE_PRIVATE).edit()
+                .putString(USER_PROFILE,profileJson).apply();
     }
     void readUser(){
         SharedPreferences sharedPreferences=context.getSharedPreferences(PROFILE,Context.MODE_PRIVATE);
-        String userId=sharedPreferences.getString("userId","");
-        String password=sharedPreferences.getString("password","");
-        String email=sharedPreferences.getString("email","");
-        if( userId.isEmpty() || password .isEmpty()){
-             user= null;
+        String profileJson=sharedPreferences.getString(USER_PROFILE,"");
+        User user=new Gson().fromJson(profileJson,User.class);
+        if( user==null || user.getUserId()==null || user.getPassword()==null||user.getUserId().isEmpty() || user.getPassword() .isEmpty()){
+             this.user= null;
         }else {
-            user= new User(userId,password,email);
+            this.user= new User(user.getUserId(),user.getPassword(),user.getEmail());
         }
     }
     public boolean isLogin(){
@@ -37,9 +42,9 @@ public class TWBPresenter {
     }
 
     public interface UserListener{
-        public  void onLogin();
-        public  void  onLogout();
-        public  void  toLoginPage();
+        void onLogin();
+        void  onLogout();
+        void  toLoginPage();
     }
 
 }

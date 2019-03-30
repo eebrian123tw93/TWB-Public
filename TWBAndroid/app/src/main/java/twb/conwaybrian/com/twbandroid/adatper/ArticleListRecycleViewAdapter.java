@@ -1,12 +1,10 @@
-package twb.conwaybrian.com.twbandroid;
+package twb.conwaybrian.com.twbandroid.adatper;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,20 +12,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
 import java.util.List;
+
+import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.model.Article;
+import twb.conwaybrian.com.twbandroid.navigation.activity.ArticleActivity;
 import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
 
 public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleListRecycleViewAdapter.ViewHolder> {
-
-    public List<Article> getArticleList() {
-        return articleList;
-    }
-
     private List<Article> articleList;
     private Context context;
 
@@ -51,7 +46,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
             viewsTextView=v.findViewById(R.id.views_textView);
             commentCountTextView=v.findViewById(R.id.comment_count_textView);
             articleImageView=v.findViewById(R.id.article_imageView);
-            pointsImageView=v.findViewById(R.id.points_imageView);
+            pointsImageView=v.findViewById(R.id.points_reactButton);
             cardView=v.findViewById(R.id.card_view);
             constraintLayout=v.findViewById(R.id.layout);
         }
@@ -70,7 +65,10 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         return vh;
     }
 
-
+    @Override
+    public int getItemCount() {
+        return articleList.size();
+    }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
@@ -97,18 +95,18 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         else
         {
             holder.articleImageView.setVisibility(View.VISIBLE);
-//            Picasso.get().load(article.getImages().get(0)).into(holder.articleImageView);
             Glide.with(context).load(article.getImages().get(0)).into(holder.articleImageView);
         }
 
 
-//        Picasso.get().load("https://i.imgur.com/0tb9ofV.jpg").into(holder.articleImageView);
+
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context,ArticleActivity.class);
-                intent.putExtra(ArticlePresenter.ARTICLE_ID,article.getTitle());
+                intent.putExtra(ArticlePresenter.ARTICLE_ID,article.getArticleId());
+                intent.putExtra(ArticlePresenter.ARTICLE_TITLE,article.getTitle());
                 intent.putExtra(ArticlePresenter.ARTICLE_CONTENT,article.getContent());
                 intent.putExtra(ArticlePresenter.ARTICLE_POINTS,String.valueOf(article.getPoints()));
                 intent.putExtra(ArticlePresenter.ARTICLE_VIEWS,String.valueOf(article.getViews()));
@@ -122,13 +120,14 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
 
     }
 
-    public int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    public void addArticles(List<Article> articles){
+        this.articleList.addAll(articles);
+        notifyDataSetChanged();
+    }
+    public void clear(){
+        this.articleList.clear();
+        notifyDataSetChanged();
     }
 
-    @Override
-    public int getItemCount() {
-        return articleList.size();
-    }
+
 }

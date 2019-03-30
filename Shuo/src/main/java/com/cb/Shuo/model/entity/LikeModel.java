@@ -1,4 +1,4 @@
-package com.cb.Shuo.model;
+package com.cb.Shuo.model.entity;
 
 import lombok.Data;
 
