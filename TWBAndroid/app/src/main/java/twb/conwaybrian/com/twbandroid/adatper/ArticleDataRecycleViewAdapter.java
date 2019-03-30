@@ -23,11 +23,7 @@ import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 import twb.conwaybrian.com.twbandroid.reactbutton.TWBReactions;
 
 import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
-import static twb.conwaybrian.com.twbandroid.model.Like.Type.DISLIKE;
-import static twb.conwaybrian.com.twbandroid.model.Like.Type.LIKE;
-import static twb.conwaybrian.com.twbandroid.reactbutton.Reaction.Type.DISLIKE_COLOR;
-import static twb.conwaybrian.com.twbandroid.reactbutton.Reaction.Type.LIKE_COLOR;
-import static twb.conwaybrian.com.twbandroid.reactbutton.Reaction.Type.NO_LIKE;
+
 
 public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -148,17 +144,15 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
             holder.imageViewsRecyclerView.setAdapter(articlePresenter.imageViewsRecycleViewAdapter);
 
 
-            int res;
+            int res=0;
             Reaction.Type type=articlePresenter.defaultType;
+
             switch (type){
                 case LIKE:
                     res=R.drawable.like;
                     break;
                 case DISLIKE:
                     res=R.drawable.dislike;
-                    break;
-                case NO_LIKE:
-                    res=R.drawable.no_like;
                     break;
                 case LIKE_COLOR:
                     res=R.drawable.like_color;
@@ -167,7 +161,7 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
                     res=R.drawable.dislike_color;
                     break;
                 default:
-                    res=R.drawable.no_like;
+                    res=R.drawable.like;
                     break;
             }
             TWBReactions.defaultReact.setReactIconId(res);
