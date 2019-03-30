@@ -188,7 +188,6 @@ public class ShuoController {
     return articleGetService.getArticleData(articleId, null);
   }
 
-  // todo: private getArticleData contain like status
   @RequestMapping(value = "/getArticleData", method = RequestMethod.GET)
   public ArticleDataJson getArticleData(
       @RequestParam(name = "articleId") String articleId, Principal principal) {
