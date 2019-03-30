@@ -68,8 +68,7 @@ public class ArticleGetService {
       articleJsonList.forEach(
           articleJson -> {
             LikeModel likeModel =
-                likeDao.findByUserIdAndArticleId(
-                    articleJson.getArticleId(), articleJson.getUserId());
+                likeDao.findByUserIdAndArticleId(articleJson.getArticleId(), userId);
             if (likeModel != null) articleJson.setLikeStatus(likeModel.getType());
           });
     }
