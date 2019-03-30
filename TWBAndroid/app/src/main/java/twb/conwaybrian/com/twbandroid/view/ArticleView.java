@@ -15,4 +15,5 @@ public interface ArticleView extends TWBView {
     void onFinishRefreshOrLoad();
 
     void  onShowImageViewsFragment(List<String> images, int position);
+    void  onSetArticleDataRecyclerViewScroll(int position);
 }

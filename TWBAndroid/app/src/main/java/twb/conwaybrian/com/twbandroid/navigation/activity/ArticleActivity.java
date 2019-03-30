@@ -169,6 +169,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
 
     @Override
     public void onClick(View v) {
+        articleDataRecyclerView.scrollToPosition(0);
         switch (v.getId()){
             case R.id.send_imaeView:
                 articlePresenter.sendComment(commentEditView.getText().toString());
@@ -196,6 +197,17 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
             focusFragment.setPosition(position);
         }
 
+
+    }
+
+    @Override
+    public void onSetArticleDataRecyclerViewScroll(final int position) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                articleDataRecyclerView.scrollToPosition(position);
+            }
+        });
 
     }
 

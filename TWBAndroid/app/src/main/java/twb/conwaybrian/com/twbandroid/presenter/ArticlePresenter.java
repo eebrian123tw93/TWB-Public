@@ -83,6 +83,10 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
 //        getComments();
         getArticleData();
         viewed=true;
+
+    }
+    public  void setArticleDataRecyclerViewScroll(int position){
+        articleView.onSetArticleDataRecyclerViewScroll(position);
     }
 
     @Deprecated

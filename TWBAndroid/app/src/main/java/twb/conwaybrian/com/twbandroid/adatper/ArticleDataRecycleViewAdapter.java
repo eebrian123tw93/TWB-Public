@@ -173,6 +173,19 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
             TWBReactions.defaultReact.setReactIconId(res);
             TWBReactions.defaultReact.setType(type);
             holder.pointsReactButton.setDefaultReaction(TWBReactions.defaultReact);
+            new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    try {
+//                        Thread.sleep(1000);
+                        articlePresenter.setArticleDataRecyclerViewScroll(0);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }.start();
         }
     }
 
