@@ -182,7 +182,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
                 }else {
                     like.setLikeType(defaultType);
                 }
-                
+
                 Observer<Response<ResponseBody>> observer=new Observer<Response<ResponseBody>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

@@ -41,9 +41,13 @@ public class HomeFragment extends Fragment {
         newTab.setText("最新");
         newTab.setIcon(R.drawable.new_icon);
 
+        TabLayout.Tab  mostViewsTab= tabLayout.newTab();
+        mostViewsTab.setText("觀看最多");
+        mostViewsTab.setIcon(R.drawable.group_of_people);
 
         tabLayout.addTab(hotTab);
         tabLayout.addTab(newTab);
+        tabLayout.addTab(mostViewsTab);
         final ViewPager viewPager = view.findViewById(R.id.viewPager);
 
         pageAdapter=new PageAdapter(this.getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
