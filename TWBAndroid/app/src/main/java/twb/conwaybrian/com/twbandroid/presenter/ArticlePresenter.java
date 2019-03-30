@@ -169,43 +169,48 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
             Like like=new Like();
             like.setArticleId(article.getArticleId());
             like.setUserId(user.getUserId());
-            switch (type){
-                case LIKE_COLOR:
-                    like.setType(Like.Type.LIKE);
-                    break;
-                case DISLIKE_COLOR:
-                    like.setType(Like.Type.DISLIKE);
-                    break;
-            }
-            Observer<Response<ResponseBody>> observer=new Observer<Response<ResponseBody>>() {
-                @Override
-                public void onSubscribe(Disposable d) {
+            if(defaultType!=type){
 
+
+                switch (type){
+                    case LIKE_COLOR:
+                        like.setType(Like.Type.LIKE);
+                        break;
+                    case DISLIKE_COLOR:
+                        like.setType(Like.Type.DISLIKE);
+                        break;
                 }
+                Observer<Response<ResponseBody>> observer=new Observer<Response<ResponseBody>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                @Override
-                public void onNext(Response<ResponseBody> response) {
-                    if (response.isSuccessful()) {
+                    }
+
+                    @Override
+                    public void onNext(Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
 //                    article_view
 //                        articleView.onSendCommentResult(true);
-//                        articleView.onSetMessage("comment reply success", FancyToast.SUCCESS);
-                    } else {
+                            articleView.onSetMessage("reaction reply success", FancyToast.SUCCESS);
+                        } else {
 //                        articleView.onSendCommentResult(false);
-//                        articleView.onSetMessage("comment reply failed", FancyToast.ERROR);
+                            articleView.onSetMessage("reaction reply failed", FancyToast.ERROR);
+                        }
                     }
-                }
 
-                @Override
-                public void onError(Throwable e) {
+                    @Override
+                    public void onError(Throwable e) {
 
-                }
+                    }
 
-                @Override
-                public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-                }
-            };
-            ShuoApiService.getInstance().like(observer,user,like,false);
+                    }
+                };
+                ShuoApiService.getInstance().like(observer,user,like,false);
+            }
+
         }else {
             articleView.onSendCommentResult(false);
             articleView.onSetMessage("Login first", FancyToast.INFO);

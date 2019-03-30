@@ -1,5 +1,7 @@
 package twb.conwaybrian.com.twbandroid.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 import lombok.Data;
@@ -18,7 +20,10 @@ public class Like {
     private Date createTimes;
 
     public enum Type{
-        LIKE(1),DISLIKE(-1);
+        @SerializedName("1")
+        LIKE(1),
+        @SerializedName("-1")
+        DISLIKE(-1);
         private int value;
          Type(int value) {
             this.value=value;
@@ -26,6 +31,11 @@ public class Like {
 
         public int getValue() {
             return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
         }
     }
 }
