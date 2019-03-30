@@ -1,6 +1,7 @@
 package twb.conwaybrian.com.twbandroid.presenter;
 
 import android.content.Intent;
+import android.util.Log;
 
 
 import com.google.gson.GsonBuilder;
@@ -31,6 +32,8 @@ import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.ArticleView;
 
 public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleViewAdapter.ShowImageViewsFragmentListener {
+
+    private static final String TAG="ArticlePresenter";
     public static final String ARTICLE_ID="article_id";
     public static final String ARTICLE_TITLE="article_title";
     public static final String ARTICLE_CONTENT="article_content";
@@ -84,6 +87,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
         articleView.onSetDefaultPointsImageView(defaultType);
 //        getComments();
         getArticleData();
+        viewed=true;
     }
 
     @Deprecated
@@ -221,8 +225,6 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
         }
     }
 
-
-
     public void sendComment(String commentString){
         if(commentString.isEmpty()){
             articleView.onSendCommentResult(false);
@@ -269,6 +271,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
             if(userListener!=null)userListener.toLoginPage();
         }
     }
+
     public void addComments(List<Comment>comments){
         commentListRecycleViewAdapter.addComments(comments);
     }
@@ -276,10 +279,10 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
     public void clearComment(){
         articleView.onClearCommentText();
     }
+
     public void refresh(){
         commentListRecycleViewAdapter.clear();
     }
-
 
     @Override
     public void onShowImageViewsFragment(List<String> images,int position) {
@@ -290,7 +293,36 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
         double time=(endTime-startTime)/1000;
         if(time > 3){
             //post viewed
-            viewed=true;
+            if(viewed) {
+                Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<ResponseBody> responseBodyResponse) {
+                        if (responseBodyResponse.isSuccessful()) {
+                            Log.i(TAG, "view++");
+                        } else {
+                            articleView.onSetMessage("something wrong", FancyToast.ERROR);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                };
+                ShuoApiService.getInstance().viewed(observer, article, true);
+
+                viewed = false;
+            }
         }
     }
 }
