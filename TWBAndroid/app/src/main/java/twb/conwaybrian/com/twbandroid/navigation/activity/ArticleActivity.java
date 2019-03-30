@@ -62,7 +62,9 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
         commentEditView=findViewById(R.id.comment_editText);
 
         refreshLayout=findViewById(R.id.refreshLayout);
-        refreshLayout.setAutoLoadMore(true);
+//        refreshLayout.setAutoLoadMore(false);
+        refreshLayout.setEnableLoadmore(false);
+//        refreshLayout.set
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
 
             @Override

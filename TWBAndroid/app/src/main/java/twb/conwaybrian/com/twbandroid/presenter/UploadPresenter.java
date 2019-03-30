@@ -160,7 +160,7 @@ public class UploadPresenter extends TWBPresenter {
                     saveArticle("","",false);
                 }else {
                     uploadView.onPostArticle(false);
-                    uploadView.onSetMessage("Post success",FancyToast.ERROR);
+                    uploadView.onSetMessage("Post failed",FancyToast.ERROR);
                 }
             }
 
