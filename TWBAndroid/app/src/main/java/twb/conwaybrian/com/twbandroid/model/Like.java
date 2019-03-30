@@ -12,8 +12,6 @@ public class Like {
 
     private String articleId;
 
-    private  Long vKey;
-
     private String userId;
 
     private Type type;

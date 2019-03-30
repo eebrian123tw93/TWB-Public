@@ -6,8 +6,9 @@ import lombok.Data;
 
 @Data
 public class ArticleData {
-    int commentCount;
-    int points;
-    int views;
-    List<Comment>comments;
+    private int commentCount;
+    private  int points;
+    private   int views;
+    private   int likeStatus;
+    private    List<Comment>comments;
 }

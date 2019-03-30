@@ -36,10 +36,6 @@ public class RegisterPresenter  extends TWBPresenter{
             registerView.onSetMessage("Password can not be empty",FancyToast.ERROR);
             registerView.onRegisterResult(false);
 
-        }else if(email.isEmpty()){
-            registerView.onSetMessage("E-mail can not be empty",FancyToast.ERROR);
-            registerView.onRegisterResult(false);
-
         }else {
 
             Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {

@@ -37,7 +37,7 @@ public class ArticleListPresenter extends TWBPresenter {
     }
 
     public void getArticleList(String order,int offset,int limit){
-                Observer<Response<JsonArray>> observer=new Observer<Response<JsonArray>>() {
+        Observer<Response<JsonArray>> observer=new Observer<Response<JsonArray>>() {
             @Override
             public void onSubscribe(Disposable d) {
 

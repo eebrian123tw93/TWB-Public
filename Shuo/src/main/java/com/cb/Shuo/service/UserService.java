@@ -8,6 +8,7 @@ import com.cb.Shuo.model.entity.ArticleModel;
 import com.cb.Shuo.model.entity.CommentModel;
 import com.cb.Shuo.model.entity.LikeModel;
 import com.cb.Shuo.model.entity.UserModel;
+import com.cb.Shuo.model.json.UserJson;
 import com.cb.Shuo.service.util.SendMail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,17 +23,25 @@ public class UserService {
   private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
   private final UserDao userDao;
-
-  @Autowired private ArticleDao articleDao;
-  @Autowired private LikeDao likeDao;
-  @Autowired private CommentDao commentDao;
+  private final ArticleDao articleDao;
+  private final LikeDao likeDao;
+  private final CommentDao commentDao;
 
   @Autowired
-  public UserService(UserDao userDao) {
+  public UserService(
+      UserDao userDao, ArticleDao articleDao, LikeDao likeDao, CommentDao commentDao) {
     this.userDao = userDao;
+    this.articleDao = articleDao;
+    this.likeDao = likeDao;
+    this.commentDao = commentDao;
   }
 
-  public int register(UserModel userModel) {
+  public int register(UserJson userJson) {
+    UserModel userModel = new UserModel();
+    userModel.setUserId(userJson.getUserId());
+    userModel.setPassword(userJson.getPassword());
+    userModel.setEmail(userJson.getEmail());
+
     if (userDao.findUserModelByUserId(userModel.getUserId()) != null
         || userModel.getUserId().equals("[deleted]")) {
       logger.info("userId already exists");

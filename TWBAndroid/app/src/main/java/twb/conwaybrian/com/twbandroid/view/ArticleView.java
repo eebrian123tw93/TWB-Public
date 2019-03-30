@@ -4,24 +4,16 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
 
-import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 
 public interface ArticleView extends TWBView {
     void onSetProgressBarVisibility(int visibility);
-    void onSetImageViewAdapter(RecyclerView.Adapter adapter);
-    void onSetCommentViewAdapter(RecyclerView.Adapter adapter);
-    void onSetArticle(String title, String content, String points, String views, String commentCount);
-    void onSetTitle(String title);
-    void onSetContent(String content);
-    void onSetPoints(String points);
-    void onSetViews(String views);
-    void onSetCommentCount(String commentCount);
-    void onSetPointsImageView(Reaction.Type type);
-    void onSetDefaultPointsImageView(Reaction.Type type);
+    void onSetArticleDataRecyclerViewAdapter(RecyclerView.Adapter adapter);
+
 
     void onSendCommentResult(boolean result);
     void onClearCommentText();
     void onFinishRefreshOrLoad();
 
     void  onShowImageViewsFragment(List<String> images, int position);
+    void  onSetArticleDataRecyclerViewScroll(int position);
 }

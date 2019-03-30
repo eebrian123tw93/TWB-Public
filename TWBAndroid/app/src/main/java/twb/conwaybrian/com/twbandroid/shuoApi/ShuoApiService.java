@@ -48,10 +48,32 @@ public class ShuoApiService {
                 .subscribe(observer);
     }
 
+    public void viewed(@NonNull Observer observer,
+                         @NonNull Article article, boolean isObserveOnIO) {
+
+        String articleId=article.getArticleId();
+        shuoApi
+                .viewed(articleId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
     public void login(@NonNull Observer observer,@NonNull User user,boolean isObserveOnIO){
         String authKey=user.authKey();
         shuoApi
                 .login(authKey)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+
+    }
+
+    public void deleteUser(@NonNull Observer observer,@NonNull User user,boolean isObserveOnIO){
+        String authKey=user.authKey();
+        shuoApi
+                .deleteUser(authKey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -75,6 +97,15 @@ public class ShuoApiService {
 
     public void getArticlesPublic(@NonNull Observer observer, @NonNull LocalDateTime endDateTime, @NonNull LocalDateTime startDateTime, @NonNull String  orderBy,@NonNull int offset,@NonNull int limit, boolean isObserveOnIO){
         shuoApi.getArticlesPublic(endDateTime,startDateTime,orderBy,offset,limit)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
+    public void getUserPostHistory(@NonNull Observer observer, @NonNull User user, boolean isObserveOnIO){
+        String userId=user.getUserId();
+        shuoApi.getUserPostHistory(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -115,7 +146,7 @@ public class ShuoApiService {
                 .subscribe(observer);
 
     }
-
+    @Deprecated
     public void getComments(@NonNull Observer observer,  @NonNull Article article, boolean isObserveOnIO){
         String articleId = article.getArticleId();
         shuoApi.getComments(articleId)
@@ -124,9 +155,18 @@ public class ShuoApiService {
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
     }
-    public void getArticleData(@NonNull Observer observer,  @NonNull Article article, boolean isObserveOnIO){
+    public void getArticleDataPublic(@NonNull Observer observer,  @NonNull Article article, boolean isObserveOnIO){
         String articleId = article.getArticleId();
-        shuoApi.getArticleData(articleId)
+        shuoApi.getArticleDataPublic(articleId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
+    public void getArticleDataPrivate(@NonNull Observer observer,@NonNull User user,  @NonNull Article article, boolean isObserveOnIO){
+        String articleId = article.getArticleId();
+        shuoApi.getArticleDataPrivate(user.authKey(),articleId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
