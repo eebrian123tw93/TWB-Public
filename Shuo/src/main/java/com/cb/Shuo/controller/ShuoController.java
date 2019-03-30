@@ -220,7 +220,7 @@ public class ShuoController {
 
   @RequestMapping(value = "/comment", method = RequestMethod.POST)
   public ResponseEntity comment(@RequestBody CommentJson commentJson, Principal principal) {
-    log.info("comment");
+    log.info("comment by " + principal.getName());
     if (likeCommentService.comment(commentJson, principal.getName()) == 0)
       return new ResponseEntity(HttpStatus.NO_CONTENT);
     else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("article does not exist");

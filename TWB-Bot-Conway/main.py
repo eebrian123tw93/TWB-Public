@@ -30,9 +30,20 @@ def generate_articles(amount):
 
     for _ in range(amount):
         user = random.choice(users)
-        title_len = random.randint(5, 30)
+        # title_len = random.randint(5, 30)
         content_len = random.randint(200, 2000)
-        api.post_article(user, user, word_generator(title_len), word_generator(content_len))
+        api.post_article(user, user, '測試文章 ' + word_generator(5), word_generator(content_len))
 
 
-generate_articles(15000)
+def generate_comments(amount):
+    f = open('user_list', 'r')
+    users = f.read().splitlines()
+    for _ in range(amount):
+        user = random.choice(users)
+        # title_len = random.randint(5, 30)
+        content_len = random.randint(5, 50)
+        api.comment(user, user, 'article-1987931d6717431daaccc6d00713b9f8', word_generator(content_len))
+
+
+# generate_articles(1500)
+generate_comments(1660)

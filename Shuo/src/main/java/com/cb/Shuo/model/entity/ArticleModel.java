@@ -33,7 +33,7 @@ public class ArticleModel {
   @Column(name = "points", columnDefinition = "int(11)")
   private int points = 0;
 
-  @Column(name = "views", columnDefinition = "int(11)")
+  @Column(name = "views", columnDefinition = "bigint(20)")
   private int views = 0;
 
   @Column(name = "comment_count", columnDefinition = "int(11)")
