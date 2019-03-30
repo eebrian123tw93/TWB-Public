@@ -10,8 +10,7 @@ public  class TWBReactions {
 
     public static Reaction[] reactions = {
             new Reaction(Reaction.Type.LIKE_COLOR,R.drawable.like_color),
-            new Reaction(Reaction.Type.NO_LIKE_COLORS,R.drawable.no_like_color),
-            new Reaction(Reaction.Type.DISLIKE_COLOR,R.drawable.dislike_color),
+            new Reaction(Reaction.Type.DISLIKE_COLOR,R.drawable.dislike_color)
     };
 
 

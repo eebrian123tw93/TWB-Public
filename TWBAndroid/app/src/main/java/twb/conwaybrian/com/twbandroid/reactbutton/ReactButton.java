@@ -44,19 +44,19 @@ public class ReactButton
      * ImagesButton one for every Reaction
      */
 
-    private ImageButton mImgButtonFour;
+    private ImageView mImgButtonFour;
     private ImageButton mImgButtonFive;
-    private ImageButton mImgButtonSix;
+    private ImageView mImgButtonSix;
 
     /**
      * Number of Valid Reactions
      */
-    private static final int REACTIONS_NUMBER = 3;
+    private static final int REACTIONS_NUMBER = 2;
 
     /**
      * Array of ImagesButton to set any action for all
      */
-    private final ImageButton[] mReactImgArray = new ImageButton[REACTIONS_NUMBER];
+    private final ImageView[] mReactImgArray = new ImageView[REACTIONS_NUMBER];
 
     /**
      * Reaction Object to save default Reaction
@@ -155,7 +155,6 @@ public class ReactButton
     private void initializingReactImages(View view) {
 
         mImgButtonFour = view.findViewById(R.id.imgButtonFour);
-        mImgButtonFive = view.findViewById(R.id.imgButtonFive);
         mImgButtonSix = view.findViewById(R.id.imgButtonSix);
     }
 
@@ -164,8 +163,8 @@ public class ReactButton
      */
     private void setReactionsArray() {
         mReactImgArray[0] = mImgButtonFour;
-        mReactImgArray[1] = mImgButtonFive;
-        mReactImgArray[2] = mImgButtonSix;
+
+        mReactImgArray[1] = mImgButtonSix;
     }
 
     /**
@@ -173,15 +172,15 @@ public class ReactButton
      */
     private void onClickImageButtons() {
         imgButtonSetListener(mImgButtonFour, 0);
-        imgButtonSetListener(mImgButtonFive, 1);
-        imgButtonSetListener(mImgButtonSix, 2);
+
+        imgButtonSetListener(mImgButtonSix, 1);
     }
 
     /**
      * @param imgButton  : ImageButton view to set onClickListener
      * @param reactIndex : Index of Reaction to take it from ReactionPack
      */
-    private void imgButtonSetListener(ImageButton imgButton, final int reactIndex) {
+    private void imgButtonSetListener(ImageView imgButton, final int reactIndex) {
         imgButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
