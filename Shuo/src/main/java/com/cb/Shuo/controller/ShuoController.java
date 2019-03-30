@@ -21,7 +21,7 @@ import java.util.List;
 @Slf4j
 @Api(value = "controller for the entire TWB backend")
 public class ShuoController {
-  private final UserService userService; 
+  private final UserService userService;
   private final ArticlePostService articlePostService;
   private final ArticleGetService articleGetService;
   private final LikeCommentService likeCommentService;
