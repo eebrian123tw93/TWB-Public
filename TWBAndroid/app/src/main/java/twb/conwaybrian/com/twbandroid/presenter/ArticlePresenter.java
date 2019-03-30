@@ -47,6 +47,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
     boolean viewed;
     public Reaction.Type defaultType;
 
+
     public ArticlePresenter(ArticleView articleView, Intent intent){
 
         this.articleView=articleView;
@@ -72,35 +73,39 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
 
         articleView.onSetArticleDataRecyclerViewAdapter(articleDataRecycleViewAdapter);
 
-        if(article.getPoints()>0){
+//        if(article.getPoints()>0){
             defaultType=Reaction.Type.LIKE;
-
-        }else if(article.getPoints()<0){
-            defaultType=Reaction.Type.DISLIKE;
-        }else {
-            defaultType=Reaction.Type.NO_LIKE;
-
-        }
+//
+//        }else if(article.getPoints()<0){
+//            defaultType=Reaction.Type.DISLIKE;
+//        }else {
+//            defaultType=Reaction.Type.NO_LIKE;
+//
+//        }
 //        getComments();
-        getArticleData();
+
+        getArticleData(true);
         viewed=true;
 
     }
     public  void setArticleDataRecyclerViewScroll(final int position){
 
-        new Thread(){
+//    if(moveToTop) {
+        new Thread() {
             @Override
             public void run() {
                 super.run();
                 try {
 //                        Thread.sleep(1000);
                     articleView.onSetArticleDataRecyclerViewScroll(position);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
             }
         }.start();
+//    }
 
 
     }
@@ -143,7 +148,8 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
         ShuoApiService.getInstance().getComments(observer,article,false);
     }
 
-    public void getArticleData(){
+    public void getArticleData(final boolean moveToTop){
+       articleDataRecycleViewAdapter.setMoveToTop(moveToTop);
         Observer<Response<JsonObject>> observer = new Observer<Response<JsonObject>>() {
             @Override
             public void onSubscribe(Disposable d) {

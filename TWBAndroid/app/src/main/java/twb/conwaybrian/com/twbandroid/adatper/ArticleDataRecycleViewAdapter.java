@@ -31,6 +31,12 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
     private List<Comment> comments;
     private Context context;
 
+    public void setMoveToTop(boolean moveToTop) {
+        this.moveToTop = moveToTop;
+    }
+
+    private boolean moveToTop;
+
     public class CommentViewHolder extends RecyclerView.ViewHolder {
 
         private TextView userIdTextView;
@@ -91,18 +97,18 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
-    if(viewType==ARTICLE_VIEW){
-        v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_article_data, parent, false);
-        RecyclerView.ViewHolder vh = new ArticleDataViewHolder(v);
-        return vh;
-    }else {
-         v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_article_comment, parent, false);
-        RecyclerView.ViewHolder vh = new CommentViewHolder(v);
-        return vh;
-    }
+        if(viewType==ARTICLE_VIEW){
+            v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_article_data, parent, false);
+            RecyclerView.ViewHolder vh = new ArticleDataViewHolder(v);
+            return vh;
+        }else {
+             v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_article_comment, parent, false);
+            RecyclerView.ViewHolder vh = new CommentViewHolder(v);
 
+            return vh;
+        }
     }
 
     @Override
@@ -168,7 +174,11 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
 //            TWBReactions.defaultReact.setType(type);
             Reaction currentReaction=new Reaction(type,res);
             holder.pointsReactButton.setCurrentReaction(currentReaction);
-            articlePresenter.setArticleDataRecyclerViewScroll(0);
+            if(moveToTop)
+                articlePresenter.setArticleDataRecyclerViewScroll(0);
+            else
+                articlePresenter.setArticleDataRecyclerViewScroll(comments.size());
+
 //            holder.pointsReactButton.setDefaultReaction(TWBReactions.defaultReact);
 
         }
