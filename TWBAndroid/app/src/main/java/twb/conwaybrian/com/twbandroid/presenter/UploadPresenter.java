@@ -98,16 +98,21 @@ public class UploadPresenter extends TWBPresenter {
             uploadView.onSetMessage("Content  can not be empty",FancyToast.ERROR);
             uploadView.onPostArticle(false);
         }else {
-            saveArticle(title,content,false);
-            if (isLogin()) {
-                article.setTitle(title);
-                article.setContent(content);
-                if(images.isEmpty())postArticle();
-                else uploadImages();
-            } else {
-                uploadView.onSetMessage("Login first",FancyToast.INFO);
+            if(content.length()>=65535){
+                uploadView.onSetMessage("Content  too long",FancyToast.ERROR);
                 uploadView.onPostArticle(false);
-                if (userListener != null) userListener.toLoginPage();
+            }else {
+                saveArticle(title, content, false);
+                if (isLogin()) {
+                    article.setTitle(title);
+                    article.setContent(content);
+                    if (images.isEmpty()) postArticle();
+                    else uploadImages();
+                } else {
+                    uploadView.onSetMessage("Login first", FancyToast.INFO);
+                    uploadView.onPostArticle(false);
+                    if (userListener != null) userListener.toLoginPage();
+                }
             }
         }
     }
