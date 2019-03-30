@@ -114,6 +114,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
             public boolean onLongClick(View view) {
                 //Your Code
                 System.out.println(pointsReactButton.getCurrentReaction().getType().toString());
+                articlePresenter.sendReaction(pointsReactButton.getCurrentReaction().getType());
                 return false;
             }
         });
