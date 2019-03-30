@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 import lombok.Data;
+import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 
 @Data
 public class Like {
@@ -36,6 +37,17 @@ public class Like {
         @Override
         public String toString() {
             return String.valueOf(value);
+        }
+    }
+
+    public void setLikeType(Reaction.Type type){
+        switch (type){
+            case LIKE_COLOR:
+                setType(Like.Type.LIKE);
+                break;
+            case DISLIKE_COLOR:
+                setType(Like.Type.DISLIKE);
+                break;
         }
     }
 }

@@ -171,15 +171,18 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
             like.setUserId(user.getUserId());
             if(defaultType!=type){
 
-
-                switch (type){
-                    case LIKE_COLOR:
-                        like.setType(Like.Type.LIKE);
-                        break;
-                    case DISLIKE_COLOR:
-                        like.setType(Like.Type.DISLIKE);
-                        break;
+                if(defaultType==Reaction.Type.LIKE_COLOR && type==Reaction.Type.DISLIKE_COLOR
+                        || defaultType==Reaction.Type.DISLIKE_COLOR && type==Reaction.Type.LIKE_COLOR
+                        || defaultType==Reaction.Type.LIKE && type==Reaction.Type.LIKE_COLOR
+                        || defaultType==Reaction.Type.LIKE && type==Reaction.Type.DISLIKE_COLOR
+                        || defaultType==Reaction.Type.DISLIKE && type==Reaction.Type.LIKE_COLOR
+                        || defaultType==Reaction.Type.DISLIKE && type==Reaction.Type.DISLIKE_COLOR
+                        ) {
+                    like.setLikeType(type);
+                }else {
+                    like.setLikeType(defaultType);
                 }
+                
                 Observer<Response<ResponseBody>> observer=new Observer<Response<ResponseBody>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -217,6 +220,8 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
             if(userListener!=null)userListener.toLoginPage();
         }
     }
+
+
 
     public void sendComment(String commentString){
         if(commentString.isEmpty()){
