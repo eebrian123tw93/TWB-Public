@@ -105,6 +105,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
             public void onClick(View view) {
                 //Your Code
                 System.out.println(pointsReactButton.getCurrentReaction().getType().toString());
+                articlePresenter.sendReaction(pointsReactButton.getCurrentReaction().getType());
 
             }
         });
@@ -236,9 +237,6 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
             case DISLIKE_COLOR:
                 res=R.drawable.dislike_color;
                 break;
-            case NO_LIKE_COLORS:
-                res=R.drawable.no_like_color;
-                break;
             default:
                 res=R.drawable.no_like;
                 break;
@@ -265,9 +263,6 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
                 break;
             case DISLIKE_COLOR:
                 res=R.drawable.dislike_color;
-                break;
-            case NO_LIKE_COLORS:
-                res=R.drawable.no_like_color;
                 break;
                 default:
                     res=R.drawable.no_like;

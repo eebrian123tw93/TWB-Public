@@ -5,16 +5,24 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 
 import com.bumptech.glide.Glide;
+import com.zyyoona7.popup.EasyPopup;
 
 import twb.conwaybrian.com.twbandroid.R;
 
@@ -31,7 +39,8 @@ public class ReactButton
     /**
      * Reaction Alert Dialog to show Reaction layout with 6 Reactions
      */
-    private AlertDialog mReactAlertDialog;
+//    private AlertDialog mReactAlertDialog;
+    private PopupWindow popupWindow;
 
 
     /**
@@ -45,7 +54,6 @@ public class ReactButton
      */
 
     private ImageView mImgButtonFour;
-    private ImageButton mImgButtonFive;
     private ImageView mImgButtonSix;
 
     /**
@@ -126,27 +134,40 @@ public class ReactButton
     /**
      * Show Reaction dialog when user long click on react button
      */
+    @SuppressLint("ResourceType")
     private void onLongClickDialog() {
         //Show Dialog With 6 React
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+//        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
 
         //Irrelevant code for customizing the buttons and title
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View dialogView = inflater.inflate( R.layout.react_dialog_layout, null);
-
-        initializingReactImages(dialogView);
+//        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View dialogView = inflater.inflate( R.layout.react_dialog_layout, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.react_dialog_layout, null);
+        initializingReactImages(view);
         setReactionsArray();
         resetReactionsIcons();
         onClickImageButtons();
 
-        dialogBuilder.setView(dialogView);
-        mReactAlertDialog = dialogBuilder.create();
-        mReactAlertDialog.getWindow().setBackgroundDrawableResource(mReactDialogShape);
+//        dialogBuilder.setView(dialogView);
+//        mReactAlertDialog = dialogBuilder.create();
+//        mReactAlertDialog.getWindow().setBackgroundDrawableResource(mReactDialogShape);
+//
+//        Window window = mReactAlertDialog.getWindow();
+//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+//
+//        mReactAlertDialog.show();
 
-        Window window = mReactAlertDialog.getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
-        mReactAlertDialog.show();
+
+        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setAnimationStyle(R.style.TopPopAnim);
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupWindow.setOutsideTouchable(true);
+
+        popupWindow.showAsDropDown(this,-50,-250);
+
+
     }
 
     /**
@@ -185,9 +206,12 @@ public class ReactButton
             @Override
             public void onClick(View v) {
                 updateReactButtonByReaction(mReactionPack[reactIndex]);
-                mReactAlertDialog.dismiss();
+//                mReactAlertDialog.dismiss();
+                popupWindow.dismiss();
             }
         });
+
+
     }
 
     /**
@@ -311,16 +335,25 @@ public class ReactButton
         final View currentView = view;
         //First Using My Native OnLongClick
         onLongClickDialog();
-        //Implement on Dismiss Listener to call Developer Method
-        mReactAlertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
-            public void onDismiss(DialogInterface dialogInterface) {
+            public void onDismiss() {
                 if (onDismissListener != null) {
                     //User OnLongClick Implementation
                     onDismissListener.onLongClick(currentView);
                 }
             }
         });
+        //Implement on Dismiss Listener to call Developer Method
+//        mReactAlertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//            @Override
+//            public void onDismiss(DialogInterface dialogInterface) {
+//                if (onDismissListener != null) {
+//                    //User OnLongClick Implementation
+//                    onDismissListener.onLongClick(currentView);
+//                }
+//            }
+//        });
         return true;
     }
 }

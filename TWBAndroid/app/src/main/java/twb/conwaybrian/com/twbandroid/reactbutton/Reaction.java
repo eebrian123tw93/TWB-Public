@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class Reaction {
     public enum Type{
-        DISLIKE,LIKE,NO_LIKE,DISLIKE_COLOR,LIKE_COLOR,NO_LIKE_COLORS
+        DISLIKE,LIKE,NO_LIKE,DISLIKE_COLOR,LIKE_COLOR
     }
     private Type type;
     public Reaction(Type type,int reactIconId){

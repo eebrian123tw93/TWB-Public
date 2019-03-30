@@ -24,6 +24,7 @@ import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.model.ArticleData;
 import twb.conwaybrian.com.twbandroid.model.Comment;
+import twb.conwaybrian.com.twbandroid.model.Like;
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApi;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
@@ -42,6 +43,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
     private ImageViewsRecycleViewAdapter imageViewsRecycleViewAdapter;
     private CommentListRecycleViewAdapter commentListRecycleViewAdapter;
     boolean viewed;
+    private Reaction.Type defaultType;
 
     public ArticlePresenter(ArticleView articleView, Intent intent){
 
@@ -71,13 +73,15 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
         articleView.onSetCommentViewAdapter(commentListRecycleViewAdapter);
 
         if(article.getPoints()>0){
-            articleView.onSetDefaultPointsImageView(Reaction.Type.LIKE);
-        }else if(article.getPoints()<0){
-            articleView.onSetDefaultPointsImageView(Reaction.Type.DISLIKE);
-        }else {
-            articleView.onSetDefaultPointsImageView(Reaction.Type.NO_LIKE);
-        }
+            defaultType=Reaction.Type.LIKE;
 
+        }else if(article.getPoints()<0){
+            defaultType=Reaction.Type.DISLIKE;
+        }else {
+            defaultType=Reaction.Type.NO_LIKE;
+
+        }
+        articleView.onSetDefaultPointsImageView(defaultType);
 //        getComments();
         getArticleData();
     }
@@ -158,6 +162,55 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
             }
         };
         ShuoApiService.getInstance().getArticleData(observer,article,false);
+    }
+
+    public void sendReaction(Reaction.Type type){
+        if(isLogin()){
+            Like like=new Like();
+            like.setArticleId(article.getArticleId());
+            like.setUserId(user.getUserId());
+            switch (type){
+                case LIKE_COLOR:
+                    like.setType(Like.Type.LIKE);
+                    break;
+                case DISLIKE_COLOR:
+                    like.setType(Like.Type.DISLIKE);
+                    break;
+            }
+            Observer<Response<ResponseBody>> observer=new Observer<Response<ResponseBody>>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+//                    article_view
+//                        articleView.onSendCommentResult(true);
+//                        articleView.onSetMessage("comment reply success", FancyToast.SUCCESS);
+                    } else {
+//                        articleView.onSendCommentResult(false);
+//                        articleView.onSetMessage("comment reply failed", FancyToast.ERROR);
+                    }
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            };
+            ShuoApiService.getInstance().like(observer,user,like,false);
+        }else {
+            articleView.onSendCommentResult(false);
+            articleView.onSetMessage("Login first", FancyToast.INFO);
+            if(userListener!=null)userListener.toLoginPage();
+        }
     }
 
     public void sendComment(String commentString){

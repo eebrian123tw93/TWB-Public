@@ -2,6 +2,9 @@ package twb.conwaybrian.com.twbandroid.model;
 
 import java.util.Date;
 
+import lombok.Data;
+
+@Data
 public class Like {
 
     private String articleId;
