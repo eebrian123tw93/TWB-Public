@@ -10,4 +10,7 @@ public class ArticleDataJson {
   private int views;
   private int commentCount;
   private List<CommentJson> comments;
+
+  // for user-specific
+  private int likeStatus;
 }

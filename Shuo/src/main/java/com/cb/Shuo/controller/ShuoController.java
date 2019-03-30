@@ -88,9 +88,18 @@ public class ShuoController {
 
   @ApiOperation("Retrieve json array of articles. Basic auth required.")
   @ApiImplicitParams({
-    @ApiImplicitParam(name = "startTime", value = "start time of articles", defaultValue = "[current time minus 12 hours]"),
-    @ApiImplicitParam(name = "endTime", value = "end time of articles", defaultValue = "[current time]"),
-    @ApiImplicitParam(name = "orderBy", value = "order by \"points\" or \"create_time\"", defaultValue = "points")
+    @ApiImplicitParam(
+        name = "startTime",
+        value = "start time of articles",
+        defaultValue = "[current time minus 12 hours]"),
+    @ApiImplicitParam(
+        name = "endTime",
+        value = "end time of articles",
+        defaultValue = "[current time]"),
+    @ApiImplicitParam(
+        name = "orderBy",
+        value = "order by \"points\" or \"create_time\"",
+        defaultValue = "points")
   })
   @RequestMapping(value = "/getArticles", method = RequestMethod.GET)
   public List<ArticleJson> getArticles(
@@ -125,9 +134,18 @@ public class ShuoController {
 
   @ApiOperation("Retrieve json array of articles. No auth required.")
   @ApiImplicitParams({
-      @ApiImplicitParam(name = "startTime", value = "start time of articles", defaultValue = "[current time minus 12 hours]"),
-      @ApiImplicitParam(name = "endTime", value = "end time of articles", defaultValue = "[current time]"),
-      @ApiImplicitParam(name = "orderBy", value = "order by \"points\" or \"create_time\"", defaultValue = "points")
+    @ApiImplicitParam(
+        name = "startTime",
+        value = "start time of articles",
+        defaultValue = "[current time minus 12 hours]"),
+    @ApiImplicitParam(
+        name = "endTime",
+        value = "end time of articles",
+        defaultValue = "[current time]"),
+    @ApiImplicitParam(
+        name = "orderBy",
+        value = "order by \"points\" or \"create_time\"",
+        defaultValue = "points")
   })
   @RequestMapping(value = "/public/getArticles", method = RequestMethod.GET)
   public List<ArticleJson> getArticlesPublic(
@@ -145,7 +163,17 @@ public class ShuoController {
       endTime = startTime.plusHours(12);
     }
 
-    log.info("getArticles " + startTime + " " + endTime + " " + limit + " " + offset);
+    log.info(
+        "getArticleModelsOrderByPoints "
+            + startTime
+            + " "
+            + endTime
+            + " "
+            + limit
+            + " "
+            + offset
+            + " "
+            + orderBy);
     return articleGetService.getArticles(startTime, endTime, limit, offset, null, orderBy);
   }
 
@@ -155,8 +183,17 @@ public class ShuoController {
   }
 
   @RequestMapping(value = "/public/getArticleData", method = RequestMethod.GET)
-  public ArticleDataJson getArticleData(@RequestParam(name = "articleId") String articleId) {
-    return articleGetService.getArticleData(articleId);
+  public ArticleDataJson getArticleDataPublic(@RequestParam(name = "articleId") String articleId) {
+    log.info("getArticleDataPublic " + articleId);
+    return articleGetService.getArticleData(articleId, null);
+  }
+
+  // todo: private getArticleData contain like status
+  @RequestMapping(value = "/getArticleData", method = RequestMethod.GET)
+  public ArticleDataJson getArticleData(
+      @RequestParam(name = "articleId") String articleId, Principal principal) {
+    log.info("getArticleData " + articleId + " " + principal.getName());
+    return articleGetService.getArticleData(articleId, principal.getName());
   }
 
   @RequestMapping(value = "/public/viewed", method = RequestMethod.POST)

@@ -18,8 +18,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -49,19 +47,22 @@ public class ArticleGetService {
       String userId,
       String orderBy) {
     log.info("getArticles");
-    List<ArticleModel> articleModelList =
-        articleDao.getArticles(start, end, orderBy, limit, offset);
-    log.info("articleModelList.size(): " + articleModelList.size());
+    List<ArticleModel> articleModelList;
 
-    List<ArticleJson> articleJsonList = convertModelToJson(articleModelList);
-
-    if (orderBy.equals("likes")) {
-      articleJsonList.sort(Comparator.comparingInt(ArticleJson::getPoints));
-      Collections.reverse(articleJsonList);
-    } else if (orderBy.equals("time")) {
-      articleJsonList.sort(Comparator.comparing(ArticleJson::getCreateTime));
-      Collections.reverse(articleJsonList);
+    switch (orderBy) {
+      case "points":
+        articleModelList = articleDao.getArticleModelsOrderByPoints(start, end, limit, offset);
+        break;
+      case "create_time":
+        articleModelList = articleDao.getArticleModelsOrderByCreateTime(start, end, limit, offset);
+        break;
+      default:
+        log.error("unknown orderBy: " + orderBy);
+        return new ArrayList<>();
     }
+
+    log.info("articleModelList.size(): " + articleModelList.size());
+    List<ArticleJson> articleJsonList = convertModelToJson(articleModelList);
 
     if (userId != null) {
       articleJsonList.forEach(
@@ -76,7 +77,7 @@ public class ArticleGetService {
     return articleJsonList;
   }
 
-  public ArticleDataJson getArticleData(String articleId) {
+  public ArticleDataJson getArticleData(String articleId, String userId) {
     ArticleModel articleModel = articleDao.findArticleModelByArticleId(articleId);
     List<CommentModel> commentModelList = commentDao.findCommentModelsByArticleId(articleId);
 
@@ -98,6 +99,11 @@ public class ArticleGetService {
         });
 
     articleDataJson.setComments(commentJsonList);
+
+    if (userId != null) {
+      LikeModel likeModel = likeDao.findByUserIdAndArticleId(articleId, userId);
+      if (likeModel != null) articleDataJson.setLikeStatus(likeModel.getType());
+    }
 
     return articleDataJson;
   }
