@@ -8,15 +8,14 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 import org.threeten.bp.LocalDateTime;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import retrofit2.Response;
-import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.adatper.ArticleListRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
+import twb.conwaybrian.com.twbandroid.presenter.adapter.ArticleListRecyclerViewHolderPresenter;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.ArticleListView;
 
@@ -25,10 +24,12 @@ public class ArticleListPresenter extends TWBPresenter {
 
 
     private ArticleListRecycleViewAdapter articleListRecycleViewAdapter;
+    private ArticleListRecyclerViewHolderPresenter articleListRecyclerViewHolderPresenter;
 
     public ArticleListPresenter(ArticleListView articleListView){
         this.articleListView=articleListView;
-        articleListRecycleViewAdapter=new ArticleListRecycleViewAdapter(context,new ArrayList<Article>());
+        articleListRecyclerViewHolderPresenter =new ArticleListRecyclerViewHolderPresenter(context);
+        articleListRecycleViewAdapter=new ArticleListRecycleViewAdapter(context, articleListRecyclerViewHolderPresenter);
         articleListView.onSetArticleListRecyclerAdapter(articleListRecycleViewAdapter);
     }
 
