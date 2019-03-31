@@ -70,7 +70,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 articlePresenter.refresh();
-                articlePresenter.getArticleData(true);
+                articlePresenter.getArticleData(true,0);
             }
 
             @Override

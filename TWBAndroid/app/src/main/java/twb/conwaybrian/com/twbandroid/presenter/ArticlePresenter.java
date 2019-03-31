@@ -19,7 +19,6 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
-import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.adatper.ArticleDataRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
@@ -84,7 +83,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
 //        }
 //        getComments();
 
-        getArticleData(true);
+        getArticleData(true,0);
         viewed=true;
 
     }
@@ -147,9 +146,12 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
         };
         ShuoApiService.getInstance().getComments(observer,article,false);
     }
-
     public void getArticleData(final boolean moveToTop){
-       articleDataRecycleViewAdapter.setMoveToTop(moveToTop);
+        this.getArticleData(moveToTop,articleDataRecycleViewAdapter.getItemCount());
+    }
+    public void getArticleData(final boolean moveToTop,int position){
+       articleDataRecycleViewAdapter.setMove(moveToTop);
+       articleDataRecycleViewAdapter.setPosition(position);
         Observer<Response<JsonObject>> observer = new Observer<Response<JsonObject>>() {
             @Override
             public void onSubscribe(Disposable d) {

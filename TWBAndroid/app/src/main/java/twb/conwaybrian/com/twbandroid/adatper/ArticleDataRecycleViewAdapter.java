@@ -13,14 +13,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.model.Article;
-import twb.conwaybrian.com.twbandroid.model.ArticleData;
 import twb.conwaybrian.com.twbandroid.model.Comment;
-import twb.conwaybrian.com.twbandroid.navigation.fragment.ImageViewsFragment;
 import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
 import twb.conwaybrian.com.twbandroid.reactbutton.ReactButton;
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
-import twb.conwaybrian.com.twbandroid.reactbutton.TWBReactions;
 
 import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
 
@@ -31,11 +27,17 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
     private List<Comment> comments;
     private Context context;
 
-    public void setMoveToTop(boolean moveToTop) {
-        this.moveToTop = moveToTop;
+    public void setMove(boolean move) {
+        this.move = move;
     }
 
-    private boolean moveToTop;
+    private boolean move;
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    private int position;
 
     public class CommentViewHolder extends RecyclerView.ViewHolder {
 
@@ -174,10 +176,12 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
 //            TWBReactions.defaultReact.setType(type);
             Reaction currentReaction=new Reaction(type,res);
             holder.pointsReactButton.setCurrentReaction(currentReaction);
-            if(moveToTop)
-                articlePresenter.setArticleDataRecyclerViewScroll(0);
-            else
-                articlePresenter.setArticleDataRecyclerViewScroll(comments.size());
+            if(move){
+                articlePresenter.setArticleDataRecyclerViewScroll(position);
+            }
+
+
+
 
 //            holder.pointsReactButton.setDefaultReaction(TWBReactions.defaultReact);
 
