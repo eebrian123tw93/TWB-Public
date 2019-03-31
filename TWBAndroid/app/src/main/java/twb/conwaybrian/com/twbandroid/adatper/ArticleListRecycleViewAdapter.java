@@ -26,11 +26,8 @@ import twb.conwaybrian.com.twbandroid.view.adapter.ArticleListRecycleViewHolderV
 public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleListRecycleViewAdapter.ViewHolder> {
 
     private Context context;
+
     private ArticleListRecyclerViewHolderPresenter viewHolderPresenter;
-
-
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder  implements ArticleListRecycleViewHolderView {
         private TextView titleTextView;
@@ -104,12 +101,6 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         public void onSetClickListener(View.OnClickListener listener) {
             cardView.setOnClickListener(listener);
         }
-
-
-
-
-
-
     }
 
     public ArticleListRecycleViewAdapter(Context context,ArticleListRecyclerViewHolderPresenter viewHolderPresenter) {
@@ -132,60 +123,13 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         viewHolderPresenter.bindData(holder,position);
-//        final Article article=articleList.get(position);
-//        holder.titleTextView.setText(article.getTitle());
-//        holder.previewTextView.setText(article.getContent());
-//        holder.pointsTextView.setText(String.valueOf(article.getPoints()));
-//        holder.viewsTextView.setText(String.valueOf(article.getViews()));
-//        holder.commentCountTextView.setText(String.valueOf(article.getCommentCount()));
-//
-//        if(article.getLikeStatus()==0) {
-//            if (article.getPoints() < 0) {
-//                holder.pointsImageView.setImageResource(R.drawable.dislike);
-//            } else if (article.getPoints() >= 0) {
-//                holder.pointsImageView.setImageResource(R.drawable.like);
-//            }
-//        }else {
-//            if (article.getLikeStatus() == 1) {
-//                holder.pointsImageView.setImageResource(R.drawable.like_color);
-//            } else if (article.getLikeStatus() == -1) {
-//                holder.pointsImageView.setImageResource(R.drawable.dislike_color);
-//            }
-//        }
-//
-//        if(articleList.get(position).getImages()==null || articleList.get(position).getImages().isEmpty()){
-//            holder.articleImageView.setVisibility(View.GONE);
-//            if(articleList.get(position).getImages()==null)articleList.get(position).setImages(new ArrayList<String>());
-//        }
-//        else
-//        {
-//            holder.articleImageView.setVisibility(View.VISIBLE);
-//            Glide.with(context).load(article.getImages().get(0)).into(holder.articleImageView);
-//        }
-//
-//
-//
-//
-//        holder.cardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent=new Intent(context,ArticleActivity.class);
-//                intent.putExtra(ArticlePresenter.ARTICLE_ID,article.getArticleId());
-//                intent.putExtra(ArticlePresenter.ARTICLE_TITLE,article.getTitle());
-//                intent.putExtra(ArticlePresenter.ARTICLE_CONTENT,article.getContent());
-//                intent.putExtra(ArticlePresenter.ARTICLE_POINTS,String.valueOf(article.getPoints()));
-//                intent.putExtra(ArticlePresenter.ARTICLE_VIEWS,String.valueOf(article.getViews()));
-//                intent.putExtra(ArticlePresenter.ARTICLE_COMMENT_COUNT,String.valueOf(article.getCommentCount()));
-//                intent.putExtra(ArticlePresenter.ARTICLE_IMAGES,article.getImages().toArray(new String[article.getImages().size()]));
-//                context.startActivity(intent);
-//            }
-//        });
     }
 
     public void addArticles(List<Article> articles){
         viewHolderPresenter.addArticles(articles);
         notifyDataSetChanged();
     }
+
     public void clear(){
         viewHolderPresenter.clear();
         notifyDataSetChanged();
