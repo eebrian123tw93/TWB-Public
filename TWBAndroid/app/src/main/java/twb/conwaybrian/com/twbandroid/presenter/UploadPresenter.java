@@ -25,6 +25,7 @@ import retrofit.mime.TypedFile;
 import retrofit2.Response;
 import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
+import twb.conwaybrian.com.twbandroid.presenter.adapterpresenter.ImageViewsRecyclerViewHolderPresenter;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.UploadView;
 
@@ -43,9 +44,9 @@ public class UploadPresenter extends TWBPresenter {
     public UploadPresenter(UploadView uploadView){
         this.uploadView=uploadView;
         article = new Article();
-        images=new ArrayList<>();
         canUploadImages=new ArrayList<>();
-        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,images,ImageViewsRecycleViewAdapter.Type.EDIT);
+        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,ImageViewsRecyclerViewHolderPresenter.Type.EDIT);
+        images=imageViewsRecycleViewAdapter.getImages();
     }
     public  void uploadImages(){
         canUploadImages.clear();
@@ -98,16 +99,21 @@ public class UploadPresenter extends TWBPresenter {
             uploadView.onSetMessage("Content  can not be empty",FancyToast.ERROR);
             uploadView.onPostArticle(false);
         }else {
-            saveArticle(title,content,false);
-            if (isLogin()) {
-                article.setTitle(title);
-                article.setContent(content);
-                if(images.isEmpty())postArticle();
-                else uploadImages();
-            } else {
-                uploadView.onSetMessage("Login first",FancyToast.INFO);
+            if(content.length()>=65535){
+                uploadView.onSetMessage("Content  too long",FancyToast.ERROR);
                 uploadView.onPostArticle(false);
-                if (userListener != null) userListener.toLoginPage();
+            }else {
+                saveArticle(title, content, false);
+                if (isLogin()) {
+                    article.setTitle(title);
+                    article.setContent(content);
+                    if (images.isEmpty()) postArticle();
+                    else uploadImages();
+                } else {
+                    uploadView.onSetMessage("Login first", FancyToast.INFO);
+                    uploadView.onPostArticle(false);
+                    if (userListener != null) userListener.toLoginPage();
+                }
             }
         }
     }
@@ -126,7 +132,7 @@ public class UploadPresenter extends TWBPresenter {
 
 
     public void addImage(Uri uri){
-        String   path = ImageViewsRecycleViewAdapter.getRealFilePath(context,uri);
+        String   path = ImageViewsRecyclerViewHolderPresenter.getRealFilePath(context,uri);
         File file=new File(path);
         if(file.exists()){
             if(file.length()<10000000){
@@ -160,7 +166,7 @@ public class UploadPresenter extends TWBPresenter {
                     saveArticle("","",false);
                 }else {
                     uploadView.onPostArticle(false);
-                    uploadView.onSetMessage("Post success",FancyToast.ERROR);
+                    uploadView.onSetMessage("Post failed",FancyToast.ERROR);
                 }
             }
 
@@ -213,9 +219,9 @@ public class UploadPresenter extends TWBPresenter {
 
     public void setCancelViewEnable(boolean enable){
         if(enable)
-            imageViewsRecycleViewAdapter.setState(ImageViewsRecycleViewAdapter.State.NOT_UPLOAD);
+            imageViewsRecycleViewAdapter.setState(ImageViewsRecyclerViewHolderPresenter.State.NOT_UPLOAD);
         else
-            imageViewsRecycleViewAdapter.setState(ImageViewsRecycleViewAdapter.State.UPLOADING);
+            imageViewsRecycleViewAdapter.setState(ImageViewsRecyclerViewHolderPresenter.State.UPLOADING);
     }
 
     public synchronized boolean checkAllImagesUploaded(String fileName,String link){

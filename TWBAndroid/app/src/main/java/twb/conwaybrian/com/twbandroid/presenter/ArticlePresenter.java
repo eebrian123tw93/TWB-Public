@@ -11,7 +11,6 @@ import com.google.gson.reflect.TypeToken;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,18 +18,21 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
-import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.adatper.ArticleDataRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.model.ArticleData;
 import twb.conwaybrian.com.twbandroid.model.Comment;
 import twb.conwaybrian.com.twbandroid.model.Like;
+import twb.conwaybrian.com.twbandroid.presenter.adapterpresenter.ArticleDataRecyclerArticleViewHolderViewPresenter;
+import twb.conwaybrian.com.twbandroid.presenter.adapterpresenter.ImageViewsRecyclerViewHolderPresenter;
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.ArticleView;
 
-public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleViewAdapter.ShowImageViewsFragmentListener {
+public class ArticlePresenter extends TWBPresenter implements ImageViewsRecyclerViewHolderPresenter.ShowImageViewsFragmentListener,ArticleDataRecycleViewAdapter.ArticleViewHolder.SendReactionListener,ArticleDataRecyclerArticleViewHolderViewPresenter.ScrollListener {
+
+
 
     private static final String TAG="ArticlePresenter";
     public static final String ARTICLE_ID="article_id";
@@ -46,6 +48,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
     private ArticleDataRecycleViewAdapter articleDataRecycleViewAdapter;
     boolean viewed;
     public Reaction.Type defaultType;
+
 
     public ArticlePresenter(ArticleView articleView, Intent intent){
 
@@ -67,27 +70,49 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
         article.getImages().addAll(Arrays.asList(images));
 
 
-        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,article.getImages(),ImageViewsRecycleViewAdapter.Type.VIEW,this);
-        articleDataRecycleViewAdapter =new ArticleDataRecycleViewAdapter(context,new ArrayList<Comment>(),this);
+        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,ImageViewsRecyclerViewHolderPresenter.Type.VIEW,this);
+        articleDataRecycleViewAdapter =new ArticleDataRecycleViewAdapter(this,this);
 
+        imageViewsRecycleViewAdapter.addImages(article.getImages());
         articleView.onSetArticleDataRecyclerViewAdapter(articleDataRecycleViewAdapter);
+        articleDataRecycleViewAdapter.setArticle(article);
+        articleDataRecycleViewAdapter.setAdapter(imageViewsRecycleViewAdapter);
 
-        if(article.getPoints()>0){
+
+
+
+        if(article.getPoints()>=0){
             defaultType=Reaction.Type.LIKE;
-
         }else if(article.getPoints()<0){
             defaultType=Reaction.Type.DISLIKE;
-        }else {
-            defaultType=Reaction.Type.NO_LIKE;
-
         }
-//        getComments();
-        getArticleData();
+        articleDataRecycleViewAdapter.setType(defaultType);
+
+
+        getArticleData(true,0);
         viewed=true;
 
     }
-    public  void setArticleDataRecyclerViewScroll(int position){
-        articleView.onSetArticleDataRecyclerViewScroll(position);
+    public  void setArticleDataRecyclerViewScroll(final int position){
+
+
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+
+                    articleView.onSetArticleDataRecyclerViewScroll(position);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }.start();
+
+
+
     }
 
     @Deprecated
@@ -127,8 +152,12 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
         };
         ShuoApiService.getInstance().getComments(observer,article,false);
     }
-
-    public void getArticleData(){
+    public void getArticleData(final boolean moveToTop){
+        this.getArticleData(moveToTop,articleDataRecycleViewAdapter.getItemCount());
+    }
+    public void getArticleData(final boolean moveToTop,int position){
+       articleDataRecycleViewAdapter.setMove(moveToTop);
+       articleDataRecycleViewAdapter.setPosition(position);
         Observer<Response<JsonObject>> observer = new Observer<Response<JsonObject>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -163,6 +192,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
                     article.setCommentCount(articleData.getCommentCount());
                     article.setPoints(articleData.getPoints());
                     article.setViews(articleData.getViews());
+                    articleDataRecycleViewAdapter.setType(defaultType);
                     articleDataRecycleViewAdapter.notifyItemChanged(0);
                     articleView.onFinishRefreshOrLoad();
                 } else {
@@ -223,6 +253,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
 //                    article_view
 //                        articleView.onSendCommentResult(true);
                             articleView.onSetMessage("reaction reply success", FancyToast.SUCCESS);
+                            getArticleData(false);
                         } else {
 //                        articleView.onSendCommentResult(false);
                             articleView.onSetMessage("reaction reply failed", FancyToast.ERROR);
@@ -348,5 +379,10 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
                 viewed = false;
             }
         }
+    }
+
+    @Override
+    public void onSetArticleDataRecyclerViewScroll(int position) {
+        setArticleDataRecyclerViewScroll(position);
     }
 }

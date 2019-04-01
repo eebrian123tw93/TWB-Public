@@ -16,7 +16,7 @@ public class TWBPresenter {
 
 
     private static String PROFILE="profile";
-     TWBPresenter(){
+     public TWBPresenter(){
         this.context=TWBApplication.getContext();
     }
      void saveUser(User user){
