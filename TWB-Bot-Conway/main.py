@@ -46,5 +46,6 @@ def generate_comments(amount):
         api.comment(user, user, 'article-1987931d6717431daaccc6d00713b9f8', word_generator(content_len))
 
 
-generate_articles(1500)
+# generate_articles(1500)
+register_multiple_users(100)
 # generate_comments(1660)
