@@ -39,7 +39,10 @@ public class SearchFragment extends Fragment implements SearchView {
             @Override
             public boolean onQueryTextChange(String newText) {
                 searchPresenter.clear();
-                searchPresenter.search(newText);
+                if(newText.length() >= 3) {
+
+                    searchPresenter.search(newText);
+                }
                 return false;
             }
         });

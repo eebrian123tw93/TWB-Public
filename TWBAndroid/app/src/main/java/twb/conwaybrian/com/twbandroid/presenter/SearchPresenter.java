@@ -25,6 +25,7 @@ public class SearchPresenter extends TWBPresenter {
         searchView.onSetArticleListRecyclerAdapter(articleListRecycleViewAdapter);
     }
     public void search(String query){
+
         Observer<Response<JsonArray>> observer = new Observer<Response<JsonArray>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -45,7 +46,7 @@ public class SearchPresenter extends TWBPresenter {
                     } else {
                         searchView.onSetMessage("loading failed", FancyToast.ERROR);
                     }
-                }catch (Exception e){
+                }catch (OutOfMemoryError e){
                     onError(e);
                 }
 
