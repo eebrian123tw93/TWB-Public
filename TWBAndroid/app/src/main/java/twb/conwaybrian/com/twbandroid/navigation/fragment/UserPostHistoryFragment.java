@@ -39,7 +39,8 @@ public class UserPostHistoryFragment extends Fragment implements UserPostHistory
 
         articleListRecyclerView = view.findViewById(R.id.article_list_recycleView);
         refreshLayout = view.findViewById(R.id.refresh_layout);
-
+        refreshLayout.setEnableLoadmore(false);
+        refreshLayout.setAutoLoadMore(false);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
 
             @Override
