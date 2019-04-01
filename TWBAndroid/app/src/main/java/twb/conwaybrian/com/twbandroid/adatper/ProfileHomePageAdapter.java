@@ -7,8 +7,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.HashMap;
 
 import twb.conwaybrian.com.twbandroid.navigation.ProfileFragment;
-import twb.conwaybrian.com.twbandroid.navigation.ProfileHomeFragment;
-import twb.conwaybrian.com.twbandroid.navigation.fragment.ArticleListFragment;
 import twb.conwaybrian.com.twbandroid.navigation.fragment.UserPostHistoryFragment;
 
 public class ProfileHomePageAdapter extends FragmentStatePagerAdapter {

@@ -25,6 +25,7 @@ def post_article(user_id, password, title, content,images):
     print(request_body)
     r = requests.post(SHUO_BASE_PATH + '/postArticle', json=request_body, auth=(user_id, password))
     print(r.status_code)
+    return r.text
 
 
 def comment(user_id, password, article_id, content):

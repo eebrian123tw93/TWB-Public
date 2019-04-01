@@ -176,6 +176,7 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
         private RecyclerView imageViewsRecyclerView;
         private ReactButton pointsReactButton;
         private SendReactionListener sendReactionListener;
+
         public ArticleViewHolder(View v, SendReactionListener sendReactionListener) {
             super(v);
             titleTextView = v.findViewById(R.id.title_textView);
