@@ -64,14 +64,13 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
                     break;
                 case R.id.profile:
                     if (navigationPresenter.isLogin()) {
-                        fragment = new ProfileFragment();
+                        fragment = new ProfileHomeFragment();
                     } else {
                         fragment = new LoginFragment();
                     }
                     break;
                 case R.id.search:
                     fragment = new SearchFragment();
-//                        fragment=UserPostHistoryFragment.newInstance("he2llp5");
                     break;
                 case R.id.home:
                     fragment = new HomeFragment();
@@ -91,17 +90,20 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
 
     @Override
     public void onLogin() {
-        Fragment fragment = new ProfileFragment();
+        Fragment pre=fragmentHashMap.get(R.id.profile);
+        getSupportFragmentManager().beginTransaction().remove(pre).commitAllowingStateLoss();
+        Fragment fragment = new ProfileHomeFragment();
         fragmentHashMap.put(R.id.profile, fragment);
         showFragment(fragment);
     }
 
     @Override
     public void onLogout() {
+        Fragment pre=fragmentHashMap.get(R.id.profile);
+        getSupportFragmentManager().beginTransaction().remove(pre).commitAllowingStateLoss();
         Fragment fragment = new LoginFragment();
         fragmentHashMap.put(R.id.profile, fragment);
         showFragment(fragment);
-
     }
 
 

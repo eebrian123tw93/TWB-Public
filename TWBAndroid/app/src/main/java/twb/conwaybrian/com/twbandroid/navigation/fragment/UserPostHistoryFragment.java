@@ -21,9 +21,6 @@ public class UserPostHistoryFragment extends Fragment implements UserPostHistory
     private UserPostHistoryPresenter userPostHistoryPresenter;
     private RecyclerView articleListRecyclerView;
 
-    private UserPostHistoryFragment(){
-
-    }
 
     public static UserPostHistoryFragment newInstance(String userId) {
         UserPostHistoryFragment fragment = new UserPostHistoryFragment();

@@ -8,12 +8,12 @@ import java.util.HashMap;
 
 import twb.conwaybrian.com.twbandroid.navigation.fragment.ArticleListFragment;
 
-public class PageAdapter extends FragmentStatePagerAdapter {
+public class HomePageAdapter extends FragmentStatePagerAdapter {
 
     private int number;
     private HashMap<Integer, Fragment> fragmentHashMap;
 
-    public PageAdapter(FragmentManager fm, int number) {
+    public HomePageAdapter(FragmentManager fm, int number) {
         super(fm);
         fragmentHashMap = new HashMap<>();
         this.number = number;

@@ -31,11 +31,16 @@ public class UserPostHistoryPresenter extends TWBPresenter {
         this.userPostHistoryView=userPostHistoryView;
         articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(context);
         userPostHistoryView.onSetArticleListRecyclerAdapter(articleListRecycleViewAdapter);
-        String userId=bundle.getString(USER_ID,"");
-        if(!userId.isEmpty()){
-            user=new User();
-            user.setUserId(userId);
+        if(bundle==null){
+            user = TWBPresenter.user;
             getUserPostHistory();
+        }else {
+            String userId = bundle.getString(USER_ID, TWBPresenter.user.getUserId());
+            if (!userId.isEmpty()) {
+                user = new User();
+                user.setUserId(userId);
+                getUserPostHistory();
+            }
         }
     }
     public void getUserPostHistory(){
