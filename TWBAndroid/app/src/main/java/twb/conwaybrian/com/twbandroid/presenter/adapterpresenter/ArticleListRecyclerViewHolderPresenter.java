@@ -65,6 +65,7 @@ public  class ArticleListRecyclerViewHolderPresenter extends TWBPresenter {
                     intent.putExtra(ArticlePresenter.ARTICLE_ID,article.getArticleId());
                     intent.putExtra(ArticlePresenter.ARTICLE_TITLE,article.getTitle());
                     intent.putExtra(ArticlePresenter.ARTICLE_CONTENT,article.getContent());
+                    intent.putExtra(ArticlePresenter.ARTICLE_USER_ID,article.getUserId());
                     intent.putExtra(ArticlePresenter.ARTICLE_POINTS,String.valueOf(article.getPoints()));
                     intent.putExtra(ArticlePresenter.ARTICLE_VIEWS,String.valueOf(article.getViews()));
                     intent.putExtra(ArticlePresenter.ARTICLE_COMMENT_COUNT,String.valueOf(article.getCommentCount()));

@@ -72,6 +72,7 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
         private TextView pointsTextView;
         private TextView viewsTextView;
         private TextView commentCountTextView;
+        private TextView userIdTextView;
         private RecyclerView imageViewsRecyclerView;
 
         private ReactButton pointsReactButton;
@@ -88,6 +89,7 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
             commentCountTextView=v.findViewById(R.id.comment_count_textView);
             imageViewsRecyclerView=v.findViewById(R.id.imageViews_recyclerView);
             pointsReactButton =v.findViewById(R.id.points_reactButton);
+            userIdTextView=v.findViewById(R.id.userId_textView);
             final LinearLayoutManager imageViewRecyclerLayoutManager = new LinearLayoutManager(getContext());
             imageViewRecyclerLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             imageViewsRecyclerView.setLayoutManager(imageViewRecyclerLayoutManager);
@@ -121,6 +123,11 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
         @Override
         public void onSetCommentCount(String commentCount) {
             commentCountTextView.setText(commentCount);
+        }
+
+        @Override
+        public void onSetUserId(String userId) {
+            userIdTextView.setText(userId);
         }
 
         @Override

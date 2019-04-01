@@ -42,6 +42,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
     public static final String ARTICLE_VIEWS="article_views";
     public static final String ARTICLE_COMMENT_COUNT="article_comment_count";
     public static final String ARTICLE_IMAGES="articles_images";
+    public static final String ARTICLE_USER_ID="user_id";
     private ArticleView articleView;
     public Article article;
     public ImageViewsRecycleViewAdapter imageViewsRecycleViewAdapter;
@@ -59,6 +60,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
         String points=intent.getStringExtra(ARTICLE_POINTS);
         String views=intent.getStringExtra(ARTICLE_VIEWS);
         String commentCount=intent.getStringExtra(ARTICLE_COMMENT_COUNT);
+        String userId=intent.getStringExtra(ARTICLE_USER_ID);
         String [] images=intent.getStringArrayExtra(ARTICLE_IMAGES);
         article=new Article();
         article.setArticleId(articleId);
@@ -67,6 +69,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
         article.setPoints(Integer.valueOf(points));
         article.setViews(Integer.valueOf(views));
         article.setCommentCount(Integer.valueOf(commentCount));
+        article.setUserId(userId);
         article.getImages().addAll(Arrays.asList(images));
 
 

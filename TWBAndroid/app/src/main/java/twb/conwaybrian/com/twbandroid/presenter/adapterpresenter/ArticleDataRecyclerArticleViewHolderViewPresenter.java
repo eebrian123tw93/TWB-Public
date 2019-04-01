@@ -60,6 +60,7 @@ public class ArticleDataRecyclerArticleViewHolderViewPresenter extends TWBPresen
             holder.onSetPoints(String.valueOf(article.getPoints()));
             holder.onSetViews(String.valueOf(article.getViews()));
             holder.onSetCommentCount(String.valueOf(article.getCommentCount()));
+            holder.onSetUserId(article.getUserId());
         }
 
         if(adapter!=null)

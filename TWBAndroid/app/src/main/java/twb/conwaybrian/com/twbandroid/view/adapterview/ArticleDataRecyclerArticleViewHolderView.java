@@ -10,6 +10,7 @@ public interface ArticleDataRecyclerArticleViewHolderView {
     void onSetPoints(String points);
     void onSetViews(String views);
     void onSetCommentCount(String commentCount);
+    void  onSetUserId(String userId);
     void onSetImageViewsRecyclerViewAdapter(RecyclerView.Adapter adapter);
 
     void onSetCurrentReaction(Reaction reaction);
