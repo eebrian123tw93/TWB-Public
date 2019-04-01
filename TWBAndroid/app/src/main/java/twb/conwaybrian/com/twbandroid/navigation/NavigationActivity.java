@@ -27,6 +27,8 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
 
     private NavigationPresenter navigationPresenter;
 
+    private int exitCount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +130,24 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
 
     @Override
     public void onBackPressed() {
-        moveTaskToBack(true);
+        exitCount++;
+        if(exitCount==1){
+            onSetMessage("再點擊一下離開",FancyToast.INFO);
+            new Thread(){
+                @Override
+                public void run() {
+                    try {
+                        sleep(3000);
+                        exitCount=0;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }else if(exitCount==2) {
+            moveTaskToBack(true);
+        }
+
     }
 
 }
