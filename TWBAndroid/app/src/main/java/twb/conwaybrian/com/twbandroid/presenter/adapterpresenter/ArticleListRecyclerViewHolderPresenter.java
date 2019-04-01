@@ -32,6 +32,7 @@ public class ArticleListRecyclerViewHolderPresenter extends TWBPresenter {
             viewHolderView.onSetPoints(String.valueOf(article.getPoints()));
             viewHolderView.onSetViews(String.valueOf(article.getViews()));
             viewHolderView.onSetCommentCount(String.valueOf(article.getCommentCount()));
+            viewHolderView.onSetUserId(article.getUserId());
 
             if (article.getLikeStatus() == 0) {
                 if (article.getPoints() < 0) {

@@ -14,6 +14,8 @@ public interface ArticleListRecycleViewHolderView {
 
     void onSetCommentCount(String commentCount);
 
+    void onSetUserId(String id);
+
     void onSetArticleImageView(String fileName);
 
     void onSetArticleImageViewVisibility(int visibility);

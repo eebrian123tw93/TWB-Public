@@ -62,6 +62,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         private TextView pointsTextView;
         private TextView viewsTextView;
         private TextView commentCountTextView;
+        private TextView userIdTextView;
         private ImageView articleImageView;
         private ImageView pointsImageView;
         private CardView cardView;
@@ -80,6 +81,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
             commentCountTextView = v.findViewById(R.id.comment_count_textView);
             articleImageView = v.findViewById(R.id.article_imageView);
             pointsImageView = v.findViewById(R.id.points_reactButton);
+            userIdTextView = v.findViewById(R.id.user_id_textView);
             cardView = v.findViewById(R.id.card_view);
         }
 
@@ -107,6 +109,11 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         @Override
         public void onSetCommentCount(String commentCount) {
             commentCountTextView.setText(commentCount);
+        }
+
+        @Override
+        public void onSetUserId(String id) {
+            userIdTextView.setText(id);
         }
 
         @Override
