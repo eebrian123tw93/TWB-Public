@@ -24,18 +24,18 @@ public class ArticleListPresenter extends TWBPresenter {
 
     private ArticleListRecycleViewAdapter articleListRecycleViewAdapter;
 
-    public ArticleListPresenter(ArticleListView articleListView){
-        this.articleListView=articleListView;
-        articleListRecycleViewAdapter=new ArticleListRecycleViewAdapter(context);
+    public ArticleListPresenter(ArticleListView articleListView) {
+        this.articleListView = articleListView;
+        articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(context);
         articleListView.onSetArticleListRecyclerAdapter(articleListRecycleViewAdapter);
     }
 
-    public void getArticleList(String order,int limit){
-        this.getArticleList(order,articleListRecycleViewAdapter.getItemCount(),limit);
+    public void getArticleList(String order, int limit) {
+        this.getArticleList(order, articleListRecycleViewAdapter.getItemCount(), limit);
     }
 
-    public void getArticleList(String order,int offset,int limit){
-        Observer<Response<JsonArray>> observer=new Observer<Response<JsonArray>>() {
+    public void getArticleList(String order, int offset, int limit) {
+        Observer<Response<JsonArray>> observer = new Observer<Response<JsonArray>>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -43,21 +43,22 @@ public class ArticleListPresenter extends TWBPresenter {
 
             @Override
             public void onNext(Response<JsonArray> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     JsonArray jsonArray = response.body();
                     System.out.println(jsonArray);
-                    Type listType = new TypeToken<List<Article>>() {}.getType();
+                    Type listType = new TypeToken<List<Article>>() {
+                    }.getType();
                     List<Article> articleList = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().fromJson(jsonArray, listType);
                     articleListRecycleViewAdapter.addArticles(articleList);
                     articleListView.onFinishRefreshOrLoad();
-                }else{
-                    articleListView.onSetMessage("loading failed",FancyToast.ERROR);
+                } else {
+                    articleListView.onSetMessage("loading failed", FancyToast.ERROR);
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                articleListView.onSetMessage(e.getMessage(),FancyToast.ERROR);
+                articleListView.onSetMessage(e.getMessage(), FancyToast.ERROR);
                 articleListView.onFinishRefreshOrLoad();
             }
 
@@ -67,17 +68,17 @@ public class ArticleListPresenter extends TWBPresenter {
             }
         };
 
-        LocalDateTime endDateTime=LocalDateTime.now();
-        LocalDateTime startDateTime=endDateTime.minusDays(10);
+        LocalDateTime endDateTime = LocalDateTime.now();
+        LocalDateTime startDateTime = endDateTime.minusDays(10);
 
-        if(isLogin()){
-            ShuoApiService.getInstance().getArticlesPrivate(observer,user,endDateTime,startDateTime,order,offset,limit,false);
-        }else {
-            ShuoApiService.getInstance().getArticlesPublic(observer,endDateTime,startDateTime,order,offset,limit,false);
+        if (isLogin()) {
+            ShuoApiService.getInstance().getArticlesPrivate(observer, user, endDateTime, startDateTime, order, offset, limit, false);
+        } else {
+            ShuoApiService.getInstance().getArticlesPublic(observer, endDateTime, startDateTime, order, offset, limit, false);
         }
     }
 
-    public void refresh(){
+    public void refresh() {
         articleListRecycleViewAdapter.clear();
     }
 }

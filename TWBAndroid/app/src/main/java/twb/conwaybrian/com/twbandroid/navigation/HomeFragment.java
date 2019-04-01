@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import twb.conwaybrian.com.twbandroid.adatper.PageAdapter;
 import twb.conwaybrian.com.twbandroid.R;
+import twb.conwaybrian.com.twbandroid.adatper.PageAdapter;
 
 public class HomeFragment extends Fragment {
 
@@ -24,20 +24,18 @@ public class HomeFragment extends Fragment {
     }
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_home,container,false);
-        TabLayout tabLayout =  view.findViewById(R.id.tabLayout);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
 
 
-
-        TabLayout.Tab  hotTab= tabLayout.newTab();
+        TabLayout.Tab hotTab = tabLayout.newTab();
         hotTab.setText("熱門");
         hotTab.setIcon(R.drawable.popular);
 
-        TabLayout.Tab  newTab= tabLayout.newTab();
+        TabLayout.Tab newTab = tabLayout.newTab();
         newTab.setText("最新");
         newTab.setIcon(R.drawable.new_icon);
 
@@ -50,12 +48,10 @@ public class HomeFragment extends Fragment {
 //        tabLayout.addTab(mostViewsTab);
         final ViewPager viewPager = view.findViewById(R.id.viewPager);
 
-        pageAdapter=new PageAdapter(this.getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+        pageAdapter = new PageAdapter(this.getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
 
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

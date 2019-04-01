@@ -6,15 +6,23 @@ import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 
 public interface ArticleDataRecyclerArticleViewHolderView {
     void onSetTitle(String title);
+
     void onSetContent(String content);
+
     void onSetPoints(String points);
+
     void onSetViews(String views);
+
     void onSetCommentCount(String commentCount);
-    void  onSetUserId(String userId);
+
+    void onSetUserId(String userId);
+
     void onSetImageViewsRecyclerViewAdapter(RecyclerView.Adapter adapter);
 
     void onSetCurrentReaction(Reaction reaction);
+
     void onSetReactClickListener();
-    void  onSetReactDismissListener();
+
+    void onSetReactDismissListener();
 
 }

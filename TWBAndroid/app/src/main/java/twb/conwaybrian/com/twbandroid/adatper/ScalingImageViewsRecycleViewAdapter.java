@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 
-
 import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.R;
@@ -20,37 +19,14 @@ import uk.co.senab.photoview.PhotoView;
 public class ScalingImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ScalingImageViewsRecycleViewAdapter.ViewHolder> {
 
 
-
-
-
     private Context context;
     private ScalingImageViewsRecyclerViewPresenter scalingImageViewsRecyclerViewPresenter;
 
 
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements ScalingImageViewsRecyclerViewHolderView {
-            private PhotoView photoView;
-
-        public ViewHolder(View v) {
-            super(v);
-            photoView=v.findViewById(R.id.photo_view);
-
-
-        }
-
-        @Override
-        public void onSetImage(String fileName) {
-            Glide.with(context).load(fileName).into(photoView);
-        }
-    }
-
     public ScalingImageViewsRecycleViewAdapter(Context context) {
-        this.context=context;
-       this.scalingImageViewsRecyclerViewPresenter=new ScalingImageViewsRecyclerViewPresenter();
+        this.context = context;
+        this.scalingImageViewsRecyclerViewPresenter = new ScalingImageViewsRecyclerViewPresenter();
     }
-
-
-
 
     @Override
     public ScalingImageViewsRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -60,11 +36,9 @@ public class ScalingImageViewsRecycleViewAdapter extends RecyclerView.Adapter<Sc
         return vh;
     }
 
-
-
     @Override
-    public void onBindViewHolder(final ViewHolder holder,final int position) {
-       scalingImageViewsRecyclerViewPresenter.bindDate(holder,position);
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        scalingImageViewsRecyclerViewPresenter.bindDate(holder, position);
 
     }
 
@@ -73,30 +47,45 @@ public class ScalingImageViewsRecycleViewAdapter extends RecyclerView.Adapter<Sc
         return scalingImageViewsRecyclerViewPresenter.getItemCount();
     }
 
-    public void addImage(String  imageFile){
-       scalingImageViewsRecyclerViewPresenter.addImage(imageFile);
+    public void addImage(String imageFile) {
+        scalingImageViewsRecyclerViewPresenter.addImage(imageFile);
         notifyDataSetChanged();
     }
 
-    public void addImages(List<String>images){
-       scalingImageViewsRecyclerViewPresenter.addImages(images);
+    public void addImages(List<String> images) {
+        scalingImageViewsRecyclerViewPresenter.addImages(images);
         notifyDataSetChanged();
     }
-    public void addImage(Uri uri){
+
+    public void addImage(Uri uri) {
         scalingImageViewsRecyclerViewPresenter.addImage(uri);
     }
 
-    public void removeImage(int position){
-       scalingImageViewsRecyclerViewPresenter.removeImage(position);
+    public void removeImage(int position) {
+        scalingImageViewsRecyclerViewPresenter.removeImage(position);
         notifyDataSetChanged();
     }
 
-    public void clear(){
-       scalingImageViewsRecyclerViewPresenter.clear();
+    public void clear() {
+        scalingImageViewsRecyclerViewPresenter.clear();
         notifyDataSetChanged();
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder implements ScalingImageViewsRecyclerViewHolderView {
+        private PhotoView photoView;
 
+        public ViewHolder(View v) {
+            super(v);
+            photoView = v.findViewById(R.id.photo_view);
+
+
+        }
+
+        @Override
+        public void onSetImage(String fileName) {
+            Glide.with(context).load(fileName).into(photoView);
+        }
+    }
 
 
 }

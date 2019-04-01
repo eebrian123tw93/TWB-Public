@@ -12,16 +12,18 @@ import twb.conwaybrian.com.twbandroid.view.ProfileView;
 
 public class ProfilePresenter extends TWBPresenter {
     private ProfileView profileView;
-    public ProfilePresenter (ProfileView profileView){
-        this.profileView=profileView;
+
+    public ProfilePresenter(ProfileView profileView) {
+        this.profileView = profileView;
         profileView.onSetUserId(user.getUserId());
     }
-    public void logout(){
-        if(userListener!=null)userListener.onLogout();
+
+    public void logout() {
+        if (userListener != null) userListener.onLogout();
     }
 
-    public void deleteUser(){
-        Observer<Response<ResponseBody>> observer=new Observer<Response<ResponseBody>>() {
+    public void deleteUser() {
+        Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -29,15 +31,15 @@ public class ProfilePresenter extends TWBPresenter {
 
             @Override
             public void onNext(Response<ResponseBody> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                     profileView.onDeleteUserResult(true);
-                    profileView.onSetMessage("Delete user Success",FancyToast.SUCCESS);
-                   logout();
+                    profileView.onSetMessage("Delete user Success", FancyToast.SUCCESS);
+                    logout();
 
-                }else {
+                } else {
                     profileView.onDeleteUserResult(false);
-                    profileView.onSetMessage("Delete user Failed",FancyToast.ERROR);
+                    profileView.onSetMessage("Delete user Failed", FancyToast.ERROR);
                 }
             }
 
@@ -45,7 +47,7 @@ public class ProfilePresenter extends TWBPresenter {
             public void onError(Throwable e) {
                 profileView.onDeleteUserResult(false);
 
-                profileView.onSetMessage(e.getMessage(),FancyToast.ERROR);
+                profileView.onSetMessage(e.getMessage(), FancyToast.ERROR);
             }
 
             @Override
@@ -53,10 +55,11 @@ public class ProfilePresenter extends TWBPresenter {
 
             }
         };
-        ShuoApiService.getInstance().deleteUser(observer,user,false);
+        ShuoApiService.getInstance().deleteUser(observer, user, false);
     }
-    public void uploadedArticle(){
-        if(userListener!=null)userListener.onLogout();
+
+    public void uploadedArticle() {
+        if (userListener != null) userListener.onLogout();
     }
 
 

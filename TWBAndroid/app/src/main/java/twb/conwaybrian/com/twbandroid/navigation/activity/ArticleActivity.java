@@ -1,7 +1,7 @@
 package twb.conwaybrian.com.twbandroid.navigation.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -24,12 +23,10 @@ import twb.conwaybrian.com.twbandroid.view.ArticleView;
 
 import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
 
-public class ArticleActivity extends AppCompatActivity implements ArticleView,View.OnClickListener {
+public class ArticleActivity extends AppCompatActivity implements ArticleView, View.OnClickListener {
 
 
     private ArticlePresenter articlePresenter;
-
-
 
 
     private TwinklingRefreshLayout refreshLayout;
@@ -47,8 +44,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
         super.onCreate(savedInstanceState);
 
 
-
-        if(getSupportActionBar()!=null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -56,12 +52,12 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
         setContentView(R.layout.activity_article);
 
 
-        articleDataRecyclerView =findViewById(R.id.article_data_recyclerView);
+        articleDataRecyclerView = findViewById(R.id.article_data_recyclerView);
 
-        sendImageView=findViewById(R.id.send_imaeView);
-        commentEditView=findViewById(R.id.comment_editText);
+        sendImageView = findViewById(R.id.send_imaeView);
+        commentEditView = findViewById(R.id.comment_editText);
 
-        refreshLayout=findViewById(R.id.refreshLayout);
+        refreshLayout = findViewById(R.id.refreshLayout);
         refreshLayout.setEnableLoadmore(true);
 //        refreshLayout.set
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
@@ -70,7 +66,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 articlePresenter.refresh();
-                articlePresenter.getArticleData(true,0);
+                articlePresenter.getArticleData(true, 0);
             }
 
             @Override
@@ -79,11 +75,6 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
                 articlePresenter.getArticleData(false);
             }
         });
-
-
-
-
-
 
 
         sendImageView.setOnClickListener(this);
@@ -103,8 +94,7 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
         articleDataRecyclerView.setLayoutManager(commentViewRecyclerLayoutManager);
 
 
-
-        articlePresenter=new ArticlePresenter(this,getIntent());
+        articlePresenter = new ArticlePresenter(this, getIntent());
 
 
     }
@@ -112,25 +102,25 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
     @Override
     protected void onResume() {
         super.onResume();
-        startTime=System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        endTime=System.currentTimeMillis();
-        articlePresenter.postViewed(startTime,endTime);
+        endTime = System.currentTimeMillis();
+        articlePresenter.postViewed(startTime, endTime);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
         }
-        return  super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -139,26 +129,24 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
     }
 
 
-
     @Override
     public void onSetArticleDataRecyclerViewAdapter(RecyclerView.Adapter adapter) {
         articleDataRecyclerView.setAdapter(adapter);
     }
 
 
-
     @Override
     public void onSetMessage(String message, int type) {
 
-        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
+        FancyToast.makeText(getContext(), message, FancyToast.LENGTH_SHORT, type, false).show();
     }
 
     @Override
     public void onSendCommentResult(boolean result) {
-        if(result){
+        if (result) {
             articlePresenter.clearComment();
             refreshLayout.startLoadMore();
-        }else {
+        } else {
 
         }
     }
@@ -171,10 +159,10 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
     @Override
     public void onClick(View v) {
         articleDataRecyclerView.scrollToPosition(0);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.send_imaeView:
                 articlePresenter.sendComment(commentEditView.getText().toString());
-            break;
+                break;
         }
     }
 
@@ -188,11 +176,11 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
     public void onShowImageViewsFragment(List<String> images, int position) {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        if(getSupportActionBar()!=null)getSupportActionBar().hide();
-        if( focusFragment==null || !focusFragment.isAdded()){
-            focusFragment= ImageViewsFragment.newInstance(images,position);
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,focusFragment).commit();
-        }else {
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
+        if (focusFragment == null || !focusFragment.isAdded()) {
+            focusFragment = ImageViewsFragment.newInstance(images, position);
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, focusFragment).commit();
+        } else {
 
             getSupportFragmentManager().beginTransaction().show(focusFragment).commit();
             focusFragment.setPosition(position);
@@ -214,12 +202,12 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView,Vi
 
     @Override
     public void onBackPressed() {
-        if(getSupportActionBar()!=null)getSupportActionBar().show();
-        if(focusFragment!=null && focusFragment.isVisible()){
+        if (getSupportActionBar() != null) getSupportActionBar().show();
+        if (focusFragment != null && focusFragment.isVisible()) {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getSupportFragmentManager().beginTransaction().hide(focusFragment).commit();
 
-        }else {
+        } else {
             super.onBackPressed();
         }
     }

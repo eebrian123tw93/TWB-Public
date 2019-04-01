@@ -18,10 +18,10 @@ import twb.conwaybrian.com.twbandroid.view.NavigationView;
 
 import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
 
-public class NavigationActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,NavigationView {
+public class NavigationActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView {
 
     private BottomNavigationView bottomNavigationView;
-    private Map<Integer,Fragment>fragmentHashMap;
+    private Map<Integer, Fragment> fragmentHashMap;
     private Fragment focusFragment;
 
     private NavigationPresenter navigationPresenter;
@@ -32,22 +32,21 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
         super.onCreate(savedInstanceState);
 
 
-
         setContentView(R.layout.activity_bottom_navigation);
-        bottomNavigationView=findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
 
-        fragmentHashMap=new HashMap<>();
+        fragmentHashMap = new HashMap<>();
 
-        focusFragment=new HomeFragment();
-        fragmentHashMap.put(R.id.home,focusFragment);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,fragmentHashMap.get(R.id.home)).commit();
-        if(getSupportActionBar()!=null) {
+        focusFragment = new HomeFragment();
+        fragmentHashMap.put(R.id.home, focusFragment);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragmentHashMap.get(R.id.home)).commit();
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(bottomNavigationView.getMenu().getItem(0).getTitle());
         }
 
-        navigationPresenter=new NavigationPresenter(this);
+        navigationPresenter = new NavigationPresenter(this);
 
     }
 
@@ -55,18 +54,18 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-        Fragment fragment=fragmentHashMap.get(menuItem.getItemId());
-        if(fragment==null) {
+        Fragment fragment = fragmentHashMap.get(menuItem.getItemId());
+        if (fragment == null) {
             switch (menuItem.getItemId()) {
                 case R.id.upload:
                     fragment = new UploadFragment();
 
                     break;
                 case R.id.profile:
-                    if(navigationPresenter.isLogin()){
+                    if (navigationPresenter.isLogin()) {
                         fragment = new ProfileFragment();
-                    }else {
-                        fragment=new LoginFragment();
+                    } else {
+                        fragment = new LoginFragment();
                     }
                     break;
                 case R.id.search:
@@ -79,10 +78,10 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
                     fragment = new HomeFragment();
                     break;
             }
-            fragmentHashMap.put(menuItem.getItemId(),fragment);
+            fragmentHashMap.put(menuItem.getItemId(), fragment);
         }
         showFragment(fragment);
-        if(getSupportActionBar()!=null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(menuItem.getTitle());
         }
         return true;
@@ -90,42 +89,42 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
 
     @Override
     public void onLogin() {
-            Fragment fragment=new ProfileFragment();
-            fragmentHashMap.put(R.id.profile,fragment);
-             showFragment(fragment);
+        Fragment fragment = new ProfileFragment();
+        fragmentHashMap.put(R.id.profile, fragment);
+        showFragment(fragment);
     }
 
     @Override
     public void onLogout() {
-            Fragment fragment=new LoginFragment();
-            fragmentHashMap.put(R.id.profile,fragment);
-            showFragment(fragment);
+        Fragment fragment = new LoginFragment();
+        fragmentHashMap.put(R.id.profile, fragment);
+        showFragment(fragment);
 
     }
 
 
-
-    public void showFragment(Fragment fragment){
-        if(!fragment.isAdded()){
+    public void showFragment(Fragment fragment) {
+        if (!fragment.isAdded()) {
             getSupportFragmentManager().beginTransaction().hide(focusFragment).add(R.id.frame_layout, fragment).commitAllowingStateLoss();
-        }else {
+        } else {
             getSupportFragmentManager().beginTransaction().hide(focusFragment).show(fragment).commitAllowingStateLoss();
         }
-        focusFragment=fragment;
+        focusFragment = fragment;
     }
 
     @Override
     public void toLoginPage() {
         bottomNavigationView.setSelectedItemId(R.id.profile);
     }
+
     @Override
     public void onSetMessage(String message, int type) {
-        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
+        FancyToast.makeText(getContext(), message, FancyToast.LENGTH_SHORT, type, false).show();
     }
 
     @Override
     public void onBackPressed() {
-       moveTaskToBack(true);
+        moveTaskToBack(true);
     }
 
 }

@@ -7,7 +7,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-/** Created by max on 2018/1/11. */
+/**
+ * Created by max on 2018/1/11.
+ */
 public class URLRetrofitBuilder {
 
     private Retrofit retrofit;

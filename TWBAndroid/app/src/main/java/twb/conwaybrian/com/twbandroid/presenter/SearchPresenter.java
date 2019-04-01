@@ -4,7 +4,8 @@ import twb.conwaybrian.com.twbandroid.view.SearchView;
 
 public class SearchPresenter extends TWBPresenter {
     private SearchView searchView;
-    public SearchPresenter(SearchView searchView){
-        this.searchView=searchView;
+
+    public SearchPresenter(SearchView searchView) {
+        this.searchView = searchView;
     }
 }

@@ -18,14 +18,26 @@ public class Like {
 
     private Date createTimes;
 
-    public enum Type{
+    public void setLikeType(Reaction.Type type) {
+        switch (type) {
+            case LIKE_COLOR:
+                setType(Like.Type.LIKE);
+                break;
+            case DISLIKE_COLOR:
+                setType(Like.Type.DISLIKE);
+                break;
+        }
+    }
+
+    public enum Type {
         @SerializedName("1")
         LIKE(1),
         @SerializedName("-1")
         DISLIKE(-1);
         private int value;
-         Type(int value) {
-            this.value=value;
+
+        Type(int value) {
+            this.value = value;
         }
 
         public int getValue() {
@@ -35,17 +47,6 @@ public class Like {
         @Override
         public String toString() {
             return String.valueOf(value);
-        }
-    }
-
-    public void setLikeType(Reaction.Type type){
-        switch (type){
-            case LIKE_COLOR:
-                setType(Like.Type.LIKE);
-                break;
-            case DISLIKE_COLOR:
-                setType(Like.Type.DISLIKE);
-                break;
         }
     }
 }

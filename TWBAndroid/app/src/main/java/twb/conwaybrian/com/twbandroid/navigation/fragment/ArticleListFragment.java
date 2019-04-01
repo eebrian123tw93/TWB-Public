@@ -11,15 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-
-
 import twb.conwaybrian.com.twbandroid.R;
-
 import twb.conwaybrian.com.twbandroid.presenter.ArticleListPresenter;
 import twb.conwaybrian.com.twbandroid.view.ArticleListView;
 
@@ -29,6 +25,15 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
     private ArticleListPresenter articleListPresenter;
     private RecyclerView recyclerView;
     private TwinklingRefreshLayout refreshLayout;
+
+    public static ArticleListFragment newInstance(String type) {
+        ArticleListFragment fragment = new ArticleListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_PARAM, type);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -38,39 +43,36 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_article_list,container,false);
+        View view = inflater.inflate(R.layout.fragment_article_list, container, false);
 
 
-
-         refreshLayout=view.findViewById(R.id.refreshLayout);
-         refreshLayout.setAutoLoadMore(true);
-         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+        refreshLayout = view.findViewById(R.id.refreshLayout);
+        refreshLayout.setAutoLoadMore(true);
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
 
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 articleListPresenter.refresh();
-                articleListPresenter.getArticleList(orderBy,0,20);
+                articleListPresenter.getArticleList(orderBy, 0, 20);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                articleListPresenter.getArticleList(orderBy,20);
+                articleListPresenter.getArticleList(orderBy, 20);
             }
         });
 
-         recyclerView = view. findViewById(R.id.list_view);
+        recyclerView = view.findViewById(R.id.list_view);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
 
+        articleListPresenter = new ArticleListPresenter(this);
 
-
-        articleListPresenter=new ArticleListPresenter(this);
-
-        articleListPresenter.getArticleList(orderBy,0,20);
+        articleListPresenter.getArticleList(orderBy, 0, 20);
 
         return view;
     }
@@ -88,14 +90,6 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
 
     @Override
     public void onSetMessage(String message, int type) {
-        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
-    }
-
-    public static ArticleListFragment newInstance(String type) {
-        ArticleListFragment fragment = new ArticleListFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(ARG_PARAM, type);
-        fragment.setArguments(bundle);
-        return fragment;
+        FancyToast.makeText(getContext(), message, FancyToast.LENGTH_SHORT, type, false).show();
     }
 }

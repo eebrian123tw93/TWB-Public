@@ -2,7 +2,6 @@ package twb.conwaybrian.com.twbandroid.presenter.adapterpresenter;
 
 import android.support.v7.widget.RecyclerView;
 
-
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.adatper.ArticleDataRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
@@ -11,23 +10,15 @@ import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 
 public class ArticleDataRecyclerArticleViewHolderViewPresenter extends TWBPresenter {
-    public interface ScrollListener{
-        void onSetArticleDataRecyclerViewScroll(int position);
-    }
-
     private Article article;
     private boolean move;
     private int position;
     private RecyclerView.Adapter adapter;
-    private  ImageViewsRecycleViewAdapter imageViewsRecycleViewAdapter;
-
-
-
+    private ImageViewsRecycleViewAdapter imageViewsRecycleViewAdapter;
     private Reaction.Type currentType;
     private ScrollListener scrollListener;
-
-    public ArticleDataRecyclerArticleViewHolderViewPresenter(ScrollListener scrollListener){
-        this.scrollListener=scrollListener;
+    public ArticleDataRecyclerArticleViewHolderViewPresenter(ScrollListener scrollListener) {
+        this.scrollListener = scrollListener;
     }
 
     public void setPosition(int position) {
@@ -45,16 +36,17 @@ public class ArticleDataRecyclerArticleViewHolderViewPresenter extends TWBPresen
     public void setAdapter(RecyclerView.Adapter adapter) {
         this.adapter = adapter;
     }
+
     public void setCurrentType(Reaction.Type currentType) {
         this.currentType = currentType;
     }
 
-    public void bindData(ArticleDataRecycleViewAdapter.ArticleViewHolder viewHolder){
-        final ArticleDataRecycleViewAdapter.ArticleViewHolder holder=viewHolder;
+    public void bindData(ArticleDataRecycleViewAdapter.ArticleViewHolder viewHolder) {
+        final ArticleDataRecycleViewAdapter.ArticleViewHolder holder = viewHolder;
         holder.onSetReactClickListener();
         holder.onSetReactDismissListener();
 
-        if(article!=null){
+        if (article != null) {
             holder.onSetTitle(article.getTitle());
             holder.onSetContent(article.getContent());
             holder.onSetPoints(String.valueOf(article.getPoints()));
@@ -63,10 +55,10 @@ public class ArticleDataRecyclerArticleViewHolderViewPresenter extends TWBPresen
             holder.onSetUserId(article.getUserId());
         }
 
-        if(adapter!=null)
+        if (adapter != null)
             holder.onSetImageViewsRecyclerViewAdapter(adapter);
 
-        if(currentType!=null) {
+        if (currentType != null) {
             int res = 0;
             Reaction.Type type = currentType;
 
@@ -92,10 +84,14 @@ public class ArticleDataRecyclerArticleViewHolderViewPresenter extends TWBPresen
             Reaction currentReaction = new Reaction(type, res);
             holder.onSetCurrentReaction(currentReaction);
         }
-        if(move){
-            if(scrollListener!=null)scrollListener.onSetArticleDataRecyclerViewScroll(position);
+        if (move) {
+            if (scrollListener != null) scrollListener.onSetArticleDataRecyclerViewScroll(position);
         }
 
+    }
+
+    public interface ScrollListener {
+        void onSetArticleDataRecyclerViewScroll(int position);
     }
 
 }

@@ -14,14 +14,14 @@ public class ImagesViewsPresenter extends TWBPresenter {
     private ImageViewsView imageViewsView;
     private ScalingImageViewsRecycleViewAdapter scalingImageViewsRecycleViewAdapter;
 
-    public ImagesViewsPresenter(ImageViewsView imageViewsView, Bundle bundle){
-        this.imageViewsView=imageViewsView;
+    public ImagesViewsPresenter(ImageViewsView imageViewsView, Bundle bundle) {
+        this.imageViewsView = imageViewsView;
 
-        scalingImageViewsRecycleViewAdapter=new ScalingImageViewsRecycleViewAdapter(context);
+        scalingImageViewsRecycleViewAdapter = new ScalingImageViewsRecycleViewAdapter(context);
 
-        String imagesJson =bundle.getString(ImageViewsFragment.IMAGES,"");
-        int position=bundle.getInt(ImageViewsFragment.POSITION,0);
-        List<String> images=new Gson().fromJson(imagesJson,List.class);
+        String imagesJson = bundle.getString(ImageViewsFragment.IMAGES, "");
+        int position = bundle.getInt(ImageViewsFragment.POSITION, 0);
+        List<String> images = new Gson().fromJson(imagesJson, List.class);
         scalingImageViewsRecycleViewAdapter.addImages(images);
         setImageViewsRecycleViewAdapter();
         setImageViewsRecycleViewScrollPosition(position);
@@ -31,7 +31,8 @@ public class ImagesViewsPresenter extends TWBPresenter {
     public void setImageViewsRecycleViewAdapter() {
         imageViewsView.onSetImageViewsRecyclerViewAdapter(scalingImageViewsRecycleViewAdapter);
     }
-    public void setImageViewsRecycleViewScrollPosition(int position){
+
+    public void setImageViewsRecycleViewScrollPosition(int position) {
         imageViewsView.onImageViewsRecycleViewScrollPosition(position);
     }
 

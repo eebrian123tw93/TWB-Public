@@ -14,21 +14,20 @@ import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.presenter.SearchPresenter;
 import twb.conwaybrian.com.twbandroid.view.SearchView;
 
-import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
-
 public class SearchFragment extends Fragment implements SearchView {
     private SearchPresenter searchPresenter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_search,container,false);
-        searchPresenter=new SearchPresenter(this);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        searchPresenter = new SearchPresenter(this);
         return view;
     }
+
     @Override
     public void onSetMessage(String message, int type) {
 
-        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
+        FancyToast.makeText(getContext(), message, FancyToast.LENGTH_SHORT, type, false).show();
     }
 }

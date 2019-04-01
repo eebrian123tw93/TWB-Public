@@ -15,17 +15,17 @@ import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
 import twb.conwaybrian.com.twbandroid.view.adapterview.ArticleListRecycleViewHolderView;
 
 
-
-public  class ArticleListRecyclerViewHolderPresenter extends TWBPresenter {
+public class ArticleListRecyclerViewHolderPresenter extends TWBPresenter {
 
     private List<Article> articles;
 
-    public ArticleListRecyclerViewHolderPresenter(){
-        articles=new ArrayList<>();
+    public ArticleListRecyclerViewHolderPresenter() {
+        articles = new ArrayList<>();
     }
-    public void bindData(ArticleListRecycleViewAdapter.ViewHolder viewHolder, int position){
-        if(viewHolder instanceof ArticleListRecycleViewHolderView) {
-            ArticleListRecycleViewHolderView viewHolderView=viewHolder;
+
+    public void bindData(ArticleListRecycleViewAdapter.ViewHolder viewHolder, int position) {
+        if (viewHolder instanceof ArticleListRecycleViewHolderView) {
+            ArticleListRecycleViewHolderView viewHolderView = viewHolder;
             final Article article = articles.get(position);
             viewHolderView.onSetTile(article.getTitle());
             viewHolderView.onSetPreview(article.getContent());
@@ -61,44 +61,38 @@ public  class ArticleListRecyclerViewHolderPresenter extends TWBPresenter {
             viewHolderView.onSetClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(context,ArticleActivity.class);
-                    intent.putExtra(ArticlePresenter.ARTICLE_ID,article.getArticleId());
-                    intent.putExtra(ArticlePresenter.ARTICLE_TITLE,article.getTitle());
-                    intent.putExtra(ArticlePresenter.ARTICLE_CONTENT,article.getContent());
-                    intent.putExtra(ArticlePresenter.ARTICLE_USER_ID,article.getUserId());
-                    intent.putExtra(ArticlePresenter.ARTICLE_POINTS,String.valueOf(article.getPoints()));
-                    intent.putExtra(ArticlePresenter.ARTICLE_VIEWS,String.valueOf(article.getViews()));
-                    intent.putExtra(ArticlePresenter.ARTICLE_COMMENT_COUNT,String.valueOf(article.getCommentCount()));
-                    intent.putExtra(ArticlePresenter.ARTICLE_IMAGES,article.getImages().toArray(new String[article.getImages().size()]));
+                    Intent intent = new Intent(context, ArticleActivity.class);
+                    intent.putExtra(ArticlePresenter.ARTICLE_ID, article.getArticleId());
+                    intent.putExtra(ArticlePresenter.ARTICLE_TITLE, article.getTitle());
+                    intent.putExtra(ArticlePresenter.ARTICLE_CONTENT, article.getContent());
+                    intent.putExtra(ArticlePresenter.ARTICLE_USER_ID, article.getUserId());
+                    intent.putExtra(ArticlePresenter.ARTICLE_POINTS, String.valueOf(article.getPoints()));
+                    intent.putExtra(ArticlePresenter.ARTICLE_VIEWS, String.valueOf(article.getViews()));
+                    intent.putExtra(ArticlePresenter.ARTICLE_COMMENT_COUNT, String.valueOf(article.getCommentCount()));
+                    intent.putExtra(ArticlePresenter.ARTICLE_IMAGES, article.getImages().toArray(new String[article.getImages().size()]));
                     context.startActivity(intent);
                 }
             });
 
 
-
-
-
-
-
         }
 
 
-
     }
 
-    public int getItemCount(){
+    public int getItemCount() {
         return articles.size();
     }
 
-    public void addArticles(List<Article> articles){
+    public void addArticles(List<Article> articles) {
         this.articles.addAll(articles);
 
     }
-    public void clear(){
+
+    public void clear() {
         this.articles.clear();
 
     }
-
 
 
 }

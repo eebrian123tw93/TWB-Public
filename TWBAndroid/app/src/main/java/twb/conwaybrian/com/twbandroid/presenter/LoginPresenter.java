@@ -1,11 +1,6 @@
 package twb.conwaybrian.com.twbandroid.presenter;
 
 
-
-import android.graphics.Color;
-import android.os.Handler;
-import android.os.Looper;
-
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import io.reactivex.Observer;
@@ -20,24 +15,25 @@ public class LoginPresenter extends TWBPresenter {
     private LoginView loginView;
     private User user;
 
-    public LoginPresenter(LoginView loginView){
-        this.loginView=loginView;
-        user=new User();
+    public LoginPresenter(LoginView loginView) {
+        this.loginView = loginView;
+        user = new User();
     }
 
-    public void clear(){
+    public void clear() {
         loginView.onClearText();
     }
-    public void doLogin(String username,String password){
-        if(username.isEmpty()){
-            loginView.onSetMessage("Username cant not be empty",FancyToast.ERROR);
-            loginView.onLoginResult(false);
-        }else if(password.isEmpty()){
 
-            loginView.onSetMessage("Password cant not be empty",FancyToast.ERROR);
+    public void doLogin(String username, String password) {
+        if (username.isEmpty()) {
+            loginView.onSetMessage("Username cant not be empty", FancyToast.ERROR);
             loginView.onLoginResult(false);
-        }else {
-            Observer<Response<ResponseBody>>observer=new Observer<Response<ResponseBody>>() {
+        } else if (password.isEmpty()) {
+
+            loginView.onSetMessage("Password cant not be empty", FancyToast.ERROR);
+            loginView.onLoginResult(false);
+        } else {
+            Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
                 @Override
                 public void onSubscribe(Disposable d) {
 
@@ -45,15 +41,15 @@ public class LoginPresenter extends TWBPresenter {
 
                 @Override
                 public void onNext(Response<ResponseBody> response) {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         saveUser(user);
                         loginView.onLoginResult(true);
-                        loginView.onSetMessage("Login Success",FancyToast.SUCCESS);
-                        if(userListener!=null)userListener.onLogin();
+                        loginView.onSetMessage("Login Success", FancyToast.SUCCESS);
+                        if (userListener != null) userListener.onLogin();
 
-                    }else {
+                    } else {
                         loginView.onLoginResult(false);
-                        loginView.onSetMessage("Login Failed",FancyToast.ERROR);
+                        loginView.onSetMessage("Login Failed", FancyToast.ERROR);
                     }
                 }
 
@@ -61,7 +57,7 @@ public class LoginPresenter extends TWBPresenter {
                 public void onError(Throwable e) {
                     loginView.onLoginResult(false);
 
-                    loginView.onSetMessage(e.getMessage(),FancyToast.ERROR);
+                    loginView.onSetMessage(e.getMessage(), FancyToast.ERROR);
                 }
 
                 @Override
@@ -71,18 +67,20 @@ public class LoginPresenter extends TWBPresenter {
             };
             user.setUserId(username);
             user.setPassword(password);
-            ShuoApiService.getInstance().login(observer,user,false);
+            ShuoApiService.getInstance().login(observer, user, false);
         }
 
     }
-    public void setProgressBarVisibility(int visibility){
+
+    public void setProgressBarVisibility(int visibility) {
         loginView.onSetProgressBarVisibility(visibility);
     }
-    public void forgetPassword(){
+
+    public void forgetPassword() {
         loginView.onForgetPassword();
     }
 
-    public void register(){
+    public void register() {
         loginView.onRegister();
     }
 
