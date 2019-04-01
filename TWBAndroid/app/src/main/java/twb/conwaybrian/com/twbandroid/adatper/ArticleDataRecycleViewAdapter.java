@@ -224,6 +224,11 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
         }
 
         @Override
+        public void onSetUserClickListener(View.OnClickListener listener) {
+            userIdTextView.setOnClickListener(listener);
+        }
+
+        @Override
         public void onSetImageViewsRecyclerViewAdapter(RecyclerView.Adapter adapter) {
             imageViewsRecyclerView.setAdapter(adapter);
         }

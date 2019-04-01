@@ -1,12 +1,16 @@
 package twb.conwaybrian.com.twbandroid.presenter.adapterpresenter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.adatper.ArticleDataRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
+import twb.conwaybrian.com.twbandroid.navigation.activity.UserPostHistoryActivity;
 import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
+import twb.conwaybrian.com.twbandroid.presenter.UserPostHistoryPresenter;
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 
 public class ArticleDataRecyclerArticleViewHolderViewPresenter extends TWBPresenter {
@@ -53,6 +57,15 @@ public class ArticleDataRecyclerArticleViewHolderViewPresenter extends TWBPresen
             holder.onSetViews(String.valueOf(article.getViews()));
             holder.onSetCommentCount(String.valueOf(article.getCommentCount()));
             holder.onSetUserId(article.getUserId());
+            holder.onSetUserClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String userId=article.getUserId();
+                    Intent intent=new Intent(context, UserPostHistoryActivity.class);
+                    intent.putExtra(UserPostHistoryPresenter.USER_ID,userId);
+                    context.startActivity(intent);
+                }
+            });
         }
 
         if (adapter != null)

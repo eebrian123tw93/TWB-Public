@@ -1,6 +1,7 @@
 package twb.conwaybrian.com.twbandroid.view.adapterview;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 
@@ -16,6 +17,8 @@ public interface ArticleDataRecyclerArticleViewHolderView {
     void onSetCommentCount(String commentCount);
 
     void onSetUserId(String userId);
+
+    void onSetUserClickListener(View.OnClickListener listener);
 
     void onSetImageViewsRecyclerViewAdapter(RecyclerView.Adapter adapter);
 
