@@ -8,21 +8,16 @@ import lombok.Data;
  */
 @Data
 public class Reaction {
-    public enum Type{
-        DISLIKE,LIKE,NO_LIKE,DISLIKE_COLOR,LIKE_COLOR
-    }
     private Type type;
-    public Reaction(Type type,int reactIconId){
-        this.type=type;
-        this.reactIconId=reactIconId;
-    }
-
-
-
     /**
      * ReactButton Icon id value for this Reaction
      */
     private int reactIconId;
+
+    public Reaction(Type type, int reactIconId) {
+        this.type = type;
+        this.reactIconId = reactIconId;
+    }
 
     /**
      * @param object : Reaction object
@@ -38,6 +33,10 @@ public class Reaction {
             return react.getType().equals(type);
         }
         return false;
+    }
+
+    public enum Type {
+        DISLIKE, LIKE, NO_LIKE, DISLIKE_COLOR, LIKE_COLOR
     }
 }
 

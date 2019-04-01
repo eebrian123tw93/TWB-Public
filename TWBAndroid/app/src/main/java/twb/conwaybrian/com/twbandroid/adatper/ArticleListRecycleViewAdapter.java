@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-
 import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.R;
@@ -25,7 +24,39 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
 
     private ArticleListRecyclerViewHolderPresenter viewHolderPresenter;
 
-    public class ViewHolder extends RecyclerView.ViewHolder  implements ArticleListRecycleViewHolderView {
+    public ArticleListRecycleViewAdapter(Context context) {
+        this.context = context;
+        this.viewHolderPresenter = new ArticleListRecyclerViewHolderPresenter();
+    }
+
+    @Override
+    public ArticleListRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_article_preview, parent, false);
+        return new ViewHolder(v);
+    }
+
+    @Override
+    public int getItemCount() {
+        return viewHolderPresenter.getItemCount();
+    }
+
+    @Override
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        viewHolderPresenter.bindData(holder, position);
+    }
+
+    public void addArticles(List<Article> articles) {
+        viewHolderPresenter.addArticles(articles);
+        notifyDataSetChanged();
+    }
+
+    public void clear() {
+        viewHolderPresenter.clear();
+        notifyDataSetChanged();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements ArticleListRecycleViewHolderView {
         private TextView titleTextView;
         private TextView previewTextView;
         private TextView pointsTextView;
@@ -35,21 +66,21 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         private ImageView pointsImageView;
         private CardView cardView;
 
-//        private     ArticleListRecyclerViewHolderPresenter viewHolderPresenter;
+        //        private     ArticleListRecyclerViewHolderPresenter viewHolderPresenter;
 //        public ViewHolder(View v,ArticleListRecyclerViewHolderPresenter viewHolderPresenter) {
 //            this(v);
 ////            this.viewHolderPresenter=viewHolderPresenter;
 //        }
         public ViewHolder(View v) {
             super(v);
-            titleTextView=v.findViewById(R.id.title_textView);
-            previewTextView=v.findViewById(R.id.preview_textView);
-            pointsTextView=v.findViewById(R.id.points_textView);
-            viewsTextView=v.findViewById(R.id.views_textView);
-            commentCountTextView=v.findViewById(R.id.comment_count_textView);
-            articleImageView=v.findViewById(R.id.article_imageView);
-            pointsImageView=v.findViewById(R.id.points_reactButton);
-            cardView=v.findViewById(R.id.card_view);
+            titleTextView = v.findViewById(R.id.title_textView);
+            previewTextView = v.findViewById(R.id.preview_textView);
+            pointsTextView = v.findViewById(R.id.points_textView);
+            viewsTextView = v.findViewById(R.id.views_textView);
+            commentCountTextView = v.findViewById(R.id.comment_count_textView);
+            articleImageView = v.findViewById(R.id.article_imageView);
+            pointsImageView = v.findViewById(R.id.points_reactButton);
+            cardView = v.findViewById(R.id.card_view);
         }
 
         @Override
@@ -97,38 +128,6 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
         public void onSetClickListener(View.OnClickListener listener) {
             cardView.setOnClickListener(listener);
         }
-    }
-
-    public ArticleListRecycleViewAdapter(Context context) {
-        this.context=context;
-        this.viewHolderPresenter=new ArticleListRecyclerViewHolderPresenter();
-    }
-
-    @Override
-    public ArticleListRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_article_preview, parent, false);
-        return new ViewHolder(v);
-    }
-
-    @Override
-    public int getItemCount() {
-        return viewHolderPresenter.getItemCount();
-    }
-
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        viewHolderPresenter.bindData(holder,position);
-    }
-
-    public void addArticles(List<Article> articles){
-        viewHolderPresenter.addArticles(articles);
-        notifyDataSetChanged();
-    }
-
-    public void clear(){
-        viewHolderPresenter.clear();
-        notifyDataSetChanged();
     }
 
 

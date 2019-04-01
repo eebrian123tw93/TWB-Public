@@ -1,11 +1,11 @@
 package twb.conwaybrian.com.twbandroid.presenter;
 
+import android.os.Bundle;
+
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.shashank.sony.fancytoastlib.FancyToast;
-
-import org.threeten.bp.LocalDateTime;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -15,26 +15,34 @@ import io.reactivex.disposables.Disposable;
 import retrofit2.Response;
 import twb.conwaybrian.com.twbandroid.adatper.ArticleListRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
+import twb.conwaybrian.com.twbandroid.model.User;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
-import twb.conwaybrian.com.twbandroid.view.ArticleListView;
+import twb.conwaybrian.com.twbandroid.view.UserPostHistoryView;
 
-public class ArticleListPresenter extends TWBPresenter {
-    private ArticleListView articleListView;
-
-
+public class UserPostHistoryPresenter extends TWBPresenter {
+    public static String USER_ID = "user_id";
+    private UserPostHistoryView userPostHistoryView;
+    private User user;
     private ArticleListRecycleViewAdapter articleListRecycleViewAdapter;
 
-    public ArticleListPresenter(ArticleListView articleListView) {
-        this.articleListView = articleListView;
+    public UserPostHistoryPresenter(UserPostHistoryView userPostHistoryView, Bundle bundle) {
+        this.userPostHistoryView = userPostHistoryView;
         articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(context);
-        articleListView.onSetArticleListRecyclerAdapter(articleListRecycleViewAdapter);
+        userPostHistoryView.onSetArticleListRecyclerAdapter(articleListRecycleViewAdapter);
+        if (bundle == null) {
+            user = TWBPresenter.user;
+            getUserPostHistory();
+        } else {
+            String userId = bundle.getString(USER_ID, TWBPresenter.user.getUserId());
+            if (!userId.isEmpty()) {
+                user = new User();
+                user.setUserId(userId);
+                getUserPostHistory();
+            }
+        }
     }
 
-    public void getArticleList(String order, int limit) {
-        this.getArticleList(order, articleListRecycleViewAdapter.getItemCount(), limit);
-    }
-
-    public void getArticleList(String order, int offset, int limit) {
+    public void getUserPostHistory() {
         Observer<Response<JsonArray>> observer = new Observer<Response<JsonArray>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -43,6 +51,7 @@ public class ArticleListPresenter extends TWBPresenter {
 
             @Override
             public void onNext(Response<JsonArray> response) {
+                userPostHistoryView.onFinishRefreshOrLoad();
                 if (response.isSuccessful()) {
                     JsonArray jsonArray = response.body();
                     System.out.println(jsonArray);
@@ -50,16 +59,16 @@ public class ArticleListPresenter extends TWBPresenter {
                     }.getType();
                     List<Article> articleList = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().fromJson(jsonArray, listType);
                     articleListRecycleViewAdapter.addArticles(articleList);
-                    articleListView.onFinishRefreshOrLoad();
+
                 } else {
-                    articleListView.onSetMessage("loading failed", FancyToast.ERROR);
+                    userPostHistoryView.onSetMessage("loading failed", FancyToast.ERROR);
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                articleListView.onSetMessage(e.getMessage(), FancyToast.ERROR);
-                articleListView.onFinishRefreshOrLoad();
+                userPostHistoryView.onSetMessage(e.getMessage(), FancyToast.ERROR);
+
             }
 
             @Override
@@ -67,19 +76,10 @@ public class ArticleListPresenter extends TWBPresenter {
 
             }
         };
-
-        LocalDateTime endDateTime = LocalDateTime.now();
-        LocalDateTime startDateTime = endDateTime.minusDays(10);
-
-        if (isLogin()) {
-            ShuoApiService.getInstance().getArticlesPrivate(observer, user, endDateTime, startDateTime, order, offset, limit, false);
-        } else {
-            ShuoApiService.getInstance().getArticlesPublic(observer, endDateTime, startDateTime, order, offset, limit, false);
-        }
+        ShuoApiService.getInstance().getUserPostHistory(observer, user, false);
     }
 
     public void refresh() {
         articleListRecycleViewAdapter.clear();
     }
 }
-

@@ -25,11 +25,6 @@ public class ShuoApiService {
         shuoApi = retrofitArticleExcerptApi.create(ShuoApi.class);
     }
 
-    // 創建實例
-    private static class SingletonHolder {
-        private static final ShuoApiService INSTANCE = new ShuoApiService();
-    }
-
     // 獲取實例
     public static ShuoApiService getInstance() {
         return ShuoApiService.SingletonHolder.INSTANCE;
@@ -49,9 +44,9 @@ public class ShuoApiService {
     }
 
     public void viewed(@NonNull Observer observer,
-                         @NonNull Article article, boolean isObserveOnIO) {
+                       @NonNull Article article, boolean isObserveOnIO) {
 
-        String articleId=article.getArticleId();
+        String articleId = article.getArticleId();
         shuoApi
                 .viewed(articleId)
                 .subscribeOn(Schedulers.io())
@@ -59,8 +54,9 @@ public class ShuoApiService {
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
     }
-    public void login(@NonNull Observer observer,@NonNull User user,boolean isObserveOnIO){
-        String authKey=user.authKey();
+
+    public void login(@NonNull Observer observer, @NonNull User user, boolean isObserveOnIO) {
+        String authKey = user.authKey();
         shuoApi
                 .login(authKey)
                 .subscribeOn(Schedulers.io())
@@ -70,8 +66,8 @@ public class ShuoApiService {
 
     }
 
-    public void deleteUser(@NonNull Observer observer,@NonNull User user,boolean isObserveOnIO){
-        String authKey=user.authKey();
+    public void deleteUser(@NonNull Observer observer, @NonNull User user, boolean isObserveOnIO) {
+        String authKey = user.authKey();
         shuoApi
                 .deleteUser(authKey)
                 .subscribeOn(Schedulers.io())
@@ -80,31 +76,41 @@ public class ShuoApiService {
                 .subscribe(observer);
 
     }
-    public void forgotPassword(@NonNull Observer observer,@NonNull String email,boolean isObserveOnIO){
+
+    public void forgotPassword(@NonNull Observer observer, @NonNull String email, boolean isObserveOnIO) {
         shuoApi.forgotPassword(email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
     }
-    public void getArticlesPrivate(@NonNull Observer observer, @NonNull User user,@NonNull LocalDateTime endDateTime, @NonNull LocalDateTime startDateTime, @NonNull String  orderBy,@NonNull int offset,@NonNull int limit, boolean isObserveOnIO){
-        shuoApi.getArticlesPrivate(user.authKey(),endDateTime,startDateTime,orderBy,offset,limit)
+
+    public void getArticlesPrivate(@NonNull Observer observer, @NonNull User user, @NonNull LocalDateTime endDateTime, @NonNull LocalDateTime startDateTime, @NonNull String orderBy, @NonNull int offset, @NonNull int limit, boolean isObserveOnIO) {
+        shuoApi.getArticlesPrivate(user.authKey(), endDateTime, startDateTime, orderBy, offset, limit)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
     }
 
-    public void getArticlesPublic(@NonNull Observer observer, @NonNull LocalDateTime endDateTime, @NonNull LocalDateTime startDateTime, @NonNull String  orderBy,@NonNull int offset,@NonNull int limit, boolean isObserveOnIO){
-        shuoApi.getArticlesPublic(endDateTime,startDateTime,orderBy,offset,limit)
+    public void getArticlesPublic(@NonNull Observer observer, @NonNull LocalDateTime endDateTime, @NonNull LocalDateTime startDateTime, @NonNull String orderBy, @NonNull int offset, @NonNull int limit, boolean isObserveOnIO) {
+        shuoApi.getArticlesPublic(endDateTime, startDateTime, orderBy, offset, limit)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
     }
 
-    public void getUserPostHistory(@NonNull Observer observer, @NonNull User user, boolean isObserveOnIO){
-        String userId=user.getUserId();
+    public void searchArticle(@NonNull Observer observer, @NonNull String query, @NonNull int limit, @NonNull int offset, boolean isObserveOnIO) {
+        shuoApi.searchArticle(query, limit, offset)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
+    public void getUserPostHistory(@NonNull Observer observer, @NonNull User user, boolean isObserveOnIO) {
+        String userId = user.getUserId();
         shuoApi.getUserPostHistory(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
@@ -112,22 +118,22 @@ public class ShuoApiService {
                 .subscribe(observer);
     }
 
-    public void postArticle(@NonNull Observer observer, @NonNull User user,@NonNull Article article, boolean isObserveOnIO){
-        Gson gson =  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+    public void postArticle(@NonNull Observer observer, @NonNull User user, @NonNull Article article, boolean isObserveOnIO) {
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
         String json = gson.toJson(article);
         System.out.println(json);
-        shuoApi.postArticle(user.authKey(),json)
+        shuoApi.postArticle(user.authKey(), json)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
     }
 
-    public void like(@NonNull Observer observer, @NonNull User user,@NonNull Like like, boolean isObserveOnIO){
-        Gson gson =  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+    public void like(@NonNull Observer observer, @NonNull User user, @NonNull Like like, boolean isObserveOnIO) {
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
         String json = gson.toJson(like);
         System.out.println(json);
-        shuoApi.like(user.authKey(),json)
+        shuoApi.like(user.authKey(), json)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -135,19 +141,20 @@ public class ShuoApiService {
 
     }
 
-    public void comment(@NonNull Observer observer, @NonNull User user, @NonNull Comment comment, boolean isObserveOnIO){
-        Gson gson =  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+    public void comment(@NonNull Observer observer, @NonNull User user, @NonNull Comment comment, boolean isObserveOnIO) {
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
         String json = gson.toJson(comment);
         System.out.println(json);
-        shuoApi.comment(user.authKey(),json)
+        shuoApi.comment(user.authKey(), json)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
 
     }
+
     @Deprecated
-    public void getComments(@NonNull Observer observer,  @NonNull Article article, boolean isObserveOnIO){
+    public void getComments(@NonNull Observer observer, @NonNull Article article, boolean isObserveOnIO) {
         String articleId = article.getArticleId();
         shuoApi.getComments(articleId)
                 .subscribeOn(Schedulers.io())
@@ -155,7 +162,8 @@ public class ShuoApiService {
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
     }
-    public void getArticleDataPublic(@NonNull Observer observer,  @NonNull Article article, boolean isObserveOnIO){
+
+    public void getArticleDataPublic(@NonNull Observer observer, @NonNull Article article, boolean isObserveOnIO) {
         String articleId = article.getArticleId();
         shuoApi.getArticleDataPublic(articleId)
                 .subscribeOn(Schedulers.io())
@@ -164,13 +172,18 @@ public class ShuoApiService {
                 .subscribe(observer);
     }
 
-    public void getArticleDataPrivate(@NonNull Observer observer,@NonNull User user,  @NonNull Article article, boolean isObserveOnIO){
+    public void getArticleDataPrivate(@NonNull Observer observer, @NonNull User user, @NonNull Article article, boolean isObserveOnIO) {
         String articleId = article.getArticleId();
-        shuoApi.getArticleDataPrivate(user.authKey(),articleId)
+        shuoApi.getArticleDataPrivate(user.authKey(), articleId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
+    }
+
+    // 創建實例
+    private static class SingletonHolder {
+        private static final ShuoApiService INSTANCE = new ShuoApiService();
     }
 }
 

@@ -85,18 +85,14 @@ dependencies {
 //    https://github.com/dmytrodanylyk/android-process-button/wiki/User-Guide
     implementation 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
 
-
     //https://github.com/ChadCSong/ShineButton
     //https://uxplanet.org/top-15-search-github-ui-libraries-and-components-java-swift-8d7403e73aa8   search view
-
 
     //popup view
     //https://github.com/zyyoona7/EasyPopup //reaction popup view
     implementation 'com.github.zyyoona7:EasyPopup:1.1.2'
     //https://github.com/MasayukiSuda/BubbleLayout //reaction popup view
     //https://github.com/razerdp/BasePopup  //reaction popup view
-
-
 
 
 }

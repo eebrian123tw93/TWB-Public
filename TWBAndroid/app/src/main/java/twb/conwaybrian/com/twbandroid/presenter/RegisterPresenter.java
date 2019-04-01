@@ -1,7 +1,5 @@
 package twb.conwaybrian.com.twbandroid.presenter;
 
-import android.graphics.Color;
-
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.IOException;
@@ -14,7 +12,7 @@ import twb.conwaybrian.com.twbandroid.model.User;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.RegisterView;
 
-public class RegisterPresenter  extends TWBPresenter{
+public class RegisterPresenter extends TWBPresenter {
     private RegisterView registerView;
     private User user;
 
@@ -23,20 +21,22 @@ public class RegisterPresenter  extends TWBPresenter{
         this.registerView = registerView;
         user = new User();
     }
-    public void clear(){
+
+    public void clear() {
         registerView.onClearText();
     }
-    public void doRegister(String username,String password,String email){
 
-        if(username.isEmpty()){
-            registerView.onSetMessage("Username can not be empty",FancyToast.ERROR);
+    public void doRegister(String username, String password, String email) {
+
+        if (username.isEmpty()) {
+            registerView.onSetMessage("Username can not be empty", FancyToast.ERROR);
             registerView.onRegisterResult(false);
 
-        }else if(password.isEmpty()){
-            registerView.onSetMessage("Password can not be empty",FancyToast.ERROR);
+        } else if (password.isEmpty()) {
+            registerView.onSetMessage("Password can not be empty", FancyToast.ERROR);
             registerView.onRegisterResult(false);
 
-        }else {
+        } else {
 
             Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
                 @Override
@@ -46,16 +46,16 @@ public class RegisterPresenter  extends TWBPresenter{
 
                 @Override
                 public void onNext(Response<ResponseBody> response) {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         registerView.onRegisterResult(true);
-                        registerView.onSetMessage("Register Success",FancyToast.SUCCESS);
+                        registerView.onSetMessage("Register Success", FancyToast.SUCCESS);
 
-                    }else {
+                    } else {
                         try {
-                            String responseString=response.errorBody().string();
+                            String responseString = response.errorBody().string();
 
                             registerView.onRegisterResult(false);
-                            registerView.onSetMessage(responseString,FancyToast.ERROR);
+                            registerView.onSetMessage(responseString, FancyToast.ERROR);
                         } catch (IOException e) {
                             e.printStackTrace();
                             onError(e);
@@ -66,7 +66,7 @@ public class RegisterPresenter  extends TWBPresenter{
                 @Override
                 public void onError(Throwable e) {
                     registerView.onRegisterResult(false);
-                    registerView.onSetMessage(e.getMessage(),FancyToast.ERROR);
+                    registerView.onSetMessage(e.getMessage(), FancyToast.ERROR);
                 }
 
                 @Override
@@ -80,7 +80,8 @@ public class RegisterPresenter  extends TWBPresenter{
             ShuoApiService.getInstance().register(observer, user, false);
         }
     }
-    public void setProgressBarVisibility(int visibility){
+
+    public void setProgressBarVisibility(int visibility) {
         registerView.onSetProgressBarVisibility(visibility);
     }
 

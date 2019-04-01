@@ -15,13 +15,10 @@ import com.github.javiersantos.bottomdialogs.BottomDialog;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.model.User;
 import twb.conwaybrian.com.twbandroid.presenter.ProfilePresenter;
 import twb.conwaybrian.com.twbandroid.view.ProfileView;
 
-import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
-
-public class ProfileFragment extends Fragment  implements ProfileView,View.OnClickListener {
+public class ProfileFragment extends Fragment implements ProfileView, View.OnClickListener {
 
     private ProfilePresenter profilePresenter;
     private Button logoutButton;
@@ -38,24 +35,24 @@ public class ProfileFragment extends Fragment  implements ProfileView,View.OnCli
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view= inflater.inflate(R.layout.fragment_profile,container,false);
-        logoutButton=view.findViewById(R.id.logout_button);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        logoutButton = view.findViewById(R.id.logout_button);
 
-        deleteUserButton=view.findViewById(R.id.delete_user_button);
-        userIdTextView=view.findViewById(R.id.userId_textView);
+        deleteUserButton = view.findViewById(R.id.delete_user_button);
+        userIdTextView = view.findViewById(R.id.userId_textView);
 
         logoutButton.setOnClickListener(this);
 
         deleteUserButton.setOnClickListener(this);
 
-        profilePresenter=new ProfilePresenter(this);
+        profilePresenter = new ProfilePresenter(this);
         return view;
 
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.logout_button:
                 profilePresenter.logout();
                 break;
@@ -95,6 +92,6 @@ public class ProfileFragment extends Fragment  implements ProfileView,View.OnCli
     @Override
     public void onSetMessage(String message, int type) {
 
-        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
+        FancyToast.makeText(getContext(), message, FancyToast.LENGTH_SHORT, type, false).show();
     }
 }

@@ -20,13 +20,11 @@ import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.presenter.ImagesViewsPresenter;
-import twb.conwaybrian.com.twbandroid.presenter.SearchPresenter;
 import twb.conwaybrian.com.twbandroid.view.ImageViewsView;
-import twb.conwaybrian.com.twbandroid.view.TWBView;
 
-public class ImageViewsFragment extends Fragment implements ImageViewsView,View.OnClickListener {
-    public static final String IMAGES="images";
-    public static final  String POSITION="position";
+public class ImageViewsFragment extends Fragment implements ImageViewsView, View.OnClickListener {
+    public static final String IMAGES = "images";
+    public static final String POSITION = "position";
 
     private ImagesViewsPresenter imagesViewsPresenter;
     private RecyclerView imageViewsRecyclerView;
@@ -34,12 +32,23 @@ public class ImageViewsFragment extends Fragment implements ImageViewsView,View.
 
     private int position;
 
+    public static ImageViewsFragment newInstance(List<String> images, int position) {
+        ImageViewsFragment imageViewsFragment = new ImageViewsFragment();
+        String imagesJson = new Gson().toJson(images);
+        Bundle args = new Bundle();
+        args.putString(IMAGES, imagesJson);
+        args.putInt(POSITION, position);
+        imageViewsFragment.setArguments(args);
+
+        return imageViewsFragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_imageviews,container,false);
-        imageViewsRecyclerView=view.findViewById(R.id.imageViews_recyclerView);
-        constraintLayout=view.findViewById(R.id.constraint_layout);
+        View view = inflater.inflate(R.layout.fragment_imageviews, container, false);
+        imageViewsRecyclerView = view.findViewById(R.id.imageViews_recyclerView);
+        constraintLayout = view.findViewById(R.id.constraint_layout);
 
         CarouselLayoutManager layoutManager = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL);
         layoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
@@ -50,31 +59,20 @@ public class ImageViewsFragment extends Fragment implements ImageViewsView,View.
         imageViewsRecyclerView.addOnScrollListener(new CenterScrollListener());
         constraintLayout.setOnClickListener(this);
 
-        imagesViewsPresenter=new ImagesViewsPresenter(this,getArguments());
-
+        imagesViewsPresenter = new ImagesViewsPresenter(this, getArguments());
 
 
         return view;
     }
+
     @Override
     public void onSetMessage(String message, int type) {
-        FancyToast.makeText(getContext(),message,FancyToast.LENGTH_SHORT,type,false).show();
+        FancyToast.makeText(getContext(), message, FancyToast.LENGTH_SHORT, type, false).show();
     }
 
     @Override
     public void onSetImageViewsRecyclerViewAdapter(RecyclerView.Adapter adapter) {
         imageViewsRecyclerView.setAdapter(adapter);
-    }
-
-    public static ImageViewsFragment newInstance(List<String>images,int position) {
-        ImageViewsFragment imageViewsFragment = new ImageViewsFragment();
-        String imagesJson=new Gson().toJson(images);
-        Bundle args = new Bundle();
-        args.putString(IMAGES, imagesJson);
-        args.putInt(POSITION,position);
-        imageViewsFragment.setArguments(args);
-
-        return imageViewsFragment;
     }
 
     public void setPosition(int position) {
@@ -89,8 +87,8 @@ public class ImageViewsFragment extends Fragment implements ImageViewsView,View.
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case  R.id.constraint_layout:
+        switch (v.getId()) {
+            case R.id.constraint_layout:
                 getFragmentManager().beginTransaction().hide(this).commit();
                 break;
         }

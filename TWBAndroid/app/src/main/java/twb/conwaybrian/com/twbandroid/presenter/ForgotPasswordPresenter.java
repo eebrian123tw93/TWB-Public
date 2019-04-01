@@ -1,8 +1,5 @@
 package twb.conwaybrian.com.twbandroid.presenter;
 
-import android.graphics.Color;
-import android.view.View;
-
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import io.reactivex.Observer;
@@ -15,14 +12,15 @@ import twb.conwaybrian.com.twbandroid.view.ForgotPasswordView;
 public class ForgotPasswordPresenter extends TWBPresenter {
     private ForgotPasswordView forgotPasswordView;
 
-    public ForgotPasswordPresenter(ForgotPasswordView forgotPasswordView){
-        this.forgotPasswordView=forgotPasswordView;
+    public ForgotPasswordPresenter(ForgotPasswordView forgotPasswordView) {
+        this.forgotPasswordView = forgotPasswordView;
     }
-    public void doForgotPassword(final String email){
-        if(email.isEmpty()){
+
+    public void doForgotPassword(final String email) {
+        if (email.isEmpty()) {
             forgotPasswordView.onForgotPassword(false);
-            forgotPasswordView.onSetMessage("Email cant not be empty",FancyToast.ERROR);
-        }else {
+            forgotPasswordView.onSetMessage("Email cant not be empty", FancyToast.ERROR);
+        } else {
             Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
                 @Override
                 public void onSubscribe(Disposable d) {
@@ -32,12 +30,12 @@ public class ForgotPasswordPresenter extends TWBPresenter {
                 @Override
                 public void onNext(Response<ResponseBody> response) {
 
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         forgotPasswordView.onForgotPassword(true);
-                        forgotPasswordView.onSetMessage("請至" + email + "獲取密碼",FancyToast.SUCCESS);
-                    }else {
+                        forgotPasswordView.onSetMessage("請至" + email + "獲取密碼", FancyToast.SUCCESS);
+                    } else {
                         forgotPasswordView.onForgotPassword(false);
-                        forgotPasswordView.onSetMessage("查無此email",FancyToast.ERROR);
+                        forgotPasswordView.onSetMessage("查無此email", FancyToast.ERROR);
 
                     }
                 }
@@ -46,7 +44,7 @@ public class ForgotPasswordPresenter extends TWBPresenter {
                 public void onError(Throwable e) {
                     forgotPasswordView.onForgotPassword(false);
 
-                    forgotPasswordView.onSetMessage(e.getMessage(),FancyToast.ERROR);
+                    forgotPasswordView.onSetMessage(e.getMessage(), FancyToast.ERROR);
                 }
 
                 @Override
@@ -57,7 +55,8 @@ public class ForgotPasswordPresenter extends TWBPresenter {
             ShuoApiService.getInstance().forgotPassword(observer, email, false);
         }
     }
-    public void setProgressBarVisibility(int visibility){
+
+    public void setProgressBarVisibility(int visibility) {
         forgotPasswordView.onSetProgressBarVisibility(visibility);
     }
 }

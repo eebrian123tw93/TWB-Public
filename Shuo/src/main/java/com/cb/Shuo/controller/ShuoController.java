@@ -81,8 +81,8 @@ public class ShuoController {
   @RequestMapping(value = "/postArticle", method = RequestMethod.POST)
   public ResponseEntity postArticle(@RequestBody ArticleJson articleJson, Principal principal) {
     log.info("postArticle " + principal.getName());
-    articlePostService.postArticle(articleJson, principal.getName());
-    return new ResponseEntity(HttpStatus.NO_CONTENT);
+    String articleId = articlePostService.postArticle(articleJson, principal.getName());
+    return ResponseEntity.status(200).body(articleId);
   }
 
   @ApiOperation("Retrieve json array of articles. Basic auth required.")
@@ -174,6 +174,15 @@ public class ShuoController {
             + " "
             + orderBy);
     return articleGetService.getArticles(startTime, endTime, limit, offset, null, orderBy);
+  }
+
+  @RequestMapping(value = "/public/searchArticle", method = RequestMethod.GET)
+  public List<ArticleJson> searchArticle(
+      @RequestParam(name = "keyWord") String keyWord,
+      @RequestParam(name = "limit", required = false, defaultValue = "1000") Integer limitNum,
+      @RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) {
+    log.info("search keyword " + keyWord);
+    return articleGetService.searchArticles(keyWord, limitNum, offset);
   }
 
   @RequestMapping(value = "/public/getUserPostHistory", method = RequestMethod.GET)

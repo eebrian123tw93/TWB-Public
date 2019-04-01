@@ -2,27 +2,18 @@ package twb.conwaybrian.com.twbandroid.reactbutton;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 
 import com.bumptech.glide.Glide;
-import com.zyyoona7.popup.EasyPopup;
 
 import twb.conwaybrian.com.twbandroid.R;
 
@@ -32,40 +23,33 @@ public class ReactButton
         implements View.OnClickListener, View.OnLongClickListener {
 
     /**
+     * Number of Valid Reactions
+     */
+    private static final int REACTIONS_NUMBER = 2;
+    /**
+     * Array of ImagesButton to set any action for all
+     */
+    private final ImageView[] mReactImgArray = new ImageView[REACTIONS_NUMBER];
+    /**
      * ReactButton custom view object to make easy to change attribute
      */
     private ReactButton mReactButton = this;
-
     /**
      * Reaction Alert Dialog to show Reaction layout with 6 Reactions
      */
 //    private AlertDialog mReactAlertDialog;
     private PopupWindow popupWindow;
-
-
     /**
      * react current state as boolean variable
      * is false in default state and true in all other states
      */
     private boolean mCurrentReactState;
-
     /**
      * ImagesButton one for every Reaction
      */
 
     private ImageView mImgButtonFour;
     private ImageView mImgButtonSix;
-
-    /**
-     * Number of Valid Reactions
-     */
-    private static final int REACTIONS_NUMBER = 2;
-
-    /**
-     * Array of ImagesButton to set any action for all
-     */
-    private final ImageView[] mReactImgArray = new ImageView[REACTIONS_NUMBER];
-
     /**
      * Reaction Object to save default Reaction
      */
@@ -158,14 +142,13 @@ public class ReactButton
 //        mReactAlertDialog.show();
 
 
-
         popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setAnimationStyle(R.style.TopPopAnim);
         popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);
 
-        popupWindow.showAsDropDown(this,-50,-250);
+        popupWindow.showAsDropDown(this, -50, -250);
 
 
     }
@@ -269,13 +252,6 @@ public class ReactButton
     }
 
     /**
-     * @param reaction : set This Reaction as current Reaction
-     */
-    public void setCurrentReaction(Reaction reaction) {
-        updateReactButtonByReaction(reaction);
-    }
-
-    /**
      * @return : The Current reaction Object
      */
     public Reaction getCurrentReaction() {
@@ -283,11 +259,10 @@ public class ReactButton
     }
 
     /**
-     * @param reaction : Update library default Reaction by other Reaction
+     * @param reaction : set This Reaction as current Reaction
      */
-    public void setDefaultReaction(Reaction reaction) {
-        mDefaultReaction = reaction;
-        updateReactButtonByReaction(mDefaultReaction);
+    public void setCurrentReaction(Reaction reaction) {
+        updateReactButtonByReaction(reaction);
     }
 
     /**
@@ -318,6 +293,14 @@ public class ReactButton
      */
     public boolean isDefaultReaction() {
         return mCurrentReaction.equals(mDefaultReaction);
+    }
+
+    /**
+     * @param reaction : Update library default Reaction by other Reaction
+     */
+    public void setDefaultReaction(Reaction reaction) {
+        mDefaultReaction = reaction;
+        updateReactButtonByReaction(mDefaultReaction);
     }
 
     @Override

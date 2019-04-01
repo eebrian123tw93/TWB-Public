@@ -1,6 +1,5 @@
 package twb.conwaybrian.com.twbandroid.navigation.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,80 +15,74 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.presenter.ArticleListPresenter;
-import twb.conwaybrian.com.twbandroid.view.ArticleListView;
+import twb.conwaybrian.com.twbandroid.presenter.UserPostHistoryPresenter;
+import twb.conwaybrian.com.twbandroid.view.UserPostHistoryView;
 
-public class ArticleListFragment extends Fragment implements ArticleListView {
-    private static String ARG_PARAM = "orderBy";
-    private String orderBy;
-    private ArticleListPresenter articleListPresenter;
-    private RecyclerView recyclerView;
+public class UserPostHistoryFragment extends Fragment implements UserPostHistoryView {
+    private UserPostHistoryPresenter userPostHistoryPresenter;
+    private RecyclerView articleListRecyclerView;
     private TwinklingRefreshLayout refreshLayout;
 
-    public static ArticleListFragment newInstance(String type) {
-        ArticleListFragment fragment = new ArticleListFragment();
+    public static UserPostHistoryFragment newInstance(String userId) {
+        UserPostHistoryFragment fragment = new UserPostHistoryFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(ARG_PARAM, type);
+        bundle.putString(UserPostHistoryPresenter.USER_ID, userId);
         fragment.setArguments(bundle);
         return fragment;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        orderBy = getArguments().getString(ARG_PARAM);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_article_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_post_history, container, false);
 
 
-        refreshLayout = view.findViewById(R.id.refreshLayout);
-        refreshLayout.setAutoLoadMore(true);
+        articleListRecyclerView = view.findViewById(R.id.article_list_recycleView);
+        refreshLayout = view.findViewById(R.id.refresh_layout);
+
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
 
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                articleListPresenter.refresh();
-                articleListPresenter.getArticleList(orderBy, 0, 1000);
+                userPostHistoryPresenter.refresh();
+                userPostHistoryPresenter.getUserPostHistory();
+
+
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                articleListPresenter.getArticleList(orderBy, 1000);
+                userPostHistoryPresenter.getUserPostHistory();
             }
         });
 
-        recyclerView = view.findViewById(R.id.list_view);
+
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
+        articleListRecyclerView.setLayoutManager(layoutManager);
 
+        userPostHistoryPresenter = new UserPostHistoryPresenter(this, getArguments());
 
-        articleListPresenter = new ArticleListPresenter(this);
-
-        articleListPresenter.getArticleList(orderBy, 0, 1000);
 
         return view;
+    }
+
+    @Override
+    public void onSetMessage(String message, int type) {
+
+        FancyToast.makeText(getContext(), message, FancyToast.LENGTH_SHORT, type, false).show();
+    }
+
+    @Override
+    public void onSetArticleListRecyclerAdapter(RecyclerView.Adapter adapter) {
+        articleListRecyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onFinishRefreshOrLoad() {
         refreshLayout.finishRefreshing();
         refreshLayout.finishLoadmore();
-    }
-
-    @Override
-    public void onSetArticleListRecyclerAdapter(RecyclerView.Adapter adapter) {
-        recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onSetMessage(String message, int type) {
-        FancyToast.makeText(getContext(), message, FancyToast.LENGTH_SHORT, type, false).show();
     }
 }

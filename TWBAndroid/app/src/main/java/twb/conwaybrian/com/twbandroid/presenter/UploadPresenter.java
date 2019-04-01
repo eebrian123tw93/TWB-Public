@@ -30,50 +30,50 @@ import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.UploadView;
 
 public class UploadPresenter extends TWBPresenter {
+    private static final String NOT_UPLOAD_ARTICLE = "not_upload_article";
+    private static final String IMAGES = "images";
+    private static String ARTICLE = "article";
     private UploadView uploadView;
     private Article article;
-    private List<String>images;
-    private List<String>canUploadImages;
-
+    private List<String> images;
+    private List<String> canUploadImages;
     private ImageViewsRecycleViewAdapter imageViewsRecycleViewAdapter;
 
-    private static final String NOT_UPLOAD_ARTICLE="not_upload_article";
-    private static final String IMAGES ="images";
-    private static String ARTICLE="article";
-
-    public UploadPresenter(UploadView uploadView){
-        this.uploadView=uploadView;
+    public UploadPresenter(UploadView uploadView) {
+        this.uploadView = uploadView;
         article = new Article();
-        canUploadImages=new ArrayList<>();
-        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,ImageViewsRecyclerViewHolderPresenter.Type.EDIT);
-        images=imageViewsRecycleViewAdapter.getImages();
+        canUploadImages = new ArrayList<>();
+        imageViewsRecycleViewAdapter = new ImageViewsRecycleViewAdapter(context, ImageViewsRecyclerViewHolderPresenter.Type.EDIT);
+        images = imageViewsRecycleViewAdapter.getImages();
     }
-    public  void uploadImages(){
+
+    public void uploadImages() {
         canUploadImages.clear();
-        for(int i=0;i<images.size();i++){
-            File file=new File(images.get(i));
-            if(file.exists())canUploadImages.add(images.get(i));
+        for (int i = 0; i < images.size(); i++) {
+            File file = new File(images.get(i));
+            if (file.exists()) canUploadImages.add(images.get(i));
         }
 
 
-        for (int i=0;i<canUploadImages.size();i++) {
-            final int index=i;
-            final String path=canUploadImages.get(i);
+        for (int i = 0; i < canUploadImages.size(); i++) {
+            final int index = i;
+            final String path = canUploadImages.get(i);
             ImgurClient.getInstance()
                     .uploadImage(
                             new TypedFile("image/*", new File(path)),
-                            article.getTitle()+i,
-                            article.getTitle()+"description"+i,
+                            article.getTitle() + i,
+                            article.getTitle() + "description" + i,
                             new Callback<ImgurResponse<Image>>() {
                                 @Override
                                 public void success(ImgurResponse<Image> imageImgurResponse, retrofit.client.Response response) {
-                                    if(imageImgurResponse.success) {
-                                        if(checkAllImagesUploaded(path,imageImgurResponse.data.getLink()))postArticle();
+                                    if (imageImgurResponse.success) {
+                                        if (checkAllImagesUploaded(path, imageImgurResponse.data.getLink()))
+                                            postArticle();
 //                                        uploadView.onPostArticle(true);
-                                        uploadView.onSetMessage("Image upload "+(index+1)+" success",FancyToast.SUCCESS);
-                                    }else {
+                                        uploadView.onSetMessage("Image upload " + (index + 1) + " success", FancyToast.SUCCESS);
+                                    } else {
                                         uploadView.onPostArticle(false);
-                                        uploadView.onSetMessage("Image upload "+(index+1)+" failed",FancyToast.ERROR);
+                                        uploadView.onSetMessage("Image upload " + (index + 1) + " failed", FancyToast.ERROR);
                                     }
                                 }
 
@@ -81,7 +81,7 @@ public class UploadPresenter extends TWBPresenter {
                                 public void failure(RetrofitError error) {
                                     uploadView.onPostArticle(false);
 //                                    uploadView.onPostArticle(false);
-                                    uploadView.onSetMessage("Image upload "+(index+1)+" failed",FancyToast.ERROR);
+                                    uploadView.onSetMessage("Image upload " + (index + 1) + " failed", FancyToast.ERROR);
                                     //Notify user of failure
                                 }
                             }
@@ -91,18 +91,18 @@ public class UploadPresenter extends TWBPresenter {
 
     }
 
-    public synchronized void  post(String title, String content){
-        if (title.isEmpty() ){
-            uploadView.onSetMessage("Title  can not be empty",FancyToast.ERROR);
+    public synchronized void post(String title, String content) {
+        if (title.isEmpty()) {
+            uploadView.onSetMessage("Title  can not be empty", FancyToast.ERROR);
             uploadView.onPostArticle(false);
-        }else if(content.isEmpty()){
-            uploadView.onSetMessage("Content  can not be empty",FancyToast.ERROR);
+        } else if (content.isEmpty()) {
+            uploadView.onSetMessage("Content  can not be empty", FancyToast.ERROR);
             uploadView.onPostArticle(false);
-        }else {
-            if(content.length()>=65535){
-                uploadView.onSetMessage("Content  too long",FancyToast.ERROR);
+        } else {
+            if (content.length() >= 65535) {
+                uploadView.onSetMessage("Content  too long", FancyToast.ERROR);
                 uploadView.onPostArticle(false);
-            }else {
+            } else {
                 saveArticle(title, content, false);
                 if (isLogin()) {
                     article.setTitle(title);
@@ -118,31 +118,31 @@ public class UploadPresenter extends TWBPresenter {
         }
     }
 
-    public void clear(){
+    public void clear() {
         article.getImages().clear();
         canUploadImages.clear();
         uploadView.onClearText();
         imageViewsRecycleViewAdapter.clear();
-        article=new Article();
+        article = new Article();
     }
 
-    public void setProgressBarVisibility(int visibility){
+    public void setProgressBarVisibility(int visibility) {
         uploadView.onSetProgressBarVisibility(visibility);
     }
 
 
-    public void addImage(Uri uri){
-        String   path = ImageViewsRecyclerViewHolderPresenter.getRealFilePath(context,uri);
-        File file=new File(path);
-        if(file.exists()){
-            if(file.length()<10000000){
+    public void addImage(Uri uri) {
+        String path = ImageViewsRecyclerViewHolderPresenter.getRealFilePath(context, uri);
+        File file = new File(path);
+        if (file.exists()) {
+            if (file.length() < 10000000) {
                 imageViewsRecycleViewAdapter.addImage(path);
-            }else {
-                uploadView.onSetMessage("image more than 10 MB",FancyToast.WARNING);
+            } else {
+                uploadView.onSetMessage("image more than 10 MB", FancyToast.WARNING);
             }
 
-        }else {
-            uploadView.onSetMessage(path+" not fount",FancyToast.WARNING);
+        } else {
+            uploadView.onSetMessage(path + " not fount", FancyToast.WARNING);
         }
 
     }
@@ -151,7 +151,7 @@ public class UploadPresenter extends TWBPresenter {
         uploadView.onSetImageViewAdapter(imageViewsRecycleViewAdapter);
     }
 
-    private void postArticle(){
+    private void postArticle() {
         Observer<Response<ResponseBody>> observer = new Observer<Response<ResponseBody>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -162,18 +162,18 @@ public class UploadPresenter extends TWBPresenter {
             public void onNext(Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     uploadView.onPostArticle(true);
-                    uploadView.onSetMessage("Post success",FancyToast.SUCCESS);
-                    saveArticle("","",false);
-                }else {
+                    uploadView.onSetMessage("Post success", FancyToast.SUCCESS);
+                    saveArticle("", "", false);
+                } else {
                     uploadView.onPostArticle(false);
-                    uploadView.onSetMessage("Post failed",FancyToast.ERROR);
+                    uploadView.onSetMessage("Post failed", FancyToast.ERROR);
                 }
             }
 
             @Override
             public void onError(Throwable e) {
                 uploadView.onPostArticle(false);
-                uploadView.onSetMessage(e.getMessage(),FancyToast.ERROR);
+                uploadView.onSetMessage(e.getMessage(), FancyToast.ERROR);
             }
 
             @Override
@@ -184,50 +184,53 @@ public class UploadPresenter extends TWBPresenter {
         ShuoApiService.getInstance().postArticle(observer, user, article, false);
     }
 
-    public void saveArticle(String title,String content,boolean show){
+    public void saveArticle(String title, String content, boolean show) {
 
         article.setTitle(title);
         article.setContent(content);
-        String notUploadArticleJson=new Gson().toJson(article,Article.class);
-        Type listType = new TypeToken<List<String>>() {}.getType();
-        String imagesJson=new Gson().toJson(this.images,listType);
-        context.getSharedPreferences(ARTICLE,Context.MODE_PRIVATE).edit()
-                .putString(NOT_UPLOAD_ARTICLE,notUploadArticleJson)
-                .putString(IMAGES,imagesJson).apply();
-       if (show) uploadView.onSetMessage("Saved Article",FancyToast.SUCCESS );
+        String notUploadArticleJson = new Gson().toJson(article, Article.class);
+        Type listType = new TypeToken<List<String>>() {
+        }.getType();
+        String imagesJson = new Gson().toJson(this.images, listType);
+        context.getSharedPreferences(ARTICLE, Context.MODE_PRIVATE).edit()
+                .putString(NOT_UPLOAD_ARTICLE, notUploadArticleJson)
+                .putString(IMAGES, imagesJson).apply();
+        if (show) uploadView.onSetMessage("Saved Article", FancyToast.SUCCESS);
     }
 
-    public void readArticle(boolean show){
+    public void readArticle(boolean show) {
 
-        SharedPreferences sharedPreferences=context.getSharedPreferences(ARTICLE,Context.MODE_PRIVATE);
-        String articleJson=sharedPreferences.getString(NOT_UPLOAD_ARTICLE,"");
-        String imagesJson=sharedPreferences.getString(IMAGES,"");
-        Article  article=new Gson().fromJson(articleJson,Article.class);
-        Type listType = new TypeToken<List<String>>() {}.getType();
-        List<String>images=new Gson().fromJson(imagesJson,listType);
-        if(article!=null){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(ARTICLE, Context.MODE_PRIVATE);
+        String articleJson = sharedPreferences.getString(NOT_UPLOAD_ARTICLE, "");
+        String imagesJson = sharedPreferences.getString(IMAGES, "");
+        Article article = new Gson().fromJson(articleJson, Article.class);
+        Type listType = new TypeToken<List<String>>() {
+        }.getType();
+        List<String> images = new Gson().fromJson(imagesJson, listType);
+        if (article != null) {
             clear();
-            this.article=article;
-            if(article.getTitle() != null)uploadView.onSetTitle(article.getTitle());
-            if(article.getContent() != null)uploadView.onSetContent(article.getContent());
-            if(article.getImages()!=null)imageViewsRecycleViewAdapter.addImages(article.getImages());
-            if(show)uploadView.onSetMessage("Read Article",FancyToast.SUCCESS );
+            this.article = article;
+            if (article.getTitle() != null) uploadView.onSetTitle(article.getTitle());
+            if (article.getContent() != null) uploadView.onSetContent(article.getContent());
+            if (article.getImages() != null)
+                imageViewsRecycleViewAdapter.addImages(article.getImages());
+            if (show) uploadView.onSetMessage("Read Article", FancyToast.SUCCESS);
         }
-        if(images!=null)imageViewsRecycleViewAdapter.addImages(images);
+        if (images != null) imageViewsRecycleViewAdapter.addImages(images);
 
     }
 
-    public void setCancelViewEnable(boolean enable){
-        if(enable)
+    public void setCancelViewEnable(boolean enable) {
+        if (enable)
             imageViewsRecycleViewAdapter.setState(ImageViewsRecyclerViewHolderPresenter.State.NOT_UPLOAD);
         else
             imageViewsRecycleViewAdapter.setState(ImageViewsRecyclerViewHolderPresenter.State.UPLOADING);
     }
 
-    public synchronized boolean checkAllImagesUploaded(String fileName,String link){
+    public synchronized boolean checkAllImagesUploaded(String fileName, String link) {
         article.getImages().add(link);
         canUploadImages.remove(fileName);
-        return canUploadImages.size()==0;
+        return canUploadImages.size() == 0;
     }
 
 

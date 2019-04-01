@@ -12,11 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.adatper.HomePageAdapter;
+import twb.conwaybrian.com.twbandroid.adatper.ProfileHomePageAdapter;
 
-public class HomeFragment extends Fragment {
-
-    private HomePageAdapter pageAdapter;
+public class ProfileHomeFragment extends Fragment {
+    private ProfileHomePageAdapter profileHomePageAdapter;
 
     @Override
     public void onAttach(Context context) {
@@ -27,30 +26,29 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile_home, container, false);
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
 
 
-        TabLayout.Tab hotTab = tabLayout.newTab();
-        hotTab.setText("熱門");
-        hotTab.setIcon(R.drawable.popular);
+        TabLayout.Tab profileTab = tabLayout.newTab();
+        profileTab.setText("簡介");
+        profileTab.setIcon(R.drawable.user);
 
-        TabLayout.Tab newTab = tabLayout.newTab();
-        newTab.setText("最新");
-        newTab.setIcon(R.drawable.new_icon);
+        TabLayout.Tab postHistoryTab = tabLayout.newTab();
+        postHistoryTab.setText("上傳的文章");
+        postHistoryTab.setIcon(R.drawable.post);
 
 //        TabLayout.Tab  mostViewsTab= tabLayout.newTab();
 //        mostViewsTab.setText("觀看最多");
 //        mostViewsTab.setIcon(R.drawable.group_of_people);
 
-        tabLayout.addTab(hotTab);
-        tabLayout.addTab(newTab);
-//        tabLayout.addTab(mostViewsTab);
-        final ViewPager viewPager = view.findViewById(R.id.viewPager);
+        tabLayout.addTab(profileTab);
+        tabLayout.addTab(postHistoryTab);
 
-        pageAdapter = new HomePageAdapter(this.getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+        final ViewPager viewPager = view.findViewById(R.id.view_pager);
+        profileHomePageAdapter = new ProfileHomePageAdapter(this.getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
 
-        viewPager.setAdapter(pageAdapter);
+        viewPager.setAdapter(profileHomePageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
 
