@@ -26,6 +26,7 @@ public class SearchFragment extends Fragment implements SearchView {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         searchView=view.findViewById(R.id.searchView);
+        searchView.setIconifiedByDefault(true);
         searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -43,6 +44,7 @@ public class SearchFragment extends Fragment implements SearchView {
         });
 
         searchRecyclerView = view.findViewById(R.id.search_recyclerview_view);
+
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         searchRecyclerView.setLayoutManager(layoutManager);
