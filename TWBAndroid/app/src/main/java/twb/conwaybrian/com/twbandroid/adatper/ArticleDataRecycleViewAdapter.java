@@ -15,8 +15,11 @@ import java.util.List;
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.model.Comment;
 import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
+import twb.conwaybrian.com.twbandroid.presenter.adapter.ArticleDataRecyclerCommentViewHolderPresenter;
 import twb.conwaybrian.com.twbandroid.reactbutton.ReactButton;
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
+import twb.conwaybrian.com.twbandroid.view.adapter.ArticleDataRecyclerArticleViewHolderView;
+import twb.conwaybrian.com.twbandroid.view.adapter.ArticleDataRecyclerCommentViewHolderView;
 
 import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
 
@@ -24,22 +27,18 @@ import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
 public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
-    private List<Comment> comments;
+
     private Context context;
-
-    public void setMove(boolean move) {
-        this.move = move;
-    }
-
     private boolean move;
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
     private int position;
 
-    public class CommentViewHolder extends RecyclerView.ViewHolder {
+    private ArticlePresenter articlePresenter;
+    private static int ARTICLE_VIEW=0;
+    private static int COMMENT_VIEW=1;
+
+    private ArticleDataRecyclerCommentViewHolderPresenter articleDataRecyclerCommentViewHolderPresenter;
+
+    public class CommentViewHolder extends RecyclerView.ViewHolder implements ArticleDataRecyclerCommentViewHolderView {
 
         private TextView userIdTextView;
         private TextView commentTextView;
@@ -50,8 +49,18 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
             userIdTextView=v.findViewById(R.id.userId_textView);
             commentTextView=v.findViewById(R.id.comment_textView);
         }
+
+        @Override
+        public void onSetUserId(String userId) {
+            userIdTextView.setText(userId);
+        }
+
+        @Override
+        public void onSetComment(String comment) {
+            commentTextView.setText(comment);
+        }
     }
-    public class ArticleViewHolder extends RecyclerView.ViewHolder {
+    public class ArticleViewHolder extends RecyclerView.ViewHolder implements ArticleDataRecyclerArticleViewHolderView {
 
         private TextView titleTextView;
         private TextView contentTextView;
@@ -80,16 +89,21 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
         }
     }
 
-    public ArticleDataRecycleViewAdapter(Context context, List<Comment> comments, ArticlePresenter articlePresenter) {
+    public ArticleDataRecycleViewAdapter(Context context, ArticlePresenter articlePresenter) {
         this.context=context;
-        this.comments = comments;
+
         this.articlePresenter=articlePresenter;
+        this.articleDataRecyclerCommentViewHolderPresenter=new ArticleDataRecyclerCommentViewHolderPresenter();
 
     }
 
-    private ArticlePresenter articlePresenter;
-    private static int ARTICLE_VIEW=0;
-    private static int COMMENT_VIEW=1;
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public void setMove(boolean move) {
+        this.move = move;
+    }
     @Override
     public int getItemViewType(int position) {
         if(position==0)return ARTICLE_VIEW;
@@ -117,10 +131,7 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         System.out.println(position);
         if(viewHolder instanceof CommentViewHolder){
-            CommentViewHolder holder=(CommentViewHolder)viewHolder;
-            final Comment comment=comments.get(position-1);
-            holder.userIdTextView.setText(comment.getUserId());
-            holder.commentTextView.setText(comment.getComment());
+           articleDataRecyclerCommentViewHolderPresenter.bindData((CommentViewHolder) viewHolder,position);
         }else if(viewHolder instanceof ArticleViewHolder){
             final ArticleViewHolder holder=(ArticleViewHolder)viewHolder;
             holder.pointsReactButton.setReactClickListener(new View.OnClickListener() {
@@ -189,19 +200,17 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
     }
 
     public void  addComments(List<Comment>comments){
-        for(int i=this.comments.size();i<comments.size();i++){
-            this.comments.add(comments.get(i));
-        }
+       articleDataRecyclerCommentViewHolderPresenter.addComments(comments);
         notifyDataSetChanged();
 
     }
 
     public void clear(){
-        this.comments.clear();
+       articleDataRecyclerCommentViewHolderPresenter.clear();
         notifyDataSetChanged();
     }
     @Override
     public int getItemCount() {
-        return comments.size()+1;
+        return articleDataRecyclerCommentViewHolderPresenter.getItemCount()+1;
     }
 }

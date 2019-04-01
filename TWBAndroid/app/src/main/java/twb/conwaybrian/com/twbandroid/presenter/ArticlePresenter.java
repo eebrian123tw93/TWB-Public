@@ -69,7 +69,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
 
 
         imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,ImageViewsRecyclerViewHolderPresenter.Type.VIEW,this);
-        articleDataRecycleViewAdapter =new ArticleDataRecycleViewAdapter(context,new ArrayList<Comment>(),this);
+        articleDataRecycleViewAdapter =new ArticleDataRecycleViewAdapter(context,this);
 
         imageViewsRecycleViewAdapter.addImages(article.getImages());
         articleView.onSetArticleDataRecyclerViewAdapter(articleDataRecycleViewAdapter);
