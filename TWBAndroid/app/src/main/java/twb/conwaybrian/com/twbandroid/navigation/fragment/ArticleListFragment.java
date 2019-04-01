@@ -54,13 +54,13 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 articleListPresenter.refresh();
-                articleListPresenter.getArticleList(orderBy, 0, 20);
+                articleListPresenter.getArticleList(orderBy, 0, 1000);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                articleListPresenter.getArticleList(orderBy, 20);
+                articleListPresenter.getArticleList(orderBy, 1000);
             }
         });
 
@@ -72,7 +72,7 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
 
         articleListPresenter = new ArticleListPresenter(this);
 
-        articleListPresenter.getArticleList(orderBy, 0, 20);
+        articleListPresenter.getArticleList(orderBy, 0, 1000);
 
         return view;
     }
