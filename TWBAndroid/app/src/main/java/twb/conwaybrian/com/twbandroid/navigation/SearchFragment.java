@@ -26,7 +26,8 @@ public class SearchFragment extends Fragment implements SearchView {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         searchView=view.findViewById(R.id.searchView);
-        searchView.setIconifiedByDefault(true);
+        searchView.setIconified(false);
+        searchView.requestFocusFromTouch();
         searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
