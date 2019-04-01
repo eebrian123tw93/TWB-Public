@@ -3,9 +3,12 @@ import shuo_api as api
 import random
 import time
 import schedule
-
+from datetime import datetime,timedelta
 import schedule
 import time
+import time
+format = '%Y-%m-%dT%H:%M:%S.%f%z'
+import pytz
 
 def get_boards():
     dcard = Dcard()
@@ -32,31 +35,39 @@ def post():
 
     f = open('user_list', 'r')
     users = f.read().splitlines()
+    now=datetime.now()-timedelta(hours=1)
 
+    # now = datetime(2000, 1, 1)
+    now = now.replace(tzinfo=pytz.timezone('UTC'))
+    print(len(boards))
     for board in boards:
-        ariticle_metas = dcard.forums(board).get_metas(num=10, sort='new')
+        ariticle_metas = dcard.forums(board).get_metas(num=200, sort='new')
         ids = [meta['id'] for meta in ariticle_metas]
         articles = dcard.posts(ids).get(comments=False)
         time.sleep(1)
         print(board)
         for article in articles.result():
-
-            user = random.choice(users)
-            title = article['title']
-            content = article['content']
-            comments = []
-            images = []
-            print("comment:" + str(article['comments']))
-            if (article['comments'] and len(article['comments']) > 0):
-                for comment in article['comments']:
-                    if "content" in comment:
-                        comments.append(comment['content'])
-            print(article['media'])
-            if (len(article['media']) > 1):
-                for m in article['media']:
-                    if 'url' in m:
-                        images.append(m['url'])
-            article_list.append(Article(user, user, title, content, images))
+            try:
+                t=datetime.strptime(article['createdAt'], format)
+                if now <t :
+                    user = random.choice(users)
+                    title = article['title']
+                    content = article['content']
+                    comments = []
+                    images = []
+                    print("comment:" + str(article['comments']))
+                    if (article['comments'] and len(article['comments']) > 0):
+                        for comment in article['comments']:
+                            if "content" in comment:
+                                comments.append(comment['content'])
+                    print(article['media'])
+                    if (len(article['media']) > 1):
+                        for m in article['media']:
+                            if 'url' in m:
+                                images.append(m['url'])
+                    article_list.append(Article(user, user, title, content, images))
+            except Exception as e:
+                print()
 
     random.shuffle(article_list)
     for article in article_list:
@@ -67,7 +78,7 @@ def post():
 
 if __name__ == '__main__':
     # post()
-    schedule.every(10).minutes.do(post)
+    schedule.every(60).minutes.do(post)
     while True:
         schedule.run_pending()
         time.sleep(1)
