@@ -12,7 +12,7 @@ import pytz
 
 def get_boards():
     dcard = Dcard()
-    forums = dcard.forums.get(no_school=True)
+    forums = dcard.forums.get()
 
     # 全部的看板
     boards = [forum['alias'] for forum in forums if forum['alias']]
@@ -35,7 +35,7 @@ def post():
 
     f = open('user_list', 'r')
     users = f.read().splitlines()
-    now=datetime.now()-timedelta(hours=1)
+    now=datetime.now()-timedelta(minutes=10)
 
     # now = datetime(2000, 1, 1)
     now = now.replace(tzinfo=pytz.timezone('UTC'))
@@ -52,6 +52,7 @@ def post():
                 if now <t :
                     user = random.choice(users)
                     title = article['title']
+                    print(title)
                     content = article['content']
                     comments = []
                     images = []
@@ -78,7 +79,7 @@ def post():
 
 if __name__ == '__main__':
     # post()
-    schedule.every(60).minutes.do(post)
+    schedule.every(10).minutes.do(post)
     while True:
         schedule.run_pending()
         time.sleep(1)
