@@ -34,4 +34,9 @@ public interface ArticleDao extends JpaRepository<ArticleModel, Long> {
       @Param("offsetNum") int offsetNum);
 
   List<ArticleModel> getArticleModelsByUserIdOrderByCreateTimeDesc(String userId);
+
+  @Query(
+      nativeQuery = true,
+      value = "select * from articles where title like :keyWord or content like :keyWord")
+  List<ArticleModel> searchArticle(@Param("keyWord") String keyWord);
 }

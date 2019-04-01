@@ -176,6 +176,11 @@ public class ShuoController {
     return articleGetService.getArticles(startTime, endTime, limit, offset, null, orderBy);
   }
 
+  @RequestMapping(value = "/public/searchArticle", method = RequestMethod.GET)
+  public List<ArticleJson> searchArticle(@RequestParam(name = "keyWord") String keyWord) {
+    return articleGetService.searchArticles(keyWord);
+  }
+
   @RequestMapping(value = "/public/getUserPostHistory", method = RequestMethod.GET)
   public List<ArticleJson> getUserPostHistory(@RequestParam(name = "userId") String userId) {
     log.info("getUserPostHistory for user " + userId);
