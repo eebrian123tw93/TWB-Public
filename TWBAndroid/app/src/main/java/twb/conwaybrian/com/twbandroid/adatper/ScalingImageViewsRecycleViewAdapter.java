@@ -50,9 +50,9 @@ public class ScalingImageViewsRecycleViewAdapter extends RecyclerView.Adapter<Sc
         }
     }
 
-    public ScalingImageViewsRecycleViewAdapter(Context context,ScalingImageViewsRecyclerViewPresenter scalingImageViewsRecyclerViewPresenter) {
+    public ScalingImageViewsRecycleViewAdapter(Context context) {
         this.context=context;
-       this.scalingImageViewsRecyclerViewPresenter=scalingImageViewsRecyclerViewPresenter;
+       this.scalingImageViewsRecyclerViewPresenter=new ScalingImageViewsRecyclerViewPresenter(context);
     }
 
 

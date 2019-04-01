@@ -24,12 +24,10 @@ public class ArticleListPresenter extends TWBPresenter {
 
 
     private ArticleListRecycleViewAdapter articleListRecycleViewAdapter;
-    private ArticleListRecyclerViewHolderPresenter articleListRecyclerViewHolderPresenter;
 
     public ArticleListPresenter(ArticleListView articleListView){
         this.articleListView=articleListView;
-        articleListRecyclerViewHolderPresenter =new ArticleListRecyclerViewHolderPresenter(context);
-        articleListRecycleViewAdapter=new ArticleListRecycleViewAdapter(context, articleListRecyclerViewHolderPresenter);
+        articleListRecycleViewAdapter=new ArticleListRecycleViewAdapter(context);
         articleListView.onSetArticleListRecyclerAdapter(articleListRecycleViewAdapter);
     }
 

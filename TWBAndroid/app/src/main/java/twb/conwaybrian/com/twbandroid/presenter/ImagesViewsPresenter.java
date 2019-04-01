@@ -16,12 +16,11 @@ import twb.conwaybrian.com.twbandroid.view.ImageViewsView;
 public class ImagesViewsPresenter extends TWBPresenter {
     private ImageViewsView imageViewsView;
     private ScalingImageViewsRecycleViewAdapter scalingImageViewsRecycleViewAdapter;
-    private ScalingImageViewsRecyclerViewPresenter scalingImageViewsRecyclerViewPresenter;
 
     public ImagesViewsPresenter(ImageViewsView imageViewsView, Bundle bundle){
         this.imageViewsView=imageViewsView;
-        scalingImageViewsRecyclerViewPresenter=new ScalingImageViewsRecyclerViewPresenter(context);
-        scalingImageViewsRecycleViewAdapter=new ScalingImageViewsRecycleViewAdapter(context,scalingImageViewsRecyclerViewPresenter);
+
+        scalingImageViewsRecycleViewAdapter=new ScalingImageViewsRecycleViewAdapter(context);
 
         String imagesJson =bundle.getString(ImageViewsFragment.IMAGES,"");
         int position=bundle.getInt(ImageViewsFragment.POSITION,0);

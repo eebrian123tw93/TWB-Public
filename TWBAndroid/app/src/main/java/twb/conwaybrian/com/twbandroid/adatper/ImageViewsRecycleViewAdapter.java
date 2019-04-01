@@ -45,7 +45,6 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
         private ImageView imageView;
         private ImageView cancelImageView;
 
-        private CardView cardView;
 
 
         public ViewHolder(View v) {
@@ -53,7 +52,7 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
 
             imageView=v.findViewById(R.id.imageView);
             cancelImageView=v.findViewById(R.id.cancel_imageView);
-            cardView=v.findViewById(R.id.card_view);
+            
         }
     }
 
