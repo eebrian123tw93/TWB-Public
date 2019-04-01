@@ -4,4 +4,5 @@ import android.support.v7.widget.RecyclerView;
 
 public interface SearchView extends TWBView {
     void onSetArticleListRecyclerAdapter(RecyclerView.Adapter adapter);
+    void onFinishRefreshOrLoad();
 }

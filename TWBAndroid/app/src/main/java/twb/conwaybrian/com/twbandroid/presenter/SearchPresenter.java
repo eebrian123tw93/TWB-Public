@@ -19,13 +19,17 @@ import twb.conwaybrian.com.twbandroid.view.SearchView;
 public class SearchPresenter extends TWBPresenter {
     private SearchView searchView;
     private ArticleListRecycleViewAdapter articleListRecycleViewAdapter;
+    private String query;
     public SearchPresenter(SearchView searchView) {
         this.searchView = searchView;
         articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(context);
         searchView.onSetArticleListRecyclerAdapter(articleListRecycleViewAdapter);
     }
     public void search(String query){
-
+        search(query,1000,0);
+    }
+    public void search(String query,int limit,int offset){
+        this.query=query;
         Observer<Response<JsonArray>> observer = new Observer<Response<JsonArray>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -34,6 +38,7 @@ public class SearchPresenter extends TWBPresenter {
 
             @Override
             public void onNext(Response<JsonArray> response) {
+                searchView.onFinishRefreshOrLoad();
                 try {
                     if (response.isSuccessful()) {
                         JsonArray jsonArray = response.body();
@@ -63,10 +68,12 @@ public class SearchPresenter extends TWBPresenter {
 
             }
         };
-        ShuoApiService.getInstance().searchArticle(observer,query,false);
-
+        ShuoApiService.getInstance().searchArticle(observer,query,limit,offset,false);
     }
 
+    public  void loadMore(){
+        search(query,1000,articleListRecycleViewAdapter.getItemCount());
+    }
     public void clear(){
         articleListRecycleViewAdapter.clear();
     }
