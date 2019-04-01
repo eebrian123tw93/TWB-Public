@@ -25,11 +25,12 @@ import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.model.ArticleData;
 import twb.conwaybrian.com.twbandroid.model.Comment;
 import twb.conwaybrian.com.twbandroid.model.Like;
+import twb.conwaybrian.com.twbandroid.presenter.adapter.ImageViewsRecyclerViewHolderPresenter;
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.ArticleView;
 
-public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleViewAdapter.ShowImageViewsFragmentListener {
+public class ArticlePresenter extends TWBPresenter implements ImageViewsRecyclerViewHolderPresenter.ShowImageViewsFragmentListener {
 
     private static final String TAG="ArticlePresenter";
     public static final String ARTICLE_ID="article_id";
@@ -67,10 +68,12 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycleV
         article.getImages().addAll(Arrays.asList(images));
 
 
-        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,article.getImages(),ImageViewsRecycleViewAdapter.Type.VIEW,this);
+        imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,ImageViewsRecyclerViewHolderPresenter.Type.VIEW,this);
         articleDataRecycleViewAdapter =new ArticleDataRecycleViewAdapter(context,new ArrayList<Comment>(),this);
 
+        imageViewsRecycleViewAdapter.addImages(article.getImages());
         articleView.onSetArticleDataRecyclerViewAdapter(articleDataRecycleViewAdapter);
+
 
 //        if(article.getPoints()>0){
             defaultType=Reaction.Type.LIKE;
