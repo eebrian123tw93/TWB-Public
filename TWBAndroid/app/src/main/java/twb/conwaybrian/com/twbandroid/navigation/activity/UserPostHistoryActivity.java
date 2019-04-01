@@ -1,12 +1,11 @@
 package twb.conwaybrian.com.twbandroid.navigation.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.navigation.fragment.ImageViewsFragment;
 import twb.conwaybrian.com.twbandroid.navigation.fragment.UserPostHistoryFragment;
 import twb.conwaybrian.com.twbandroid.presenter.UserPostHistoryPresenter;
 

@@ -20,16 +20,19 @@ public class SearchPresenter extends TWBPresenter {
     private SearchView searchView;
     private ArticleListRecycleViewAdapter articleListRecycleViewAdapter;
     private String query;
+
     public SearchPresenter(SearchView searchView) {
         this.searchView = searchView;
         articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(context);
         searchView.onSetArticleListRecyclerAdapter(articleListRecycleViewAdapter);
     }
-    public void search(String query){
-        search(query,1000,0);
+
+    public void search(String query) {
+        search(query, 1000, 0);
     }
-    public void search(String query,int limit,int offset){
-        this.query=query;
+
+    public void search(String query, int limit, int offset) {
+        this.query = query;
         Observer<Response<JsonArray>> observer = new Observer<Response<JsonArray>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -51,7 +54,7 @@ public class SearchPresenter extends TWBPresenter {
                     } else {
                         searchView.onSetMessage("loading failed", FancyToast.ERROR);
                     }
-                }catch (OutOfMemoryError e){
+                } catch (OutOfMemoryError e) {
                     onError(e);
                 }
 
@@ -68,13 +71,14 @@ public class SearchPresenter extends TWBPresenter {
 
             }
         };
-        ShuoApiService.getInstance().searchArticle(observer,query,limit,offset,false);
+        ShuoApiService.getInstance().searchArticle(observer, query, limit, offset, false);
     }
 
-    public  void loadMore(){
-        search(query,1000,articleListRecycleViewAdapter.getItemCount());
+    public void loadMore() {
+        search(query, 1000, articleListRecycleViewAdapter.getItemCount());
     }
-    public void clear(){
+
+    public void clear() {
         articleListRecycleViewAdapter.clear();
     }
 }

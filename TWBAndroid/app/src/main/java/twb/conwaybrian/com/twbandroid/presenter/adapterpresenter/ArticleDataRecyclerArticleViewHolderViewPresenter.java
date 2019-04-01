@@ -21,6 +21,7 @@ public class ArticleDataRecyclerArticleViewHolderViewPresenter extends TWBPresen
     private ImageViewsRecycleViewAdapter imageViewsRecycleViewAdapter;
     private Reaction.Type currentType;
     private ScrollListener scrollListener;
+
     public ArticleDataRecyclerArticleViewHolderViewPresenter(ScrollListener scrollListener) {
         this.scrollListener = scrollListener;
     }
@@ -60,9 +61,9 @@ public class ArticleDataRecyclerArticleViewHolderViewPresenter extends TWBPresen
             holder.onSetUserClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String userId=article.getUserId();
-                    Intent intent=new Intent(context, UserPostHistoryActivity.class);
-                    intent.putExtra(UserPostHistoryPresenter.USER_ID,userId);
+                    String userId = article.getUserId();
+                    Intent intent = new Intent(context, UserPostHistoryActivity.class);
+                    intent.putExtra(UserPostHistoryPresenter.USER_ID, userId);
                     context.startActivity(intent);
                 }
             });

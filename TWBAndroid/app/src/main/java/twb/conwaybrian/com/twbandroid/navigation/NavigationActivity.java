@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.navigation.fragment.UserPostHistoryFragment;
 import twb.conwaybrian.com.twbandroid.presenter.NavigationPresenter;
 import twb.conwaybrian.com.twbandroid.view.NavigationView;
 
@@ -92,7 +91,7 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
 
     @Override
     public void onLogin() {
-        Fragment pre=fragmentHashMap.get(R.id.profile);
+        Fragment pre = fragmentHashMap.get(R.id.profile);
         getSupportFragmentManager().beginTransaction().remove(pre).commitAllowingStateLoss();
         Fragment fragment = new ProfileHomeFragment();
         fragmentHashMap.put(R.id.profile, fragment);
@@ -101,7 +100,7 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
 
     @Override
     public void onLogout() {
-        Fragment pre=fragmentHashMap.get(R.id.profile);
+        Fragment pre = fragmentHashMap.get(R.id.profile);
         getSupportFragmentManager().beginTransaction().remove(pre).commitAllowingStateLoss();
         Fragment fragment = new LoginFragment();
         fragmentHashMap.put(R.id.profile, fragment);
@@ -131,20 +130,20 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
     @Override
     public void onBackPressed() {
         exitCount++;
-        if(exitCount==1){
-            onSetMessage("再點擊一下離開",FancyToast.INFO);
-            new Thread(){
+        if (exitCount == 1) {
+            onSetMessage("再點擊一下離開", FancyToast.INFO);
+            new Thread() {
                 @Override
                 public void run() {
                     try {
                         sleep(3000);
-                        exitCount=0;
+                        exitCount = 0;
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }.start();
-        }else if(exitCount==2) {
+        } else if (exitCount == 2) {
             moveTaskToBack(true);
         }
 

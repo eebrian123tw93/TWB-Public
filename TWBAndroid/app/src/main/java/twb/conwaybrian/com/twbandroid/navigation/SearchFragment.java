@@ -23,12 +23,13 @@ public class SearchFragment extends Fragment implements SearchView {
     private android.widget.SearchView searchView;
     private RecyclerView searchRecyclerView;
     private TwinklingRefreshLayout refreshLayout;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        refreshLayout=view.findViewById(R.id.refresh_layout);
+        refreshLayout = view.findViewById(R.id.refresh_layout);
         refreshLayout.setAutoLoadMore(true);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
@@ -41,8 +42,7 @@ public class SearchFragment extends Fragment implements SearchView {
         });
 
 
-
-        searchView=view.findViewById(R.id.searchView);
+        searchView = view.findViewById(R.id.searchView);
         searchView.setIconified(false);
         searchView.requestFocusFromTouch();
         searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
@@ -56,7 +56,7 @@ public class SearchFragment extends Fragment implements SearchView {
             @Override
             public boolean onQueryTextChange(String newText) {
                 searchPresenter.clear();
-                if(newText.length() >= 3) {
+                if (newText.length() >= 3) {
                     searchPresenter.search(newText);
                 }
                 return false;

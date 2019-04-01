@@ -15,7 +15,6 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.presenter.SearchPresenter;
 import twb.conwaybrian.com.twbandroid.presenter.UserPostHistoryPresenter;
 import twb.conwaybrian.com.twbandroid.view.UserPostHistoryView;
 
@@ -39,7 +38,7 @@ public class UserPostHistoryFragment extends Fragment implements UserPostHistory
 
 
         articleListRecyclerView = view.findViewById(R.id.article_list_recycleView);
-        refreshLayout=view.findViewById(R.id.refresh_layout);
+        refreshLayout = view.findViewById(R.id.refresh_layout);
 
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
 
@@ -60,12 +59,11 @@ public class UserPostHistoryFragment extends Fragment implements UserPostHistory
         });
 
 
-
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         articleListRecyclerView.setLayoutManager(layoutManager);
 
-        userPostHistoryPresenter = new UserPostHistoryPresenter(this,getArguments());
+        userPostHistoryPresenter = new UserPostHistoryPresenter(this, getArguments());
 
 
         return view;

@@ -101,8 +101,8 @@ public class ShuoApiService {
                 .subscribe(observer);
     }
 
-    public void searchArticle(@NonNull Observer observer, @NonNull String query,@NonNull int limit,@NonNull int offset, boolean isObserveOnIO) {
-        shuoApi.searchArticle(query,limit,offset)
+    public void searchArticle(@NonNull Observer observer, @NonNull String query, @NonNull int limit, @NonNull int offset, boolean isObserveOnIO) {
+        shuoApi.searchArticle(query, limit, offset)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

@@ -46,7 +46,7 @@ def post():
     now = now.replace(tzinfo=pytz.timezone('UTC'))
     print(len(boards))
     for board in boards:
-        ariticle_metas = dcard.forums("mood").get_metas(num=200, sort='popular')
+        ariticle_metas = dcard.forums("mood").get_metas(num=1000, sort='new')
         ids = [meta['id'] for meta in ariticle_metas]
         articles = dcard.posts(ids).get(comments=True)
         time.sleep(1)

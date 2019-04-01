@@ -53,7 +53,6 @@ public interface ShuoApi {
     Observable<Response<JsonArray>> getComments(@Query("articleId") String articleId);
 
 
-
     @GET("/shuo/public/getArticleData/")
     Observable<Response<JsonObject>> getArticleDataPublic(@Query("articleId") String articleId);
 
@@ -62,7 +61,7 @@ public interface ShuoApi {
 
 
     @GET("/shuo/public/searchArticle/")
-    Observable<Response<JsonArray>> searchArticle(@Query("keyWord") String keyWord,@Query("limit")int limit,@Query("offset") int offset);
+    Observable<Response<JsonArray>> searchArticle(@Query("keyWord") String keyWord, @Query("limit") int limit, @Query("offset") int offset);
 
     @GET("/shuo/public/getArticles/")
     Observable<Response<JsonArray>> getArticlesPublic(@Query("endTime") LocalDateTime endDateTime, @Query("startTime") LocalDateTime startGateTime, @Query("orderBy") String orderBy, @Query("offset") int offset, @Query("limit") int limit);

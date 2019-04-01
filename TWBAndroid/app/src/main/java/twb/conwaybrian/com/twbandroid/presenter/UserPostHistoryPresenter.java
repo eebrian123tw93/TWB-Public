@@ -7,8 +7,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-import org.threeten.bp.LocalDateTime;
-
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -18,7 +16,6 @@ import retrofit2.Response;
 import twb.conwaybrian.com.twbandroid.adatper.ArticleListRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.model.User;
-import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApi;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.UserPostHistoryView;
 
@@ -27,14 +24,15 @@ public class UserPostHistoryPresenter extends TWBPresenter {
     private UserPostHistoryView userPostHistoryView;
     private User user;
     private ArticleListRecycleViewAdapter articleListRecycleViewAdapter;
-    public UserPostHistoryPresenter(UserPostHistoryView userPostHistoryView, Bundle bundle){
-        this.userPostHistoryView=userPostHistoryView;
+
+    public UserPostHistoryPresenter(UserPostHistoryView userPostHistoryView, Bundle bundle) {
+        this.userPostHistoryView = userPostHistoryView;
         articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(context);
         userPostHistoryView.onSetArticleListRecyclerAdapter(articleListRecycleViewAdapter);
-        if(bundle==null){
+        if (bundle == null) {
             user = TWBPresenter.user;
             getUserPostHistory();
-        }else {
+        } else {
             String userId = bundle.getString(USER_ID, TWBPresenter.user.getUserId());
             if (!userId.isEmpty()) {
                 user = new User();
@@ -43,7 +41,8 @@ public class UserPostHistoryPresenter extends TWBPresenter {
             }
         }
     }
-    public void getUserPostHistory(){
+
+    public void getUserPostHistory() {
         Observer<Response<JsonArray>> observer = new Observer<Response<JsonArray>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -77,10 +76,10 @@ public class UserPostHistoryPresenter extends TWBPresenter {
 
             }
         };
-        ShuoApiService.getInstance().getUserPostHistory(observer,user,false);
+        ShuoApiService.getInstance().getUserPostHistory(observer, user, false);
     }
 
-    public void refresh(){
+    public void refresh() {
         articleListRecycleViewAdapter.clear();
     }
 }

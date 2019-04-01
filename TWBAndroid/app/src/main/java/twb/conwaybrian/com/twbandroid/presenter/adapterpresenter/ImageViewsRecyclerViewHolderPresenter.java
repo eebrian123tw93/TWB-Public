@@ -20,14 +20,17 @@ public class ImageViewsRecyclerViewHolderPresenter extends TWBPresenter {
     private ShowImageViewsFragmentListener showImageViewsFragmentListener;
     private ItemChangeListener itemChangeListener;
     private List<String> images;
+
     public ImageViewsRecyclerViewHolderPresenter(Type type, ItemChangeListener listener) {
         this(type);
         this.itemChangeListener = listener;
     }
+
     public ImageViewsRecyclerViewHolderPresenter(Type type, ShowImageViewsFragmentListener listener) {
         this(type);
         this.showImageViewsFragmentListener = listener;
     }
+
     public ImageViewsRecyclerViewHolderPresenter(Type type) {
 
         this.type = type;

@@ -11,11 +11,13 @@ public class User {
     private String userId;
     private String password;
     private String email;
+
     public User(String userId, String password, String email) {
         setUserId(userId);
         setPassword(password);
         setEmail(email);
     }
+
     public User() {
     }
 
