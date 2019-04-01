@@ -19,7 +19,8 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
         <activity android:name=".navigation.activity.UserPostHistoryActivity"></activity>
-        <activity android:name=".navigation.NavigationActivity">
+        <activity android:name=".navigation.NavigationActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
