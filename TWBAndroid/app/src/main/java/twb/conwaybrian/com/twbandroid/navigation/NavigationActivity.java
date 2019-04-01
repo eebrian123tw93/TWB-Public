@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import twb.conwaybrian.com.twbandroid.R;
+import twb.conwaybrian.com.twbandroid.navigation.fragment.UserPostHistoryFragment;
 import twb.conwaybrian.com.twbandroid.presenter.NavigationPresenter;
 import twb.conwaybrian.com.twbandroid.view.NavigationView;
 
@@ -70,6 +71,7 @@ public class NavigationActivity extends AppCompatActivity implements BottomNavig
                     break;
                 case R.id.search:
                     fragment = new SearchFragment();
+//                        fragment=UserPostHistoryFragment.newInstance("he2llp5");
                     break;
                 case R.id.home:
                     fragment = new HomeFragment();
