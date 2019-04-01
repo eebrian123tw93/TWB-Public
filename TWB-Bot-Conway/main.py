@@ -47,5 +47,5 @@ def generate_comments(amount):
 
 
 # generate_articles(1500)
-register_multiple_users(10000)
+register_multiple_users(100)
 # generate_comments(1660)
