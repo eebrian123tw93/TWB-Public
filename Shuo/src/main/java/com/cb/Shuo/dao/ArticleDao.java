@@ -37,6 +37,10 @@ public interface ArticleDao extends JpaRepository<ArticleModel, Long> {
 
   @Query(
       nativeQuery = true,
-      value = "select * from articles where title like :keyWord or content like :keyWord")
-  List<ArticleModel> searchArticle(@Param("keyWord") String keyWord);
+      value =
+          "select * from articles where title like :keyWord or content like :keyWord order by  points desc  limit :limitNum offset :offsetNum")
+  List<ArticleModel> searchArticle(
+      @Param("keyWord") String keyWord,
+      @Param("limitNum") int limitNum,
+      @Param("offsetNum") int offsetNum);
 }

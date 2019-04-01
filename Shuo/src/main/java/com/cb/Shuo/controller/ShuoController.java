@@ -177,8 +177,12 @@ public class ShuoController {
   }
 
   @RequestMapping(value = "/public/searchArticle", method = RequestMethod.GET)
-  public List<ArticleJson> searchArticle(@RequestParam(name = "keyWord") String keyWord) {
-    return articleGetService.searchArticles(keyWord);
+  public List<ArticleJson> searchArticle(
+      @RequestParam(name = "keyWord") String keyWord,
+      @RequestParam(name = "limit", required = false, defaultValue = "1000") Integer limitNum,
+      @RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) {
+    log.info("search keyword " + keyWord);
+    return articleGetService.searchArticles(keyWord, limitNum, offset);
   }
 
   @RequestMapping(value = "/public/getUserPostHistory", method = RequestMethod.GET)

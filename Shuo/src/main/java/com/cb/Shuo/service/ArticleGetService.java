@@ -111,8 +111,9 @@ public class ArticleGetService {
     return convertModelToJson(articleDao.getArticleModelsByUserIdOrderByCreateTimeDesc(userId));
   }
 
-  public List<ArticleJson> searchArticles(String keyWord) {
-    return convertModelToJson(articleDao.searchArticle("%" + keyWord + "%"));
+  public List<ArticleJson> searchArticles(String keyWord, int limit, int offset) {
+    log.info("search keyword " + keyWord);
+    return convertModelToJson(articleDao.searchArticle("%" + keyWord + "%", limit, offset));
   }
 
   private List<ArticleJson> convertModelToJson(List<ArticleModel> articleModelList) {
