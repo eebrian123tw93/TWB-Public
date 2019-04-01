@@ -52,6 +52,13 @@
                 android:textAlignment="viewStart"
                 android:textSize="30sp" />
 
+            <TextView
+                android:id="@+id/data_time_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textAlignment="textEnd" />
+
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
