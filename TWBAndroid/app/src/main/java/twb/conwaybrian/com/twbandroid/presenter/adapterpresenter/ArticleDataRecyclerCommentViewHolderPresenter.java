@@ -1,5 +1,10 @@
 package twb.conwaybrian.com.twbandroid.presenter.adapterpresenter;
 
+
+
+import android.text.format.DateFormat;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +14,7 @@ import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
 import twb.conwaybrian.com.twbandroid.view.adapterview.ArticleDataRecyclerCommentViewHolderView;
 
 public class ArticleDataRecyclerCommentViewHolderPresenter extends TWBPresenter {
+    private static final String dateFormat="yyyy-MM-dd HH:mm:ss";
     private List<Comment>comments;
     public ArticleDataRecyclerCommentViewHolderPresenter(){
         this.comments=new ArrayList<>();
@@ -18,6 +24,7 @@ public class ArticleDataRecyclerCommentViewHolderPresenter extends TWBPresenter 
          Comment comment=comments.get(position-1);
          holderView.onSetUserId(comment.getUserId());
          holderView.onSetComment(comment.getComment());
+         holderView.onSetDateTime(DateFormat.format(dateFormat, comment.getCommentTime()).toString());
     }
     public int getItemCount(){
         return comments.size();

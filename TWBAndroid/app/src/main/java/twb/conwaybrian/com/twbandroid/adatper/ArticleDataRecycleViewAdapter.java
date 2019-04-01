@@ -42,12 +42,14 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
 
         private TextView userIdTextView;
         private TextView commentTextView;
+        private TextView dateTimeTexView;
 
 
         public CommentViewHolder(View v) {
             super(v);
             userIdTextView=v.findViewById(R.id.userId_textView);
             commentTextView=v.findViewById(R.id.comment_textView);
+            dateTimeTexView=v.findViewById(R.id.datatime_textView);
         }
 
         @Override
@@ -58,6 +60,11 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
         @Override
         public void onSetComment(String comment) {
             commentTextView.setText(comment);
+        }
+
+        @Override
+        public void onSetDateTime(String dateTime) {
+            dateTimeTexView.setText(dateTime);
         }
     }
 
