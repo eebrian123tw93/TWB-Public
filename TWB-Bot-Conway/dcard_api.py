@@ -66,11 +66,11 @@ def post():
     print(end_time-start_time)
 
 if __name__ == '__main__':
-    post()
-    # schedule.every(1).minutes.do(post)
-    # while True:
-    #     schedule.run_pending()
-    #     time.sleep(1)
+    # post()
+    schedule.every(10).minutes.do(post)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 
 
