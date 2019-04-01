@@ -25,12 +25,15 @@ import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.model.ArticleData;
 import twb.conwaybrian.com.twbandroid.model.Comment;
 import twb.conwaybrian.com.twbandroid.model.Like;
+import twb.conwaybrian.com.twbandroid.presenter.adapter.ArticleDataRecyclerArticleViewHolderViewPresenter;
 import twb.conwaybrian.com.twbandroid.presenter.adapter.ImageViewsRecyclerViewHolderPresenter;
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.ArticleView;
 
-public class ArticlePresenter extends TWBPresenter implements ImageViewsRecyclerViewHolderPresenter.ShowImageViewsFragmentListener {
+public class ArticlePresenter extends TWBPresenter implements ImageViewsRecyclerViewHolderPresenter.ShowImageViewsFragmentListener,ArticleDataRecycleViewAdapter.ArticleViewHolder.SendReactionListener,ArticleDataRecyclerArticleViewHolderViewPresenter.ScrollListener {
+
+
 
     private static final String TAG="ArticlePresenter";
     public static final String ARTICLE_ID="article_id";
@@ -69,22 +72,23 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
 
 
         imageViewsRecycleViewAdapter=new ImageViewsRecycleViewAdapter(context,ImageViewsRecyclerViewHolderPresenter.Type.VIEW,this);
-        articleDataRecycleViewAdapter =new ArticleDataRecycleViewAdapter(context,this);
+        articleDataRecycleViewAdapter =new ArticleDataRecycleViewAdapter(this,this);
 
         imageViewsRecycleViewAdapter.addImages(article.getImages());
         articleView.onSetArticleDataRecyclerViewAdapter(articleDataRecycleViewAdapter);
+        articleDataRecycleViewAdapter.setArticle(article);
+        articleDataRecycleViewAdapter.setAdapter(imageViewsRecycleViewAdapter);
 
 
-//        if(article.getPoints()>0){
+
+
+        if(article.getPoints()>=0){
             defaultType=Reaction.Type.LIKE;
-//
-//        }else if(article.getPoints()<0){
-//            defaultType=Reaction.Type.DISLIKE;
-//        }else {
-//            defaultType=Reaction.Type.NO_LIKE;
-//
-//        }
-//        getComments();
+        }else if(article.getPoints()<0){
+            defaultType=Reaction.Type.DISLIKE;
+        }
+        articleDataRecycleViewAdapter.setType(defaultType);
+
 
         getArticleData(true,0);
         viewed=true;
@@ -92,13 +96,13 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
     }
     public  void setArticleDataRecyclerViewScroll(final int position){
 
-//    if(moveToTop) {
+
         new Thread() {
             @Override
             public void run() {
                 super.run();
                 try {
-//                        Thread.sleep(1000);
+
                     articleView.onSetArticleDataRecyclerViewScroll(position);
 
                 } catch (Exception e) {
@@ -107,7 +111,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
 
             }
         }.start();
-//    }
+
 
 
     }
@@ -189,6 +193,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
                     article.setCommentCount(articleData.getCommentCount());
                     article.setPoints(articleData.getPoints());
                     article.setViews(articleData.getViews());
+                    articleDataRecycleViewAdapter.setType(defaultType);
                     articleDataRecycleViewAdapter.notifyItemChanged(0);
                     articleView.onFinishRefreshOrLoad();
                 } else {
@@ -249,6 +254,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
 //                    article_view
 //                        articleView.onSendCommentResult(true);
                             articleView.onSetMessage("reaction reply success", FancyToast.SUCCESS);
+                            getArticleData(false);
                         } else {
 //                        articleView.onSendCommentResult(false);
                             articleView.onSetMessage("reaction reply failed", FancyToast.ERROR);
@@ -374,5 +380,10 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
                 viewed = false;
             }
         }
+    }
+
+    @Override
+    public void onSetArticleDataRecyclerViewScroll(int position) {
+        setArticleDataRecyclerViewScroll(position);
     }
 }

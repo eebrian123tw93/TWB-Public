@@ -13,8 +13,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.R;
+import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.model.Comment;
 import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
+import twb.conwaybrian.com.twbandroid.presenter.adapter.ArticleDataRecyclerArticleViewHolderViewPresenter;
 import twb.conwaybrian.com.twbandroid.presenter.adapter.ArticleDataRecyclerCommentViewHolderPresenter;
 import twb.conwaybrian.com.twbandroid.reactbutton.ReactButton;
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
@@ -28,15 +30,15 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
 
 
 
-    private Context context;
-    private boolean move;
-    private int position;
 
-    private ArticlePresenter articlePresenter;
+    private ArticleViewHolder.SendReactionListener sendReactionListener;
+
+
     private static int ARTICLE_VIEW=0;
     private static int COMMENT_VIEW=1;
 
     private ArticleDataRecyclerCommentViewHolderPresenter articleDataRecyclerCommentViewHolderPresenter;
+    private ArticleDataRecyclerArticleViewHolderViewPresenter articleDataRecyclerArticleViewHolderViewPresenter;
 
     public class CommentViewHolder extends RecyclerView.ViewHolder implements ArticleDataRecyclerCommentViewHolderView {
 
@@ -60,7 +62,12 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
             commentTextView.setText(comment);
         }
     }
-    public class ArticleViewHolder extends RecyclerView.ViewHolder implements ArticleDataRecyclerArticleViewHolderView {
+
+
+    public static class ArticleViewHolder extends RecyclerView.ViewHolder implements ArticleDataRecyclerArticleViewHolderView {
+        public interface SendReactionListener{
+            void sendReaction(Reaction.Type type);
+        }
 
         private TextView titleTextView;
         private TextView contentTextView;
@@ -70,10 +77,11 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
         private RecyclerView imageViewsRecyclerView;
 
         private ReactButton pointsReactButton;
+        private SendReactionListener sendReactionListener;
 
 
 
-        public ArticleViewHolder(View v) {
+        public ArticleViewHolder(View v,SendReactionListener sendReactionListener) {
             super(v);
             titleTextView=v.findViewById(R.id.title_textView);
             contentTextView=v.findViewById(R.id.content_textView);
@@ -85,25 +93,100 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
             final LinearLayoutManager imageViewRecyclerLayoutManager = new LinearLayoutManager(getContext());
             imageViewRecyclerLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             imageViewsRecyclerView.setLayoutManager(imageViewRecyclerLayoutManager);
+            this.sendReactionListener=sendReactionListener;
 
         }
+
+        @Override
+        public void onSetTitle(String title) {
+            titleTextView.setText(title);
+        }
+
+
+        @Override
+        public void onSetContent(String content) {
+            contentTextView.setText(content);
+        }
+
+        @Override
+        public void onSetPoints(String points) {
+            pointsTextView.setText(points);
+        }
+
+        @Override
+        public void onSetViews(String views) {
+            viewsTextView.setText(views);
+        }
+
+
+
+        @Override
+        public void onSetCommentCount(String commentCount) {
+            commentCountTextView.setText(commentCount);
+        }
+
+        @Override
+        public void onSetImageViewsRecyclerViewAdapter(RecyclerView.Adapter adapter) {
+            imageViewsRecyclerView.setAdapter(adapter);
+        }
+
+        @Override
+        public void onSetCurrentReaction(Reaction reaction) {
+            pointsReactButton.setCurrentReaction(reaction);
+        }
+
+        @Override
+        public void onSetReactClickListener() {
+            pointsReactButton.setReactClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(sendReactionListener!=null)sendReactionListener.sendReaction(pointsReactButton.getCurrentReaction().getType());
+                }
+            });
+        }
+
+        @Override
+        public void onSetReactDismissListener() {
+            pointsReactButton.setReactDismissListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if(sendReactionListener!=null)sendReactionListener.sendReaction(pointsReactButton.getCurrentReaction().getType());
+                    return false;
+                }
+            });
+        }
+
+
     }
 
-    public ArticleDataRecycleViewAdapter(Context context, ArticlePresenter articlePresenter) {
-        this.context=context;
+    public ArticleDataRecycleViewAdapter(ArticleViewHolder.SendReactionListener sendReactionListener, ArticleDataRecyclerArticleViewHolderViewPresenter.ScrollListener scrollListener) {
+        this.sendReactionListener=sendReactionListener;
 
-        this.articlePresenter=articlePresenter;
+
         this.articleDataRecyclerCommentViewHolderPresenter=new ArticleDataRecyclerCommentViewHolderPresenter();
-
+        this.articleDataRecyclerArticleViewHolderViewPresenter=new ArticleDataRecyclerArticleViewHolderViewPresenter(scrollListener);
     }
 
     public void setPosition(int position) {
-        this.position = position;
+        articleDataRecyclerArticleViewHolderViewPresenter.setPosition(position);
+    }
+    public void setArticle(Article article) {
+        articleDataRecyclerArticleViewHolderViewPresenter.setArticle(article);
     }
 
-    public void setMove(boolean move) {
-        this.move = move;
+    public void setMove(boolean move){
+        articleDataRecyclerArticleViewHolderViewPresenter.setMove(move);
     }
+
+    public void setAdapter(RecyclerView.Adapter adapter){
+        articleDataRecyclerArticleViewHolderViewPresenter.setAdapter(adapter);
+    }
+
+    public void setType(Reaction.Type type){
+        articleDataRecyclerArticleViewHolderViewPresenter.setCurrentType(type);
+    }
+
+
     @Override
     public int getItemViewType(int position) {
         if(position==0)return ARTICLE_VIEW;
@@ -116,7 +199,7 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
         if(viewType==ARTICLE_VIEW){
             v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_article_data, parent, false);
-            RecyclerView.ViewHolder vh = new ArticleViewHolder(v);
+            RecyclerView.ViewHolder vh = new ArticleViewHolder(v,sendReactionListener);
             return vh;
         }else {
              v = LayoutInflater.from(parent.getContext())
@@ -133,68 +216,63 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
         if(viewHolder instanceof CommentViewHolder){
            articleDataRecyclerCommentViewHolderPresenter.bindData((CommentViewHolder) viewHolder,position);
         }else if(viewHolder instanceof ArticleViewHolder){
-            final ArticleViewHolder holder=(ArticleViewHolder)viewHolder;
-            holder.pointsReactButton.setReactClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //Your Code
-                    System.out.println(holder.pointsReactButton.getCurrentReaction().getType().toString());
-                    articlePresenter.sendReaction(holder.pointsReactButton.getCurrentReaction().getType());
-
-                }
-            });
-            holder.pointsReactButton.setReactDismissListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    //Your Code
-                    System.out.println(holder.pointsReactButton.getCurrentReaction().getType().toString());
-                    articlePresenter.sendReaction(holder.pointsReactButton.getCurrentReaction().getType());
-                    return false;
-                }
-            });
-
-
-
-            holder.titleTextView.setText(articlePresenter.article.getTitle());
-            holder.contentTextView.setText(articlePresenter.article.getContent());
-            holder.pointsTextView.setText(String.valueOf(articlePresenter.article.getPoints()));
-            holder.viewsTextView.setText(String.valueOf(articlePresenter.article.getViews()));
-            holder.commentCountTextView.setText(String.valueOf(articlePresenter.article.getCommentCount()));
-            holder.imageViewsRecyclerView.setAdapter(articlePresenter.imageViewsRecycleViewAdapter);
-
-
-            int res=0;
-            Reaction.Type type=articlePresenter.defaultType;
-
-            switch (type){
-                case LIKE:
-                    res=R.drawable.like;
-                    break;
-                case DISLIKE:
-                    res=R.drawable.dislike;
-                    break;
-                case LIKE_COLOR:
-                    res=R.drawable.like_color;
-                    break;
-                case DISLIKE_COLOR:
-                    res=R.drawable.dislike_color;
-                    break;
-                default:
-                    res=R.drawable.like;
-                    break;
-            }
-//            TWBReactions.defaultReact.setReactIconId(res);
-//            TWBReactions.defaultReact.setType(type);
-            Reaction currentReaction=new Reaction(type,res);
-            holder.pointsReactButton.setCurrentReaction(currentReaction);
-            if(move){
-                articlePresenter.setArticleDataRecyclerViewScroll(position);
-            }
-
-
-
-
-//            holder.pointsReactButton.setDefaultReaction(TWBReactions.defaultReact);
+            articleDataRecyclerArticleViewHolderViewPresenter.bindData((ArticleViewHolder)viewHolder);
+//            final ArticleViewHolder holder=(ArticleViewHolder)viewHolder;
+//            holder.pointsReactButton.setReactClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    //Your Code
+//                    System.out.println(holder.pointsReactButton.getCurrentReaction().getType().toString());
+//                    articlePresenter.sendReaction(holder.pointsReactButton.getCurrentReaction().getType());
+//
+//                }
+//            });
+//            holder.pointsReactButton.setReactDismissListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View view) {
+//                    //Your Code
+//                    System.out.println(holder.pointsReactButton.getCurrentReaction().getType().toString());
+//                    articlePresenter.sendReaction(holder.pointsReactButton.getCurrentReaction().getType());
+//                    return false;
+//                }
+//            });
+//
+//
+//
+//            holder.titleTextView.setText(articlePresenter.article.getTitle());
+//            holder.contentTextView.setText(articlePresenter.article.getContent());
+//            holder.pointsTextView.setText(String.valueOf(articlePresenter.article.getPoints()));
+//            holder.viewsTextView.setText(String.valueOf(articlePresenter.article.getViews()));
+//            holder.commentCountTextView.setText(String.valueOf(articlePresenter.article.getCommentCount()));
+//            holder.imageViewsRecyclerView.setAdapter(articlePresenter.imageViewsRecycleViewAdapter);
+//
+//
+//            int res=0;
+//            Reaction.Type type=articlePresenter.defaultType;
+//
+//            switch (type){
+//                case LIKE:
+//                    res=R.drawable.like;
+//                    break;
+//                case DISLIKE:
+//                    res=R.drawable.dislike;
+//                    break;
+//                case LIKE_COLOR:
+//                    res=R.drawable.like_color;
+//                    break;
+//                case DISLIKE_COLOR:
+//                    res=R.drawable.dislike_color;
+//                    break;
+//                default:
+//                    res=R.drawable.like;
+//                    break;
+//            }
+//
+//            Reaction currentReaction=new Reaction(type,res);
+//            holder.pointsReactButton.setCurrentReaction(currentReaction);
+//            if(move){
+//                articlePresenter.setArticleDataRecyclerViewScroll(position);
+//            }
 
         }
     }
