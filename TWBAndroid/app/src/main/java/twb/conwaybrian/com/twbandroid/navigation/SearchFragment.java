@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import twb.conwaybrian.com.twbandroid.R;
@@ -18,12 +20,27 @@ import twb.conwaybrian.com.twbandroid.view.SearchView;
 
 public class SearchFragment extends Fragment implements SearchView {
     private SearchPresenter searchPresenter;
-    android.widget.SearchView searchView;
-    RecyclerView searchRecyclerView;
+    private android.widget.SearchView searchView;
+    private RecyclerView searchRecyclerView;
+    private TwinklingRefreshLayout refreshLayout;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+        refreshLayout=view.findViewById(R.id.refresh_layout);
+        refreshLayout.setAutoLoadMore(true);
+        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                super.onLoadMore(refreshLayout);
+                searchPresenter.loadMore();
+            }
+        });
+
+
 
         searchView=view.findViewById(R.id.searchView);
         searchView.setIconified(false);
@@ -40,7 +57,6 @@ public class SearchFragment extends Fragment implements SearchView {
             public boolean onQueryTextChange(String newText) {
                 searchPresenter.clear();
                 if(newText.length() >= 3) {
-
                     searchPresenter.search(newText);
                 }
                 return false;
@@ -66,6 +82,12 @@ public class SearchFragment extends Fragment implements SearchView {
     @Override
     public void onSetArticleListRecyclerAdapter(RecyclerView.Adapter adapter) {
         searchRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onFinishRefreshOrLoad() {
+        refreshLayout.finishRefreshing();
+        refreshLayout.finishLoadmore();
     }
 
 }
