@@ -10,14 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.adatper.ScalingImageViewsRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
 import twb.conwaybrian.com.twbandroid.view.adapter.ScalingImageViewsRecyclerViewHolderView;
 
-public class ScalingImageViewsRecyclerViewPresenter {
+public class ScalingImageViewsRecyclerViewPresenter extends TWBPresenter {
     private List<String> images;
-    private Context context;
-    public ScalingImageViewsRecyclerViewPresenter(Context context){
+
+    public ScalingImageViewsRecyclerViewPresenter(){
         images=new ArrayList<>();
-        this.context=context;
+
     }
     public void bindDate(ScalingImageViewsRecycleViewAdapter.ViewHolder viewHolder,int position){
         if(viewHolder instanceof ScalingImageViewsRecyclerViewHolderView){

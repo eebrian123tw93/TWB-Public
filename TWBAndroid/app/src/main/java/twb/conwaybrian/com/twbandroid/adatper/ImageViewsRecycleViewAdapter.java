@@ -77,12 +77,12 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
 
     public ImageViewsRecycleViewAdapter(Context context,ImageViewsRecyclerViewHolderPresenter.Type type) {
         this.context=context;
-        imageViewsRecyclerViewHolderPresenter=new ImageViewsRecyclerViewHolderPresenter(context,type,this);
+        imageViewsRecyclerViewHolderPresenter=new ImageViewsRecyclerViewHolderPresenter(type,this);
 
     }
     public ImageViewsRecycleViewAdapter(Context context, ImageViewsRecyclerViewHolderPresenter.Type type, ImageViewsRecyclerViewHolderPresenter.ShowImageViewsFragmentListener listener) {
         this.context=context;
-        imageViewsRecyclerViewHolderPresenter=new ImageViewsRecyclerViewHolderPresenter(context,type,listener);
+        imageViewsRecyclerViewHolderPresenter=new ImageViewsRecyclerViewHolderPresenter(type,listener);
 
     }
 

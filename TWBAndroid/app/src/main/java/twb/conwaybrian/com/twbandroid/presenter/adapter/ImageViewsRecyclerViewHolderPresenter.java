@@ -11,9 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
 import twb.conwaybrian.com.twbandroid.view.adapter.ImageViewsRecyclerViewHolderView;
 
-public class ImageViewsRecyclerViewHolderPresenter {
+public class ImageViewsRecyclerViewHolderPresenter extends TWBPresenter {
     public enum Type{
         VIEW,EDIT
     }
@@ -31,7 +32,7 @@ public class ImageViewsRecyclerViewHolderPresenter {
     private State state;
     private ShowImageViewsFragmentListener showImageViewsFragmentListener;
     private ItemChangeListener itemChangeListener;
-    private Context context;
+
 
     public List<String> getImages() {
         return images;
@@ -39,17 +40,17 @@ public class ImageViewsRecyclerViewHolderPresenter {
 
     private List<String>images;
 
-    public ImageViewsRecyclerViewHolderPresenter(Context context,Type type,ItemChangeListener listener){
-        this(context,type);
+    public ImageViewsRecyclerViewHolderPresenter(Type type,ItemChangeListener listener){
+        this(type);
         this.itemChangeListener =listener;
     }
-    public ImageViewsRecyclerViewHolderPresenter(Context context,Type type,ShowImageViewsFragmentListener listener){
-        this(context,type);
+    public ImageViewsRecyclerViewHolderPresenter(Type type,ShowImageViewsFragmentListener listener){
+        this(type);
         this.showImageViewsFragmentListener =listener;
     }
 
-    public ImageViewsRecyclerViewHolderPresenter(Context context,Type type){
-        this.context=context;
+    public ImageViewsRecyclerViewHolderPresenter(Type type){
+
         this.type=type;
         state=State.NOT_UPLOAD;
         images=new ArrayList<>();

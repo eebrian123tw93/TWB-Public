@@ -12,17 +12,17 @@ import twb.conwaybrian.com.twbandroid.adatper.ArticleListRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.navigation.activity.ArticleActivity;
 import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
+import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
 import twb.conwaybrian.com.twbandroid.view.adapter.ArticleListRecycleViewHolderView;
 
 
 
-public  class ArticleListRecyclerViewHolderPresenter{
+public  class ArticleListRecyclerViewHolderPresenter extends TWBPresenter {
 
     private List<Article> articles;
-    private Context context;
-    public ArticleListRecyclerViewHolderPresenter(Context context){
+
+    public ArticleListRecyclerViewHolderPresenter(){
         articles=new ArrayList<>();
-        this.context=context;
     }
     public void bindData(ArticleListRecycleViewAdapter.ViewHolder viewHolder, int position){
         if(viewHolder instanceof ArticleListRecycleViewHolderView) {

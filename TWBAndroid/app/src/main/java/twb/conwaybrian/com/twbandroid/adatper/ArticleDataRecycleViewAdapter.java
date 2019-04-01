@@ -51,7 +51,7 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
             commentTextView=v.findViewById(R.id.comment_textView);
         }
     }
-    public class ArticleDataViewHolder extends RecyclerView.ViewHolder {
+    public class ArticleViewHolder extends RecyclerView.ViewHolder {
 
         private TextView titleTextView;
         private TextView contentTextView;
@@ -64,7 +64,7 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
 
 
 
-        public ArticleDataViewHolder(View v) {
+        public ArticleViewHolder(View v) {
             super(v);
             titleTextView=v.findViewById(R.id.title_textView);
             contentTextView=v.findViewById(R.id.content_textView);
@@ -102,7 +102,7 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
         if(viewType==ARTICLE_VIEW){
             v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_article_data, parent, false);
-            RecyclerView.ViewHolder vh = new ArticleDataViewHolder(v);
+            RecyclerView.ViewHolder vh = new ArticleViewHolder(v);
             return vh;
         }else {
              v = LayoutInflater.from(parent.getContext())
@@ -121,8 +121,8 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
             final Comment comment=comments.get(position-1);
             holder.userIdTextView.setText(comment.getUserId());
             holder.commentTextView.setText(comment.getComment());
-        }else if(viewHolder instanceof ArticleDataViewHolder){
-            final ArticleDataViewHolder holder=(ArticleDataViewHolder)viewHolder;
+        }else if(viewHolder instanceof ArticleViewHolder){
+            final ArticleViewHolder holder=(ArticleViewHolder)viewHolder;
             holder.pointsReactButton.setReactClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -187,9 +187,6 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
 
         }
     }
-
-
-
 
     public void  addComments(List<Comment>comments){
         for(int i=this.comments.size();i<comments.size();i++){

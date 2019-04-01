@@ -105,7 +105,7 @@ public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleL
 
     public ArticleListRecycleViewAdapter(Context context) {
         this.context=context;
-        this.viewHolderPresenter=new ArticleListRecyclerViewHolderPresenter(context);
+        this.viewHolderPresenter=new ArticleListRecyclerViewHolderPresenter();
     }
 
     @Override
