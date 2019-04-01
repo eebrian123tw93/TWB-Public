@@ -61,8 +61,8 @@ public interface ShuoApi {
     Observable<Response<JsonObject>> getArticleDataPrivate(@Header("Authorization") String authKey, @Query("articleId") String articleId);
 
 
-    @GET("/shuo/public/search/")
-    Observable<Response<JsonArray>> search(@Query("query") String query);
+    @GET("/shuo/public/searchArticle/")
+    Observable<Response<JsonArray>> searchArticle(@Query("keyWord") String keyWord);
 
     @GET("/shuo/public/getArticles/")
     Observable<Response<JsonArray>> getArticlesPublic(@Query("endTime") LocalDateTime endDateTime, @Query("startTime") LocalDateTime startGateTime, @Query("orderBy") String orderBy, @Query("offset") int offset, @Query("limit") int limit);

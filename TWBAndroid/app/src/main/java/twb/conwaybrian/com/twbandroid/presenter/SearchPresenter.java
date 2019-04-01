@@ -33,17 +33,22 @@ public class SearchPresenter extends TWBPresenter {
 
             @Override
             public void onNext(Response<JsonArray> response) {
-                if (response.isSuccessful()) {
-                    JsonArray jsonArray = response.body();
-                    System.out.println(jsonArray);
-                    Type listType = new TypeToken<List<Article>>() {
-                    }.getType();
-                    List<Article> articleList = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().fromJson(jsonArray, listType);
-                    articleListRecycleViewAdapter.addArticles(articleList);
+                try {
+                    if (response.isSuccessful()) {
+                        JsonArray jsonArray = response.body();
+                        System.out.println(jsonArray);
+                        Type listType = new TypeToken<List<Article>>() {
+                        }.getType();
+                        List<Article> articleList = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().fromJson(jsonArray, listType);
+                        articleListRecycleViewAdapter.addArticles(articleList);
 
-                } else {
-                    searchView.onSetMessage("loading failed", FancyToast.ERROR);
+                    } else {
+                        searchView.onSetMessage("loading failed", FancyToast.ERROR);
+                    }
+                }catch (Exception e){
+                    onError(e);
                 }
+
             }
 
             @Override
@@ -57,7 +62,7 @@ public class SearchPresenter extends TWBPresenter {
 
             }
         };
-        ShuoApiService.getInstance().getUserPostHistory(observer,user,false);
+        ShuoApiService.getInstance().searchArticle(observer,query,false);
 
     }
 
