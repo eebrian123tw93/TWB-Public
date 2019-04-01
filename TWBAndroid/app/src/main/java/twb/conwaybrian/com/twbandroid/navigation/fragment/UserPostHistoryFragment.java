@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import twb.conwaybrian.com.twbandroid.R;
@@ -20,7 +22,7 @@ import twb.conwaybrian.com.twbandroid.view.UserPostHistoryView;
 public class UserPostHistoryFragment extends Fragment implements UserPostHistoryView {
     private UserPostHistoryPresenter userPostHistoryPresenter;
     private RecyclerView articleListRecyclerView;
-
+    private TwinklingRefreshLayout refreshLayout;
 
     public static UserPostHistoryFragment newInstance(String userId) {
         UserPostHistoryFragment fragment = new UserPostHistoryFragment();
@@ -37,6 +39,28 @@ public class UserPostHistoryFragment extends Fragment implements UserPostHistory
 
 
         articleListRecyclerView = view.findViewById(R.id.article_list_recycleView);
+        refreshLayout=view.findViewById(R.id.refresh_layout);
+
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                super.onRefresh(refreshLayout);
+                userPostHistoryPresenter.refresh();
+                userPostHistoryPresenter.getUserPostHistory();
+
+
+            }
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                super.onLoadMore(refreshLayout);
+                userPostHistoryPresenter.getUserPostHistory();
+            }
+        });
+
+
+
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         articleListRecyclerView.setLayoutManager(layoutManager);
@@ -56,5 +80,11 @@ public class UserPostHistoryFragment extends Fragment implements UserPostHistory
     @Override
     public void onSetArticleListRecyclerAdapter(RecyclerView.Adapter adapter) {
         articleListRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onFinishRefreshOrLoad() {
+        refreshLayout.finishRefreshing();
+        refreshLayout.finishLoadmore();
     }
 }

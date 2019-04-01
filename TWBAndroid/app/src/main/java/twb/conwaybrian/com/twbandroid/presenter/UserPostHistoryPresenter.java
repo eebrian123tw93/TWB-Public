@@ -52,6 +52,7 @@ public class UserPostHistoryPresenter extends TWBPresenter {
 
             @Override
             public void onNext(Response<JsonArray> response) {
+                userPostHistoryView.onFinishRefreshOrLoad();
                 if (response.isSuccessful()) {
                     JsonArray jsonArray = response.body();
                     System.out.println(jsonArray);
@@ -77,5 +78,9 @@ public class UserPostHistoryPresenter extends TWBPresenter {
             }
         };
         ShuoApiService.getInstance().getUserPostHistory(observer,user,false);
+    }
+
+    public void refresh(){
+        articleListRecycleViewAdapter.clear();
     }
 }
