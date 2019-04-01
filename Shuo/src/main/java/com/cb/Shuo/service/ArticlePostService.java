@@ -24,7 +24,7 @@ public class ArticlePostService {
     this.articleDao = articleDao;
   }
 
-  public void postArticle(ArticleJson articleJson, String userId) {
+  public String postArticle(ArticleJson articleJson, String userId) {
     ArticleModel articleModel = new ArticleModel();
     articleModel.setArticleId(IdGenerator.generateArticleId());
     articleModel.setCreateTime(LocalDateTime.now().withNano(0));
@@ -43,9 +43,10 @@ public class ArticlePostService {
 
     logger.info("postArticle " + articleModel.getArticleId());
     articleDao.save(articleModel);
+    return articleModel.getArticleId();
   }
 
-  public void viewArticle(String articleId){
+  public void viewArticle(String articleId) {
     ArticleModel articleModel = articleDao.findArticleModelByArticleId(articleId);
     articleModel.setViews(articleModel.getViews() + 1);
     articleDao.save(articleModel);
