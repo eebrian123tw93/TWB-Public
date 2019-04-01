@@ -1,7 +1,6 @@
 package twb.conwaybrian.com.twbandroid.adatper;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,15 +12,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.model.Article;
-import twb.conwaybrian.com.twbandroid.navigation.activity.ArticleActivity;
-import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
-import twb.conwaybrian.com.twbandroid.presenter.adapter.ArticleListRecyclerViewHolderPresenter;
-import twb.conwaybrian.com.twbandroid.view.adapter.ArticleListRecycleViewHolderView;
+import twb.conwaybrian.com.twbandroid.presenter.adapterpresenter.ArticleListRecyclerViewHolderPresenter;
+import twb.conwaybrian.com.twbandroid.view.adapterview.ArticleListRecycleViewHolderView;
 
 public class ArticleListRecycleViewAdapter extends RecyclerView.Adapter<ArticleListRecycleViewAdapter.ViewHolder> {
 

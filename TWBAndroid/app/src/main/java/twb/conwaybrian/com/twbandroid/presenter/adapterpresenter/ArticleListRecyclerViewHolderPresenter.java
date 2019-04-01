@@ -1,6 +1,5 @@
-package twb.conwaybrian.com.twbandroid.presenter.adapter;
+package twb.conwaybrian.com.twbandroid.presenter.adapterpresenter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
@@ -13,7 +12,7 @@ import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.navigation.activity.ArticleActivity;
 import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
 import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
-import twb.conwaybrian.com.twbandroid.view.adapter.ArticleListRecycleViewHolderView;
+import twb.conwaybrian.com.twbandroid.view.adapterview.ArticleListRecycleViewHolderView;
 
 
 

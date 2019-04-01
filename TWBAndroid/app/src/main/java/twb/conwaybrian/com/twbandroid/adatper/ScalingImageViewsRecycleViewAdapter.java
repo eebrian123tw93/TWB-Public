@@ -1,16 +1,11 @@
 package twb.conwaybrian.com.twbandroid.adatper;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.database.Cursor;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
@@ -18,10 +13,9 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.presenter.adapter.ScalingImageViewsRecyclerViewPresenter;
-import twb.conwaybrian.com.twbandroid.view.adapter.ScalingImageViewsRecyclerViewHolderView;
+import twb.conwaybrian.com.twbandroid.presenter.adapterpresenter.ScalingImageViewsRecyclerViewPresenter;
+import twb.conwaybrian.com.twbandroid.view.adapterview.ScalingImageViewsRecyclerViewHolderView;
 import uk.co.senab.photoview.PhotoView;
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class ScalingImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ScalingImageViewsRecycleViewAdapter.ViewHolder> {
 

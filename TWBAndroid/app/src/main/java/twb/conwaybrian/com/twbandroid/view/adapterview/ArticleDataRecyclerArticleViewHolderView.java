@@ -1,7 +1,6 @@
-package twb.conwaybrian.com.twbandroid.view.adapter;
+package twb.conwaybrian.com.twbandroid.view.adapterview;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 

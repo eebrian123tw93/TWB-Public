@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid.presenter.adapter;
+package twb.conwaybrian.com.twbandroid.presenter.adapterpresenter;
 
 import android.support.v7.widget.RecyclerView;
 

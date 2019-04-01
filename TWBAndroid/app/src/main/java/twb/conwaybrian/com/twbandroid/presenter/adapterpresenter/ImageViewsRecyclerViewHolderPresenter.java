@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid.presenter.adapter;
+package twb.conwaybrian.com.twbandroid.presenter.adapterpresenter;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
-import twb.conwaybrian.com.twbandroid.view.adapter.ImageViewsRecyclerViewHolderView;
+import twb.conwaybrian.com.twbandroid.view.adapterview.ImageViewsRecyclerViewHolderView;
 
 public class ImageViewsRecyclerViewHolderPresenter extends TWBPresenter {
     public enum Type{

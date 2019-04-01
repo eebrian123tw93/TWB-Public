@@ -15,7 +15,6 @@ import io.reactivex.disposables.Disposable;
 import retrofit2.Response;
 import twb.conwaybrian.com.twbandroid.adatper.ArticleListRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
-import twb.conwaybrian.com.twbandroid.presenter.adapter.ArticleListRecyclerViewHolderPresenter;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.ArticleListView;
 

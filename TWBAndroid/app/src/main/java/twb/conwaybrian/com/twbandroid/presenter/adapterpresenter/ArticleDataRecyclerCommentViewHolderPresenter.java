@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid.presenter.adapter;
+package twb.conwaybrian.com.twbandroid.presenter.adapterpresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import twb.conwaybrian.com.twbandroid.adatper.ArticleDataRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Comment;
 import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
-import twb.conwaybrian.com.twbandroid.view.adapter.ArticleDataRecyclerCommentViewHolderView;
+import twb.conwaybrian.com.twbandroid.view.adapterview.ArticleDataRecyclerCommentViewHolderView;
 
 public class ArticleDataRecyclerCommentViewHolderPresenter extends TWBPresenter {
     private List<Comment>comments;

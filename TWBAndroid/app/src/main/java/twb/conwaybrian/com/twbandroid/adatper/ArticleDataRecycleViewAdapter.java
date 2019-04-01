@@ -1,6 +1,5 @@
 package twb.conwaybrian.com.twbandroid.adatper;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,13 +14,12 @@ import java.util.List;
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.model.Comment;
-import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
-import twb.conwaybrian.com.twbandroid.presenter.adapter.ArticleDataRecyclerArticleViewHolderViewPresenter;
-import twb.conwaybrian.com.twbandroid.presenter.adapter.ArticleDataRecyclerCommentViewHolderPresenter;
+import twb.conwaybrian.com.twbandroid.presenter.adapterpresenter.ArticleDataRecyclerArticleViewHolderViewPresenter;
+import twb.conwaybrian.com.twbandroid.presenter.adapterpresenter.ArticleDataRecyclerCommentViewHolderPresenter;
 import twb.conwaybrian.com.twbandroid.reactbutton.ReactButton;
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
-import twb.conwaybrian.com.twbandroid.view.adapter.ArticleDataRecyclerArticleViewHolderView;
-import twb.conwaybrian.com.twbandroid.view.adapter.ArticleDataRecyclerCommentViewHolderView;
+import twb.conwaybrian.com.twbandroid.view.adapterview.ArticleDataRecyclerArticleViewHolderView;
+import twb.conwaybrian.com.twbandroid.view.adapterview.ArticleDataRecyclerCommentViewHolderView;
 
 import static twb.conwaybrian.com.twbandroid.TWBApplication.getContext;
 

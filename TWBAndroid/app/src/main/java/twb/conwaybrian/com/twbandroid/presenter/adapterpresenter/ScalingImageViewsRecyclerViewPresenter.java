@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid.presenter.adapter;
+package twb.conwaybrian.com.twbandroid.presenter.adapterpresenter;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -11,7 +11,7 @@ import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.adatper.ScalingImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
-import twb.conwaybrian.com.twbandroid.view.adapter.ScalingImageViewsRecyclerViewHolderView;
+import twb.conwaybrian.com.twbandroid.view.adapterview.ScalingImageViewsRecyclerViewHolderView;
 
 public class ScalingImageViewsRecyclerViewPresenter extends TWBPresenter {
     private List<String> images;

@@ -11,7 +11,6 @@ import com.google.gson.reflect.TypeToken;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,8 +24,8 @@ import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.model.ArticleData;
 import twb.conwaybrian.com.twbandroid.model.Comment;
 import twb.conwaybrian.com.twbandroid.model.Like;
-import twb.conwaybrian.com.twbandroid.presenter.adapter.ArticleDataRecyclerArticleViewHolderViewPresenter;
-import twb.conwaybrian.com.twbandroid.presenter.adapter.ImageViewsRecyclerViewHolderPresenter;
+import twb.conwaybrian.com.twbandroid.presenter.adapterpresenter.ArticleDataRecyclerArticleViewHolderViewPresenter;
+import twb.conwaybrian.com.twbandroid.presenter.adapterpresenter.ImageViewsRecyclerViewHolderPresenter;
 import twb.conwaybrian.com.twbandroid.reactbutton.Reaction;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;
 import twb.conwaybrian.com.twbandroid.view.ArticleView;

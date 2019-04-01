@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid.view.adapter;
+package twb.conwaybrian.com.twbandroid.view.adapterview;
 
 import android.view.View;
 

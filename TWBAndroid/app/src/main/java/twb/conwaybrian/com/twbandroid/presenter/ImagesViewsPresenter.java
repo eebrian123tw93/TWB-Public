@@ -4,13 +4,10 @@ import android.os.Bundle;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.adatper.ScalingImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.navigation.fragment.ImageViewsFragment;
-import twb.conwaybrian.com.twbandroid.presenter.adapter.ScalingImageViewsRecyclerViewPresenter;
 import twb.conwaybrian.com.twbandroid.view.ImageViewsView;
 
 public class ImagesViewsPresenter extends TWBPresenter {
