@@ -15,7 +15,19 @@
             android:id="@+id/list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+        <xyz.danoz.recyclerviewfastscroller.vertical.VerticalRecyclerViewFastScroller
+            android:id="@+id/fast_scroller"
+            android:layout_width="15dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
 
+
+            app:rfs_barColor="@color/transparent"
+            app:rfs_barBackground="@color/transparent"
+            app:rfs_handleColor="@color/transparent"
+            app:rfs_handleBackground="@color/colorPrimary"
+
+            />
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
 </RelativeLayout>

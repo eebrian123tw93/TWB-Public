@@ -18,6 +18,7 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 import twb.conwaybrian.com.twbandroid.R;
 import twb.conwaybrian.com.twbandroid.presenter.ArticleListPresenter;
 import twb.conwaybrian.com.twbandroid.view.ArticleListView;
+import xyz.danoz.recyclerviewfastscroller.vertical.VerticalRecyclerViewFastScroller;
 
 public class ArticleListFragment extends Fragment implements ArticleListView {
     private static String ARG_PARAM = "orderBy";
@@ -68,6 +69,17 @@ public class ArticleListFragment extends Fragment implements ArticleListView {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
+
+        VerticalRecyclerViewFastScroller fastScroller =  view.findViewById(R.id.fast_scroller);
+        fastScroller.setVerticalFadingEdgeEnabled(true);
+        fastScroller.setScrollBarFadeDuration(10);
+
+        // Connect the recycler to the scroller (to let the scroller scroll the list)
+        fastScroller.setRecyclerView(recyclerView);
+
+        // Connect the scroller to the recycler (to let the recycler scroll the scroller's handle)
+        recyclerView.setOnScrollListener(fastScroller.getOnScrollListener());
+
 
 
         articleListPresenter = new ArticleListPresenter(this);

@@ -94,5 +94,7 @@ dependencies {
     //https://github.com/MasayukiSuda/BubbleLayout //reaction popup view
     //https://github.com/razerdp/BasePopup  //reaction popup view
 
+    implementation 'xyz.danoz:recyclerviewfastscroller:0.1.3'
+
 
 }
