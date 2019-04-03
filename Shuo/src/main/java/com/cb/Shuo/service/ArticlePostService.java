@@ -3,6 +3,7 @@ package com.cb.Shuo.service;
 import com.cb.Shuo.dao.ArticleDao;
 import com.cb.Shuo.model.entity.ArticleModel;
 import com.cb.Shuo.model.json.ArticleJson;
+import com.cb.Shuo.service.util.GetCurrentLocalDateTime;
 import com.cb.Shuo.service.util.IdGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,8 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Service
 public class ArticlePostService {
@@ -27,7 +26,7 @@ public class ArticlePostService {
   public String postArticle(ArticleJson articleJson, String userId) {
     ArticleModel articleModel = new ArticleModel();
     articleModel.setArticleId(IdGenerator.generateArticleId());
-    articleModel.setCreateTime(LocalDateTime.now().withNano(0));
+    articleModel.setCreateTime(GetCurrentLocalDateTime.getCurrentTime());
     articleModel.setTitle(articleJson.getTitle());
     articleModel.setUserId(userId);
     articleModel.setContent(articleJson.getContent());

@@ -8,11 +8,11 @@ import com.cb.Shuo.model.entity.CommentModel;
 import com.cb.Shuo.model.entity.LikeModel;
 import com.cb.Shuo.model.json.CommentJson;
 import com.cb.Shuo.model.json.LikeJson;
+import com.cb.Shuo.service.util.GetCurrentLocalDateTime;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +78,7 @@ public class LikeCommentService {
 
     commentModel.setArticleId(commentJson.getArticleId());
     commentModel.setComment(commentJson.getComment());
-    commentModel.setCreateTime(LocalDateTime.now().withNano(0));
+    commentModel.setCreateTime(GetCurrentLocalDateTime.getCurrentTime());
     commentModel.setUserId(userId);
 
     ArticleModel articleModel = articleDao.findArticleModelByArticleId(commentModel.getArticleId());
