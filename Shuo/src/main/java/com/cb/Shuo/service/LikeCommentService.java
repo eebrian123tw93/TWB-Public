@@ -32,6 +32,8 @@ public class LikeCommentService {
   }
 
   public int like(LikeJson likeJson, String userId) {
+    log.debug("like " + likeJson.getArticleId() + " " + likeJson.getArticleId());
+
     ArticleModel articleModel = articleDao.findArticleModelByArticleId(likeJson.getArticleId());
 
     // check if article exists
@@ -73,6 +75,7 @@ public class LikeCommentService {
   }
 
   public int comment(CommentJson commentJson, String userId) {
+    log.debug("comment " + commentJson.getUserId() + " " + commentJson.getArticleId());
 
     CommentModel commentModel = new CommentModel();
 
@@ -110,6 +113,4 @@ public class LikeCommentService {
       return commentJsonList;
     } else return new ArrayList<>();
   }
-
-  //  public boolean checkLiked(String articleId, String userId) {}
 }

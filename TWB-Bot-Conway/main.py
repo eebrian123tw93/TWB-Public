@@ -34,8 +34,7 @@ def generate_articles(amount):
         user = random.choice(users)
         # title_len = random.randint(5, 30)
         content_len = random.randint(200, 2000)
-        id = api.post_article(user, user, '測試文章 ' + word_generator(5),
-                              'Araab Muzik全程40分鐘只使用手指鼓的高技巧歌單,炸翻當晚在丹佛Boiler Room的所有聽眾！！！！！！', None)
+        id = api.post_article(user, user, '測試文章 ' + word_generator(5), word_generator(content_len), None)
         article_list.append(id)
 
     f = open('article_list', 'a')
@@ -58,5 +57,5 @@ def generate_comments(amount):
 
 
 # register_multiple_users(1)
-# generate_articles(100)
-generate_comments(1660)
+generate_articles(100)
+# generate_comments(1660)

@@ -35,9 +35,9 @@ public class ArticleGetService {
     this.commentDao = commentDao;
   }
 
-  public List<ArticleJson> getAll() {
-    return convertModelToJson(articleDao.findAll());
-  }
+  //  public List<ArticleJson> getAll() {
+  //    return convertModelToJson(articleDao.findAll());
+  //  }
 
   public List<ArticleJson> getArticles(
       LocalDateTime start,
@@ -46,7 +46,6 @@ public class ArticleGetService {
       Integer offset,
       String userId,
       String orderBy) {
-    log.info("getArticles");
     List<ArticleModel> articleModelList;
 
     switch (orderBy) {
@@ -61,7 +60,7 @@ public class ArticleGetService {
         return new ArrayList<>();
     }
 
-    log.info("articleModelList.size(): " + articleModelList.size());
+    log.debug("articleModelList.size(): " + articleModelList.size());
     List<ArticleJson> articleJsonList = convertModelToJson(articleModelList);
 
     if (userId != null) {
@@ -112,12 +111,12 @@ public class ArticleGetService {
   }
 
   public List<ArticleJson> searchArticles(String keyWord, int limit, int offset) {
-    log.info("search keyword " + keyWord);
+    log.debug("search keyword " + keyWord);
     return convertModelToJson(articleDao.searchArticle("%" + keyWord + "%", limit, offset));
   }
 
   private List<ArticleJson> convertModelToJson(List<ArticleModel> articleModelList) {
-    log.info("convertModelToJson");
+    log.debug("convertModelToJson");
     List<ArticleJson> articleJsonList = new ArrayList<>();
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -146,7 +145,7 @@ public class ArticleGetService {
           articleJson.setViews(articleModel.getViews());
           articleJsonList.add(articleJson);
         });
-    log.info("articleJson size " + articleJsonList.size());
+    log.debug("articleJson size " + articleJsonList.size());
     return articleJsonList;
   }
 }

@@ -24,28 +24,34 @@ public class ArticlePostService {
   }
 
   public String postArticle(ArticleJson articleJson, String userId) {
-    ArticleModel articleModel = new ArticleModel();
-    articleModel.setArticleId(IdGenerator.generateArticleId());
-    articleModel.setCreateTime(GetCurrentLocalDateTime.getCurrentTime());
-    articleModel.setTitle(articleJson.getTitle());
-    articleModel.setUserId(userId);
-    articleModel.setContent(articleJson.getContent());
+    String articleId = IdGenerator.generateArticleId();
+    new Thread(
+            () -> {
+              ArticleModel articleModel = new ArticleModel();
+              articleModel.setArticleId(IdGenerator.generateArticleId());
+              articleModel.setCreateTime(GetCurrentLocalDateTime.getCurrentTime());
+              logger.debug(articleModel.getCreateTime().toString());
+              articleModel.setTitle(articleJson.getTitle());
+              articleModel.setUserId(userId);
+              articleModel.setContent(articleJson.getContent());
 
-    if (articleJson.getImages() != null) {
-      ObjectMapper objectMapper = new ObjectMapper();
-      try {
-        articleModel.setImages(objectMapper.writeValueAsString(articleJson.getImages()));
-      } catch (JsonProcessingException e) {
-        e.printStackTrace();
-      }
-    }
-
-    logger.info("postArticle " + articleModel.getArticleId());
-    articleDao.save(articleModel);
-    return articleModel.getArticleId();
+              if (articleJson.getImages() != null) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                try {
+                  articleModel.setImages(objectMapper.writeValueAsString(articleJson.getImages()));
+                } catch (JsonProcessingException e) {
+                  e.printStackTrace();
+                }
+              }
+              logger.debug("postArticle " + articleModel.getArticleId());
+              articleDao.save(articleModel);
+            })
+        .start();
+    return articleId;
   }
 
   public void viewArticle(String articleId) {
+    logger.debug("viewArticle " + articleId);
     ArticleModel articleModel = articleDao.findArticleModelByArticleId(articleId);
     articleModel.setViews(articleModel.getViews() + 1);
     articleDao.save(articleModel);

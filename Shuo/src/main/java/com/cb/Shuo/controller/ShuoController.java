@@ -47,7 +47,7 @@ public class ShuoController {
       })
   @RequestMapping(value = "/public/register", method = RequestMethod.POST)
   public ResponseEntity register(@RequestBody UserJson userJson) {
-    log.info("register " + userJson.getUserId());
+    log.debug("register " + userJson.getUserId());
     int code = userService.register(userJson);
 
     if (code == 1) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("userId already exists");
@@ -71,7 +71,7 @@ public class ShuoController {
 
   @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
   public ResponseEntity deleteUser(Principal principal) {
-    log.info("de-register " + principal.getName());
+    log.debug("de-register " + principal.getName());
     userService.deleteUser(principal.getName());
     return new ResponseEntity(HttpStatus.NO_CONTENT);
   }
@@ -80,9 +80,9 @@ public class ShuoController {
   // <editor-fold defaultstate="collapsed" desc="article">
   @RequestMapping(value = "/postArticle", method = RequestMethod.POST)
   public ResponseEntity postArticle(@RequestBody ArticleJson articleJson, Principal principal) {
-    log.info("postArticle " + principal.getName());
+    log.debug("postArticle " + principal.getName());
     String articleId = articlePostService.postArticle(articleJson, principal.getName());
-    return ResponseEntity.status(200).body(articleId);
+    return ResponseEntity.status(202).body(articleId);
   }
 
   @ApiOperation("Retrieve json array of articles. Basic auth required.")
@@ -118,7 +118,7 @@ public class ShuoController {
       endTime = startTime.plusHours(12);
     }
     String userId = principal.getName();
-    log.info(
+    log.debug(
         "getArticlesFiltered "
             + startTime
             + " "
@@ -129,8 +129,7 @@ public class ShuoController {
             + offset
             + " "
             + userId);
-    return articleGetService.getArticles(
-        startTime, endTime, limit, offset, userId, orderBy);
+    return articleGetService.getArticles(startTime, endTime, limit, offset, userId, orderBy);
   }
 
   @ApiOperation("Retrieve json array of articles. No auth required.")
@@ -165,7 +164,7 @@ public class ShuoController {
       endTime = startTime.plusHours(12);
     }
 
-    log.info(
+    log.debug(
         "getArticleModelsOrderByPoints "
             + startTime
             + " "
@@ -176,8 +175,7 @@ public class ShuoController {
             + offset
             + " "
             + orderBy);
-    return articleGetService.getArticles(
-        startTime, endTime, limit, offset, null, orderBy);
+    return articleGetService.getArticles(startTime, endTime, limit, offset, null, orderBy);
   }
 
   @RequestMapping(value = "/public/searchArticle", method = RequestMethod.GET)
@@ -185,26 +183,26 @@ public class ShuoController {
       @RequestParam(name = "keyWord") String keyWord,
       @RequestParam(name = "limit", required = false, defaultValue = "1000") Integer limitNum,
       @RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset) {
-    log.info("search keyword " + keyWord);
+    log.debug("search keyword " + keyWord);
     return articleGetService.searchArticles(keyWord, limitNum, offset);
   }
 
   @RequestMapping(value = "/public/getUserPostHistory", method = RequestMethod.GET)
   public List<ArticleJson> getUserPostHistory(@RequestParam(name = "userId") String userId) {
-    log.info("getUserPostHistory for user " + userId);
+    log.debug("getUserPostHistory for user " + userId);
     return articleGetService.getArticlesByAuthor(userId);
   }
 
   @RequestMapping(value = "/public/getArticleData", method = RequestMethod.GET)
   public ArticleDataJson getArticleDataPublic(@RequestParam(name = "articleId") String articleId) {
-    log.info("getArticleDataPublic " + articleId);
+    log.debug("getArticleDataPublic " + articleId);
     return articleGetService.getArticleData(articleId, null);
   }
 
   @RequestMapping(value = "/getArticleData", method = RequestMethod.GET)
   public ArticleDataJson getArticleData(
       @RequestParam(name = "articleId") String articleId, Principal principal) {
-    log.info("getArticleData " + articleId + " " + principal.getName());
+    log.debug("getArticleData " + articleId + " " + principal.getName());
     return articleGetService.getArticleData(articleId, principal.getName());
   }
 
@@ -212,7 +210,7 @@ public class ShuoController {
   @ApiImplicitParam(name = "articleId", value = "raw string value of articleId (do not use \" \")")
   @ApiResponse(code = 204, message = "success")
   public ResponseEntity viewed(@RequestBody String articleId) {
-    log.info(articleId + " views +1");
+    log.debug(articleId + " views +1");
     articlePostService.viewArticle(articleId);
     return new ResponseEntity(HttpStatus.NO_CONTENT);
   }
@@ -225,7 +223,7 @@ public class ShuoController {
 
   @RequestMapping(value = "/like", method = RequestMethod.POST)
   public ResponseEntity like(@RequestBody LikeJson likeJson, Principal principal) {
-    log.info(likeJson.getArticleId() + " points " + likeJson.getType());
+    log.debug(likeJson.getArticleId() + " points " + likeJson.getType());
     if (likeCommentService.like(likeJson, principal.getName()) == 0)
       return new ResponseEntity(HttpStatus.NO_CONTENT);
     else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("article does not exist");
@@ -233,7 +231,7 @@ public class ShuoController {
 
   @RequestMapping(value = "/comment", method = RequestMethod.POST)
   public ResponseEntity comment(@RequestBody CommentJson commentJson, Principal principal) {
-    log.info("comment by " + principal.getName() + " on article " + commentJson.getArticleId());
+    log.debug("comment by " + principal.getName() + " on article " + commentJson.getArticleId());
     if (likeCommentService.comment(commentJson, principal.getName()) == 0)
       return new ResponseEntity(HttpStatus.NO_CONTENT);
     else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("article does not exist");
