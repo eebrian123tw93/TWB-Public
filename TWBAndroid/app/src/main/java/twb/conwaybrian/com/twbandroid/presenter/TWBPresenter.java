@@ -9,6 +9,7 @@ import twb.conwaybrian.com.twbandroid.TWBApplication;
 import twb.conwaybrian.com.twbandroid.model.User;
 
 public class TWBPresenter {
+    public static final String dateFormat = "yyyy-MM-dd HH:mm:ss";
     private static final String USER_PROFILE = "user_profile";
     protected static User user;
     static UserListener userListener;

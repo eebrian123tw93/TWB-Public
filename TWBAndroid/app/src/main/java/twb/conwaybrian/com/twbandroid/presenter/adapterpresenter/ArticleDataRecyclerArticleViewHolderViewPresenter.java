@@ -2,6 +2,7 @@ package twb.conwaybrian.com.twbandroid.presenter.adapterpresenter;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.View;
 
 import twb.conwaybrian.com.twbandroid.R;
@@ -58,6 +59,7 @@ public class ArticleDataRecyclerArticleViewHolderViewPresenter extends TWBPresen
             holder.onSetViews(String.valueOf(article.getViews()));
             holder.onSetCommentCount(String.valueOf(article.getCommentCount()));
             holder.onSetUserId(article.getUserId());
+            holder.onSetDateTime(DateFormat.format(dateFormat, article.getCreateTime()).toString());
             holder.onSetUserClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

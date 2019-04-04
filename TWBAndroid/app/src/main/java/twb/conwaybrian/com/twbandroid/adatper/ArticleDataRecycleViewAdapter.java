@@ -176,6 +176,7 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
         private RecyclerView imageViewsRecyclerView;
         private ReactButton pointsReactButton;
         private SendReactionListener sendReactionListener;
+        private TextView dateTimeTextView;
 
         public ArticleViewHolder(View v, SendReactionListener sendReactionListener) {
             super(v);
@@ -187,6 +188,7 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
             imageViewsRecyclerView = v.findViewById(R.id.imageViews_recyclerView);
             pointsReactButton = v.findViewById(R.id.points_reactButton);
             userIdTextView = v.findViewById(R.id.userId_textView);
+            dateTimeTextView=v.findViewById(R.id.datatime_textView);
             final LinearLayoutManager imageViewRecyclerLayoutManager = new LinearLayoutManager(getContext());
             imageViewRecyclerLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             imageViewsRecyclerView.setLayoutManager(imageViewRecyclerLayoutManager);
@@ -227,6 +229,11 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
         @Override
         public void onSetUserClickListener(View.OnClickListener listener) {
             userIdTextView.setOnClickListener(listener);
+        }
+
+        @Override
+        public void onSetDateTime(String dateTime) {
+            dateTimeTextView.setText(dateTime);
         }
 
         @Override
