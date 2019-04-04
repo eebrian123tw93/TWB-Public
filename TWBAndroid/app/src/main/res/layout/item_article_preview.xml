@@ -40,31 +40,33 @@
             <TextView
                 android:id="@+id/title_textView"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:lines="1"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:text="title"
                 android:textColor="@android:color/black"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/preview_textView"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:lines="1"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:text="preview"
-                android:textAlignment="viewStart" />
+                android:textAlignment="viewStart"
+                android:textSize="18sp" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/inner_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_margin="3dp">
 
                 <ImageView
                     android:id="@+id/points_reactButton"
