@@ -82,7 +82,7 @@ public class ShuoController {
   public ResponseEntity postArticle(@RequestBody ArticleJson articleJson, Principal principal) {
     log.debug("postArticle " + principal.getName());
     String articleId = articlePostService.postArticle(articleJson, principal.getName());
-    return ResponseEntity.status(200).body(articleId);
+    return ResponseEntity.status(202).body(articleId);
   }
 
   @ApiOperation("Retrieve json array of articles. Basic auth required.")
