@@ -12,7 +12,7 @@ import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
 import twb.conwaybrian.com.twbandroid.view.adapterview.ArticleDataRecyclerCommentViewHolderView;
 
 public class ArticleDataRecyclerCommentViewHolderPresenter extends TWBPresenter {
-    private static final String dateFormat = "yyyy-MM-dd HH:mm:ss";
+
     private List<Comment> comments;
 
     public ArticleDataRecyclerCommentViewHolderPresenter() {

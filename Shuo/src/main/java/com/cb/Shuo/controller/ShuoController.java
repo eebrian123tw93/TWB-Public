@@ -111,6 +111,7 @@ public class ShuoController {
       @RequestParam(name = "limit", required = false, defaultValue = "50") Integer limit,
       @RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
       @RequestParam(name = "orderBy", required = false, defaultValue = "points") String orderBy,
+      @RequestParam(name = "timeZone", required = false, defaultValue = "UTC") String timeZone,
       Principal principal) {
     if (startTime == null) {
       startTime = LocalDateTime.now().minusHours(12);
@@ -128,7 +129,8 @@ public class ShuoController {
             + offset
             + " "
             + userId);
-    return articleGetService.getArticles(startTime, endTime, limit, offset, userId, orderBy);
+    return articleGetService.getArticles(
+        startTime, endTime, limit, offset, userId, orderBy);
   }
 
   @ApiOperation("Retrieve json array of articles. No auth required.")
@@ -156,7 +158,8 @@ public class ShuoController {
           LocalDateTime endTime,
       @RequestParam(name = "limit", required = false, defaultValue = "50") Integer limit,
       @RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
-      @RequestParam(name = "orderBy", required = false, defaultValue = "points") String orderBy) {
+      @RequestParam(name = "orderBy", required = false, defaultValue = "points") String orderBy,
+      @RequestParam(name = "timeZone", required = false, defaultValue = "UTC") String timeZone) {
     if (startTime == null) {
       startTime = LocalDateTime.now().minusHours(12);
       endTime = startTime.plusHours(12);
@@ -173,7 +176,8 @@ public class ShuoController {
             + offset
             + " "
             + orderBy);
-    return articleGetService.getArticles(startTime, endTime, limit, offset, null, orderBy);
+    return articleGetService.getArticles(
+        startTime, endTime, limit, offset, null, orderBy);
   }
 
   @RequestMapping(value = "/public/searchArticle", method = RequestMethod.GET)

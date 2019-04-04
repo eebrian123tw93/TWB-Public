@@ -11,6 +11,7 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -40,6 +41,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
     public static final String ARTICLE_COMMENT_COUNT = "article_comment_count";
     public static final String ARTICLE_IMAGES = "articles_images";
     public static final String ARTICLE_USER_ID = "user_id";
+    public static final String ARTICLE_DATETIME = "article_dateTime";
     private static final String TAG = "ArticlePresenter";
     public Article article;
     public ImageViewsRecycleViewAdapter imageViewsRecycleViewAdapter;
@@ -59,6 +61,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
         String views = intent.getStringExtra(ARTICLE_VIEWS);
         String commentCount = intent.getStringExtra(ARTICLE_COMMENT_COUNT);
         String userId = intent.getStringExtra(ARTICLE_USER_ID);
+        Date createTime=(Date) intent.getSerializableExtra(ARTICLE_DATETIME);
         String[] images = intent.getStringArrayExtra(ARTICLE_IMAGES);
         article = new Article();
         article.setArticleId(articleId);
@@ -69,6 +72,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
         article.setCommentCount(Integer.valueOf(commentCount));
         article.setUserId(userId);
         article.getImages().addAll(Arrays.asList(images));
+        article.setCreateTime(createTime);
 
 
         imageViewsRecycleViewAdapter = new ImageViewsRecycleViewAdapter(context, ImageViewsRecyclerViewHolderPresenter.Type.VIEW, this);

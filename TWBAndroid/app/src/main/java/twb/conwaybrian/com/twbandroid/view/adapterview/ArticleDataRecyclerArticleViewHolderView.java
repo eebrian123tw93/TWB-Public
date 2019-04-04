@@ -20,6 +20,8 @@ public interface ArticleDataRecyclerArticleViewHolderView {
 
     void onSetUserClickListener(View.OnClickListener listener);
 
+    void onSetDateTime(String dateTime);
+
     void onSetImageViewsRecyclerViewAdapter(RecyclerView.Adapter adapter);
 
     void onSetCurrentReaction(Reaction reaction);
