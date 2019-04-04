@@ -14,11 +14,11 @@ def register_user(user_id, password):
     print(r.text)
 
 
-def post_article(user_id, password, title, content):
-    request_body = {'title': title, 'content': content}
-    print(request_body)
-    r = requests.post(SHUO_BASE_PATH + '/postArticle', json=request_body, auth=(user_id, password))
-    print(r.status_code)
+# def post_article(user_id, password, title, content):
+#     request_body = {'title': title, 'content': content}
+#     print(request_body)
+#     r = requests.post(SHUO_BASE_PATH + '/postArticle', json=request_body, auth=(user_id, password))
+#     print(r.status_code)
 
 
 def post_article(user_id, password, title, content, images):
