@@ -101,6 +101,7 @@ public class ShuoController {
         defaultValue = "points")
   })
   @RequestMapping(value = "/getArticles", method = RequestMethod.GET)
+  @Deprecated
   public List<ArticleJson> getArticles(
       @RequestParam(name = "startTime", required = false)
           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -111,7 +112,6 @@ public class ShuoController {
       @RequestParam(name = "limit", required = false, defaultValue = "50") Integer limit,
       @RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
       @RequestParam(name = "orderBy", required = false, defaultValue = "points") String orderBy,
-      @RequestParam(name = "timeZone", required = false, defaultValue = "UTC") String timeZone,
       Principal principal) {
     if (startTime == null) {
       startTime = LocalDateTime.now().minusHours(12);
@@ -132,7 +132,7 @@ public class ShuoController {
     return articleGetService.getArticles(startTime, endTime, limit, offset, userId, orderBy);
   }
 
-  @ApiOperation("Retrieve json array of articles. No auth required.")
+  @ApiOperation("Retrieve json array of articles. No auth or Basic auth are accepted.")
   @ApiImplicitParams({
     @ApiImplicitParam(
         name = "startTime",
@@ -158,7 +158,15 @@ public class ShuoController {
       @RequestParam(name = "limit", required = false, defaultValue = "50") Integer limit,
       @RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset,
       @RequestParam(name = "orderBy", required = false, defaultValue = "points") String orderBy,
-      @RequestParam(name = "timeZone", required = false, defaultValue = "UTC") String timeZone) {
+      Principal principal) {
+
+    String userId = null;
+
+    if (principal != null) {
+      userId = principal.getName();
+      log.debug("getArticles user " + userId);
+    }
+
     if (startTime == null) {
       startTime = LocalDateTime.now().minusHours(12);
       endTime = startTime.plusHours(12);
@@ -175,7 +183,8 @@ public class ShuoController {
             + offset
             + " "
             + orderBy);
-    return articleGetService.getArticles(startTime, endTime, limit, offset, null, orderBy);
+
+    return articleGetService.getArticles(startTime, endTime, limit, offset, userId, orderBy);
   }
 
   @RequestMapping(value = "/public/searchArticle", method = RequestMethod.GET)
@@ -188,9 +197,16 @@ public class ShuoController {
   }
 
   @RequestMapping(value = "/public/getUserPostHistory", method = RequestMethod.GET)
-  public List<ArticleJson> getUserPostHistory(@RequestParam(name = "userId") String userId) {
-    log.debug("getUserPostHistory for user " + userId);
-    return articleGetService.getArticlesByAuthor(userId);
+  public List<ArticleJson> getUserPostHistory(
+      @RequestParam(name = "authorId") String authorId, Principal principal) {
+    String userId = null;
+    if (principal != null) {
+      userId = principal.getName();
+      log.debug("auth user " + userId);
+    }
+
+    log.debug("getUserPostHistory for user " + authorId);
+    return articleGetService.getArticlesByAuthor(authorId, userId);
   }
 
   @RequestMapping(value = "/public/getArticleData", method = RequestMethod.GET)
@@ -238,6 +254,7 @@ public class ShuoController {
   }
   // </editor-fold>
 
+  @ApiOperation("test if server is responding")
   @RequestMapping(value = "/t", method = RequestMethod.GET)
   public String t() {
     // for testing
