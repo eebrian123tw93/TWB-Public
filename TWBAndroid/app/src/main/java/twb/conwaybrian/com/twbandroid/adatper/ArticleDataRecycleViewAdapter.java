@@ -163,7 +163,7 @@ public class ArticleDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
 
     @Override
     public int getItemCount() {
-        return articleDataRecyclerCommentViewHolderPresenter.getItemCount() + 1;
+        return articleDataRecyclerCommentViewHolderPresenter.getItemCount() + articleDataRecyclerArticleViewHolderViewPresenter.getItemCount();
     }
 
     public static class ArticleViewHolder extends RecyclerView.ViewHolder implements ArticleDataRecyclerArticleViewHolderView {

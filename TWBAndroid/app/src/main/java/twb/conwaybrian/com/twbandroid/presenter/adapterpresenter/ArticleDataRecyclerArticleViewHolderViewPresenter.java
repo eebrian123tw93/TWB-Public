@@ -110,4 +110,8 @@ public class ArticleDataRecyclerArticleViewHolderViewPresenter extends TWBPresen
         void onSetArticleDataRecyclerViewScroll(int position);
     }
 
+    public int getItemCount(){
+        return article==null?0:1;
+    }
+
 }

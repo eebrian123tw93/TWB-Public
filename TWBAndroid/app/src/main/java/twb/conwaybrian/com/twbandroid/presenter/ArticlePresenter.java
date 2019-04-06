@@ -80,7 +80,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
 
         imageViewsRecycleViewAdapter.addImages(article.getImages());
         articleView.onSetArticleDataRecyclerViewAdapter(articleDataRecycleViewAdapter);
-        articleDataRecycleViewAdapter.setArticle(article);
+//        articleDataRecycleViewAdapter.setArticle(article);
         articleDataRecycleViewAdapter.setAdapter(imageViewsRecycleViewAdapter);
 
 
@@ -178,6 +178,7 @@ public class ArticlePresenter extends TWBPresenter implements ImageViewsRecycler
                     Type listType = new TypeToken<ArticleData>() {
                     }.getType();
                     ArticleData articleData = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().fromJson(jsonObject, listType);
+                    articleDataRecycleViewAdapter.setArticle(article);
                     articleDataRecycleViewAdapter.addComments(articleData.getComments());
 
 
