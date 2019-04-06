@@ -119,9 +119,17 @@ public class ShuoApiService {
                 .subscribe(observer);
     }
 
-    public void getUserPostHistory(@NonNull Observer observer, @NonNull User user, boolean isObserveOnIO) {
-        String authorId = user.authKey();
-        shuoApi.getUserPostHistory(authorId)
+    public void getUserPostHistoryPublic(@NonNull Observer observer, @NonNull User author, boolean isObserveOnIO) {
+        String authorId = author.getUserId();
+        shuoApi.getUserPostHistory("",authorId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+    public void getUserPostHistoryPrivate(@NonNull Observer observer, @NonNull User user,@NonNull User author, boolean isObserveOnIO) {
+        String authorId = author.getUserId();
+        shuoApi.getUserPostHistory(user.authKey(),authorId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

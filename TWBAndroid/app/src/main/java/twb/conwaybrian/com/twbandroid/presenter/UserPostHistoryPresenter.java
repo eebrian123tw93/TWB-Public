@@ -22,7 +22,7 @@ import twb.conwaybrian.com.twbandroid.view.UserPostHistoryView;
 public class UserPostHistoryPresenter extends TWBPresenter {
     public static String USER_ID = "user_id";
     private UserPostHistoryView userPostHistoryView;
-    private User user;
+    private User author;
     private ArticleListRecycleViewAdapter articleListRecycleViewAdapter;
 
     public UserPostHistoryPresenter(UserPostHistoryView userPostHistoryView, Bundle bundle) {
@@ -30,13 +30,13 @@ public class UserPostHistoryPresenter extends TWBPresenter {
         articleListRecycleViewAdapter = new ArticleListRecycleViewAdapter(context);
         userPostHistoryView.onSetArticleListRecyclerAdapter(articleListRecycleViewAdapter);
         if (bundle == null) {
-            user = TWBPresenter.user;
+            author = TWBPresenter.user;
             getUserPostHistory();
         } else {
             String userId = bundle.getString(USER_ID, TWBPresenter.user.getUserId());
             if (!userId.isEmpty()) {
-                user = new User();
-                user.setUserId(userId);
+                author = new User();
+                author.setUserId(userId);
                 getUserPostHistory();
             }
         }
@@ -77,9 +77,11 @@ public class UserPostHistoryPresenter extends TWBPresenter {
             }
         };
         if(isLogin()){
-
+            ShuoApiService.getInstance().getUserPostHistoryPrivate(observer,user ,this.author, false);
+        }else {
+            ShuoApiService.getInstance().getUserPostHistoryPublic(observer, this.author, false);
         }
-//        ShuoApiService.getInstance().getUserPostHistory(observer, user, false);
+//
     }
 
     public void refresh() {
