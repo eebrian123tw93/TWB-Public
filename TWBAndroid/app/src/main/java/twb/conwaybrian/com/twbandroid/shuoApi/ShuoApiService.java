@@ -85,6 +85,7 @@ public class ShuoApiService {
                 .subscribe(observer);
     }
 
+    @Deprecated
     public void getArticlesPrivate(@NonNull Observer observer, @NonNull User user, @NonNull LocalDateTime endDateTime, @NonNull LocalDateTime startDateTime, @NonNull String orderBy, @NonNull int offset, @NonNull int limit, boolean isObserveOnIO) {
         shuoApi.getArticlesPrivate(user.authKey(), endDateTime, startDateTime, orderBy, offset, limit)
                 .subscribeOn(Schedulers.io())
@@ -94,12 +95,21 @@ public class ShuoApiService {
     }
 
     public void getArticlesPublic(@NonNull Observer observer, @NonNull LocalDateTime endDateTime, @NonNull LocalDateTime startDateTime, @NonNull String orderBy, @NonNull int offset, @NonNull int limit, boolean isObserveOnIO) {
-        shuoApi.getArticlesPublic(endDateTime, startDateTime, orderBy, offset, limit)
+        shuoApi.getArticles("",endDateTime, startDateTime, orderBy, offset, limit)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
     }
+
+    public void getArticles(@NonNull Observer observer,  User user, @NonNull LocalDateTime endDateTime, @NonNull LocalDateTime startDateTime, @NonNull String orderBy, @NonNull int offset, @NonNull int limit, boolean isObserveOnIO) {
+        shuoApi.getArticlesPrivate(user.authKey(), endDateTime, startDateTime, orderBy, offset, limit)
+                .subscribeOn(Schedulers.io())
+                .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
 
     public void searchArticle(@NonNull Observer observer, @NonNull String query, @NonNull int limit, @NonNull int offset, boolean isObserveOnIO) {
         shuoApi.searchArticle(query, limit, offset)
