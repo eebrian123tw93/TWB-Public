@@ -120,13 +120,14 @@ public class ShuoApiService {
     }
 
     public void getUserPostHistory(@NonNull Observer observer, @NonNull User user, boolean isObserveOnIO) {
-        String userId = user.getUserId();
-        shuoApi.getUserPostHistory(userId)
+        String authorId = user.authKey();
+        shuoApi.getUserPostHistory(authorId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(isObserveOnIO ? Schedulers.io() : AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
     }
+
 
     public void postArticle(@NonNull Observer observer, @NonNull User user, @NonNull Article article, boolean isObserveOnIO) {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();

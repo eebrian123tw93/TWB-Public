@@ -76,6 +76,6 @@ public interface ShuoApi {
 
 
     @GET("/shuo/public/getUserPostHistory/")
-    Observable<Response<JsonArray>> getUserPostHistory(@Query("userId") String userId);
+    Observable<Response<JsonArray>> getUserPostHistory(@Query("authorId") String authKey);
 
 }

@@ -76,7 +76,10 @@ public class UserPostHistoryPresenter extends TWBPresenter {
 
             }
         };
-        ShuoApiService.getInstance().getUserPostHistory(observer, user, false);
+        if(isLogin()){
+
+        }
+//        ShuoApiService.getInstance().getUserPostHistory(observer, user, false);
     }
 
     public void refresh() {
