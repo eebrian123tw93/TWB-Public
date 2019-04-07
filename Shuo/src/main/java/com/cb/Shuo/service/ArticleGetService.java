@@ -63,14 +63,7 @@ public class ArticleGetService {
     log.debug("articleModelList.size(): " + articleModelList.size());
     List<ArticleJson> articleJsonList = convertModelToJson(articleModelList);
 
-    if (userId != null) {
-      articleJsonList.forEach(
-          articleJson -> {
-            LikeModel likeModel =
-                likeDao.findByUserIdAndArticleId(articleJson.getArticleId(), userId);
-            if (likeModel != null) articleJson.setLikeStatus(likeModel.getType());
-          });
-    }
+    setLikeStatus(userId, articleJsonList);
 
     return articleJsonList;
   }
@@ -106,13 +99,27 @@ public class ArticleGetService {
     return articleDataJson;
   }
 
-  public List<ArticleJson> getArticlesByAuthor(String userId) {
-    return convertModelToJson(articleDao.getArticleModelsByUserIdOrderByCreateTimeDesc(userId));
+  public List<ArticleJson> getArticlesByAuthor(String authorUserId, String userId) {
+    List<ArticleJson> articleJsonList =
+        convertModelToJson(articleDao.getArticleModelsByUserIdOrderByCreateTimeDesc(authorUserId));
+    setLikeStatus(userId, articleJsonList);
+    return articleJsonList;
   }
 
   public List<ArticleJson> searchArticles(String keyWord, int limit, int offset) {
     log.debug("search keyword " + keyWord);
     return convertModelToJson(articleDao.searchArticle("%" + keyWord + "%", limit, offset));
+  }
+
+  private void setLikeStatus(String userId, List<ArticleJson> articleJsonList) {
+    if (userId != null) {
+      articleJsonList.forEach(
+          articleJson -> {
+            LikeModel likeModel =
+                likeDao.findByUserIdAndArticleId(articleJson.getArticleId(), userId);
+            if (likeModel != null) articleJson.setLikeStatus(likeModel.getType());
+          });
+    }
   }
 
   private List<ArticleJson> convertModelToJson(List<ArticleModel> articleModelList) {
