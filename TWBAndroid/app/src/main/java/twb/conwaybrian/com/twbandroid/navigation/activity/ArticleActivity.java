@@ -158,7 +158,6 @@ public class ArticleActivity extends AppCompatActivity implements ArticleView, V
 
     @Override
     public void onClick(View v) {
-        articleDataRecyclerView.scrollToPosition(0);
         switch (v.getId()) {
             case R.id.send_imaeView:
                 articlePresenter.sendComment(commentEditView.getText().toString());

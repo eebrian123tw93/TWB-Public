@@ -72,7 +72,7 @@ public class ArticleListPresenter extends TWBPresenter {
         LocalDateTime startDateTime = endDateTime.minusDays(10);
 
         if (isLogin()) {
-            ShuoApiService.getInstance().getArticlesPrivate(observer, user, endDateTime, startDateTime, order, offset, limit, false);
+            ShuoApiService.getInstance().getArticles(observer, user, endDateTime, startDateTime, order, offset, limit, false);
         } else {
             ShuoApiService.getInstance().getArticlesPublic(observer, endDateTime, startDateTime, order, offset, limit, false);
         }

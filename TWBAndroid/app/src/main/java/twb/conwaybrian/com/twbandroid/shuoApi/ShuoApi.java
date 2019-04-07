@@ -63,13 +63,19 @@ public interface ShuoApi {
     @GET("/shuo/public/searchArticle/")
     Observable<Response<JsonArray>> searchArticle(@Query("keyWord") String keyWord, @Query("limit") int limit, @Query("offset") int offset);
 
+    @Deprecated
     @GET("/shuo/public/getArticles/")
     Observable<Response<JsonArray>> getArticlesPublic(@Query("endTime") LocalDateTime endDateTime, @Query("startTime") LocalDateTime startGateTime, @Query("orderBy") String orderBy, @Query("offset") int offset, @Query("limit") int limit);
 
+    @Deprecated
     @GET("/shuo/getArticles/")
     Observable<Response<JsonArray>> getArticlesPrivate(@Header("Authorization") String authKey, @Query("endTime") LocalDateTime endDateTime, @Query("startTime") LocalDateTime startGateTime, @Query("orderBy") String orderBy, @Query("offset") int offset, @Query("limit") int limit);
 
+    @GET("/shuo/public/getArticles/")
+    Observable<Response<JsonArray>> getArticles(@Header("Authorization") String authKey, @Query("endTime") LocalDateTime endDateTime, @Query("startTime") LocalDateTime startGateTime, @Query("orderBy") String orderBy, @Query("offset") int offset, @Query("limit") int limit);
+
+
     @GET("/shuo/public/getUserPostHistory/")
-    Observable<Response<JsonArray>> getUserPostHistory(@Query("userId") String userId);
+    Observable<Response<JsonArray>> getUserPostHistory(@Header("Authorization") String authKey, @Query("authorId") String authorId);
 
 }
