@@ -72,6 +72,7 @@ public class ArticleListRecyclerViewHolderPresenter extends TWBPresenter {
                     intent.putExtra(ArticlePresenter.ARTICLE_COMMENT_COUNT, String.valueOf(article.getCommentCount()));
                     intent.putExtra(ArticlePresenter.ARTICLE_IMAGES, article.getImages().toArray(new String[article.getImages().size()]));
                     intent.putExtra(ArticlePresenter.ARTICLE_DATETIME,article.getCreateTime());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }
             });
