@@ -66,7 +66,9 @@ public class ArticleDataRecyclerArticleViewHolderViewPresenter extends TWBPresen
                     String userId = article.getUserId();
                     Intent intent = new Intent(context, UserPostHistoryActivity.class);
                     intent.putExtra(UserPostHistoryPresenter.USER_ID, userId);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
+
                 }
             });
         }
