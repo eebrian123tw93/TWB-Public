@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.adatper.ArticleListRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adapter.ArticleListRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.navigation.activity.ArticleActivity;
 import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;

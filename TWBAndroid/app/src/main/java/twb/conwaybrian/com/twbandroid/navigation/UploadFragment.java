@@ -30,7 +30,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adapter.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.presenter.UploadPresenter;
 import twb.conwaybrian.com.twbandroid.view.UploadView;
 

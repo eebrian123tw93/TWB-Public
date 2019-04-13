@@ -1,6 +1,6 @@
 package twb.conwaybrian.com.twbandroid.view;
 
-import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adapter.ImageViewsRecycleViewAdapter;
 
 public interface UploadView extends TWBView {
     void onPostArticle(boolean result);

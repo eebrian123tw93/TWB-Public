@@ -10,7 +10,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adapter.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
 import twb.conwaybrian.com.twbandroid.view.adapterview.ImageViewsRecyclerViewHolderView;
 

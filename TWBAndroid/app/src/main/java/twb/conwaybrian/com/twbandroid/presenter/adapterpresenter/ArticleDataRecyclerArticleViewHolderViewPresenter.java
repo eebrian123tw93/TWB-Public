@@ -6,8 +6,8 @@ import android.text.format.DateFormat;
 import android.view.View;
 
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.adatper.ArticleDataRecycleViewAdapter;
-import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adapter.ArticleDataRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adapter.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.navigation.activity.UserPostHistoryActivity;
 import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;

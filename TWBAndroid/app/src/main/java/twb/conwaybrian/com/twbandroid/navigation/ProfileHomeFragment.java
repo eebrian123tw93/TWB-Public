@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.adatper.ProfileHomePageAdapter;
+import twb.conwaybrian.com.twbandroid.adapter.ProfileHomePageAdapter;
 
 public class ProfileHomeFragment extends Fragment {
     private ProfileHomePageAdapter profileHomePageAdapter;

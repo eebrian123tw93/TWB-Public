@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid.adatper;
+package twb.conwaybrian.com.twbandroid.adapter;
 
 import android.content.Context;
 import android.net.Uri;

@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid.adatper;
+package twb.conwaybrian.com.twbandroid.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;

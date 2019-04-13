@@ -13,7 +13,7 @@ import java.util.List;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import retrofit2.Response;
-import twb.conwaybrian.com.twbandroid.adatper.ArticleListRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adapter.ArticleListRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.model.User;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;

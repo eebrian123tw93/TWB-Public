@@ -1,4 +1,4 @@
-package twb.conwaybrian.com.twbandroid.adatper;
+package twb.conwaybrian.com.twbandroid.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
