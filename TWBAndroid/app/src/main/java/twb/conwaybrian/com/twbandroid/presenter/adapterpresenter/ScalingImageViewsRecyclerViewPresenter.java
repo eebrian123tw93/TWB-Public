@@ -9,7 +9,7 @@ import android.provider.MediaStore;
 import java.util.ArrayList;
 import java.util.List;
 
-import twb.conwaybrian.com.twbandroid.adatper.ScalingImageViewsRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adapter.ScalingImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
 import twb.conwaybrian.com.twbandroid.view.adapterview.ScalingImageViewsRecyclerViewHolderView;
 

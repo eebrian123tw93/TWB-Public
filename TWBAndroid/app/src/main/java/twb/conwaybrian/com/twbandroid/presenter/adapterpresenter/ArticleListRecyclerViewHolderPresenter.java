@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import twb.conwaybrian.com.twbandroid.R;
-import twb.conwaybrian.com.twbandroid.adatper.ArticleListRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adapter.ArticleListRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.navigation.activity.ArticleActivity;
 import twb.conwaybrian.com.twbandroid.presenter.ArticlePresenter;
@@ -72,6 +72,7 @@ public class ArticleListRecyclerViewHolderPresenter extends TWBPresenter {
                     intent.putExtra(ArticlePresenter.ARTICLE_COMMENT_COUNT, String.valueOf(article.getCommentCount()));
                     intent.putExtra(ArticlePresenter.ARTICLE_IMAGES, article.getImages().toArray(new String[article.getImages().size()]));
                     intent.putExtra(ArticlePresenter.ARTICLE_DATETIME,article.getCreateTime());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }
             });

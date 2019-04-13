@@ -23,7 +23,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.mime.TypedFile;
 import retrofit2.Response;
-import twb.conwaybrian.com.twbandroid.adatper.ImageViewsRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adapter.ImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Article;
 import twb.conwaybrian.com.twbandroid.presenter.adapterpresenter.ImageViewsRecyclerViewHolderPresenter;
 import twb.conwaybrian.com.twbandroid.shuoApi.ShuoApiService;

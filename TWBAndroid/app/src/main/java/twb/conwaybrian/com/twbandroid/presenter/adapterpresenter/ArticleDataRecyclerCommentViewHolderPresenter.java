@@ -6,7 +6,7 @@ import android.text.format.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import twb.conwaybrian.com.twbandroid.adatper.ArticleDataRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adapter.ArticleDataRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.model.Comment;
 import twb.conwaybrian.com.twbandroid.presenter.TWBPresenter;
 import twb.conwaybrian.com.twbandroid.view.adapterview.ArticleDataRecyclerCommentViewHolderView;

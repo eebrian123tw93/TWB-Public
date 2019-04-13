@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
-import twb.conwaybrian.com.twbandroid.adatper.ScalingImageViewsRecycleViewAdapter;
+import twb.conwaybrian.com.twbandroid.adapter.ScalingImageViewsRecycleViewAdapter;
 import twb.conwaybrian.com.twbandroid.navigation.fragment.ImageViewsFragment;
 import twb.conwaybrian.com.twbandroid.view.ImageViewsView;
 
