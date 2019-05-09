@@ -10,8 +10,32 @@ import UIKit
 
 class TabBarController: UITabBarController {
 
+    var subVC:[UIViewController]=[]
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let home=HomeVC()
+        home.tabBarItem.title="Home"
+        home.tabBarItem.image=UIImage(named: "home.png")?.resized(to: CGSize(width: 30, height: 30))
+        
+        let search=SearchVC()
+        search.tabBarItem.title="Search"
+        search.tabBarItem.image=UIImage(named: "search.png")?.resized(to: CGSize(width: 30, height: 30))
+        
+        let upload=UploadVC()
+        upload.tabBarItem.title="Upload"
+        upload.tabBarItem.image=UIImage(named: "upload.png")?.resized(to: CGSize(width: 30, height: 30))
+        
+        let profileHome=ProfileVC()
+        profileHome.tabBarItem.title="Profile"
+        profileHome.tabBarItem.image=UIImage(named: "profile.png")?.resized(to: CGSize(width: 30, height: 30))
+        
+        subVC.append(home)
+        subVC.append(search)
+        subVC.append(upload)
+        subVC.append(profileHome)
+        self.viewControllers=subVC
+        self.tabBar.unselectedItemTintColor=Color.hexStringToUIColor(hex: "#008577")
 
         // Do any additional setup after loading the view.
     }
