@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+class TabBarController: UITabBarController , UITabBarControllerDelegate {
 
     var subVC:[UIViewController]=[]
     override func viewDidLoad() {
@@ -34,12 +34,30 @@ class TabBarController: UITabBarController {
         subVC.append(search)
         subVC.append(upload)
         subVC.append(profileHome)
+        self.delegate=self
         self.viewControllers=subVC
         self.tabBar.unselectedItemTintColor=Color.hexStringToUIColor(hex: "#008577")
-
+        
         // Do any additional setup after loading the view.
     }
     
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        
+//        if let firstVC = viewController as? FirstViewController {
+//            firstVC.doSomeAction()
+//        }
+//
+//        if viewController is FirstViewController {
+//            print("First tab")
+//        } else if viewController is SecondViewController {
+//            print("Second tab")
+//        }
+    }
+    
+    // alternate method if you need the tab bar item
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        // ...
+    }
 
     /*
     // MARK: - Navigation
