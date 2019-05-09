@@ -6,6 +6,10 @@ target 'TWB-ios' do
   use_frameworks!
 
   # Pods for TWB-ios
+    pod 'RxSwift', '~> 4.0'
+    pod 'RxCocoa', '~> 4.0'
+    pod 'RxDataSources', '~> 3.0' # for handle tableView collectionView
+    pod 'RxGesture', '2.0.1'
 
   target 'TWB-iosTests' do
     inherit! :search_paths

@@ -65,6 +65,12 @@
 		D3CFAD382283AEE000E58E2E /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD372283AEE000E58E2E /* SearchVM.swift */; };
 		D3CFAD3A2283AEF200E58E2E /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD392283AEF200E58E2E /* HomeVM.swift */; };
 		D3CFAD3D2283B55900E58E2E /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD3C2283B55900E58E2E /* Color.swift */; };
+		D3CFAD40228470E100E58E2E /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD3F228470E100E58E2E /* LoginVC.swift */; };
+		D3CFAD422284710900E58E2E /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD412284710900E58E2E /* LoginVM.swift */; };
+		D3CFAD442284716D00E58E2E /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3CFAD432284716D00E58E2E /* Login.storyboard */; };
+		D3CFAD482284847D00E58E2E /* TWBViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD472284847D00E58E2E /* TWBViewModel.swift */; };
+		D3CFAD4A2284865B00E58E2E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD492284865B00E58E2E /* ActivityIndicator.swift */; };
+		D3CFAD4C2284867500E58E2E /* ErrorTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD4B2284867500E58E2E /* ErrorTracker.swift */; };
 		F0A3E348DE4AD306F89C19C3 /* Pods_TWB_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A0817CF359819FE7D20BE3 /* Pods_TWB_iosUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -156,6 +162,12 @@
 		D3CFAD372283AEE000E58E2E /* SearchVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
 		D3CFAD392283AEF200E58E2E /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
 		D3CFAD3C2283B55900E58E2E /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		D3CFAD3F228470E100E58E2E /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		D3CFAD412284710900E58E2E /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		D3CFAD432284716D00E58E2E /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		D3CFAD472284847D00E58E2E /* TWBViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWBViewModel.swift; sourceTree = "<group>"; };
+		D3CFAD492284865B00E58E2E /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		D3CFAD4B2284867500E58E2E /* ErrorTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTracker.swift; sourceTree = "<group>"; };
 		F6AB724989FC037A35E78621 /* Pods-TWB-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWB-iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TWB-iosTests/Pods-TWB-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -235,6 +247,8 @@
 		D3CFAC462282A7D100E58E2E /* TWB-ios */ = {
 			isa = PBXGroup;
 			children = (
+				D3CFAD452284845B00E58E2E /* TWBBase */,
+				D3CFAD3E228470C900E58E2E /* login */,
 				D3CFAD3B2283B54700E58E2E /* utils */,
 				D3CFAD302283AE0500E58E2E /* extension */,
 				D3CFAD2A2283AD5800E58E2E /* tabbar */,
@@ -376,6 +390,26 @@
 			path = utils;
 			sourceTree = "<group>";
 		};
+		D3CFAD3E228470C900E58E2E /* login */ = {
+			isa = PBXGroup;
+			children = (
+				D3CFAD3F228470E100E58E2E /* LoginVC.swift */,
+				D3CFAD412284710900E58E2E /* LoginVM.swift */,
+				D3CFAD432284716D00E58E2E /* Login.storyboard */,
+			);
+			path = login;
+			sourceTree = "<group>";
+		};
+		D3CFAD452284845B00E58E2E /* TWBBase */ = {
+			isa = PBXGroup;
+			children = (
+				D3CFAD472284847D00E58E2E /* TWBViewModel.swift */,
+				D3CFAD492284865B00E58E2E /* ActivityIndicator.swift */,
+				D3CFAD4B2284867500E58E2E /* ErrorTracker.swift */,
+			);
+			path = TWBBase;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -387,6 +421,7 @@
 				D3CFAC402282A7D100E58E2E /* Sources */,
 				D3CFAC412282A7D100E58E2E /* Frameworks */,
 				D3CFAC422282A7D100E58E2E /* Resources */,
+				612B22B9FA900EFB2F182F22 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -488,6 +523,7 @@
 				D3CFAD082283ABAD00E58E2E /* search.png in Resources */,
 				D3CFAD0C2283ABAD00E58E2E /* chat.png in Resources */,
 				D3CFAD0E2283ABAD00E58E2E /* scroll.png in Resources */,
+				D3CFAD442284716D00E58E2E /* Login.storyboard in Resources */,
 				D3CFAD102283ABAD00E58E2E /* react_dialog_shape.xml in Resources */,
 				D3CFAD022283ABAD00E58E2E /* popular.png in Resources */,
 				D3CFAD1B2283ABAD00E58E2E /* ic_sad.xml in Resources */,
@@ -567,6 +603,36 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		612B22B9FA900EFB2F182F22 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TWB-ios/Pods-TWB-ios-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
+				"${BUILT_PRODUCTS_DIR}/RxGesture/RxGesture.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxGesture.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TWB-ios/Pods-TWB-ios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		66324BD270D9594CE4C2D873 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -618,16 +684,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3CFAD422284710900E58E2E /* LoginVM.swift in Sources */,
 				D3CFAD322283AE1C00E58E2E /* TWBUIImage.swift in Sources */,
 				D3CFAD3A2283AEF200E58E2E /* HomeVM.swift in Sources */,
 				D3CFAD292283ACDE00E58E2E /* SearchVC.swift in Sources */,
 				D3CFACD12283AB7B00E58E2E /* HomeVC.swift in Sources */,
+				D3CFAD40228470E100E58E2E /* LoginVC.swift in Sources */,
+				D3CFAD4C2284867500E58E2E /* ErrorTracker.swift in Sources */,
 				D3CFAC482282A7D100E58E2E /* TWBAppDelegate.swift in Sources */,
 				D3CFAD3D2283B55900E58E2E /* Color.swift in Sources */,
 				D3CFAD2C2283AD9900E58E2E /* TabBarController.swift in Sources */,
 				D3CFAD272283ACC300E58E2E /* UploadVC.swift in Sources */,
 				D3CFAD382283AEE000E58E2E /* SearchVM.swift in Sources */,
 				D3CFAD342283AEA500E58E2E /* ProfileVM.swift in Sources */,
+				D3CFAD4A2284865B00E58E2E /* ActivityIndicator.swift in Sources */,
+				D3CFAD482284847D00E58E2E /* TWBViewModel.swift in Sources */,
 				D3CFAD362283AEC500E58E2E /* UploadVM.swift in Sources */,
 				D3CFAD252283ACA300E58E2E /* ProfileVC.swift in Sources */,
 			);

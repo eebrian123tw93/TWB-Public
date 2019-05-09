@@ -18,11 +18,12 @@ class TWBAppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         self.window=UIWindow(frame: UIScreen.main.bounds)
         self.window?.makeKeyAndVisible()
-        let tabBarController=TabBarController()
+//        let tabBarController=TabBarController()
         
-       
+        let loginVC =  UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+        self.window?.rootViewController = loginVC
         
-        self.window?.rootViewController=tabBarController
+//        self.window?.rootViewController=LoginVC()
         
         return true
     }
