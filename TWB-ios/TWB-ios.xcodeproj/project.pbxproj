@@ -71,6 +71,7 @@
 		D3CFAD482284847D00E58E2E /* TWBViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD472284847D00E58E2E /* TWBViewModel.swift */; };
 		D3CFAD4A2284865B00E58E2E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD492284865B00E58E2E /* ActivityIndicator.swift */; };
 		D3CFAD4C2284867500E58E2E /* ErrorTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD4B2284867500E58E2E /* ErrorTracker.swift */; };
+		D3CFAD4E228539E400E58E2E /* TWBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD4D228539E400E58E2E /* TWBViewController.swift */; };
 		F0A3E348DE4AD306F89C19C3 /* Pods_TWB_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A0817CF359819FE7D20BE3 /* Pods_TWB_iosUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -168,6 +169,7 @@
 		D3CFAD472284847D00E58E2E /* TWBViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWBViewModel.swift; sourceTree = "<group>"; };
 		D3CFAD492284865B00E58E2E /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		D3CFAD4B2284867500E58E2E /* ErrorTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTracker.swift; sourceTree = "<group>"; };
+		D3CFAD4D228539E400E58E2E /* TWBViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWBViewController.swift; sourceTree = "<group>"; };
 		F6AB724989FC037A35E78621 /* Pods-TWB-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWB-iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TWB-iosTests/Pods-TWB-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -406,6 +408,7 @@
 				D3CFAD472284847D00E58E2E /* TWBViewModel.swift */,
 				D3CFAD492284865B00E58E2E /* ActivityIndicator.swift */,
 				D3CFAD4B2284867500E58E2E /* ErrorTracker.swift */,
+				D3CFAD4D228539E400E58E2E /* TWBViewController.swift */,
 			);
 			path = TWBBase;
 			sourceTree = "<group>";
@@ -690,6 +693,7 @@
 				D3CFAD292283ACDE00E58E2E /* SearchVC.swift in Sources */,
 				D3CFACD12283AB7B00E58E2E /* HomeVC.swift in Sources */,
 				D3CFAD40228470E100E58E2E /* LoginVC.swift in Sources */,
+				D3CFAD4E228539E400E58E2E /* TWBViewController.swift in Sources */,
 				D3CFAD4C2284867500E58E2E /* ErrorTracker.swift in Sources */,
 				D3CFAC482282A7D100E58E2E /* TWBAppDelegate.swift in Sources */,
 				D3CFAD3D2283B55900E58E2E /* Color.swift in Sources */,

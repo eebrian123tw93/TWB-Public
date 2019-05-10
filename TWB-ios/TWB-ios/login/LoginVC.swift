@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class LoginVC: UIViewController {
+class LoginVC: TWBViewController {
 
     @IBOutlet weak var usernameTextField: UITextField!
    
@@ -18,7 +18,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     
-    var disposeBag = DisposeBag()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +26,7 @@ class LoginVC: UIViewController {
         
         let usernameVaild=usernameTextField.rx.text.orEmpty.map{$0.count>0}.share(replay: 1)
         let passwordVaild=passwordTextField.rx.text.orEmpty.map({$0.count>0}).share(replay: 1)
+        
         
         let bothVaild=Observable.combineLatest(usernameVaild,passwordVaild){$0&&$1}.share(replay: 1)
         
