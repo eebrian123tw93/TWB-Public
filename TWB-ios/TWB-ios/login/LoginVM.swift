@@ -29,7 +29,17 @@ protocol LoginVMOutputs {
     var signInCompleted: Observable<Void> {get}
    
 }
-class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs{
+protocol LoginVMType {
+    var inputs: LoginVMInputs {get}
+    var outputs: LoginVMOutputs {get}
+    func viewDidLoad()
+}
+class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs,LoginVMType{
+    
+    
+    private var _username = BehaviorRelay<String>(value: "")
+    private var _password = BehaviorRelay<String>(value: "")
+    
     
     var inputs: LoginVMInputs { return self }
     var outputs: LoginVMOutputs { return self }
@@ -53,14 +63,18 @@ class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs{
     
     
     func login() {
-        
+        NSLog(_username.value)
+        NSLog(_password.value)
     }
     
     func setUsername(username: String) {
-        
+        _username.accept(username);
     }
     
     func setPassword(password: String) {
+        _password.accept(password)
+    }
+    func viewDidLoad() {
         
     }
     

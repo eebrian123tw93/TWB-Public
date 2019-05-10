@@ -72,6 +72,10 @@
 		D3CFAD4A2284865B00E58E2E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD492284865B00E58E2E /* ActivityIndicator.swift */; };
 		D3CFAD4C2284867500E58E2E /* ErrorTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD4B2284867500E58E2E /* ErrorTracker.swift */; };
 		D3CFAD4E228539E400E58E2E /* TWBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD4D228539E400E58E2E /* TWBViewController.swift */; };
+		D3CFAD52228544CE00E58E2E /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD51228544CE00E58E2E /* ForgotPasswordVC.swift */; };
+		D3CFAD54228544EE00E58E2E /* ForgotPasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD53228544EE00E58E2E /* ForgotPasswordVM.swift */; };
+		D3CFAD56228545BD00E58E2E /* Forgot.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3CFAD55228545BD00E58E2E /* Forgot.storyboard */; };
+		D3CFAD582285484000E58E2E /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD572285484000E58E2E /* Toast.swift */; };
 		F0A3E348DE4AD306F89C19C3 /* Pods_TWB_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A0817CF359819FE7D20BE3 /* Pods_TWB_iosUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -170,6 +174,10 @@
 		D3CFAD492284865B00E58E2E /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		D3CFAD4B2284867500E58E2E /* ErrorTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTracker.swift; sourceTree = "<group>"; };
 		D3CFAD4D228539E400E58E2E /* TWBViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWBViewController.swift; sourceTree = "<group>"; };
+		D3CFAD51228544CE00E58E2E /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
+		D3CFAD53228544EE00E58E2E /* ForgotPasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVM.swift; sourceTree = "<group>"; };
+		D3CFAD55228545BD00E58E2E /* Forgot.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Forgot.storyboard; sourceTree = "<group>"; };
+		D3CFAD572285484000E58E2E /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		F6AB724989FC037A35E78621 /* Pods-TWB-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWB-iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TWB-iosTests/Pods-TWB-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -249,6 +257,8 @@
 		D3CFAC462282A7D100E58E2E /* TWB-ios */ = {
 			isa = PBXGroup;
 			children = (
+				D3CFAD50228544A100E58E2E /* register */,
+				D3CFAD4F2285448E00E58E2E /* forgotPassword */,
 				D3CFAD452284845B00E58E2E /* TWBBase */,
 				D3CFAD3E228470C900E58E2E /* login */,
 				D3CFAD3B2283B54700E58E2E /* utils */,
@@ -259,7 +269,6 @@
 				D3CFAD212283AC6200E58E2E /* search */,
 				D3CFACD22283AB9300E58E2E /* images */,
 				D3CFACCF2283AB5C00E58E2E /* home */,
-				D3CFAC472282A7D100E58E2E /* TWBAppDelegate.swift */,
 				D3CFAC4B2282A7D100E58E2E /* Main.storyboard */,
 				D3CFAC4E2282A7D400E58E2E /* Assets.xcassets */,
 				D3CFAC502282A7D400E58E2E /* LaunchScreen.storyboard */,
@@ -405,12 +414,31 @@
 		D3CFAD452284845B00E58E2E /* TWBBase */ = {
 			isa = PBXGroup;
 			children = (
+				D3CFAC472282A7D100E58E2E /* TWBAppDelegate.swift */,
 				D3CFAD472284847D00E58E2E /* TWBViewModel.swift */,
 				D3CFAD492284865B00E58E2E /* ActivityIndicator.swift */,
 				D3CFAD4B2284867500E58E2E /* ErrorTracker.swift */,
 				D3CFAD4D228539E400E58E2E /* TWBViewController.swift */,
+				D3CFAD572285484000E58E2E /* Toast.swift */,
 			);
 			path = TWBBase;
+			sourceTree = "<group>";
+		};
+		D3CFAD4F2285448E00E58E2E /* forgotPassword */ = {
+			isa = PBXGroup;
+			children = (
+				D3CFAD51228544CE00E58E2E /* ForgotPasswordVC.swift */,
+				D3CFAD53228544EE00E58E2E /* ForgotPasswordVM.swift */,
+				D3CFAD55228545BD00E58E2E /* Forgot.storyboard */,
+			);
+			path = forgotPassword;
+			sourceTree = "<group>";
+		};
+		D3CFAD50228544A100E58E2E /* register */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = register;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -562,6 +590,7 @@
 				D3CFAD0F2283ABAD00E58E2E /* post_man.png in Resources */,
 				D3CFAD052283ABAD00E58E2E /* restore.png in Resources */,
 				D3CFAD172283ABAD00E58E2E /* gallery.png in Resources */,
+				D3CFAD56228545BD00E58E2E /* Forgot.storyboard in Resources */,
 				D3CFACFD2283ABAD00E58E2E /* viewed.png in Resources */,
 				D3CFAD132283ABAD00E58E2E /* no_like_color.png in Resources */,
 			);
@@ -691,13 +720,16 @@
 				D3CFAD322283AE1C00E58E2E /* TWBUIImage.swift in Sources */,
 				D3CFAD3A2283AEF200E58E2E /* HomeVM.swift in Sources */,
 				D3CFAD292283ACDE00E58E2E /* SearchVC.swift in Sources */,
+				D3CFAD54228544EE00E58E2E /* ForgotPasswordVM.swift in Sources */,
 				D3CFACD12283AB7B00E58E2E /* HomeVC.swift in Sources */,
 				D3CFAD40228470E100E58E2E /* LoginVC.swift in Sources */,
 				D3CFAD4E228539E400E58E2E /* TWBViewController.swift in Sources */,
+				D3CFAD52228544CE00E58E2E /* ForgotPasswordVC.swift in Sources */,
 				D3CFAD4C2284867500E58E2E /* ErrorTracker.swift in Sources */,
 				D3CFAC482282A7D100E58E2E /* TWBAppDelegate.swift in Sources */,
 				D3CFAD3D2283B55900E58E2E /* Color.swift in Sources */,
 				D3CFAD2C2283AD9900E58E2E /* TabBarController.swift in Sources */,
+				D3CFAD582285484000E58E2E /* Toast.swift in Sources */,
 				D3CFAD272283ACC300E58E2E /* UploadVC.swift in Sources */,
 				D3CFAD382283AEE000E58E2E /* SearchVM.swift in Sources */,
 				D3CFAD342283AEA500E58E2E /* ProfileVM.swift in Sources */,
