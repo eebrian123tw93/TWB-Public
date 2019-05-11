@@ -53,9 +53,7 @@ class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs,LoginVMType{
     
     
     var loading: Observable<Bool> { return _loading.asObservable() }
-    
     var errorOccur: Observable<Error> { return _errorOccur.asObservable() }
-    
     var signInCompleted: Observable<Void> { return _signInCompleted.asObservable() }
     
     
