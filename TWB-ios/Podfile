@@ -11,9 +11,10 @@ target 'TWB-ios' do
     pod 'RxDataSources', '~> 3.0' # for handle tableView collectionView
     pod 'RxGesture', '2.0.1'
 
-    pod 'SwiftyJSON', '~> 4.0' # json
-    pod 'Alamofire', '~> 5.0.0-beta.5' #https request
-    pod 'Kingfisher', '~> 3.0' # =>   圖片網路
+    # pod 'SwiftyJSON', '~> 4.0' # json
+    # pod 'Alamofire', '~> 4.0' #https request
+    pod 'RxAlamofire'
+    # pod 'Kingfisher', '~> 3.0' # =>   圖片網路
 
   target 'TWB-iosTests' do
     inherit! :search_paths

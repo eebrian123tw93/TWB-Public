@@ -9,6 +9,7 @@
 
 import RxSwift
 import RxCocoa
+import RxAlamofire
 
 protocol LoginVMInputs {
     
@@ -63,6 +64,28 @@ class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs,LoginVMType{
     func login() {
         NSLog(_username.value)
         NSLog(_password.value)
+        
+//        let observer = AnyObserver<Data>(){
+//            data in
+//            let str = String(data: data, encoding: String.Encoding.utf8)
+//            print("返回的数据是：", str ?? "")
+//        }
+        let observer: AnyObserver<Data> = AnyObserver { [weak self] (event) in
+            switch event {
+            case .next(let data):
+                //收到发出的索引数后显示到label上
+                let str = String(data: data, encoding: String.Encoding.utf8)
+                print("返回的数据是：", str ?? "")
+           
+            default:
+                break
+            }
+        }
+        ShuoApiService.instance.test(observer: observer)
+        
+//        ShuoApiService.instance.
+        
+        
     }
     
     func setUsername(username: String) {

@@ -76,6 +76,7 @@
 		D3CFAD54228544EE00E58E2E /* ForgotPasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD53228544EE00E58E2E /* ForgotPasswordVM.swift */; };
 		D3CFAD56228545BD00E58E2E /* Forgot.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3CFAD55228545BD00E58E2E /* Forgot.storyboard */; };
 		D3CFAD582285484000E58E2E /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD572285484000E58E2E /* Toast.swift */; };
+		D3CFAD5E228699FA00E58E2E /* ShuoApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD5D228699FA00E58E2E /* ShuoApiService.swift */; };
 		F0A3E348DE4AD306F89C19C3 /* Pods_TWB_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A0817CF359819FE7D20BE3 /* Pods_TWB_iosUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -178,6 +179,7 @@
 		D3CFAD53228544EE00E58E2E /* ForgotPasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVM.swift; sourceTree = "<group>"; };
 		D3CFAD55228545BD00E58E2E /* Forgot.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Forgot.storyboard; sourceTree = "<group>"; };
 		D3CFAD572285484000E58E2E /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		D3CFAD5D228699FA00E58E2E /* ShuoApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuoApiService.swift; sourceTree = "<group>"; };
 		F6AB724989FC037A35E78621 /* Pods-TWB-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWB-iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TWB-iosTests/Pods-TWB-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -257,6 +259,7 @@
 		D3CFAC462282A7D100E58E2E /* TWB-ios */ = {
 			isa = PBXGroup;
 			children = (
+				D3CFAD5C228699CC00E58E2E /* shuoApi */,
 				D3CFAD50228544A100E58E2E /* register */,
 				D3CFAD4F2285448E00E58E2E /* forgotPassword */,
 				D3CFAD452284845B00E58E2E /* TWBBase */,
@@ -439,6 +442,14 @@
 			children = (
 			);
 			path = register;
+			sourceTree = "<group>";
+		};
+		D3CFAD5C228699CC00E58E2E /* shuoApi */ = {
+			isa = PBXGroup;
+			children = (
+				D3CFAD5D228699FA00E58E2E /* ShuoApiService.swift */,
+			);
+			path = shuoApi;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -646,12 +657,11 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-TWB-ios/Pods-TWB-ios-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxGesture/RxGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -659,12 +669,11 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -725,6 +734,7 @@
 				D3CFAD422284710900E58E2E /* LoginVM.swift in Sources */,
 				D3CFAD322283AE1C00E58E2E /* TWBUIImage.swift in Sources */,
 				D3CFAD3A2283AEF200E58E2E /* HomeVM.swift in Sources */,
+				D3CFAD5E228699FA00E58E2E /* ShuoApiService.swift in Sources */,
 				D3CFAD292283ACDE00E58E2E /* SearchVC.swift in Sources */,
 				D3CFAD54228544EE00E58E2E /* ForgotPasswordVM.swift in Sources */,
 				D3CFACD12283AB7B00E58E2E /* HomeVC.swift in Sources */,
