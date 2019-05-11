@@ -77,6 +77,7 @@
 		D3CFAD56228545BD00E58E2E /* Forgot.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3CFAD55228545BD00E58E2E /* Forgot.storyboard */; };
 		D3CFAD582285484000E58E2E /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD572285484000E58E2E /* Toast.swift */; };
 		D3CFAD5E228699FA00E58E2E /* ShuoApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD5D228699FA00E58E2E /* ShuoApiService.swift */; };
+		D3CFAD6122871DC700E58E2E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD6022871DC700E58E2E /* User.swift */; };
 		F0A3E348DE4AD306F89C19C3 /* Pods_TWB_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A0817CF359819FE7D20BE3 /* Pods_TWB_iosUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -180,6 +181,7 @@
 		D3CFAD55228545BD00E58E2E /* Forgot.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Forgot.storyboard; sourceTree = "<group>"; };
 		D3CFAD572285484000E58E2E /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		D3CFAD5D228699FA00E58E2E /* ShuoApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuoApiService.swift; sourceTree = "<group>"; };
+		D3CFAD6022871DC700E58E2E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F6AB724989FC037A35E78621 /* Pods-TWB-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWB-iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TWB-iosTests/Pods-TWB-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -259,6 +261,7 @@
 		D3CFAC462282A7D100E58E2E /* TWB-ios */ = {
 			isa = PBXGroup;
 			children = (
+				D3CFAD5F22871DB100E58E2E /* model */,
 				D3CFAD5C228699CC00E58E2E /* shuoApi */,
 				D3CFAD50228544A100E58E2E /* register */,
 				D3CFAD4F2285448E00E58E2E /* forgotPassword */,
@@ -450,6 +453,14 @@
 				D3CFAD5D228699FA00E58E2E /* ShuoApiService.swift */,
 			);
 			path = shuoApi;
+			sourceTree = "<group>";
+		};
+		D3CFAD5F22871DB100E58E2E /* model */ = {
+			isa = PBXGroup;
+			children = (
+				D3CFAD6022871DC700E58E2E /* User.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -753,6 +764,7 @@
 				D3CFAD482284847D00E58E2E /* TWBViewModel.swift in Sources */,
 				D3CFAD362283AEC500E58E2E /* UploadVM.swift in Sources */,
 				D3CFAD252283ACA300E58E2E /* ProfileVC.swift in Sources */,
+				D3CFAD6122871DC700E58E2E /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

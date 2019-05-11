@@ -70,18 +70,25 @@ class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs,LoginVMType{
 //            let str = String(data: data, encoding: String.Encoding.utf8)
 //            print("返回的数据是：", str ?? "")
 //        }
-        let observer: AnyObserver<Data> = AnyObserver { [weak self] (event) in
+        let observer: AnyObserver<(HTTPURLResponse,Data)> = AnyObserver { [weak self] (event) in
             switch event {
-            case .next(let data):
-                //收到发出的索引数后显示到label上
-                let str = String(data: data, encoding: String.Encoding.utf8)
-                print("返回的数据是：", str ?? "")
-           
+                
+            case .next((let response,let data)):
+                if 200 ..< 300 ~= response.statusCode {
+                        let str = String(data: data, encoding: String.Encoding.utf8)
+                        print("请求成功！返回的数据是：", str ?? "")
+                    }else{
+                        print("请求失败！")
+                }
+                break
             default:
                 break
             }
+            
+            
         }
-        ShuoApiService.instance.test(observer: observer)
+        
+        ShuoApiService.instance.login(user: User(userId: "3nxn", password:"3nxn",email: ""),observer: observer)
         
 //        ShuoApiService.instance.
         
