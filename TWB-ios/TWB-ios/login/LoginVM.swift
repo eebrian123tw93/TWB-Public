@@ -27,7 +27,7 @@ protocol LoginVMOutputs {
     
     var loading: Observable<Bool> {get}
     
-    var signInCompleted: Observable<Void> {get}
+    var signInCompleted: Observable<Bool> {get}
    
 }
 protocol LoginVMType {
@@ -50,12 +50,12 @@ class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs,LoginVMType{
     private var _loading = ActivityIndicator()
     private var _errorOccur = ErrorTracker()
     
-    private var _signInCompleted = PublishSubject<Void>()
+    private var _signInCompleted = PublishSubject<Bool>()
     
     
     var loading: Observable<Bool> { return _loading.asObservable() }
     var errorOccur: Observable<Error> { return _errorOccur.asObservable() }
-    var signInCompleted: Observable<Void> { return _signInCompleted.asObservable() }
+    var signInCompleted: Observable<Bool> { return _signInCompleted.asObservable() }
     
     
 
@@ -64,22 +64,22 @@ class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs,LoginVMType{
     func login() {
         NSLog(_username.value)
         NSLog(_password.value)
-        
-//        let observer = AnyObserver<Data>(){
-//            data in
-//            let str = String(data: data, encoding: String.Encoding.utf8)
-//            print("返回的数据是：", str ?? "")
-//        }
-        let observer: AnyObserver<(HTTPURLResponse,Data)> = AnyObserver { [weak self] (event) in
+        let observer: AnyObserver<(HTTPURLResponse,Data)> = AnyObserver { [unowned self] (event) in
             switch event {
                 
             case .next((let response,let data)):
                 if 200 ..< 300 ~= response.statusCode {
                         let str = String(data: data, encoding: String.Encoding.utf8)
-                        print("请求成功！返回的数据是：", str ?? "")
+                        print("登入成功", str ?? "")
+                        self._signInCompleted.onNext(true)
                     }else{
-                        print("请求失败！")
+                        let str = String(data: data, encoding: String.Encoding.utf8)
+                        self._signInCompleted.onNext(false)
+                        print("登入失敗", str ?? "")
                 }
+                break
+            case .error(let error):
+                self._errorOccur.raiseError(error)
                 break
             default:
                 break
@@ -88,7 +88,11 @@ class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs,LoginVMType{
             
         }
         
-        ShuoApiService.instance.login(user: User(userId: "3nxn", password:"3nxn",email: ""),observer: observer)
+        ShuoApiService.instance
+            .register(user: User(userId: _username.value, password:_password.value))
+            .trackActivity(self._loading)
+            .subscribe(observer)
+            .disposed(by: disposeBag)
         
 //        ShuoApiService.instance.
         

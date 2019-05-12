@@ -9,6 +9,8 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SVProgressHUD
+import Toast_Swift
 
 class LoginVC: TWBViewController {
     var viewModel: LoginVMType = LoginVM()
@@ -29,7 +31,6 @@ class LoginVC: TWBViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.view.backgroundColor=UIColor.gray
-        
 //        let usernameVaild=usernameTextField.rx.text.orEmpty.map{$0.count>0}
 //            .share(replay: 1)
 //
@@ -45,7 +46,8 @@ class LoginVC: TWBViewController {
 //        bothVaild.bind(to: loginButton.rx.isEnabled)
 //            .disposed(by: disposeBag)
 
-        inputBindings()
+        self.inputBindings()
+        self.outputBindings()
        
     }
 
@@ -69,7 +71,7 @@ class LoginVC: TWBViewController {
             self.passwordTextField.resignFirstResponder()
             
             
-            Toast.showToast(controller: self, message: "Login", seconds: 1)
+            //Toast.showToast(controller: self, message: "Login", seconds: 1)
             self.viewModel.inputs.login()
             
         }).disposed(by: disposeBag)
@@ -82,6 +84,32 @@ class LoginVC: TWBViewController {
             self.viewModel.inputs.setPassword(password: password)
         }).disposed(by: disposeBag)
         
+    }
+    func outputBindings()  {
+        
+        self.viewModel.outputs.signInCompleted.subscribe(onNext:{
+            (success) in
+            if success {
+                self.view.makeToast("登入成功")
+            }else{
+                self.view.makeToast("登入失敗")
+            }
+        }).disposed(by: disposeBag)
+        
+        self.viewModel.outputs.loading.subscribe(onNext:{
+            (loading)in
+            if loading{
+                SVProgressHUD.show()
+            }else{
+                SVProgressHUD.dismiss()
+            }
+        }).disposed(by: disposeBag)
+        
+        self.viewModel.outputs.errorOccur.subscribe(onNext:{
+            (error)in
+            
+            
+        }).disposed(by: disposeBag)
     }
     
     func clearTextField()  {

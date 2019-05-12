@@ -9,6 +9,9 @@
 import UIKit
 import RxAlamofire
 import RxSwift
+import Alamofire
+import SwiftyJSON
+
 class ShuoApiService {
     
     static let instance = ShuoApiService()
@@ -20,13 +23,33 @@ class ShuoApiService {
 
     
     
-    func login(user:User,observer:AnyObserver<(HTTPURLResponse,Data)>){
+    func login(user:User)-> Observable<(HTTPURLResponse,Data)>{
         let  path = "/checkUserExist"
         let url = URL(string:baseURL.appending(path))!
-        requestData(.get, url, parameters: nil, headers: ["Authorization":user.authKey()])
-            .subscribe(observer)
-            .disposed(by: disposeBag)
+        return requestData(.get, url, parameters: nil, headers: ["Authorization":user.authKey()])
     }
+    func register(user:User) -> Observable<(HTTPURLResponse,Data)>  {
+         let  path = "/public/register"
+        let url = URL(string:baseURL.appending(path))!
+        return requestData(.post, url, parameters:user.toJson()
+            ,encoding: JSONEncoding.default, headers: ["Content-Type":"application/json"])
+    }
+    
+    func deleteUser(user:User) -> Observable<(HTTPURLResponse,Data)>  {
+        let  path = "/deleteUser/"
+        let url = URL(string:baseURL.appending(path))!
+        return requestData(.delete, url, parameters: nil, headers: ["Authorization":user.authKey()])
+    }
+
+    func forgotPassword(email:String) -> Observable<(HTTPURLResponse,Data)>  {
+        let  path = "/public/forgotPassword/"
+        let url = URL(string:baseURL.appending(path))!
+        
+        return requestData(.get, url, parameters: ["email":email])
+    }
+    
+    
+    
     func test(observer:AnyObserver<Data>)  {
         let urlString = "https://www.douban.com/j/app/radio/channels"
         let url = URL(string:urlString)!
