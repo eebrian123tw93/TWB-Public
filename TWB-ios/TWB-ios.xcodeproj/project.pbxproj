@@ -78,6 +78,7 @@
 		D3CFAD582285484000E58E2E /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD572285484000E58E2E /* Toast.swift */; };
 		D3CFAD5E228699FA00E58E2E /* ShuoApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD5D228699FA00E58E2E /* ShuoApiService.swift */; };
 		D3CFAD6122871DC700E58E2E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD6022871DC700E58E2E /* User.swift */; };
+		D3CFAD6322884DA400E58E2E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD6222884DA400E58E2E /* CardView.swift */; };
 		F0A3E348DE4AD306F89C19C3 /* Pods_TWB_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A0817CF359819FE7D20BE3 /* Pods_TWB_iosUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -182,6 +183,7 @@
 		D3CFAD572285484000E58E2E /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		D3CFAD5D228699FA00E58E2E /* ShuoApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuoApiService.swift; sourceTree = "<group>"; };
 		D3CFAD6022871DC700E58E2E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D3CFAD6222884DA400E58E2E /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		F6AB724989FC037A35E78621 /* Pods-TWB-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWB-iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TWB-iosTests/Pods-TWB-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -426,6 +428,7 @@
 				D3CFAD4B2284867500E58E2E /* ErrorTracker.swift */,
 				D3CFAD4D228539E400E58E2E /* TWBViewController.swift */,
 				D3CFAD572285484000E58E2E /* Toast.swift */,
+				D3CFAD6222884DA400E58E2E /* CardView.swift */,
 			);
 			path = TWBBase;
 			sourceTree = "<group>";
@@ -770,6 +773,7 @@
 				D3CFAD482284847D00E58E2E /* TWBViewModel.swift in Sources */,
 				D3CFAD362283AEC500E58E2E /* UploadVM.swift in Sources */,
 				D3CFAD252283ACA300E58E2E /* ProfileVC.swift in Sources */,
+				D3CFAD6322884DA400E58E2E /* CardView.swift in Sources */,
 				D3CFAD6122871DC700E58E2E /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

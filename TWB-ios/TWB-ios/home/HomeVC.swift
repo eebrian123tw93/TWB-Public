@@ -12,7 +12,8 @@ class HomeVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
- self.view.backgroundColor=UIColor.blue
+        self.navigationItem.title="首頁"
+ 
         // Do any additional setup after loading the view.
     }
     

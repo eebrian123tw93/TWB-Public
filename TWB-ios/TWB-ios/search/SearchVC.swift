@@ -12,7 +12,8 @@ class SearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor=UIColor.red
+        self.navigationItem.title="搜尋"
+        
         // Do any additional setup after loading the view.
     }
     

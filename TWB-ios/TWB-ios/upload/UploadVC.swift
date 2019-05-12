@@ -12,7 +12,8 @@ class UploadVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor=UIColor.yellow
+        self.navigationItem.title="上傳"
+       
         // Do any additional setup after loading the view.
     }
     

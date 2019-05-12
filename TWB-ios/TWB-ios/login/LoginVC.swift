@@ -14,7 +14,7 @@ import Toast_Swift
 
 class LoginVC: TWBViewController {
     var viewModel: LoginVMType = LoginVM()
-    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet  var usernameTextField: UITextField!
    
     
     @IBOutlet weak var passwordTextField: UITextField!
@@ -26,10 +26,14 @@ class LoginVC: TWBViewController {
     
     @IBOutlet weak var registerButton: UIButton!
     
+    @IBOutlet weak var cardView: CardView!
     
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.title="Login"
+        self.navigationItem.title="登入"
 //        self.view.backgroundColor=UIColor.gray
 //        let usernameVaild=usernameTextField.rx.text.orEmpty.map{$0.count>0}
 //            .share(replay: 1)
@@ -45,10 +49,13 @@ class LoginVC: TWBViewController {
 //
 //        bothVaild.bind(to: loginButton.rx.isEnabled)
 //            .disposed(by: disposeBag)
-
+//self.view.backgroundColor=UIColor.yellow
         self.inputBindings()
         self.outputBindings()
        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        
     }
 
     func inputBindings()  {
@@ -59,11 +66,13 @@ class LoginVC: TWBViewController {
         loginButton.rx.tap.throttle(1, scheduler: MainScheduler.instance).subscribe(onNext: {[unowned self] _ in
             
             guard (self.usernameTextField.text?.count)! > 0 else {
-                Toast.showToast(controller: self, message: "請輸入帳號", seconds: 1)
+                self.view.makeToast("請輸入帳號")
+               
                 return
             }
             guard (self.passwordTextField.text?.count)! > 0 else {
-                Toast.showToast(controller: self, message: "請輸入密碼", seconds: 1)
+                self.view.makeToast("請輸入密碼")
+                
                 return
             }
             
@@ -83,6 +92,8 @@ class LoginVC: TWBViewController {
         self.passwordTextField.rx.text.orEmpty.asObservable().subscribe(onNext:{(password)in
             self.viewModel.inputs.setPassword(password: password)
         }).disposed(by: disposeBag)
+        
+       
         
     }
     func outputBindings()  {
@@ -119,14 +130,15 @@ class LoginVC: TWBViewController {
     
     func forgotPassword(){
         let forgotPasswordVC =  UIStoryboard(name: "Forgot", bundle: nil).instantiateViewController(withIdentifier: "ForgotPasswordVC") as! ForgotPasswordVC
-        present(forgotPasswordVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(forgotPasswordVC, animated: true)
+        
 //        self.navigationController?.pushViewController(forgotPasswordVC, animated: true)
         
     }
     
     
     func register()  {
-        Toast.showToast(controller: self, message: "Register", seconds: 1)
+        self.view.makeToast("Register")
     }
 
   

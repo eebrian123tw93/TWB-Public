@@ -18,12 +18,15 @@ class TWBAppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         self.window=UIWindow(frame: UIScreen.main.bounds)
         self.window?.makeKeyAndVisible()
-//        let tabBarController=TabBarController()
-        
-        let loginVC =  UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
-        self.window?.rootViewController = loginVC
-        
-//        self.window?.rootViewController=LoginVC()
+        let tabBarController=TabBarController()
+        self.window?.rootViewController=tabBarController
+//        let loginVC =  UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+//        self.window?.rootViewController = loginVC
+//        let nav=UINavigationController()
+//
+//        self.window?.rootViewController=nav
+//        nav.pushViewController(loginVC, animated: true)
+
         
         return true
     }

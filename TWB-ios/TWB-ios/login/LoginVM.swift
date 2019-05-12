@@ -62,8 +62,6 @@ class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs,LoginVMType{
     
     
     func login() {
-        NSLog(_username.value)
-        NSLog(_password.value)
         let observer: AnyObserver<(HTTPURLResponse,Data)> = AnyObserver { [unowned self] (event) in
             switch event {
                 
@@ -89,7 +87,7 @@ class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs,LoginVMType{
         }
         
         ShuoApiService.instance
-            .register(user: User(userId: _username.value, password:_password.value))
+            .login(user: User(userId: _username.value, password:_password.value))
             .trackActivity(self._loading)
             .subscribe(observer)
             .disposed(by: disposeBag)

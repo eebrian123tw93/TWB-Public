@@ -12,7 +12,15 @@ class ProfileVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
- self.view.backgroundColor=UIColor.green
+        self.navigationItem.title="簡介"
+         let loginVC =  UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+//        self.navigationController?.pushViewController(loginVC, animated:true )
+        self.navigationController?.replaceTopViewController(with: loginVC, animated: true)
+        
+        
+       
+        
+       
         // Do any additional setup after loading the view.
     }
     
@@ -27,4 +35,12 @@ class ProfileVC: UIViewController {
     }
     */
 
+}
+
+extension UINavigationController {
+    func replaceTopViewController(with viewController: UIViewController, animated: Bool) {
+        var vcs = viewControllers
+        vcs[vcs.count - 1] = viewController
+        setViewControllers(vcs, animated: animated)
+    }
 }

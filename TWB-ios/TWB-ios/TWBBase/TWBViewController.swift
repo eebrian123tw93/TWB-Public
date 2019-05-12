@@ -14,8 +14,13 @@ class TWBViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let myView = UITapGestureRecognizer(target: self, action: #selector(closeKeyboard(_:)))
+        self.view.addGestureRecognizer(myView)
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func closeKeyboard(_ sender:UITapGestureRecognizer){
+        self.view.endEditing(true)
     }
     
 
@@ -30,3 +35,4 @@ class TWBViewController: UIViewController {
     */
 
 }
+

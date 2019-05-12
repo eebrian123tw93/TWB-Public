@@ -10,32 +10,36 @@ import UIKit
 
 class TabBarController: UITabBarController , UITabBarControllerDelegate {
 
-    var subVC:[UIViewController]=[]
+    var subNC:[UIViewController]=[]
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let home=HomeVC()
+        let home=UINavigationController(rootViewController: HomeVC())
         home.tabBarItem.title="Home"
         home.tabBarItem.image=UIImage(named: "home.png")?.resized(to: CGSize(width: 30, height: 30))
+        subNC.append(home)
         
-        let search=SearchVC()
+        let search=UINavigationController(rootViewController: SearchVC())
         search.tabBarItem.title="Search"
         search.tabBarItem.image=UIImage(named: "search.png")?.resized(to: CGSize(width: 30, height: 30))
         
-        let upload=UploadVC()
+        
+        let upload=UINavigationController(rootViewController: UploadVC())
         upload.tabBarItem.title="Upload"
         upload.tabBarItem.image=UIImage(named: "upload.png")?.resized(to: CGSize(width: 30, height: 30))
         
-        let profileHome=ProfileVC()
+        let profileHome=UINavigationController(rootViewController: ProfileVC())
         profileHome.tabBarItem.title="Profile"
         profileHome.tabBarItem.image=UIImage(named: "profile.png")?.resized(to: CGSize(width: 30, height: 30))
         
-        subVC.append(home)
-        subVC.append(search)
-        subVC.append(upload)
-        subVC.append(profileHome)
+        subNC.append(home)
+        subNC.append(search)
+        subNC.append(upload)
+        subNC.append(profileHome)
+        
+
         self.delegate=self
-        self.viewControllers=subVC
+        self.viewControllers=subNC
         self.tabBar.unselectedItemTintColor=Color.hexStringToUIColor(hex: "#008577")
         
         // Do any additional setup after loading the view.
