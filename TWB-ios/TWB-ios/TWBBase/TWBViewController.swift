@@ -14,6 +14,9 @@ class TWBViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        UIColor.init(red: <#T##CGFloat#>, green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)
+        
+        self.view.backgroundColor=UIColor.init(red:249.0/255.0, green: 249.0/255.0, blue: 249.0/255.0, alpha: 1)
         let myView = UITapGestureRecognizer(target: self, action: #selector(closeKeyboard(_:)))
         self.view.addGestureRecognizer(myView)
         // Do any additional setup after loading the view.

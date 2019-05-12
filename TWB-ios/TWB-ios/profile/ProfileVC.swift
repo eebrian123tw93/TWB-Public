@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileVC: UIViewController {
+class ProfileVC: TWBViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

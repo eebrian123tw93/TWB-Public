@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UploadVC: UIViewController {
+class UploadVC: TWBViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

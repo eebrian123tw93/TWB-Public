@@ -100,7 +100,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.96079069380000004" green="0.96077281240000001" blue="0.96078497169999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="6p7-XP-O2e" firstAttribute="leading" secondItem="Qm9-Rz-bc1" secondAttribute="leading" constant="58" id="33Z-W1-BK6"/>
                             <constraint firstItem="Qm9-Rz-bc1" firstAttribute="trailing" secondItem="6p7-XP-O2e" secondAttribute="trailing" constant="56" id="LXq-cc-fMx"/>

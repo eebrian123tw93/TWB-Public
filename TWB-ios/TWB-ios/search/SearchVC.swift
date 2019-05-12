@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchVC: UIViewController {
+class SearchVC: TWBViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
