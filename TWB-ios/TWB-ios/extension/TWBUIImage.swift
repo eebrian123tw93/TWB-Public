@@ -14,4 +14,7 @@ extension UIImage {
             draw(in: CGRect(origin: .zero, size: size))
         }
     }
+    func resized(width:Double,height:Double) -> UIImage {
+        return resized(to: CGSize(width: width, height: height))
+    }
 }

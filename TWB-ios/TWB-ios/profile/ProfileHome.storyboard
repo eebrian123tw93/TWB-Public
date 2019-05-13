@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Profile HomeVC-->
+        <scene sceneID="chj-KQ-gDs">
+            <objects>
+                <viewController storyboardIdentifier="ProfileHomeVC" id="NoZ-3v-6dE" customClass="ProfileHomeVC" customModule="TWB_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="U5b-tR-54y">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nCe-Q9-X5U" customClass="LZViewPager" customModule="LZViewPager">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="C6L-Db-tSK" firstAttribute="bottom" secondItem="nCe-Q9-X5U" secondAttribute="bottom" id="6XF-OA-lqB"/>
+                            <constraint firstItem="nCe-Q9-X5U" firstAttribute="top" secondItem="C6L-Db-tSK" secondAttribute="top" id="csk-LY-gdr"/>
+                            <constraint firstItem="C6L-Db-tSK" firstAttribute="trailing" secondItem="nCe-Q9-X5U" secondAttribute="trailing" id="ifp-2e-SxV"/>
+                            <constraint firstItem="nCe-Q9-X5U" firstAttribute="leading" secondItem="C6L-Db-tSK" secondAttribute="leading" id="rVJ-E3-d0T"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="C6L-Db-tSK"/>
+                    </view>
+                    <connections>
+                        <outlet property="viewPager" destination="nCe-Q9-X5U" id="N0a-Tl-0ZT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EPR-cE-R3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-116" y="110"/>
+        </scene>
+    </scenes>
+</document>

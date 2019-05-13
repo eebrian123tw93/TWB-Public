@@ -48,16 +48,33 @@ class ShuoApiService {
     }
     
   
+    func postArticle(user:User,article:Article) -> Observable<(HTTPURLResponse,Data)>  {
+        let  path = "/postArticle/"
+        let url = URL(string:baseURL.appending(path))!
+        return requestData(.post, url, parameters:article.toJson()
+            ,encoding: JSONEncoding.default, headers: ["Content-Type":"application/json","Authorization":user.authKey()])
+    }
     
 //    @Headers("Content-Type:application/json")
 //    @POST("/shuo/postArticle/")
 //    Observable<Response<ResponseBody>> postArticle(@Header("Authorization") String authKey, @Body String s);
     
+    
+    //some wired
+    func viewed(articleId:String) -> Observable<(HTTPURLResponse,Data)>  {
+        let  path = "/public/viewed"
+        let url = URL(string:baseURL.appending(path))!
+        return requestData(.post, url, parameters:["articleId":articleId]
+            ,encoding: JSONEncoding.default, headers: ["Content-Type":"application/json"])
+    }
 //
 //    @POST("/shuo/public/viewed")
 //    Observable<Response<ResponseBody>> viewed(@Body String articleId);
 //
 //
+    
+    
+    
 //    @Headers("Content-Type:application/json")
 //    @POST("/shuo/like/")
 //    Observable<Response<ResponseBody>> like(@Header("Authorization") String authKey, @Body String s);

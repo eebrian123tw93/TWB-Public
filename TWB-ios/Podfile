@@ -19,6 +19,8 @@ target 'TWB-ios' do
 
     pod 'SwiftyJSON', '~> 4.0'
     # pod 'Kingfisher', '~> 3.0' # =>   圖片網路
+    # pod 'XLPagerTabStrip', '~> 9.0'
+    pod 'LZViewPager', '~> 1.1.0'
 
   target 'TWB-iosTests' do
     inherit! :search_paths

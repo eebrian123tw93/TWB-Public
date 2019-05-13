@@ -14,7 +14,8 @@ class TabBarController: UITabBarController , UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let home=UINavigationController(rootViewController: HomeVC())
+        let homeVC =  UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
+        let home=UINavigationController(rootViewController: homeVC)
         home.tabBarItem.title="Home"
         home.tabBarItem.image=UIImage(named: "home.png")?.resized(to: CGSize(width: 30, height: 30))
         subNC.append(home)
@@ -28,7 +29,8 @@ class TabBarController: UITabBarController , UITabBarControllerDelegate {
         upload.tabBarItem.title="Upload"
         upload.tabBarItem.image=UIImage(named: "upload.png")?.resized(to: CGSize(width: 30, height: 30))
         
-        let profileHome=UINavigationController(rootViewController: ProfileVC())
+         let profileHomeVC =  UIStoryboard(name: "ProfileHome", bundle: nil).instantiateViewController(withIdentifier: "ProfileHomeVC") as! ProfileHomeVC
+        let profileHome=UINavigationController(rootViewController: profileHomeVC)
         profileHome.tabBarItem.title="Profile"
         profileHome.tabBarItem.image=UIImage(named: "profile.png")?.resized(to: CGSize(width: 30, height: 30))
         

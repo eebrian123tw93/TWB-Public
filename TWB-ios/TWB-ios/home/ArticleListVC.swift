@@ -1,21 +1,18 @@
 //
-//  ProfileVVC.swift
+//  ArticleListVC.swift
 //  TWB-ios
 //
-//  Created by Brian on 2019/5/9.
+//  Created by Brian on 2019/5/13.
 //  Copyright © 2019 Brian. All rights reserved.
 //
 
 import UIKit
 
-class ProfileVC: TWBViewController {
+class ArticleListVC: TWBViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-       
-        
-       
+
         // Do any additional setup after loading the view.
     }
     
@@ -30,12 +27,4 @@ class ProfileVC: TWBViewController {
     }
     */
 
-}
-
-extension UINavigationController {
-    func replaceTopViewController(with viewController: UIViewController, animated: Bool) {
-        var vcs = viewControllers
-        vcs[vcs.count - 1] = viewController
-        setViewControllers(vcs, animated: animated)
-    }
 }

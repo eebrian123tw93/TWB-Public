@@ -79,6 +79,12 @@
 		D3CFAD5E228699FA00E58E2E /* ShuoApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD5D228699FA00E58E2E /* ShuoApiService.swift */; };
 		D3CFAD6122871DC700E58E2E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD6022871DC700E58E2E /* User.swift */; };
 		D3CFAD6322884DA400E58E2E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD6222884DA400E58E2E /* CardView.swift */; };
+		D3CFAD652289281A00E58E2E /* ProfileHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD642289281A00E58E2E /* ProfileHomeVC.swift */; };
+		D3CFAD672289284300E58E2E /* UserPostHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD662289284300E58E2E /* UserPostHistoryVC.swift */; };
+		D3CFAD692289577F00E58E2E /* ProfileHome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3CFAD682289577F00E58E2E /* ProfileHome.storyboard */; };
+		D3CFAD6B22895C4900E58E2E /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3CFAD6A22895C4900E58E2E /* Home.storyboard */; };
+		D3CFAD6D22895D4A00E58E2E /* ArticleListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD6C22895D4A00E58E2E /* ArticleListVC.swift */; };
+		D3CFAD6F228960EE00E58E2E /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD6E228960EE00E58E2E /* Article.swift */; };
 		F0A3E348DE4AD306F89C19C3 /* Pods_TWB_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A0817CF359819FE7D20BE3 /* Pods_TWB_iosUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -184,6 +190,12 @@
 		D3CFAD5D228699FA00E58E2E /* ShuoApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuoApiService.swift; sourceTree = "<group>"; };
 		D3CFAD6022871DC700E58E2E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D3CFAD6222884DA400E58E2E /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		D3CFAD642289281A00E58E2E /* ProfileHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHomeVC.swift; sourceTree = "<group>"; };
+		D3CFAD662289284300E58E2E /* UserPostHistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostHistoryVC.swift; sourceTree = "<group>"; };
+		D3CFAD682289577F00E58E2E /* ProfileHome.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileHome.storyboard; sourceTree = "<group>"; };
+		D3CFAD6A22895C4900E58E2E /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		D3CFAD6C22895D4A00E58E2E /* ArticleListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListVC.swift; sourceTree = "<group>"; };
+		D3CFAD6E228960EE00E58E2E /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		F6AB724989FC037A35E78621 /* Pods-TWB-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWB-iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TWB-iosTests/Pods-TWB-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -308,6 +320,8 @@
 			children = (
 				D3CFACD02283AB7B00E58E2E /* HomeVC.swift */,
 				D3CFAD392283AEF200E58E2E /* HomeVM.swift */,
+				D3CFAD6A22895C4900E58E2E /* Home.storyboard */,
+				D3CFAD6C22895D4A00E58E2E /* ArticleListVC.swift */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -381,6 +395,9 @@
 			children = (
 				D3CFAD242283ACA300E58E2E /* ProfileVC.swift */,
 				D3CFAD332283AEA500E58E2E /* ProfileVM.swift */,
+				D3CFAD642289281A00E58E2E /* ProfileHomeVC.swift */,
+				D3CFAD662289284300E58E2E /* UserPostHistoryVC.swift */,
+				D3CFAD682289577F00E58E2E /* ProfileHome.storyboard */,
 			);
 			path = profile;
 			sourceTree = "<group>";
@@ -462,6 +479,7 @@
 			isa = PBXGroup;
 			children = (
 				D3CFAD6022871DC700E58E2E /* User.swift */,
+				D3CFAD6E228960EE00E58E2E /* Article.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -595,6 +613,7 @@
 				D3CFAD032283ABAD00E58E2E /* send.png in Resources */,
 				D3CFAD072283ABAD00E58E2E /* cancel.png in Resources */,
 				D3CFAD1A2283ABAD00E58E2E /* dislike.png in Resources */,
+				D3CFAD6B22895C4900E58E2E /* Home.storyboard in Resources */,
 				D3CFACFB2283ABAD00E58E2E /* like_color.png in Resources */,
 				D3CFAD192283ABAD00E58E2E /* home.png in Resources */,
 				D3CFAD152283ABAD00E58E2E /* ic_launcher_background.xml in Resources */,
@@ -617,6 +636,7 @@
 				D3CFAD172283ABAD00E58E2E /* gallery.png in Resources */,
 				D3CFAD56228545BD00E58E2E /* Forgot.storyboard in Resources */,
 				D3CFACFD2283ABAD00E58E2E /* viewed.png in Resources */,
+				D3CFAD692289577F00E58E2E /* ProfileHome.storyboard in Resources */,
 				D3CFAD132283ABAD00E58E2E /* no_like_color.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -671,12 +691,14 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-TWB-ios/Pods-TWB-ios-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
+				"${BUILT_PRODUCTS_DIR}/LZViewPager/LZViewPager.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxGesture/RxGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 			);
@@ -686,12 +708,14 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LZViewPager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 			);
@@ -751,6 +775,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3CFAD6F228960EE00E58E2E /* Article.swift in Sources */,
+				D3CFAD652289281A00E58E2E /* ProfileHomeVC.swift in Sources */,
 				D3CFAD422284710900E58E2E /* LoginVM.swift in Sources */,
 				D3CFAD322283AE1C00E58E2E /* TWBUIImage.swift in Sources */,
 				D3CFAD3A2283AEF200E58E2E /* HomeVM.swift in Sources */,
@@ -759,6 +785,7 @@
 				D3CFAD54228544EE00E58E2E /* ForgotPasswordVM.swift in Sources */,
 				D3CFACD12283AB7B00E58E2E /* HomeVC.swift in Sources */,
 				D3CFAD40228470E100E58E2E /* LoginVC.swift in Sources */,
+				D3CFAD672289284300E58E2E /* UserPostHistoryVC.swift in Sources */,
 				D3CFAD4E228539E400E58E2E /* TWBViewController.swift in Sources */,
 				D3CFAD52228544CE00E58E2E /* ForgotPasswordVC.swift in Sources */,
 				D3CFAD4C2284867500E58E2E /* ErrorTracker.swift in Sources */,
@@ -773,6 +800,7 @@
 				D3CFAD482284847D00E58E2E /* TWBViewModel.swift in Sources */,
 				D3CFAD362283AEC500E58E2E /* UploadVM.swift in Sources */,
 				D3CFAD252283ACA300E58E2E /* ProfileVC.swift in Sources */,
+				D3CFAD6D22895D4A00E58E2E /* ArticleListVC.swift in Sources */,
 				D3CFAD6322884DA400E58E2E /* CardView.swift in Sources */,
 				D3CFAD6122871DC700E58E2E /* User.swift in Sources */,
 			);

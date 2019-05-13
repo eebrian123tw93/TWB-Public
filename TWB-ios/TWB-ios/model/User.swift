@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 
-class User {
+struct User {
     private var userId:String
     private var password:String
     private var email:String?
