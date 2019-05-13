@@ -61,11 +61,10 @@ class ShuoApiService {
     
     
     //some wired
-    func viewed(articleId:String) -> Observable<(HTTPURLResponse,Data)>  {
+    func viewed(article:Article) -> Observable<(HTTPURLResponse,Data)>  {
         let  path = "/public/viewed"
         let url = URL(string:baseURL.appending(path))!
-        return requestData(.post, url, parameters:["articleId":articleId]
-            ,encoding: JSONEncoding.default, headers: ["Content-Type":"application/json"])
+        return requestData(.post, url,encoding: article.articleId, headers: ["Content-Type":"application/json"])
     }
 //
 //    @POST("/shuo/public/viewed")
@@ -74,38 +73,87 @@ class ShuoApiService {
 //
     
     
+    func like(user:User,like:Like) -> Observable<(HTTPURLResponse,Data)>  {
+        let  path = "/like/"
+        let url = URL(string:baseURL.appending(path))!
+        return requestData(.post, url,parameters: like.toJson(),encoding: JSONEncoding.default, headers: ["Content-Type":"application/json","Authorization":user.authKey()])
+    }
     
 //    @Headers("Content-Type:application/json")
 //    @POST("/shuo/like/")
 //    Observable<Response<ResponseBody>> like(@Header("Authorization") String authKey, @Body String s);
 //
+    
+    func comment(user:User,comment:Comment) -> Observable<(HTTPURLResponse,Data)>  {
+        let  path = "/comment/"
+        let url = URL(string:baseURL.appending(path))!
+        return requestData(.post, url,parameters: comment.toJson(),encoding: JSONEncoding.default, headers: ["Content-Type":"application/json","Authorization":user.authKey()])
+    }
+    
+    
 //    @Headers("Content-Type:application/json")
 //    @POST("/shuo/comment/")
 //    Observable<Response<ResponseBody>> comment(@Header("Authorization") String authKey, @Body String s);
+    
+    
+    func getComments(article:Article) -> Observable<(HTTPURLResponse,Data)>  {
+        let  path = "/public/getComments/"
+        let url = URL(string:baseURL.appending(path))!
+        return requestData(.get, url,parameters: ["articleId":article.articleId],encoding: URLEncoding.default)
+    }
+    
 //
 //    @GET("/shuo/public/getComments/")
 //    @Deprecated
 //    Observable<Response<JsonArray>> getComments(@Query("articleId") String articleId);
 //
+    
+    func getArticleDataPublic(article:Article) -> Observable<(HTTPURLResponse,Data)>  {
+        let  path = "/public/getArticleData/"
+        let url = URL(string:baseURL.appending(path))!
+        return requestData(.get, url,parameters: ["articleId":article.articleId],encoding: URLEncoding.default)
+    }
+    
 //
 //    @GET("/shuo/public/getArticleData/")
 //    Observable<Response<JsonObject>> getArticleDataPublic(@Query("articleId") String articleId);
 //
+    func getArticleDataPrivate(user:User,article:Article) -> Observable<(HTTPURLResponse,Data)>  {
+        let  path = "/getArticleData/"
+        let url = URL(string:baseURL.appending(path))!
+        return requestData(.get, url,parameters: ["articleId":article.articleId],encoding: URLEncoding.default,headers: ["Authorization":user.authKey()])
+    }
+    
+    
 //    @GET("/shuo/getArticleData/")
 //    Observable<Response<JsonObject>> getArticleDataPrivate(@Header("Authorization") String authKey, @Query("articleId") String articleId);
 //
 //
+    func searchArticle(keyword:String,limit:Int,offset:Int) -> Observable<(HTTPURLResponse,Data)>  {
+        let  path = "/public/searchArticle/"
+        let url = URL(string:baseURL.appending(path))!
+        return requestData(.get, url,parameters: ["keyWord":keyword,"limit":limit,"offset":offset],encoding: URLEncoding.default)
+    }
+    
 //    @GET("/shuo/public/searchArticle/")
 //    Observable<Response<JsonArray>> searchArticle(@Query("keyWord") String keyWord, @Query("limit") int limit, @Query("offset") int offset);
 
-//
-//    @Deprecated
-//    @GET("/shuo/getArticles/")
-//    Observable<Response<JsonArray>> getArticlesPrivate(@Header("Authorization") String authKey, @Query("endTime") LocalDateTime endDateTime, @Query("startTime") LocalDateTime startGateTime, @Query("orderBy") String orderBy, @Query("offset") int offset, @Query("limit") int limit);
-//
+    
+    func getArticles(user:User,orderBy:String,startTime:Date,endTime:Date,limit:Int,offset:Int) -> Observable<(HTTPURLResponse,Data)>  {
+        let  path = "/public/searchArticle/"
+        let url = URL(string:baseURL.appending(path))!
+        return requestData(.get, url,parameters: ["startTime":startTime.description,"endTime":endTime.description,"orderBy":orderBy,"limit":limit,"offset":offset],encoding: URLEncoding.default,headers: ["Authorization":user.authKey()])
+    }
+    
+
 //    @GET("/shuo/public/getArticles/")
 //    Observable<Response<JsonArray>> getArticles(@Header("Authorization") String authKey, @Query("endTime") LocalDateTime endDateTime, @Query("startTime") LocalDateTime startGateTime, @Query("orderBy") String orderBy, @Query("offset") int offset, @Query("limit") int limit);
 //
+    func getUserPostHistory(user:User,article:Article) -> Observable<(HTTPURLResponse,Data)>  {
+        let  path = "/public/getUserPostHistory/"
+        let url = URL(string:baseURL.appending(path))!
+        return requestData(.get, url,parameters: ["authorId":article.articleId],encoding: URLEncoding.default,headers: ["Authorization":user.authKey()])
+    }
 //
 //    @GET("/shuo/public/getUserPostHistory/")
 //    Observable<Response<JsonArray>> getUserPostHistory(@Header("Authorization") String authKey, @Query("authorId") String authorId);
@@ -121,3 +169,10 @@ class ShuoApiService {
         
     }
 }
+
+
+
+
+
+
+

@@ -85,6 +85,9 @@
 		D3CFAD6B22895C4900E58E2E /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3CFAD6A22895C4900E58E2E /* Home.storyboard */; };
 		D3CFAD6D22895D4A00E58E2E /* ArticleListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD6C22895D4A00E58E2E /* ArticleListVC.swift */; };
 		D3CFAD6F228960EE00E58E2E /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD6E228960EE00E58E2E /* Article.swift */; };
+		D3CFAD7122898AF800E58E2E /* TWBString.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD7022898AF800E58E2E /* TWBString.swift */; };
+		D3CFAD7322898BE700E58E2E /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD7222898BE700E58E2E /* Like.swift */; };
+		D3CFAD7522898D7B00E58E2E /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD7422898D7B00E58E2E /* Comment.swift */; };
 		F0A3E348DE4AD306F89C19C3 /* Pods_TWB_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A0817CF359819FE7D20BE3 /* Pods_TWB_iosUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -196,6 +199,9 @@
 		D3CFAD6A22895C4900E58E2E /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		D3CFAD6C22895D4A00E58E2E /* ArticleListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListVC.swift; sourceTree = "<group>"; };
 		D3CFAD6E228960EE00E58E2E /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		D3CFAD7022898AF800E58E2E /* TWBString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWBString.swift; sourceTree = "<group>"; };
+		D3CFAD7222898BE700E58E2E /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
+		D3CFAD7422898D7B00E58E2E /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		F6AB724989FC037A35E78621 /* Pods-TWB-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWB-iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TWB-iosTests/Pods-TWB-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -282,7 +288,6 @@
 				D3CFAD452284845B00E58E2E /* TWBBase */,
 				D3CFAD3E228470C900E58E2E /* login */,
 				D3CFAD3B2283B54700E58E2E /* utils */,
-				D3CFAD302283AE0500E58E2E /* extension */,
 				D3CFAD2A2283AD5800E58E2E /* tabbar */,
 				D3CFAD232283AC8100E58E2E /* profile */,
 				D3CFAD222283AC7000E58E2E /* upload */,
@@ -414,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				D3CFAD312283AE1C00E58E2E /* TWBUIImage.swift */,
+				D3CFAD7022898AF800E58E2E /* TWBString.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -439,6 +445,7 @@
 		D3CFAD452284845B00E58E2E /* TWBBase */ = {
 			isa = PBXGroup;
 			children = (
+				D3CFAD302283AE0500E58E2E /* extension */,
 				D3CFAC472282A7D100E58E2E /* TWBAppDelegate.swift */,
 				D3CFAD472284847D00E58E2E /* TWBViewModel.swift */,
 				D3CFAD492284865B00E58E2E /* ActivityIndicator.swift */,
@@ -480,6 +487,8 @@
 			children = (
 				D3CFAD6022871DC700E58E2E /* User.swift */,
 				D3CFAD6E228960EE00E58E2E /* Article.swift */,
+				D3CFAD7222898BE700E58E2E /* Like.swift */,
+				D3CFAD7422898D7B00E58E2E /* Comment.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -782,6 +791,7 @@
 				D3CFAD3A2283AEF200E58E2E /* HomeVM.swift in Sources */,
 				D3CFAD5E228699FA00E58E2E /* ShuoApiService.swift in Sources */,
 				D3CFAD292283ACDE00E58E2E /* SearchVC.swift in Sources */,
+				D3CFAD7122898AF800E58E2E /* TWBString.swift in Sources */,
 				D3CFAD54228544EE00E58E2E /* ForgotPasswordVM.swift in Sources */,
 				D3CFACD12283AB7B00E58E2E /* HomeVC.swift in Sources */,
 				D3CFAD40228470E100E58E2E /* LoginVC.swift in Sources */,
@@ -798,6 +808,8 @@
 				D3CFAD342283AEA500E58E2E /* ProfileVM.swift in Sources */,
 				D3CFAD4A2284865B00E58E2E /* ActivityIndicator.swift in Sources */,
 				D3CFAD482284847D00E58E2E /* TWBViewModel.swift in Sources */,
+				D3CFAD7322898BE700E58E2E /* Like.swift in Sources */,
+				D3CFAD7522898D7B00E58E2E /* Comment.swift in Sources */,
 				D3CFAD362283AEC500E58E2E /* UploadVM.swift in Sources */,
 				D3CFAD252283ACA300E58E2E /* ProfileVC.swift in Sources */,
 				D3CFAD6D22895D4A00E58E2E /* ArticleListVC.swift in Sources */,
