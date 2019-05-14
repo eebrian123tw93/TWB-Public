@@ -1,8 +1,10 @@
 PODS:
   - Alamofire (4.8.2)
   - Differentiator (3.1.0)
+  - Kingfisher (5.4.0)
   - LZViewPager (1.1.0):
     - SnapKit (~> 4.2.0)
+  - ObjectMapper (3.4.2)
   - RxAlamofire (4.3.0):
     - RxAlamofire/Core (= 4.3.0)
   - RxAlamofire/Core (4.3.0):
@@ -24,7 +26,9 @@ PODS:
   - Toast-Swift (5.0.0)
 
 DEPENDENCIES:
+  - Kingfisher (~> 5.0)
   - LZViewPager (~> 1.1.0)
+  - ObjectMapper (~> 3.4)
   - RxAlamofire
   - RxCocoa (~> 4.0)
   - RxDataSources (~> 3.0)
@@ -38,7 +42,9 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Differentiator
+    - Kingfisher
     - LZViewPager
+    - ObjectMapper
     - RxAlamofire
     - RxCocoa
     - RxDataSources
@@ -52,7 +58,9 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
+  Kingfisher: 9c8f2cc6710334e06f32ba2b45e77707d5e2f0c9
   LZViewPager: 7f02c7f135004aaf8aca51637719fec744b5f6cc
+  ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
   RxAlamofire: 09624d0f2d48ed8b686e4eb4cf68e28cbd2df556
   RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
   RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
@@ -63,6 +71,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   Toast-Swift: 36f4720243c8582c2be243a60a51e193c761f541
 
-PODFILE CHECKSUM: 0c76a7216a839b46ec2ad91e3741f5b651f22aa1
+PODFILE CHECKSUM: d2f376086010d9e8764ff9c1741e0bae3fc0f1dd
 
 COCOAPODS: 1.5.3

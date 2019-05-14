@@ -47,10 +47,10 @@ class HomeVC: TWBViewController,LZViewPagerDelegate, LZViewPagerDataSource {
         
         self.navigationItem.title="首頁"
         
-        let popularVC=ArticleListVC()
+        let popularVC =  UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "ArticleListVC") as!ArticleListVC
         popularVC.title="熱門"
         
-        let newVC=ArticleListVC()
+        let newVC=UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "ArticleListVC") as!ArticleListVC
         newVC.title="最新"
         
         subVCs.append(popularVC)

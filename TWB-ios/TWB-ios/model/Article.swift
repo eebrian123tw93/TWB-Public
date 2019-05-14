@@ -8,7 +8,8 @@
 
 import Foundation
 import Alamofire
-struct  Article {
+
+struct  Article:Codable {
      var articleId:String
      var content:String
      var images:[String]

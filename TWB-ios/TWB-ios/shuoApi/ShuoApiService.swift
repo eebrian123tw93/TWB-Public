@@ -140,9 +140,14 @@ class ShuoApiService {
 
     
     func getArticles(user:User,orderBy:String,startTime:Date,endTime:Date,limit:Int,offset:Int) -> Observable<(HTTPURLResponse,Data)>  {
-        let  path = "/public/searchArticle/"
+        let  path = "/public/getArticles/"
+        //
+        
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+
         let url = URL(string:baseURL.appending(path))!
-        return requestData(.get, url,parameters: ["startTime":startTime.description,"endTime":endTime.description,"orderBy":orderBy,"limit":limit,"offset":offset],encoding: URLEncoding.default,headers: ["Authorization":user.authKey()])
+        return requestData(.get, url,parameters: ["startTime":dateFormatterGet.string(from: startTime),"endTime":dateFormatterGet.string(from: endTime),"orderBy":orderBy,"limit":limit,"offset":offset],encoding: URLEncoding.default,headers: ["Authorization":user.authKey()])
     }
     
 

@@ -88,6 +88,7 @@
 		D3CFAD7122898AF800E58E2E /* TWBString.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD7022898AF800E58E2E /* TWBString.swift */; };
 		D3CFAD7322898BE700E58E2E /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD7222898BE700E58E2E /* Like.swift */; };
 		D3CFAD7522898D7B00E58E2E /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD7422898D7B00E58E2E /* Comment.swift */; };
+		D3CFAD772289933400E58E2E /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD762289933400E58E2E /* ArticleCell.swift */; };
 		F0A3E348DE4AD306F89C19C3 /* Pods_TWB_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A0817CF359819FE7D20BE3 /* Pods_TWB_iosUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -202,6 +203,7 @@
 		D3CFAD7022898AF800E58E2E /* TWBString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWBString.swift; sourceTree = "<group>"; };
 		D3CFAD7222898BE700E58E2E /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		D3CFAD7422898D7B00E58E2E /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		D3CFAD762289933400E58E2E /* ArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
 		F6AB724989FC037A35E78621 /* Pods-TWB-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWB-iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TWB-iosTests/Pods-TWB-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -327,6 +329,7 @@
 				D3CFAD392283AEF200E58E2E /* HomeVM.swift */,
 				D3CFAD6A22895C4900E58E2E /* Home.storyboard */,
 				D3CFAD6C22895D4A00E58E2E /* ArticleListVC.swift */,
+				D3CFAD762289933400E58E2E /* ArticleCell.swift */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -700,7 +703,9 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-TWB-ios/Pods-TWB-ios-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/LZViewPager/LZViewPager.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
@@ -717,7 +722,9 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LZViewPager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
@@ -800,6 +807,7 @@
 				D3CFAD52228544CE00E58E2E /* ForgotPasswordVC.swift in Sources */,
 				D3CFAD4C2284867500E58E2E /* ErrorTracker.swift in Sources */,
 				D3CFAC482282A7D100E58E2E /* TWBAppDelegate.swift in Sources */,
+				D3CFAD772289933400E58E2E /* ArticleCell.swift in Sources */,
 				D3CFAD3D2283B55900E58E2E /* Color.swift in Sources */,
 				D3CFAD2C2283AD9900E58E2E /* TabBarController.swift in Sources */,
 				D3CFAD582285484000E58E2E /* Toast.swift in Sources */,
