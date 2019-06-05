@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (4.8.2)
   - Differentiator (3.1.0)
-  - Kingfisher (5.4.0)
+  - Kingfisher (5.5.0)
   - LZViewPager (1.1.0):
     - SnapKit (~> 4.2.0)
   - ObjectMapper (3.4.2)
@@ -58,7 +58,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
-  Kingfisher: 9c8f2cc6710334e06f32ba2b45e77707d5e2f0c9
+  Kingfisher: 6fe5e67a90fd335e49b0f5c075ff55ac5ebedd94
   LZViewPager: 7f02c7f135004aaf8aca51637719fec744b5f6cc
   ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
   RxAlamofire: 09624d0f2d48ed8b686e4eb4cf68e28cbd2df556

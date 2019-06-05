@@ -18,6 +18,7 @@ struct  Article:Codable {
      var points:Int64
      var views:Int64
      var likeStatus:Int64
+    var commentCount:Int64
      var createTime:Date
     
     func toJson() ->  Parameters{

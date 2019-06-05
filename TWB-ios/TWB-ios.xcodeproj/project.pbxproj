@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		06FC0D02D1711BC056C4A4A3 /* Pods_TWB_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EDB496C7EDAC6DA111039FF /* Pods_TWB_iosTests.framework */; };
 		A9DEF8DF4BABAED0389468EF /* Pods_TWB_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C7477B010C85142A82C838 /* Pods_TWB_ios.framework */; };
+		D3BC34D222A7853B00B638F1 /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC34D022A7853B00B638F1 /* ArticleCell.swift */; };
+		D3BC34D322A7853B00B638F1 /* ArticleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3BC34D122A7853B00B638F1 /* ArticleCell.xib */; };
 		D3CFAC482282A7D100E58E2E /* TWBAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAC472282A7D100E58E2E /* TWBAppDelegate.swift */; };
 		D3CFAC4D2282A7D100E58E2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3CFAC4B2282A7D100E58E2E /* Main.storyboard */; };
 		D3CFAC4F2282A7D400E58E2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3CFAC4E2282A7D400E58E2E /* Assets.xcassets */; };
@@ -88,7 +90,6 @@
 		D3CFAD7122898AF800E58E2E /* TWBString.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD7022898AF800E58E2E /* TWBString.swift */; };
 		D3CFAD7322898BE700E58E2E /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD7222898BE700E58E2E /* Like.swift */; };
 		D3CFAD7522898D7B00E58E2E /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD7422898D7B00E58E2E /* Comment.swift */; };
-		D3CFAD772289933400E58E2E /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CFAD762289933400E58E2E /* ArticleCell.swift */; };
 		F0A3E348DE4AD306F89C19C3 /* Pods_TWB_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A0817CF359819FE7D20BE3 /* Pods_TWB_iosUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +119,8 @@
 		7B2A94A393A20918FEA67442 /* Pods-TWB-iosUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWB-iosUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TWB-iosUITests/Pods-TWB-iosUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9EDB496C7EDAC6DA111039FF /* Pods_TWB_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TWB_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4130F4B51FF5E89975822C8 /* Pods-TWB-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWB-iosTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TWB-iosTests/Pods-TWB-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D3BC34D022A7853B00B638F1 /* ArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
+		D3BC34D122A7853B00B638F1 /* ArticleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleCell.xib; sourceTree = "<group>"; };
 		D3CFAC442282A7D100E58E2E /* TWB-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TWB-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3CFAC472282A7D100E58E2E /* TWBAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWBAppDelegate.swift; sourceTree = "<group>"; };
 		D3CFAC4C2282A7D100E58E2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -203,7 +206,6 @@
 		D3CFAD7022898AF800E58E2E /* TWBString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWBString.swift; sourceTree = "<group>"; };
 		D3CFAD7222898BE700E58E2E /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		D3CFAD7422898D7B00E58E2E /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		D3CFAD762289933400E58E2E /* ArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
 		F6AB724989FC037A35E78621 /* Pods-TWB-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWB-iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TWB-iosTests/Pods-TWB-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -329,7 +331,8 @@
 				D3CFAD392283AEF200E58E2E /* HomeVM.swift */,
 				D3CFAD6A22895C4900E58E2E /* Home.storyboard */,
 				D3CFAD6C22895D4A00E58E2E /* ArticleListVC.swift */,
-				D3CFAD762289933400E58E2E /* ArticleCell.swift */,
+				D3BC34D022A7853B00B638F1 /* ArticleCell.swift */,
+				D3BC34D122A7853B00B638F1 /* ArticleCell.xib */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -633,6 +636,7 @@
 				D3CFAC4F2282A7D400E58E2E /* Assets.xcassets in Resources */,
 				D3CFAD092283ABAD00E58E2E /* view.png in Resources */,
 				D3CFAD122283ABAD00E58E2E /* user.png in Resources */,
+				D3BC34D322A7853B00B638F1 /* ArticleCell.xib in Resources */,
 				D3CFAD062283ABAD00E58E2E /* save.png in Resources */,
 				D3CFAD1E2283ABAD00E58E2E /* group_of_people.png in Resources */,
 				D3CFAC4D2282A7D100E58E2E /* Main.storyboard in Resources */,
@@ -807,7 +811,7 @@
 				D3CFAD52228544CE00E58E2E /* ForgotPasswordVC.swift in Sources */,
 				D3CFAD4C2284867500E58E2E /* ErrorTracker.swift in Sources */,
 				D3CFAC482282A7D100E58E2E /* TWBAppDelegate.swift in Sources */,
-				D3CFAD772289933400E58E2E /* ArticleCell.swift in Sources */,
+				D3BC34D222A7853B00B638F1 /* ArticleCell.swift in Sources */,
 				D3CFAD3D2283B55900E58E2E /* Color.swift in Sources */,
 				D3CFAD2C2283AD9900E58E2E /* TabBarController.swift in Sources */,
 				D3CFAD582285484000E58E2E /* Toast.swift in Sources */,

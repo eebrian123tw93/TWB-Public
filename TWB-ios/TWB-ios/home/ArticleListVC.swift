@@ -12,45 +12,50 @@ import RxCocoa
 import Kingfisher
 
 
-class ArticleListVC: TWBViewController ,UICollectionViewDelegate,UICollectionViewDataSource {
-    
-    @IBOutlet weak var collectview: UICollectionView!
-    var articles:[Article]=[]
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+class ArticleListVC: TWBViewController ,UITableViewDelegate,UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articles.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let articleCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArticleCell", for: indexPath)as! ArticleCell
+    @IBOutlet weak var tableView: UITableView!
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let articleCell=Bundle.main.loadNibNamed("ArticleCell", owner: self, options: nil)?.first as! ArticleCell
         let article=articles[indexPath.row]
-        articleCell.titleLabel.text=article.title
-        articleCell.userIdLabel.text=article.userId
-        articleCell.contentLabel.text=article.content
+        articleCell.title.text=article.title
+        articleCell.userId.text=article.userId
+        articleCell.preview.text=article.content
+        articleCell.likeCount.text=String(describing: article.points)
+        articleCell.views.text=String(describing: article.views)
+        articleCell.commentCount.text=String(describing: article.commentCount)
         if article.images.count == 0 {
             
-            articleCell.imageView.isHidden=true
+            articleCell.myImage.isHidden=true
         }else{
-            articleCell.imageView.isHidden=false
+            articleCell.myImage.isHidden=false
             let url = URL(string:article.images.first!)
-            articleCell.imageView.kf.setImage(with: url)
-//            articleCell.imageView.kf
-//
-//            let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-////            imageView.image =
-//            
-//            articleCell.imageView.image=UIImage(data: data!)?.resized(width: 100, height: 100)
+            articleCell.myImage.kf.setImage(with: url)
+        
         }
         return articleCell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 137;
+    }
+    
+    
+    
+//    @IBOutlet weak var collectview: UICollectionView!
+    var articles:[Article]=[]
+   
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.collectview.delegate=self
-        self.collectview.dataSource=self
+        self.tableView.delegate=self
+        self.tableView.dataSource=self
         let user=User(userId: "3nxn", password: "3nxn")
         let endTime = Date()
         let startTime:Date = Calendar.current.date(byAdding: .day, value: -30, to: Date()) ?? endTime
@@ -72,7 +77,7 @@ class ArticleListVC: TWBViewController ,UICollectionViewDelegate,UICollectionVie
                             print(articles.count)
                             articles.forEach({ (article) in
                             self.articles.append(article)
-                            self.collectview.reloadData()
+                            self.tableView.reloadData()
                             
                         })
                             

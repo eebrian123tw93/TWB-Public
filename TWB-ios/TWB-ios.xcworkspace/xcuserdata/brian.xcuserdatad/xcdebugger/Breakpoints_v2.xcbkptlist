@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TWB-ios/home/ArticleListVC.swift"
-            timestampString = "579496232.75904"
+            timestampString = "581406464.757567"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
