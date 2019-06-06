@@ -37,7 +37,7 @@ protocol LoginVMType {
 }
 class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs,LoginVMType{
     
-    
+    //BehaviorRelay有初始值，并且重复发射最晚一个元素给订阅者。
     private var _username = BehaviorRelay<String>(value: "")
     private var _password = BehaviorRelay<String>(value: "")
     
@@ -50,8 +50,17 @@ class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs,LoginVMType{
     private var _loading = ActivityIndicator()
     private var _errorOccur = ErrorTracker()
     
+    //PublishSubject初始化为空，只发射最新的元素给订阅者。
     private var _signInCompleted = PublishSubject<Bool>()
     
+    //PublishSubject：初始化为空，只发射最新的元素给订阅者。
+    //BehaviorSubject：有初始值，并且重复发射最晚一个元素给订阅者。
+    //ReplaySubject：存在一个缓存区，重复发射符合缓存个数的元素给新的订阅者。
+    //Variable：是BehaviorSubject的包装。
+    //AsyncSubject: 只有在接收到 .completed事件时，发射最后一个 .next 事件。这个类型 Subject 很少使用。
+    //PublishRelay 和 BehaviorRelay：包装相关的 Subject，只接受 .next 事件
+    
+  
     
     var loading: Observable<Bool> { return _loading.asObservable() }
     var errorOccur: Observable<Error> { return _errorOccur.asObservable() }
@@ -62,6 +71,7 @@ class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs,LoginVMType{
     
     
     func login() {
+        
         let observer: AnyObserver<(HTTPURLResponse,Data)> = AnyObserver { [unowned self] (event) in
             switch event {
                 
@@ -99,6 +109,8 @@ class LoginVM : TWBViewModel ,LoginVMInputs , LoginVMOutputs,LoginVMType{
     
     func setUsername(username: String) {
         _username.accept(username);
+        // _username.value  拿PublishSubject的值
+        //_username.accept(username);  設定PublishSubject的值
     }
     
     func setPassword(password: String) {

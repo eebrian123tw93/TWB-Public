@@ -32,24 +32,7 @@ class LoginVC: TWBViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.title="Login"
         self.navigationItem.title="登入"
-//        self.view.backgroundColor=UIColor.gray
-//        let usernameVaild=usernameTextField.rx.text.orEmpty.map{$0.count>0}
-//            .share(replay: 1)
-//
-//        let passwordVaild=passwordTextField.rx.text.orEmpty.map({$0.count>0})
-//            .share(replay: 1)
-//
-//
-//        let bothVaild=Observable.combineLatest(usernameVaild,passwordVaild){$0&&$1}
-//            .share(replay: 1)
-//
-//
-//
-//        bothVaild.bind(to: loginButton.rx.isEnabled)
-//            .disposed(by: disposeBag)
-//self.view.backgroundColor=UIColor.yellow
         self.inputBindings()
         self.outputBindings()
        
@@ -85,6 +68,11 @@ class LoginVC: TWBViewController {
             
         }).disposed(by: disposeBag)
         
+       
+       /* text是观察的属性,orEmpty是检验text是否为nil如果为nil返回"",asDriver()是具体特殊属性的Observable,如果使用asObservable(),就要额外添加.observeOn(MainScheduler.instance)和.shareReplay(1),
+         */
+        
+       
         self.usernameTextField.rx.text.orEmpty.asObservable().subscribe(onNext:{(username)in
             self.viewModel.inputs.setUsername(username: username)
         }).disposed(by: disposeBag)
@@ -97,7 +85,7 @@ class LoginVC: TWBViewController {
         
     }
     func outputBindings()  {
-        
+       
         self.viewModel.outputs.signInCompleted.subscribe(onNext:{
             (success) in
             if success {
