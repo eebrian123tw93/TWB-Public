@@ -99,7 +99,7 @@ public class ImageViewsRecycleViewAdapter extends RecyclerView.Adapter<ImageView
         private ImageView imageView;
         private ImageView cancelImageView;
 
-        public ViewHolder(View v) {
+        ViewHolder(View v) {
             super(v);
 
             imageView = v.findViewById(R.id.imageView);
