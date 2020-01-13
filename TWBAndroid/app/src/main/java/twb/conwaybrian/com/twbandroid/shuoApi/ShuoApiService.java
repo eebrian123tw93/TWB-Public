@@ -21,7 +21,7 @@ public class ShuoApiService {
 
     private ShuoApiService() {
         URLRetrofitBuilder urlRetrofitBuilder = new URLRetrofitBuilder();
-        retrofitArticleExcerptApi = urlRetrofitBuilder.buildretrofit("http://34.80.143.220:9999/", true);
+        retrofitArticleExcerptApi = urlRetrofitBuilder.buildretrofit("http://ec2-18-136-203-57.ap-southeast-1.compute.amazonaws.com:9999/", true);
         shuoApi = retrofitArticleExcerptApi.create(ShuoApi.class);
     }
 
