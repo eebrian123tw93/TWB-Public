@@ -27,3 +27,6 @@
 
 # OFFICIAL LATEST RELEASE
 * [release 1.0](https://github.com/kable2580/TWB/releases/tag/1.0)
+
+## 感謝
+* Thank [Conway](https://github.com/conwayok) backend support
